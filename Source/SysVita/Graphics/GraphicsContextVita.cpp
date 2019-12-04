@@ -5,6 +5,13 @@
 
 #include "SysVita/GL.h"
 
+#ifdef DAEDALUS_VITA
+#include <SDL2/SDL.h>
+#include <vitaGL.h>
+#include <vita2d.h>
+#include <stdlib.h>
+#endif
+
 #include "Graphics/GraphicsContext.h"
 
 #include "Graphics/ColourValue.h"
@@ -128,7 +135,7 @@ void GraphicsContextGL::ClearToBlack()
 	glDepthMask(GL_TRUE);
 	glClearDepth( 1.0f );
 	glClearColor( 0.0f, 0.0f, 0.0f, 0.0f );
-	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+	glClear( GLbitfield(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT) );
 }
 
 void GraphicsContextGL::ClearZBuffer()
@@ -149,7 +156,7 @@ void GraphicsContextGL::ClearColBufferAndDepth(const c32 & colour)
 	glDepthMask(GL_TRUE);
 	glClearDepth( 1.0f );
 	glClearColor( colour.GetRf(), colour.GetGf(), colour.GetBf(), colour.GetAf() );
-	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+	glClear( GLbitfield(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 }
 
 void GraphicsContextGL::BeginFrame()

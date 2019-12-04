@@ -338,7 +338,10 @@ public:
 	CRefPtr<CNativeTexture> LoadTextureDirectly( const TextureInfo & ti );
 
 protected:
-#ifdef DAEDALUS_PSP
+#ifdef DAEDALUS_VITA
+	inline void			UpdateFogEnable()						{ if(gFogEnabled) mTnL.Flags.Fog ? glEnable(GL_FOG) : glDisable(GL_FOG); }
+	inline void			UpdateShadeModel()						{ glCreateShader( mTnL.Flags.Shade ); }
+#elif DAEDALUS_PSP
 	inline void			UpdateFogEnable()						{ if(gFogEnabled) mTnL.Flags.Fog ? sceGuEnable(GU_FOG) : sceGuDisable(GU_FOG); }
 	inline void			UpdateShadeModel()						{ sceGuShadeModel( mTnL.Flags.Shade ? GU_SMOOTH : GU_FLAT ); }
 #else

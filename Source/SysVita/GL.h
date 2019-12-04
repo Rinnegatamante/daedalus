@@ -3,7 +3,9 @@
 
 #ifdef DAEDALUS_VITA
 #include <SDL2/SDL.h>
-#include <GL/gl.h>
+#include <vitaGL.h>
+#include <vita2d.h>
+#include <stdlib.h>
 #else
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -19,7 +21,7 @@ void sceGuFog(float mn, float mx, u32 col);
 
 enum EGuTextureWrapMode
 {
-	GU_CLAMP			= GL_CLAMP,
+	GU_CLAMP			= GL_CLAMP_TO_EDGE,
 	GU_REPEAT			= GL_REPEAT,
 };
 
