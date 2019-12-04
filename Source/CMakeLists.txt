@@ -133,11 +133,11 @@ if (PSP)
 endif (PSP)
 
 if (VITA)
-		include_directories(${PROJECT_SOURCE_DIR} ${PROJECT_SOURCE_DIR}/SysPosix/Include )
+		include_directories(${PROJECT_SOURCE_DIR} ${PROJECT_SOURCE_DIR}/SysVita/Include )
 	  add_definitions(-DDAEDALUS_VITA )
 	  add_library(daedalus.lib STATIC ${BUILD} ${VITA_POSIX} ${VITA_BUILD})
 	  add_executable(daedalus ${VITA_MAIN})
-	  target_link_libraries(daedalus daedalus.lib -lstdc++ -lpthread -lz -lm -lc -lg -lTinyGL SDL2)
+	  target_link_libraries(daedalus daedalus.lib -lstdc++ -lpthread -lz -lm -lc -lg -lvitaGL -lSceLibKernel_stub -lScePvf_stub -lmathneon -lSceAppMgr_stub -lSceAppUtil_stub -lScePgf_stub -ljpeg -lfreetype -lc -lSceCommonDialog_stub -lpng16 -lSceGxm_stub -lSceDisplay_stub -lSceSysmodule_stub SDL2)
 endif (VITA)
 
 

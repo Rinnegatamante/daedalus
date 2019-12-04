@@ -6,12 +6,20 @@
 #include <vitaGL.h>
 #include <vita2d.h>
 #include <stdlib.h>
-#else
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
 #endif
 
 #include "Utility/DaedalusTypes.h"
+
+#define GL_UNPACK_ALIGNMENT               0x0CF5
+
+#define GL_UNSIGNED_BYTE_2_3_3_REV        0x8362
+#define GL_UNSIGNED_SHORT_5_6_5           0x8363
+#define GL_UNSIGNED_SHORT_5_6_5_REV       0x8364
+#define GL_UNSIGNED_SHORT_4_4_4_4_REV     0x8365
+#define GL_UNSIGNED_SHORT_1_5_5_5_REV     0x8366
+#define GL_UNSIGNED_INT_8_8_8_8_REV       0x8367
+#define GL_UNSIGNED_INT_2_10_10_10_REV    0x8368
+
 
 //extern GLFWwindow * gWindow;
 
@@ -34,6 +42,9 @@ struct ScePspFMatrix4
 {
 	float m[16];
 };
+
+void glPixelStorei( 	GLenum pname,
+  	GLint param);
 
 void sceGuSetMatrix(EGuMatrixType type, const ScePspFMatrix4 * mtx);
 
