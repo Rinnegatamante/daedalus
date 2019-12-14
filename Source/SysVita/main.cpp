@@ -27,96 +27,23 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "Test/BatchTest.h"
 #include "Utility/IO.h"
 
-#ifdef DAEDALUS_LINUX
-#include <linux/limits.h>
-#endif
+#include <psp2/kernel/threadmgr.h>
+#include <psp2/kernel/processmgr.h>
+#include <psp2/io/fcntl.h>
+#include <psp2/ctrl.h>
+#include <stdio.h>
+#include <string.h>
 
-int main(int argc, char **argv)
+
+int main()
 {
 	int result = 0;
 
-	if (argc > 0)
-	{
-		IO::Filename exe_path = "ux0:/";
-
-		//realpath(argv[0], exe_path);
-
-		strcpy(gDaedalusExePath, exe_path);
-		IO::Path::RemoveFileSpec(gDaedalusExePath);
-	}
-	else
-	{
-		fprintf(stderr, "Couldn't determine executable path\n");
-		return 1;
-	}
-
-	//ReadConfiguration();
-
-	if (!System_Init())
-		return 1;
-
-	//
-	// Create the console if it's enabled. Don't care about failures
-	//
-	//DisplayDisclaimer();
-	//DisplayConfig();
-
-	if (argc > 1)
-	{
-		bool 			batch_test = false;
-		const char *	filename   = NULL;
-
-		for (int i = 1; i < argc; ++i)
-		{
-			const char * arg = argv[i];
-			if (*arg == '-')
-			{
-				++arg;
-				if( strcmp( arg, "-batch" ) == 0 )
-				{
-					batch_test = true;
-					break;
-				}
-				else if (strcmp( arg, "-roms" ) == 0 )
-				{
-					if (i+1 < argc)
-					{
-						const char * relative_path = argv[i+1];
-						++i;
-
-						IO::Filename	dir = "ux0:/Roms/";
-						//Hard coded path for now
-						//realpath(relative_path, dir);
-
-						CRomDB::Get()->AddRomDirectory(dir);
-					}
-				}
-			}
-			else
-			{
-				filename = "ux0:/rom.v64";
-			}
-		}
-
-		if (batch_test)
-		{
-			#ifdef DAEDALUS_BATCH_TEST_ENABLED
-				BatchTestMain(argc, argv);
-			#else
-				fprintf(stderr, "BatchTest mode is not present in this build.\n");
-			#endif
-		}
-		else if (filename)
-		{
-			System_Open( filename );
+			System_Open( "ux0:/rom.z64");
 			CPU_Run();
 			System_Close();
-		}
-	}
-	else
-	{
-//		result = RunMain();
-	}
+
+
 
 	//
 	// Write current config out to the registry

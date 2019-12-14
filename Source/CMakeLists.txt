@@ -1,4 +1,15 @@
  #CMake File for DaedalusX64
+ ## This includes the Vita toolchain, must go before project definition
+ # It is a convenience so you do not have to type
+ # -DCMAKE_TOOLCHAIN_FILE=$VITASDK/share/vita.toolchain.cmake for cmake. It is
+ # highly recommended that you include this block for all projects.
+ if(NOT DEFINED CMAKE_TOOLCHAIN_FILE)
+   if(DEFINED ENV{VITASDK})
+     set(CMAKE_TOOLCHAIN_FILE "$ENV{VITASDK}/share/vita.toolchain.cmake" CACHE PATH "toolchain file")
+   else()
+     message(FATAL_ERROR "Please define VITASDK to point to your SDK path!")
+   endif()
+ endif()
 
 #Build instructions
 # Create a directory in the DaedalusX64 root directory and cd into it 'eg: mkdir tmp ~/DaedalusX64'
@@ -13,7 +24,7 @@ cmake_minimum_required(VERSION 3.7)
 set(CMAKE_CXX_STANDARD 14)
 set (buildtype $ENV{BUILDTYPE})
 set (platform $ENV{PLATFORM})
-project (DaedalusX64)
+project (daedalus)
 
 				#Default Files for build
 				set (BASE_FILES StdAfx.cpp)
@@ -93,10 +104,11 @@ project (DaedalusX64)
         set (VITA_AUDIO SysVita/HLEAudio/AudioPluginVita.cpp)
 				set (VITA_GRAPHICS SysVita/Graphics/GraphicsContextVita.cpp SysVita/Graphics/NativeTextureVita.cpp)
     		set (VITA_HLEGRAPHICS SysVita/HLEGraphics/GraphicsPluginVita.cpp SysVita/HLEGraphics/RendererVita.cpp)
+        set (VITA_INPUT SysVita/Input/InputManagerVita.cpp)
 				set (VITA_UTILITY SysVita/Utility/ThreadVita.cpp)
 				set (VITA_MAIN SysVita/main.cpp)
 				set (VITA_POSIX SysPosix/Utility/CondPosix.cpp SysPosix/Utility/IOPosix.cpp SysPosix/Utility/TimingPosix.cpp)
-			  set (VITA_BUILD ${VITA_AUDIO} ${VITA_GRAPHICS} ${VITA_HLEGRAPHICS} ${VITA_UTILITY} )
+			  set (VITA_BUILD ${VITA_AUDIO} ${VITA_GRAPHICS} ${VITA_HLEGRAPHICS} ${VITA_UTILITY} ${VITA_INPUT} )
 
 				# These will remain separate for now..
 				set (LINUX_AUDIO SysPosix/HLEAudio/AudioPluginLinux.cpp)
@@ -133,11 +145,31 @@ if (PSP)
 endif (PSP)
 
 if (VITA)
+# This line adds Vita helper macros, must go after project definition in order
+# to build Vita specific artifacts (self/vpk).
+include("${VITASDK}/share/vita.cmake" REQUIRED)
+
+## Configuration options for this app
+# Display name (under bubble in LiveArea)
+set(VITA_APP_NAME "DaedalusX64")
+# Unique ID must be exactly 9 characters. Recommended: XXXXYYYYY where X =
+# unique string of developer and Y = a unique number for this app
+set(VITA_TITLEID  "VSDK00007")
+# Optional version string to show in LiveArea's more info screen
+set(VITA_VERSION  "01.00")
 		include_directories(${PROJECT_SOURCE_DIR} ${PROJECT_SOURCE_DIR}/SysVita/Include )
 	  add_definitions(-DDAEDALUS_VITA )
 	  add_library(daedalus.lib STATIC ${BUILD} ${VITA_POSIX} ${VITA_BUILD})
 	  add_executable(daedalus ${VITA_MAIN})
-	  target_link_libraries(daedalus daedalus.lib -lstdc++ -lpthread -lz -lm -lc -lg -lvitaGL -lSceLibKernel_stub -lScePvf_stub -lmathneon -lSceAppMgr_stub -lSceAppUtil_stub -lScePgf_stub -ljpeg -lfreetype -lc -lSceCommonDialog_stub -lpng16 -lSceGxm_stub -lSceDisplay_stub -lSceSysmodule_stub SDL2)
+	  target_link_libraries(daedalus daedalus.lib -lvitaGL -lvita2d -lSceHid_stub -lSceDisplay_stub -lSceGxm_stub -lc -lSceCommonDialog_stub -lSceAudio_stub -lSceLibKernel_stub -lSceSysmodule_stub -lSceCtrl_stub -lSceTouch_stub -lSceMotion_stub -lm -lSceAppMgr_stub -lSceAppUtil_stub -lScePgf_stub -ljpeg -lSceRtc_stub -lScePower_stub -lcurl -lssl -lcrypto -lstdc++ -lpthread -lz -lm -lc -lg  -lSceLibKernel_stub -lScePvf_stub -lmathneon -lSceAppMgr_stub -lSceAppUtil_stub -lScePgf_stub -ljpeg -lfreetype -lc -lSceCommonDialog_stub -lpng16 -lSceGxm_stub -lSceDisplay_stub -lSceSysmodule_stub SDL2)
+    ## Create Vita files
+    vita_create_self(${PROJECT_NAME}.self ${PROJECT_NAME})
+    # The FILE directive lets you add additional files to the VPK, the syntax is
+    # FILE src_path dst_path_in_vpk. In this case, we add the LiveArea paths.
+    vita_create_vpk(${PROJECT_NAME}.vpk ${VITA_TITLEID} ${PROJECT_NAME}.self
+      VERSION ${VITA_VERSION}
+      NAME ${VITA_APP_NAME}
+      )
 endif (VITA)
 
 

@@ -292,7 +292,7 @@ void CNativeTexture::SetData( void * data, void * palette )
 	if (HasData())
 	{
 		glBindTexture( GL_TEXTURE_2D, mTextureId );
-		glPixelStorei( GL_UNPACK_ALIGNMENT, 1 );
+		//glPixelStorei( GL_UNPACK_ALIGNMENT, 1 );
 
 		switch (mTextureFormat)
 		{
