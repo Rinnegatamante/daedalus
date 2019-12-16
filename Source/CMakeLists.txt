@@ -101,14 +101,16 @@ project (daedalus)
 				set (POSIX_UTILITY SysPosix/Utility/CondPosix.cpp SysPosix/Utility/IOPosix.cpp SysPosix/Utility/ThreadPosix.cpp SysPosix/Utility/TimingPosix.cpp)
 				set (POSIX_BUILD ${POSIX_DYNAREC} ${POSIX_UTILITY})
 
-        set (VITA_AUDIO SysVita/HLEAudio/AudioPluginVita.cpp)
+		#VITA
+				set (VITA_DEBUG_FILES SysVita/Debug/DaedalusAssertVita.cpp SysVita/Debug/DBGConsoleVita.cpp)
+        		set (VITA_AUDIO SysVita/HLEAudio/AudioPluginVita.cpp)
 				set (VITA_GRAPHICS SysVita/Graphics/GraphicsContextVita.cpp SysVita/Graphics/NativeTextureVita.cpp)
-    		set (VITA_HLEGRAPHICS SysVita/HLEGraphics/GraphicsPluginVita.cpp SysVita/HLEGraphics/RendererVita.cpp)
-        set (VITA_INPUT SysVita/Input/InputManagerVita.cpp)
+    			set (VITA_HLEGRAPHICS SysVita/HLEGraphics/GraphicsPluginVita.cpp SysVita/HLEGraphics/RendererVita.cpp)
+        		set (VITA_INPUT SysVita/Input/InputManagerVita.cpp)
 				set (VITA_UTILITY SysVita/Utility/ThreadVita.cpp)
 				set (VITA_MAIN SysVita/main.cpp)
 				set (VITA_POSIX SysPosix/Utility/CondPosix.cpp SysPosix/Utility/IOPosix.cpp SysPosix/Utility/TimingPosix.cpp)
-			  set (VITA_BUILD ${VITA_AUDIO} ${VITA_GRAPHICS} ${VITA_HLEGRAPHICS} ${VITA_UTILITY} ${VITA_INPUT} )
+			  	set (VITA_BUILD ${VITA_DEBUG_FILES} ${VITA_AUDIO} ${VITA_GRAPHICS} ${VITA_HLEGRAPHICS} ${VITA_UTILITY} ${VITA_INPUT} )
 
 				# These will remain separate for now..
 				set (LINUX_AUDIO SysPosix/HLEAudio/AudioPluginLinux.cpp)

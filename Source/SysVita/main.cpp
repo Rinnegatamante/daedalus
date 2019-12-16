@@ -33,15 +33,20 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <psp2/ctrl.h>
 #include <stdio.h>
 #include <string.h>
-
+#include <psp2/kernel/clib.h> 
 
 int main()
 {
 	int result = 0;
 
-			System_Open( "ux0:/rom.z64");
-			CPU_Run();
-			System_Close();
+	strcpy(gDaedalusExePath, "ux0:/");
+
+	if (!System_Init())
+		return false;
+
+	System_Open( "ux0:/rom.z64");
+	CPU_Run();
+	System_Close();
 
 
 
