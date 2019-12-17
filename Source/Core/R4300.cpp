@@ -133,6 +133,13 @@ inline void SET_ROUND_MODE( ERoundingMode mode )
 	fesetround( gNativeRoundingModes[ mode ] );
 }
 
+#elif DAEDALUS_VITA
+
+inline void SET_ROUND_MODE( ERoundingMode mode )
+{
+
+}
+
 #else
 
 // Need defining
