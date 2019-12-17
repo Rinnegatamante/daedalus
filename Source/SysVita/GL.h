@@ -2,7 +2,6 @@
 #define SYSGL_GL_H_
 
 #ifdef DAEDALUS_VITA
-#include <SDL2/SDL.h>
 #include <vitaGL.h>
 #include <vita2d.h>
 #include <stdlib.h>

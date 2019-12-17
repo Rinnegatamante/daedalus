@@ -6,7 +6,6 @@
 #include "SysVita/GL.h"
 
 #ifdef DAEDALUS_VITA
-#include <SDL2/SDL.h>
 #include <vitaGL.h>
 #include <vita2d.h>
 #include <stdlib.h>
@@ -19,9 +18,6 @@
 
 static u32 SCR_WIDTH = 640;
 static u32 SCR_HEIGHT = 480;
-
-SDL_Window * gWindow = NULL;
-
 
 class GraphicsContextGL : public CGraphicsContext
 {
@@ -60,61 +56,26 @@ template<> bool CSingleton< CGraphicsContext >::Create()
 
 GraphicsContextGL::~GraphicsContextGL()
 {
-		SDL_DestroyWindow(gWindow);
-		gWindow = NULL;
-		SDL_Quit();
+	vglEnd();
 }
-
-static void error_callback(int error, const char* description)
-{
-	fprintf(stderr, "Error: %d - %s\n", error, description);
-}
-
 
 //extern bool initgl();
 bool GraphicsContextGL::Initialise()
 {
 
-	//Initialize SDL
-	if( SDL_Init( SDL_INIT_VIDEO) < 0 )
-	{
-		printf( "SDL could not initialize! SDL Error: %s\n", SDL_GetError() );
-		return false;
-	}
-		//Use OpenGL 3.3 core
-		SDL_GL_SetAttribute( SDL_GL_CONTEXT_MAJOR_VERSION, 3 );
-		SDL_GL_SetAttribute( SDL_GL_CONTEXT_MINOR_VERSION, 3 );
-		SDL_GL_SetAttribute( SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE );
-		SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
-		SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-		//Create window
-		gWindow = SDL_CreateWindow( "Daedalus", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCR_WIDTH, SCR_HEIGHT, SDL_WINDOW_OPENGL );
+	vglInit(0x800000);
+	vglWaitVblankStart(GL_TRUE);
+	UpdateFrame(false);
 
-		if( gWindow == NULL )
-		{
-			printf( "Window could not be created! SDL Error: %s\n", SDL_GetError() );
-			return false;
-		}
+	return true;
 
-			//Create context
-	SDL_GLContext	gContext = SDL_GL_CreateContext( gWindow );
-
-	SDL_GL_SetSwapInterval(1);
-
-
-//ClearColBufferAndDepth(0,0,0,0);
-UpdateFrame(false);
-//return initgl();
 }
 
 
 void GraphicsContextGL::GetScreenSize(u32 * width, u32 * height) const
 {
-	int window_width, window_height;
-	SDL_GL_GetDrawableSize(gWindow, &window_width, &window_height);
-
-	*width  = window_width;
-	*height = window_height;
+	*width  = SCR_WIDTH;
+	*height = SCR_HEIGHT;
 }
 
 void GraphicsContextGL::ViewportType(u32 * width, u32 * height) const
@@ -161,6 +122,8 @@ void GraphicsContextGL::ClearColBufferAndDepth(const c32 & colour)
 
 void GraphicsContextGL::BeginFrame()
 {
+	vglStartRendering();
+
 	// Get window size (may be different than the requested size)
 	u32 width, height;
 	GetScreenSize(&width, &height);
@@ -174,14 +137,10 @@ void GraphicsContextGL::BeginFrame()
 
 void GraphicsContextGL::EndFrame()
 {
+	vglStopRendering();
 }
 
 void GraphicsContextGL::UpdateFrame( bool wait_for_vbl )
 {
-	SDL_GL_SwapWindow(gWindow);
 
-//	if( gCleanSceneEnabled ) //TODO: This should be optional
-//	{
-	//	ClearColBuffer( c32(0xff000000) ); // ToDo : Use gFillColor instead?
-	//}
 }
