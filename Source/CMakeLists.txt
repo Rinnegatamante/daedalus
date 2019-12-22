@@ -163,7 +163,7 @@ set(VITA_VERSION  "01.00")
 	  add_definitions(-DDAEDALUS_VITA )
 	  add_library(daedalus.lib STATIC ${BUILD} ${VITA_POSIX} ${VITA_BUILD})
 	  add_executable(daedalus ${VITA_MAIN})
-	  target_link_libraries(daedalus daedalus.lib -lvitaGL -lvita2d -lSceHid_stub -lSceDisplay_stub -lSceGxm_stub -lc -lSceCommonDialog_stub -lSceAudio_stub -lSceLibKernel_stub -lSceSysmodule_stub -lSceCtrl_stub -lSceTouch_stub -lSceMotion_stub -lm -lSceAppMgr_stub -lSceAppUtil_stub -lScePgf_stub -ljpeg -lSceRtc_stub -lScePower_stub -lcurl -lssl -lcrypto -lstdc++ -lpthread -lz -lm -lc -lg  -lSceLibKernel_stub -lScePvf_stub -lmathneon -lSceAppMgr_stub -lSceAppUtil_stub -lScePgf_stub -ljpeg -lfreetype -lc -lSceCommonDialog_stub -lpng16 -lSceGxm_stub -lSceDisplay_stub -lSceSysmodule_stub SDL2)
+	  target_link_libraries(daedalus daedalus.lib vitaGL c vita2d SceHid_stub SceDisplay_stub SceGxm_stub SceCommonDialog_stub SceAudio_stub SceLibKernel_stub SceSysmodule_stub SceCtrl_stub SceTouch_stub SceMotion_stub m SceAppMgr_stub SceAppUtil_stub ScePgf_stub jpeg SceRtc_stub ScePower_stub stdc++ pthread z g SceLibKernel_stub ScePvf_stub mathneon SceAppMgr_stub SceAppUtil_stub ScePgf_stub jpeg freetype SceCommonDialog_stub png16 SceGxm_stub SceDisplay_stub SceSysmodule_stub SDL2)
     ## Create Vita files
     vita_create_self(${PROJECT_NAME}.self ${PROJECT_NAME})
     # The FILE directive lets you add additional files to the VPK, the syntax is

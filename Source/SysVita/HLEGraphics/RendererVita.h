@@ -6,6 +6,9 @@
 class RendererVita : public BaseRenderer
 {
 public:
+    RendererVita();
+    ~RendererVita();
+
     virtual void RestoreRenderStates();
 
     virtual void RenderTriangles(DaedalusVtx *p_vertices, u32 num_vertices, bool disable_zbuffer);
@@ -28,6 +31,6 @@ public:
       void RenderDaedalusVtx(int prim, const DaedalusVtx *vertices, int count);
       void RenderDaedalusVtxStream(int prim, const float *positions, const TexCoord *uvx, const u32 *colours, int count);
 };
-      extern RendererVita *RendererVita;
+      extern RendererVita *gRendererVita;
 
-      #endif
+      #endif // SYSVITA_HLEGRAPHICS_RENDERERVITA_H_
