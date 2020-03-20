@@ -77,8 +77,8 @@ extern AudioHLEInstruction ABI3[0x20];
 
 AudioHLEInstruction *ABI = ABIUnknown;
 bool bAudioChanged = false;
-extern bool isMKABI;
-extern bool isZeldaABI;
+bool isZeldaABI = false;
+bool isMKABI = false;
 
 //*****************************************************************************
 //
@@ -86,8 +86,9 @@ extern bool isZeldaABI;
 void Audio_Reset()
 {
 	bAudioChanged = false;
-	isMKABI		  = false;
-	isZeldaABI	  = false;
+	// XXX Not sure why these are set on reset.
+//	isMKABI		  = false;
+//	isZeldaABI	  = false;
 }
 
 //*****************************************************************************

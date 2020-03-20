@@ -425,6 +425,9 @@ void SETVOL(AudioHLECommand command); void SETVOL3(AudioHLECommand command);
 void SPNOOP(AudioHLECommand command);
 void UNKNOWN(AudioHLECommand command);
 
+extern bool isMKABI;
+extern bool isZeldaABI;
+
 // These must be defined...
 #include "Core/Memory.h"
 
