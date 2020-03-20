@@ -33,11 +33,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 // Disables the command because it's not used?
 static void DISABLE (AudioHLECommand command) {}
 static void WHATISTHIS (AudioHLECommand command) {}
-
-static void MP3ADDY(AudioHLECommand command)
- {
- //	setaddr = (command.cmd1 & 0xffffff);
- }
+extern void MP3ADDY (AudioHLECommand command) {}
 
 AudioHLEInstruction ABI3[0x20] =
 {

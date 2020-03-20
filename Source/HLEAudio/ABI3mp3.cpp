@@ -187,6 +187,15 @@ static const u16 DeWindowLUT [0x420] =
 	0x0B37, 0xF736, 0x037A, 0xFF38, 0x005D, 0xFFF3, 0x0000, 0x0000
 };
 
+u32 setaddr {};
+
+void MP3ADDY(AudioHLECommand command)
+{
+	setaddr = (command.cmd0 & 0xffffff);
+	//assert(0);
+	//fprintf (fp, "mp3addy: k0: %08X, t9: %08X, loopval: %08X\n", k0, t9, loopval);
+}
+
 void CMP3Decode::MP3AB0()
 {
 	#ifdef DEBUG_AUDIO
@@ -633,7 +642,7 @@ CMP3Decode		gMP3Decode;
 
 
 
-void MP3( AudioHLECommand command )
+void MP3( AudioHLECommand command  )
 {
 	#ifdef DEBUG_AUDIO
 		DBGConsole_Msg(0, "MP3 ");

@@ -418,7 +418,7 @@ void INTERLEAVE(AudioHLECommand command); void INTERLEAVE2(AudioHLECommand comma
 void LOADADPCM(AudioHLECommand command); void LOADADPCM2(AudioHLECommand command); void LOADADPCM3(AudioHLECommand command );
 void MIXER(AudioHLECommand command); void MIXER2(AudioHLECommand command); void MIXER3(AudioHLECommand command );
 void MP3(AudioHLECommand command );
-//	void MP3ADDY(AudioHLECommand command );
+void MP3ADDY(AudioHLECommand command );
 // void POLEF(AudioHLECommand command );
 void RESAMPLE(AudioHLECommand command); void RESAMPLE2(AudioHLECommand command); void RESAMPLE3(AudioHLECommand command);
 void SETVOL(AudioHLECommand command); void SETVOL3(AudioHLECommand command);

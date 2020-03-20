@@ -10,8 +10,6 @@
 
 #include "Debug/DBGConsole.h"
 
-extern bool isMKABI;
-extern bool isZeldaABI;
 
 void FILTER2(AudioHLECommand command)
 {

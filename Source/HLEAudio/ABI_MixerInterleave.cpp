@@ -9,8 +9,7 @@
 #include "Math/MathUtil.h"
 
 #include "Debug/DBGConsole.h"
-extern bool isMKABI;
-extern bool isZeldaABI;
+
 
 void ADDMIXER( AudioHLECommand command)
 {
