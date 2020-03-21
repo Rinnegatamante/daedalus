@@ -70,6 +70,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #define A_MAIN			0x00
 #define A_MIX			0x10
 
+#define NUM_ABI_COMMANDS 0x20
+
 //------------------------------------------------------------------------------------------
 
 struct SAbi1ClearBuffer

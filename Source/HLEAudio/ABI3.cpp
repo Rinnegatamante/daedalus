@@ -35,7 +35,7 @@ static void DISABLE (AudioHLECommand command) {}
 static void WHATISTHIS (AudioHLECommand command) {}
 extern void MP3ADDY (AudioHLECommand command) {}
 
-AudioHLEInstruction ABI3[0x20] =
+AudioHLEInstruction ABI3[NUM_ABI_COMMANDS] =
 {
     DISABLE   ,ADPCM3    ,CLEARBUFF3,ENVMIXER3 ,LOADBUFF3 ,RESAMPLE3 ,SAVEBUFF3 ,MP3       ,
     MP3ADDY   ,SETVOL3   ,DMEMMOVE3 ,LOADADPCM3,MIXER3   ,INTERLEAVE3,WHATISTHIS,SETLOOP3  ,
