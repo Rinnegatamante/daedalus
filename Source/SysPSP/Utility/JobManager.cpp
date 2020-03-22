@@ -78,9 +78,9 @@ CJobManager::CJobManager( u32 job_buffer_size, ETaskMode task_mode )
 ,	mJobBufferSize( job_buffer_size )
 ,	mTaskMode( task_mode )
 ,	mThread( kInvalidThreadHandle )
-,	mWorkReady( sceKernelCreateSema( "JMWorkReady", 0, 0, 1, 0) )	// Initval is 0 - i.e. no work ready
-,	mWorkEmpty( sceKernelCreateSema( "JMWorkEmpty", 0, 1, 1, 0 ) )	// Initval is 1 - i.e. work done
-,	mWantQuit( false )
+//,	mWorkReady( sceKernelCreateSema( "JMWorkReady", 0, 0, 1, 0) )	// Initval is 0 - i.e. no work ready
+//,	mWorkEmpty( sceKernelCreateSema( "JMWorkEmpty", 0, 1, 1, 0 ) )	// Initval is 1 - i.e. work done
+//,	mWantQuit( false )
 {
 //	memset( mRunBuffer, 0, mJobBufferSize );
 }
@@ -91,13 +91,13 @@ CJobManager::CJobManager( u32 job_buffer_size, ETaskMode task_mode )
 CJobManager::~CJobManager()
 {
 
-	sceKernelDeleteSema(mWorkReady);
-	sceKernelDeleteSema(mWorkEmpty);
+//	sceKernelDeleteSema(mWorkReady);
+//	sceKernelDeleteSema(mWorkEmpty);
 
-	if( mJobBuffer != nullptr )
-	{
+	// if( mJobBuffer != nullptr )
+	// {
 		free( mJobBuffer );
-	}
+	// }
 
 }
 
@@ -116,12 +116,21 @@ u32 CJobManager::JobMain( void * arg )
 //*****************************************************************************
 bool CJobManager::AddJob( SJob * job, u32 job_size )
 {
-	bool	success( false );
+	bool	success {false};
 
-	if( job == nullptr ){
-		success = true;
-		return success;
-	}
+	// if( job == nullptr ){
+	// 	success = true;
+	// 	return success;
+	// }
+
+	/*
+	Job manager logic
+	Add Job to queue
+	Start Job
+	Mark Job as complete
+	Clear job
+	Repeat until all jobs done
+	*/
 
 	if( mTaskMode == TM_SYNC )
 	{
@@ -159,7 +168,7 @@ bool CJobManager::AddJob( SJob * job, u32 job_size )
 
 	// Start the job on the ME - inv_all dcache on entry, wbinv_all on exit
 	// if the me is busy run the job on the main cpu so we don't stall
-	if(BeginME( mei, (int)run->DoJob, (int)run, -1, NULL, -1, NULL) < 0){
+	if(BeginME( mei, (u32)run->DoJob, (u32)run, -1, NULL, -1, NULL) < 0){
 		if( job->InitJob ) job->InitJob( job );
 		if( job->DoJob )   job->DoJob( job );
 		if( job->FiniJob ) job->FiniJob( job );

@@ -441,6 +441,5 @@ extern bool isZeldaABI;
 
 // Use these functions to interface with the HLE Audio...
 void Audio_Ucode();
-void Audio_Reset();
 
 #endif // HLEAUDIO_AUDIOHLE_H_

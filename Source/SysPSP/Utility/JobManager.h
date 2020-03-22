@@ -67,10 +67,10 @@ private:
 
 	ETaskMode		mTaskMode;
 	s32				mThread {};
-	s32				mWorkReady {};
-	s32				mWorkEmpty {};
+//	s32				mWorkReady {};
+//	s32				mWorkEmpty {};
 
-	volatile bool	mWantQuit;
+//	volatile bool	mWantQuit;
 };
 
 extern CJobManager gJobManager;

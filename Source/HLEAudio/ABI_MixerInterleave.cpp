@@ -17,16 +17,20 @@ void ADDMIXER( AudioHLECommand command)
     DBGConsole_Msg(0, "ADDMIXER");
     #endif
 //  DAEDALUS_ERROR( "ADDMIXER - broken?" );
-	u32 Count     = (command.cmd0 >> 12) & 0x00ff0;
+	u32 Count     = (command.cmd0 >> 12) & 0x0ff0;
 	u32 InBuffer  = (command.cmd1 >> 16);
 	u32 OutBuffer = command.cmd1 & 0xffff;
 
 	s16 *inp  = (s16 *)(gAudioHLEState.Buffer + InBuffer);
 	s16 *outp = (s16 *)(gAudioHLEState.Buffer + OutBuffer);
-	for (u32 cntr = 0; cntr < Count; cntr+=2)
+	s32 temp {};
+	for (s16 cntr = 0; cntr < Count; cntr+=2)
 	{
+		temp = *outp + *inp;
+		*outp = Saturate<s16>(temp);
 		//s32 temp = Saturate<s16>( *outp + *inp );
 		// *outp = temp;		// Added this - correct??
+
 		outp++;	inp++;
 	}
 }
@@ -36,44 +40,32 @@ void HILOGAIN( AudioHLECommand command)
 	#ifdef DEBUG_AUDIO
 		DBGConsole_Msg(0, "HILOAGAIN");
 		#endif
-  u32 count = command.cmd0 & 0xffff;
-	s32 hi  = (s16)((command.cmd0 >> 4) & 0xf000);
-	u32 lo  = (command.cmd0 >> 20) & 0xf;
-
-	u32 out = (command.cmd1 >> 16) & 0xffff;
+  u16 count = command.cmd0 & 0xffff;
+	u16 out = (command.cmd1 >> 16) & 0xffff;
+	s16 hi  = (s16)((command.cmd0 >> 4) & 0xf000);
+	u16 lo  = (command.cmd0 >> 20) & 0xf;
 	s16 *src = (s16 *)(gAudioHLEState.Buffer+out);
 
+	s32 tmp {}, val {};
 	while( count )
 	{
-		s32 val = *src;
-		s32 tmp = ((val * hi) >> 16) + (u32)(val * lo);
+		val = (s32)*src;
+		tmp = ((val * (s32)hi) >> 16) + (u32)(val * lo);
 		*src++ = Saturate<s16>( tmp );
+		src++;
 		count -= 2;
 	}
 }
 
 void INTERLEAVE( AudioHLECommand command)
 {
-	#ifdef DEBUG_AUDIO
-		DBGConsole_Msg(0, "INTERLEAVE");
-		#endif
+
   u16 inL( command.Abi1Interleave.LAddr );
-  	u16 inR( command.Abi1Interleave.RAddr );
+  u16 inR( command.Abi1Interleave.RAddr );
 
   	gAudioHLEState.Interleave( inL, inR );
 }
 
-void DEINTERLEAVE2( AudioHLECommand command)
-{
-	#ifdef DEBUG_AUDIO
-		DBGConsole_Msg(0, "DEINTERLEAVE2");
-		#endif
-  u16 count( command.Abi2Deinterleave.Count );
-	u16 out( command.Abi2Deinterleave.Out );
-	u16 in( command.Abi2Deinterleave.In );
-
-	gAudioHLEState.Deinterleave( out, in, count );
-}
 
 void INTERLEAVE2( AudioHLECommand command)
 {
@@ -107,6 +99,19 @@ void INTERLEAVE3( AudioHLECommand command)
 
 	gAudioHLEState.Interleave( 0x4f0, 0x9d0, 0xb40, 0x170 );
 }
+
+void DEINTERLEAVE2( AudioHLECommand command)
+{
+	#ifdef DEBUG_AUDIO
+		DBGConsole_Msg(0, "DEINTERLEAVE2");
+		#endif
+  u16 count( command.Abi2Deinterleave.Count );
+	u16 out( command.Abi2Deinterleave.Out );
+	u16 in( command.Abi2Deinterleave.In );
+
+	gAudioHLEState.Deinterleave( out, in, count );
+}
+
 
 void MIXER( AudioHLECommand command)
 {

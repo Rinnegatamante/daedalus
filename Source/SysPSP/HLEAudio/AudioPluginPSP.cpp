@@ -188,7 +188,7 @@ bool		AudioPluginPSP::StartEmulation()
 
 void	AudioPluginPSP::StopEmulation()
 {
-    Audio_Reset();
+  //  Audio_Reset();
   	StopAudio();
     sceKernelDeleteSema(mSemaphore);
     pspAudioEndPre();

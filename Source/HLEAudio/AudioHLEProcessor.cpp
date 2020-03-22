@@ -73,22 +73,20 @@ void	AudioHLEState::EnvMixer( u8 flags, u32 address )
 	s16 *aux1=(s16 *)(Buffer+AuxA);
 	s16 *aux2=(s16 *)(Buffer+AuxC);
 	s16 *aux3=(s16 *)(Buffer+AuxE);
-	s32 MainR;
-	s32 MainL;
-	s32 AuxR;
-	s32 AuxL;
-	s32 i1,o1,a1,a2=0,a3=0;
-	u16 AuxIncRate=1;
-	s16 zero[8];
-	memset(zero,0,16);
-	s32 LVol, RVol;
-	s32 LAcc, RAcc;
-	s32 LTrg, RTrg;
-	s16 Wet, Dry;
-	u32 ptr = 0;
-	s32 RRamp, LRamp;
-	s32 LAdderStart, RAdderStart, LAdderEnd, RAdderEnd;
-	s32 oMainR, oMainL, oAuxR, oAuxL;
+	s32 MainR {}; s32 MainL {};
+	s32 AuxR {};	s32 AuxL {};
+	s32 i1 {},o1 {},a1 {},a2 {},a3 {};
+	u16 AuxIncRate {1};
+	s16 zero[8] {};
+	memset(zero,0,sizeof(s16) * 8);
+	s32 LVol {}, RVol {};
+	s32 LAcc {}, RAcc {};
+	s32 LTrg {}, RTrg {};
+	s16 Wet {}, Dry {};
+	u32 ptr {};
+	s32 RRamp {}, LRamp {};
+	s32 LAdderStart {}, RAdderStart {}, LAdderEnd {}, RAdderEnd {};
+	s32 oMainR {}, oMainL {}, oAuxR {}, oAuxL {};
 
 	s16* buff = (s16*)(rdram+address);
 
@@ -307,52 +305,52 @@ void	AudioHLEState::EnvMixer( u8 flags, u32 address )
 	*(s32 *)(buff + 18) = RAdderStart; // 14-15
 }
 
-#if 1 //1->fast, 0->original Azimer //Corn calc two sample (s16) at once so we get to save a u32
-void	AudioHLEState::Resample( u8 flags, u32 pitch, u32 address )
-{
-	#ifdef DAEDALUS_ENABLE_ASSERTS
-	DAEDALUS_ASSERT( (flags & 0x2) == 0, "Resample: unhandled flags %02x", flags );		// Was breakpoint - StrmnNrmn
-	#endif
-	pitch *= 2;
-
-	s16 *	in ( (s16 *)(Buffer) );
-	u32 *	out( (u32 *)(Buffer) );	//Save some bandwith and fuse two sample in one write
-	u32		srcPtr((InBuffer / 2) - 1);
-	u32		dstPtr(OutBuffer / 4);
-	u32		tmp;
-
-	u32 accumulator;
-	if (flags & 0x1)
-	{
-		in[srcPtr^1] = 0;
-		accumulator = 0;
-	}
-	else
-	{
-		in[(srcPtr)^1] = ((u16 *)rdram)[((address >> 1))^1];
-		accumulator = *(u16 *)(rdram + address + 10);
-	}
-
-	for(u32 i = (((Count + 0xF) & 0xFFF0) >> 2); i != 0 ; i-- )
-	{
-		tmp =  (in[srcPtr^1] + FixedPointMul16( in[(srcPtr+1)^1] - in[srcPtr^1], accumulator )) << 16;
-		accumulator += pitch;
-		srcPtr += accumulator >> 16;
-		accumulator &= 0xFFFF;
-
-		tmp |= (in[srcPtr^1] + FixedPointMul16( in[(srcPtr+1)^1] - in[srcPtr^1], accumulator )) & 0xFFFF;
-		accumulator += pitch;
-		srcPtr += accumulator >> 16;
-		accumulator &= 0xFFFF;
-
-		out[dstPtr++] = tmp;
-	}
-
-	((u16 *)rdram)[((address >> 1))^1] = in[srcPtr^1];
-	*(u16 *)(rdram + address + 10) = (u16)accumulator;
-}
-
-#else
+// #if 1 //1->fast, 0->original Azimer //Corn calc two sample (s16) at once so we get to save a u32
+// void	AudioHLEState::Resample( u8 flags, u32 pitch, u32 address )
+// {
+// 	#ifdef DAEDALUS_ENABLE_ASSERTS
+// 	DAEDALUS_ASSERT( (flags & 0x2) == 0, "Resample: unhandled flags %02x", flags );		// Was breakpoint - StrmnNrmn
+// 	#endif
+// 	pitch *= 2;
+//
+// 	s16 *	in ( (s16 *)(Buffer) );
+// 	u32 *	out( (u32 *)(Buffer) );	//Save some bandwith and fuse two sample in one write
+// 	u32		srcPtr((InBuffer / 2) - 1);
+// 	u32		dstPtr(OutBuffer / 4);
+// 	u32		tmp;
+//
+// 	u32 accumulator;
+// 	if (flags & 0x1)
+// 	{
+// 		in[srcPtr^1] = 0;
+// 		accumulator = 0;
+// 	}
+// 	else
+// 	{
+// 		in[(srcPtr)^1] = ((u16 *)rdram)[((address >> 1))^1];
+// 		accumulator = *(u16 *)(rdram + address + 10);
+// 	}
+//
+// 	for(u32 i = (((Count + 0xF) & 0xFFF0) >> 2); i != 0 ; i-- )
+// 	{
+// 		tmp =  (in[srcPtr^1] + FixedPointMul16( in[(srcPtr+1)^1] - in[srcPtr^1], accumulator )) << 16;
+// 		accumulator += pitch;
+// 		srcPtr += accumulator >> 16;
+// 		accumulator &= 0xFFFF;
+//
+// 		tmp |= (in[srcPtr^1] + FixedPointMul16( in[(srcPtr+1)^1] - in[srcPtr^1], accumulator )) & 0xFFFF;
+// 		accumulator += pitch;
+// 		srcPtr += accumulator >> 16;
+// 		accumulator &= 0xFFFF;
+//
+// 		out[dstPtr++] = tmp;
+// 	}
+//
+// 	((u16 *)rdram)[((address >> 1))^1] = in[srcPtr^1];
+// 	*(u16 *)(rdram + address + 10) = (u16)accumulator;
+// }
+//
+// #else
 
 //Needed for Azimers resample alghorithm
 const u16 ResampleLUT[0x200] =
@@ -449,7 +447,7 @@ void	AudioHLEState::Resample( u8 flags, u32 pitch, u32 address )
 	}
 	*(u16 *)(rdram+address+10) = (u16)accumulator;
 }
-#endif
+// #endif
 
 inline void AudioHLEState::ExtractSamplesScale( s32 * output, u32 inPtr, s32 vscale ) const
 {
