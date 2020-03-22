@@ -48,8 +48,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "SysPSP/Utility/JobManager.h"
 #include "Utility/FramerateLimiter.h"
 #include "Utility/Thread.h"
+#include "SysPSP/PRX/MediaEngine/me.h"
 
 #define RSP_AUDIO_INTR_CYCLES     1
+extern volatile me_struct *mei;
+extern volatile int mejobscompleted; 
 extern u32 gSoundSync;
 
 static const u32	kOutputFrequency {44100};
@@ -101,12 +104,12 @@ class SAddSamplesJob : public SJob
 {
 	CAudioBuffer *		mBuffer;
 	const Sample *		mSamples;
-	u32					mNumSamples;
-	u32					mFrequency;
-	u32					mOutputFreq;
+	volatile u32					mNumSamples;
+	volatile u32					mFrequency;
+	volatile u32					mOutputFreq;
 
 public:
-	SAddSamplesJob( CAudioBuffer * buffer, const Sample * samples, u32 num_samples, u32 frequency, u32 output_freq )
+	SAddSamplesJob( CAudioBuffer * buffer, const Sample * samples, volatile u32 num_samples, volatile u32 frequency, volatile u32 output_freq )
 		:	mBuffer( buffer )
 		,	mSamples( samples )
 		,	mNumSamples( num_samples )
@@ -318,6 +321,8 @@ pspAudioSetChannelCallback( 0, audioCallback, this );
 	audio_open = true;
 }
 
+
+
 void AudioPluginPSP::AddBuffer( u8 *start, u32 length )
 {
 	if (length == 0)
@@ -335,9 +340,14 @@ void AudioPluginPSP::AddBuffer( u8 *start, u32 length )
 
 	case APM_ENABLED_ASYNC:
 		{
-			SAddSamplesJob	job( mAudioBufferUncached, reinterpret_cast< const Sample * >( start ), num_samples, mFrequency, kOutputFrequency );
-
-			gJobManager.AddJob( &job, sizeof( job ) );
+		
+		if (mejobscompleted > 0){
+		mAudioBufferUncached->AddSamples( reinterpret_cast< const Sample * >( start ), num_samples, mFrequency, kOutputFrequency );
+		mejobscompleted--;
+		if(mejobscompleted <= 0){
+			mejobscompleted = 0;
+		}
+		}
 		}
 		break;
 
