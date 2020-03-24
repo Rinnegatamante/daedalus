@@ -49,15 +49,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #define DEFAULT_FREQUENCY 44100	// Taken from Mupen64 : )
 
-//*****************************************************************************
-//
-//*****************************************************************************
+
 EAudioPluginMode gAudioPluginEnabled( APM_DISABLED );
 //bool gAdaptFrequency( false );
 
-//*****************************************************************************
-//
-//*****************************************************************************
+
 CAudioPluginPsp::CAudioPluginPsp()
 :	mAudioOutput( new AudioOutput )
 {
@@ -65,42 +61,32 @@ CAudioPluginPsp::CAudioPluginPsp()
 	//gAudioPluginEnabled = APM_ENABLED_SYNC; // for testing
 }
 
-//*****************************************************************************
-//
-//*****************************************************************************
+
 CAudioPluginPsp::~CAudioPluginPsp()
 {
 	delete mAudioOutput;
 }
 
-//*****************************************************************************
-//
-//*****************************************************************************
+
 CAudioPluginPsp *	CAudioPluginPsp::Create()
 {
 	return new CAudioPluginPsp();
 }
 
-//*****************************************************************************
-//
-//*****************************************************************************
+
 /*
 void	CAudioPluginPsp::SetAdaptFrequecy( bool adapt )
 {
 	mAudioOutput->SetAdaptFrequency( adapt );
 }
 */
-//*****************************************************************************
-//
-//*****************************************************************************
+
 bool		CAudioPluginPsp::StartEmulation()
 {
 	return true;
 }
 
-//*****************************************************************************
-//
-//*****************************************************************************
+
 void	CAudioPluginPsp::StopEmulation()
 {
 	Audio_Reset();
@@ -118,9 +104,7 @@ void	CAudioPluginPsp::DacrateChanged( int SystemType )
 }
 
 
-//*****************************************************************************
-//
-//*****************************************************************************
+
 void	CAudioPluginPsp::LenChanged()
 {
 	if( gAudioPluginEnabled > APM_DISABLED )
@@ -138,16 +122,12 @@ void	CAudioPluginPsp::LenChanged()
 	}
 }
 
-//*****************************************************************************
-//
-//*****************************************************************************
+
 u32		CAudioPluginPsp::ReadLength()
 {
 	return 0;
 }
-//*****************************************************************************
-//
-//*****************************************************************************
+
 struct SHLEStartJob : public SJob
 {
 	SHLEStartJob()
@@ -182,9 +162,7 @@ struct SHLEStartJob : public SJob
 	}
 };
 
-//*****************************************************************************
-//
-//*****************************************************************************
+
 EProcessResult	CAudioPluginPsp::ProcessAList()
 {
 	Memory_SP_SetRegisterBits(SP_STATUS_REG, SP_STATUS_HALT);
@@ -212,9 +190,7 @@ EProcessResult	CAudioPluginPsp::ProcessAList()
 	return result;
 }
 
-//*****************************************************************************
-//
-//*****************************************************************************
+
 CAudioPlugin *		CreateAudioPlugin()
 {
 	return CAudioPluginPsp::Create();
