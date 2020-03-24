@@ -217,7 +217,7 @@ struct SAddSamplesJob : public SJob
 
 	int DoJobComplete()
 	{
-		return 0;
+	return 0;
 	}
 
 };
@@ -232,21 +232,6 @@ void AudioOutput::AddBuffer( u8 *start, u32 length )
 
 	u32 num_samples {length / sizeof( Sample )};
 
-	//Adapt Audio to sync% //Corn
-	//		output_freq = DESIRED_OUTPUT_FREQUENCY;
-			/*
-	u32 output_freq {};
-	if (gAudioRateMatch)
-	{
-		if (gSoundSync > 88200)			output_freq = 88200;	//limit upper rate
-		else if (gSoundSync < 44100)	output_freq = 44100;	//limit lower rate
-		else							output_freq = gSoundSync;
-	}
-	else
-	{
-
-	}
-*/
 	switch( gAudioPluginEnabled )
 	{
 	case APM_DISABLED:

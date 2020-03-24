@@ -83,8 +83,6 @@ CJobManager::CJobManager( u32 job_buffer_size, ETaskMode task_mode )
 ,	mJobBufferSize( job_buffer_size )
 ,	mTaskMode( task_mode )
 ,	mThread( kInvalidThreadHandle )
-,	mWorkReady( sceKernelCreateSema( "JMWorkReady", 0, 0, 1, 0) )	// Initval is 0 - i.e. no work ready
-,	mWorkEmpty( sceKernelCreateSema( "JMWorkEmpty", 0, 1, 1, 0 ) )	// Initval is 1 - i.e. work done
 ,	mWantQuit( false )
 {
 //	memset( mRunBuffer, 0, mJobBufferSize );
@@ -96,8 +94,6 @@ CJobManager::CJobManager( u32 job_buffer_size, ETaskMode task_mode )
 CJobManager::~CJobManager()
 {
 
-	sceKernelDeleteSema(mWorkReady);
-	sceKernelDeleteSema(mWorkEmpty);
 
 	if( mJobBuffer != nullptr )
 	{

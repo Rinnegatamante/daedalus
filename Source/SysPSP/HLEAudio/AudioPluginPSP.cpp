@@ -54,7 +54,7 @@ EAudioPluginMode gAudioPluginEnabled( APM_DISABLED );
 //bool gAdaptFrequency( false );
 
 
-CAudioPluginPsp::CAudioPluginPsp()
+CAudioPluginPSP::CAudioPluginPSP()
 :	mAudioOutput( new AudioOutput )
 {
 	//mAudioOutput->SetAdaptFrequency( gAdaptFrequency );
@@ -62,38 +62,30 @@ CAudioPluginPsp::CAudioPluginPsp()
 }
 
 
-CAudioPluginPsp::~CAudioPluginPsp()
+CAudioPluginPSP::~CAudioPluginPSP()
 {
 	delete mAudioOutput;
 }
 
 
-CAudioPluginPsp *	CAudioPluginPsp::Create()
+CAudioPluginPSP *	CAudioPluginPSP::Create()
 {
-	return new CAudioPluginPsp();
+	return new CAudioPluginPSP();
 }
 
 
-/*
-void	CAudioPluginPsp::SetAdaptFrequecy( bool adapt )
-{
-	mAudioOutput->SetAdaptFrequency( adapt );
-}
-*/
-
-bool		CAudioPluginPsp::StartEmulation()
+bool		CAudioPluginPSP::StartEmulation()
 {
 	return true;
 }
 
 
-void	CAudioPluginPsp::StopEmulation()
+void	CAudioPluginPSP::StopEmulation()
 {
-	Audio_Reset();
 	mAudioOutput->StopAudio();
 }
 
-void	CAudioPluginPsp::DacrateChanged( int SystemType )
+void	CAudioPluginPSP::DacrateChanged( int SystemType )
 {
 //	printf( "DacrateChanged( %s )\n", (SystemType == ST_NTSC) ? "NTSC" : "PAL" );
 	u32 type {(u32)((SystemType == ST_NTSC) ? VI_NTSC_CLOCK : VI_PAL_CLOCK)};
@@ -105,7 +97,7 @@ void	CAudioPluginPsp::DacrateChanged( int SystemType )
 
 
 
-void	CAudioPluginPsp::LenChanged()
+void	CAudioPluginPSP::LenChanged()
 {
 	if( gAudioPluginEnabled > APM_DISABLED )
 	{
@@ -115,6 +107,7 @@ void	CAudioPluginPsp::LenChanged()
 		u32		length(Memory_AI_GetRegister(AI_LEN_REG));
 
 		mAudioOutput->AddBuffer( g_pu8RamBase + address, length );
+		
 	}
 	else
 	{
@@ -123,7 +116,7 @@ void	CAudioPluginPsp::LenChanged()
 }
 
 
-u32		CAudioPluginPsp::ReadLength()
+u32		CAudioPluginPSP::ReadLength()
 {
 	return 0;
 }
@@ -163,7 +156,7 @@ struct SHLEStartJob : public SJob
 };
 
 
-EProcessResult	CAudioPluginPsp::ProcessAList()
+EProcessResult	CAudioPluginPSP::ProcessAList()
 {
 	Memory_SP_SetRegisterBits(SP_STATUS_REG, SP_STATUS_HALT);
 
@@ -193,5 +186,5 @@ EProcessResult	CAudioPluginPsp::ProcessAList()
 
 CAudioPlugin *		CreateAudioPlugin()
 {
-	return CAudioPluginPsp::Create();
+	return CAudioPluginPSP::Create();
 }
