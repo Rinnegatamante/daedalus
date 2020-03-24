@@ -117,17 +117,14 @@ u32 CJobManager::JobMain( void * arg )
 }
 
 static int mefunloop( SJob * job ){
-		while(1){
-		if(meq.empty()){
-			break;
-		}
-		if( job->InitJob ) job->InitJob( job );
+		while(!meq.empty()){
+			if( job->InitJob ) job->InitJob( job );
 		if( job->DoJob )   job->DoJob( job );
 		mejobscompleted++;
 		meq.pop();
 		dcache_wbinv_all();
 		}
-	
+
 	return 0;
 }
 
