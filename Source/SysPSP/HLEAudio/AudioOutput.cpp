@@ -230,7 +230,7 @@ void AudioOutput::AddBuffer( u8 *start, u32 length )
 	if (!mAudioPlaying)
 		StartAudio();
 
-
+	u32 num_samples {length / sizeof( Sample )};
 
 	switch( gAudioPluginEnabled )
 	{

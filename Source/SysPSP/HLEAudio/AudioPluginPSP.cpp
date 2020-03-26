@@ -107,7 +107,7 @@ void	CAudioPluginPSP::LenChanged()
 		u32		length(Memory_AI_GetRegister(AI_LEN_REG));
 
 		mAudioOutput->AddBuffer( g_pu8RamBase + address, length );
-
+		
 	}
 	else
 	{
@@ -121,7 +121,7 @@ u32		CAudioPluginPSP::ReadLength()
 	return 0;
 }
 
-struct SHLEStartJob : public
+struct SHLEStartJob : public SJob
 {
 	SHLEStartJob()
 	{

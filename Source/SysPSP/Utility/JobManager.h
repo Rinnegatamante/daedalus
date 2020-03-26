@@ -33,9 +33,7 @@ enum ETaskMode
 };
 
 class SJob;
-
-using JobFunction = int(*)(SJob * job);
-//typedef int (*JobFunction)( SJob * job );
+typedef int (*JobFunction)( SJob * job );
 
 class SJob
 {
