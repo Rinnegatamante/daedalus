@@ -123,9 +123,10 @@ struct MulOp
 	static inline const char * OpString()		{ return " * "; }
 };
 
-typedef CBlendConstantExpression2< AddOp >	CBlendConstantExpressionAdd;
-typedef CBlendConstantExpression2< SubOp >	CBlendConstantExpressionSub;
-typedef CBlendConstantExpression2< MulOp >	CBlendConstantExpressionMul;
+
+using CBlendConstantExpressionAdd = CBlendConstantExpression2< AddOp >;
+using CBlendConstantExpressionSub = CBlendConstantExpression2< SubOp >;
+using CBlendConstantExpressionMul = CBlendConstantExpression2< MulOp >;
 
 
 

@@ -44,7 +44,9 @@ struct RegisterSnapshotHandle
 class CCodeGenerator
 {
 	public:
-		typedef void (*ExceptionHandlerFn)();
+
+		using ExceptionHandlerFn = void (*)();
+
 
 									CCodeGenerator() {}
 		virtual						~CCodeGenerator() {}

@@ -39,7 +39,7 @@
 
 #define SUBBLOCK_SIZE 64
 
-typedef void (*tile_line_emitter_t)(const s16 *y, const s16 *u, u32 address);
+using tile_line_emitter_t = void (*)(const s16  *y, const s16 *u, u32 address);
 
 /* rdram operations */
 // FIXME: these functions deserve their own module

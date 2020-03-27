@@ -45,7 +45,8 @@ struct CODENODE_STRUCT
 	u16	orig;
 };
 
-typedef struct CODENODE_STRUCT	CHEATCODENODE;
+using CHEATCODENODE = struct CODENODE_STRUCT;
+
 
 struct CODEGROUP_STRUCT
 {
@@ -57,8 +58,8 @@ struct CODEGROUP_STRUCT
 	char			note[256];
 	CHEATCODENODE	codelist[MAX_CHEATCODE_PER_ENTRY];
 };
-typedef struct		CODEGROUP_STRUCT CODEGROUP;
 
+using CODEGROUP = struct CODEGROUP_STRUCT;
 extern u32			codegroupcount;
 extern CODEGROUP	*codegrouplist;
 
