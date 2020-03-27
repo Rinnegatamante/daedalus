@@ -443,6 +443,7 @@ int main(int argc, char* argv[])
 		}
 
 		System_Finalize();
+		sceKernelDcacheWritebackInvalidateAll();
 	}
 
 	sceKernelExitGame();

@@ -34,7 +34,7 @@ struct SBlendModeDetails
 
 #define BLEND_MODE_ARGS		SBlendModeDetails & details
 
-typedef void (*OverrideBlendModeFn)( BLEND_MODE_ARGS );
+using OverrideBlendModeFn = void (*) (BLEND_MODE_ARGS);
 
 bool					IsInexactDefault( OverrideBlendModeFn Fn );
 OverrideBlendModeFn		LookupOverrideBlendModeInexact( u64 mux );
