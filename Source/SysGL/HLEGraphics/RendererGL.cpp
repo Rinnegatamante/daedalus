@@ -24,6 +24,7 @@ RendererGL *   gRendererGL = NULL;
 static bool gAccurateUVPipe = true;
 
 /* OpenGL 3.0 */
+// Convert later
 typedef void (APIENTRY * PFN_glGenVertexArrays)(GLsizei n, GLuint *arrays);
 typedef void (APIENTRY * PFN_glBindVertexArray)(GLuint array);
 typedef void (APIENTRY * PFN_glDeleteVertexArrays)(GLsizei n, GLuint *arrays);

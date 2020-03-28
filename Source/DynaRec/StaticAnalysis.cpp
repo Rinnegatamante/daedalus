@@ -34,7 +34,8 @@ void RegFPRRead( u32 r ) {}
 void RegFPRWrite( u32 r ) {}
 
 
-typedef void (*const StaticAnalysisFunction )( OpCode op_code, RegisterUsage & recorder );
+using StaticAnalysisFunction = void (*const)(OpCode op_code, RegisterUsage &recorder);
+
 
 
 // Forward declarations

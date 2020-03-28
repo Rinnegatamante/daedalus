@@ -114,8 +114,8 @@ private:
 	u32						mInputLength;
 	u32						mOutputLength;
 
-	using JumpList = std::vector< CJumpLocation > JumpList;
-	using JumpMap = std::map< u32, JumpList>
+	using JumpList = std::vector< CJumpLocation >;
+	using JumpMap = std::map< u32, JumpList>;
 	JumpMap					mJumpMap;
 
 	mutable u32				mCachedFragmentAddress;

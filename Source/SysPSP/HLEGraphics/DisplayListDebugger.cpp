@@ -963,7 +963,7 @@ void IDisplayListDebugger::Run()
 
 	CTimer		timer;
 
-	typedef std::vector< CDebugMenuOption * > DebugMenuOptionVector;
+	using DebugMenuOptionVector = std::vector < CDebugMenuOption *>;
 	DebugMenuOptionVector	menu_options;
 
 	u32		total_instruction_count = gNumInstructionsExecuted;

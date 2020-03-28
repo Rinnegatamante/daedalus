@@ -557,7 +557,7 @@ static void ConvertI4(const TileDestInfo & dsti, const TextureInfo & ti)
 	}
 }
 
-typedef void ( *ConvertFunction )(const TileDestInfo & dsti, const TextureInfo & ti);
+using ConvertFunction = void(*)(constypedef void ( *ConvertFunction )
 static const ConvertFunction gConvertFunctions[ 32 ] =
 {
 	// 4bpp				8bpp			16bpp				32bpp

@@ -117,13 +117,15 @@ private:
 //
 //	Specialisation for <void>, avoiding void references
 //
+//C++11 update required
 template <typename T> class CMemoryPoolAllocator;
 template <> class CMemoryPoolAllocator<void>
 {
 public:
-	typedef void *			pointer;
-	typedef const void *	const_pointer;
-	typedef void			value_type;
+	using pointer = void *;
+	using const_pointer = const void *;
+	using value_type = void;
+
 	template < class U > 	struct rebind { typedef CMemoryPoolAllocator<U> other; };
 };
 
@@ -131,13 +133,13 @@ template< typename T >
 class CMemoryPoolAllocator
 {
 public:
-	typedef size_t		size_type;
-	typedef ptrdiff_t	difference_type;
-	typedef T *			pointer;
-	typedef const T *	const_pointer;
-	typedef T &			reference;
-	typedef const T &	const_reference;
-	typedef T			value_type;
+	using size_type = size_t;
+	using difference_type = ptrdiff_t;
+	using pointer = T *;
+	using const_pointer = const T *
+	using reference = T&;
+	using const_reference = const T&;
+	using value_type = T;
 
 	template< class U > struct rebind { typedef CMemoryPoolAllocator< U > other; };
 
