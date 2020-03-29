@@ -135,6 +135,7 @@ public:
 
   static int DoJobComplete( SJob * arg )
    {
+     return 0;
    }
 
 

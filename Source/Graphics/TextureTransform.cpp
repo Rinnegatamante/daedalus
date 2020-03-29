@@ -312,6 +312,7 @@ static void MirrorTexelsST( void * dst, u32 dst_stride, const void * src, u32 sr
 template< bool MirrorS, bool MirrorT >
 static void MirrorTexels( void * dst, u32 dst_stride, const void * src, u32 src_stride, ETextureFormat tex_fmt, u32 width, u32 height )
 {
+		#ifdef DAEDALUS_ENABLE_ASSERTS
 	bool handled {false};
 
 	switch(tex_fmt)
@@ -324,6 +325,18 @@ static void MirrorTexels( void * dst, u32 dst_stride, const void * src, u32 src_
 	case TexFmt_CI4_8888:	MirrorTexelsST< NativePfCI44, MirrorS, MirrorT >( dst, dst_stride, src, src_stride, width, height ); handled = true; break;
 	case TexFmt_CI8_8888:	MirrorTexelsST< NativePfCI8 , MirrorS, MirrorT >( dst, dst_stride, src, src_stride, width, height ); handled = true; break;
 	}
+#endif
+
+switch(tex_fmt)
+{
+case TexFmt_5650:		MirrorTexelsST< NativePf5650, MirrorS, MirrorT >( dst, dst_stride, src, src_stride, width, height ); break;
+case TexFmt_5551:		MirrorTexelsST< NativePf5551, MirrorS, MirrorT >( dst, dst_stride, src, src_stride, width, height ); break;
+case TexFmt_4444:		MirrorTexelsST< NativePf4444, MirrorS, MirrorT >( dst, dst_stride, src, src_stride, width, height ); break;
+case TexFmt_8888:		MirrorTexelsST< NativePf8888, MirrorS, MirrorT >( dst, dst_stride, src, src_stride, width, height ); break;
+
+case TexFmt_CI4_8888:	MirrorTexelsST< NativePfCI44, MirrorS, MirrorT >( dst, dst_stride, src, src_stride, width, height ); break;
+case TexFmt_CI8_8888:	MirrorTexelsST< NativePfCI8 , MirrorS, MirrorT >( dst, dst_stride, src, src_stride, width, height ); break;
+}
 
 	#ifdef DAEDALUS_ENABLE_ASSERTS
 	DAEDALUS_ASSERT( handled, "Unhandled format" );

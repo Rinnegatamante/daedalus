@@ -217,7 +217,7 @@ namespace DrawTextUtilities
 			{
 				// Search backwards until we find a break
 				const char *	p_chunk_end( p_str_end );
-				bool			found_chunk( false );
+				bool		found_chunk {false};
 				while( p_chunk_end > p_line_str )
 				{
 					const char * p_space( FindPreviousSpace( p_line_str, p_chunk_end ) );
