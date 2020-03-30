@@ -111,7 +111,7 @@ u32 CJobManager::JobMain( void * arg )
 	return 0;
 }
 
-static int mefunloop( SJob * job ){
+int mefunloop( SJob * job ){
 		while(!meq.empty()){
 			if( job->InitJob ) job->InitJob( job );
 		if( job->DoJob )   job->DoJob( job );

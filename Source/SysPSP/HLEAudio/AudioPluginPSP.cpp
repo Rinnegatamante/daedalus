@@ -40,7 +40,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "Core/RSP_HLE.h"
 #include "SysPSP/Utility/JobManager.h"
 
-#define RSP_AUDIO_INTR_CYCLES     4000
+#define RSP_AUDIO_INTR_CYCLES     5 // This can be adjusted accordingly. Not sure on best value yet
 
 /* This sets default frequency what is used if rom doesn't want to change it.
    Probably only game that needs this is Zelda: Ocarina Of Time Master Quest

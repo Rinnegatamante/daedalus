@@ -43,31 +43,31 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 extern u32 gSoundSync;
 
-static const u32	DESIRED_OUTPUT_FREQUENCY {44100};
-static const u32	MAX_OUTPUT_FREQUENCY {DESIRED_OUTPUT_FREQUENCY * 4};
+const u32	DESIRED_OUTPUT_FREQUENCY {44100};
+const u32	MAX_OUTPUT_FREQUENCY {DESIRED_OUTPUT_FREQUENCY * 4};
 
 //static const u32	ADAPTIVE_FREQUENCY_ADJUST = 2000;
 // Large BUFFER_SIZE creates huge delay on sound //Corn
-static const u32	BUFFER_SIZE {1024 * 2};
+const u32	BUFFER_SIZE {1024 * 2};
 
-static const u32	PSP_NUM_SAMPLES {512};
+const u32	PSP_NUM_SAMPLES {512};
 
 // Global variables
-static SceUID bufferEmpty {};
+SceUID bufferEmpty {};
 
-static s32 sound_channel {PSP_AUDIO_NEXT_CHANNEL};
-static volatile s32 sound_volume {PSP_AUDIO_VOLUME_MAX};
-static volatile u32 sound_status {0};
+s32 sound_channel {PSP_AUDIO_NEXT_CHANNEL};
+ s32 sound_volume {PSP_AUDIO_VOLUME_MAX};
+u32 sound_status {0};
 
-static volatile int pcmflip {0};
-static s16 __attribute__((aligned(16))) pcmout1[PSP_NUM_SAMPLES * 2]; // # of stereo samples
-static s16 __attribute__((aligned(16))) pcmout2[PSP_NUM_SAMPLES * 2];
+int pcmflip {0};
+s16 __attribute__((aligned(16))) pcmout1[PSP_NUM_SAMPLES * 2]; // # of stereo samples
+s16 __attribute__((aligned(16))) pcmout2[PSP_NUM_SAMPLES * 2];
 
-static bool audio_open {false};
+bool audio_open {false};
 
 static AudioOutput * ac;
 
-static int fillBuffer(SceSize args, void *argp)
+int fillBuffer(SceSize args, void *argp)
 {
 	s16 *fillbuf {0};
 
@@ -82,7 +82,7 @@ static int fillBuffer(SceSize args, void *argp)
 	return 0;
 }
 
-static int audioOutput(SceSize args, void *argp)
+int audioOutput(SceSize args, void *argp)
 {
 	s16 *playbuf {0};
 
@@ -97,7 +97,7 @@ static int audioOutput(SceSize args, void *argp)
 	return 0;
 }
 
-static void AudioInit()
+void AudioInit()
 {
 	// Init semaphore
 	bufferEmpty = sceKernelCreateSema("Buffer Empty", 0, 1, 1, 0);
@@ -133,7 +133,7 @@ static void AudioInit()
 	audio_open = true;
 }
 
-static void AudioExit()
+void AudioExit()
 {
 	// Stop stream
 	if (audio_open)
