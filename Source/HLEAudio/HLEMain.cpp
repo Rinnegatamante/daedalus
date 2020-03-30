@@ -28,6 +28,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "stdafx.h"
 #include "audiohle.h"
 #include "AudioHLEProcessor.h"
+#include <cstring>
 
 #include "OSHLE/ultra_sptask.h"
 
@@ -52,6 +53,7 @@ AudioHLEInstruction ABIUnknown [0x20] = { // Unknown ABI
 //				 60% of all games use this.  Distributed 3rd Party ABI
 //
 extern AudioHLEInstruction ABI1[0x20];
+extern AudioHLEInstruction ABI1GE[0x20];
 //---------------------------------------------------------------------------------------------
 //
 //     ABI 2 : WaveRace JAP, MarioKart 64, Mario64 JAP RumbleEdition,
@@ -64,30 +66,33 @@ extern AudioHLEInstruction ABI2[0x20];
 //				 All RARE games except Golden Eye 007
 //
 extern AudioHLEInstruction ABI3[0x20];
+
 //---------------------------------------------------------------------------------------------
 //
 //     ABI 5 : Factor 5 - MoSys/MusyX
 //				 Rogue Squadron, Tarzan, Hydro Thunder, and TWINE
 //				 Indiana Jones and Battle for Naboo (?)
 //---------------------------------------------------------------------------------------------
+
 //
 // Below functions were updated
 //
 
 
 AudioHLEInstruction *ABI = ABIUnknown;
-bool bAudioChanged = false;
-extern bool isMKABI;
-extern bool isZeldaABI;
+//bool bAudioChanged = false;
+bool isZeldaABI = false;
+bool isMKABI = false;
 
 //*****************************************************************************
 //
 //*****************************************************************************
 void Audio_Reset()
 {
-	bAudioChanged = false;
-	isMKABI		  = false;
-	isZeldaABI	  = false;
+//	bAudioChanged = false;
+	// XXX Not sure why these are set on reset.
+//	isMKABI		  = false;
+//	isZeldaABI	  = false;
 }
 
 //*****************************************************************************
@@ -95,21 +100,85 @@ void Audio_Reset()
 //*****************************************************************************
 inline void Audio_Ucode_Detect(OSTask * pTask)
 {
+	//		bAudioChanged = false;
 	u8* p_base = g_pu8RamBase + (u32)pTask->t.ucode_data;
 	if (*(u32*)(p_base + 0) != 0x01)
 	{
-		if (*(u32*)(p_base + 0x10) == 0x00000001)
-			ABI = ABIUnknown;
-		else
-			ABI = ABI3;
-	}
-	else
+	switch (*(u32*)(p_base + (0x10)))
 	{
-		if (*(u32*)(p_base + 0x30) == 0xF0000F00)
-			ABI = ABI1;
-		else
-			ABI = ABI2;
+		case 0x00000001: // MusyX v1
+		// RogueSquadron, ResidentEvil2, PolarisSnoCross,
+		// TheWorldIsNotEnough, RugratsInParis, NBAShowTime,
+		// HydroThunder, Tarzan, GauntletLegend, Rush2049
+//		ProcessMusyX_v1();
+		return;
+	default:
+		return;
+
+	case 0x0000127c:  break; // naudio (many games)
+	case 0x00001280:  break; // BanjoKazooie
+	case 0x1c58126c:  break; // DonkeyKong
+	case 0x1ae8143c:  break; // BanjoTooie, JetForceGemini, MickeySpeedWayUSA, PerfectDark
+	case 0x1ab0140c:  break; // ConkerBadFurDay
+}
+memcpy(ABI, ABI3, NUM_ABI_COMMANDS * sizeof(p_base));
+}
+else
+{
+	if (*(u32*)(p_base + (0x30)) == 0xF0000F00)
+	{
+			switch (*(u32*)(p_base + (0x28)))
+		{
+		case 0x1e24138c:
+			memcpy(ABI, ABI1, NUM_ABI_COMMANDS * sizeof(p_base));
+			break;
+		case 0x1dc8138c: // GoldenEye
+			memcpy(ABI, ABI1GE, NUM_ABI_COMMANDS * sizeof(p_base));
+			break;
+		case 0x1e3c1390: // BlastCorp, DiddyKongRacing
+			memcpy(ABI, ABI1GE, NUM_ABI_COMMANDS * sizeof(p_base));
+			break;
+		default: return;
+		}
 	}
+else
+{
+	switch (*(u32*)(p_base + (0x10))) // ABI2 and MusyX
+	{
+		case 0x00010010: // MusyX v2 (IndianaJones, BattleForNaboo)
+	//		ProcessMusyX_v2();
+			return;
+		default:
+			return;
+
+		case 0x11181350:  break; // MarioKart, WaveRace (E)
+		case 0x111812e0:  break; // StarFox (J)
+		case 0x110412ac:  break; // WaveRace (J RevB)
+		case 0x110412cc:  break; // StarFox/LylatWars (except J)
+		case 0x1cd01250:  break; // FZeroX
+		case 0x1f08122c:  break; // YoshisStory
+		case 0x1f38122c:  break; // 1080� Snowboarding
+		case 0x1f681230:  break; // Zelda OoT / Zelda MM (J, J RevA)
+		case 0x1f801250:  break; // Zelda MM (except J, J RevA, E Beta), PokemonStadium 2
+		case 0x109411f8:  break; // Zelda MM (E Beta)
+		case 0x1eac11b8:  break; // AnimalCrossing
+	}
+	memcpy(ABI, ABI2, NUM_ABI_COMMANDS * sizeof(AudioHLEInstruction));
+}
+}
+
+	// 	if (*(u32*)(p_base + 0x10) == 0x00000001)
+	// 		ABI = ABIUnknown;
+	// 	else
+	// 		ABI = ABI3;
+	// }
+	// else
+	// {
+	// 	if (*(u32*)(p_base + 0x30) == 0xF0000F00)
+	// 		ABI = ABI1;
+	// 	else
+	// 		ABI = ABI2;
+	// }
 }
 
 //*****************************************************************************
@@ -123,11 +192,11 @@ void Audio_Ucode()
 	OSTask * pTask = (OSTask *)(g_pu8SpMemBase + 0x0FC0);
 
 	// Only detect ABI once per game
-	if ( !bAudioChanged )
-	{
-		bAudioChanged = true;
+	// if ( !bAudioChanged )
+	// {
+	// 	bAudioChanged = true;
 		Audio_Ucode_Detect( pTask );
-	}
+	// }
 
 	gAudioHLEState.LoopVal = 0;
 	//memset( gAudioHLEState.Segments, 0, sizeof( gAudioHLEState.Segments ) );

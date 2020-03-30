@@ -33,13 +33,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 // Disables the command because it's not used?
 static void DISABLE (AudioHLECommand command) {}
 static void WHATISTHIS (AudioHLECommand command) {}
+extern void MP3ADDY (AudioHLECommand command) {}
 
-static void MP3ADDY(AudioHLECommand command)
- {
- //	setaddr = (command.cmd1 & 0xffffff);
- }
-
-AudioHLEInstruction ABI3[0x20] =
+AudioHLEInstruction ABI3[NUM_ABI_COMMANDS] =
 {
     DISABLE   ,ADPCM3    ,CLEARBUFF3,ENVMIXER3 ,LOADBUFF3 ,RESAMPLE3 ,SAVEBUFF3 ,MP3       ,
     MP3ADDY   ,SETVOL3   ,DMEMMOVE3 ,LOADADPCM3,MIXER3   ,INTERLEAVE3,WHATISTHIS,SETLOOP3  ,

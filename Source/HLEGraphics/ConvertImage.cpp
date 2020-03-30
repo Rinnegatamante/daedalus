@@ -298,8 +298,7 @@ struct SConvert
 		case TexFmt_4444:	ConvertTextureT< NativePf4444 >( dsti, ti ); return;
 		case TexFmt_8888:	ConvertTextureT< NativePf8888 >( dsti, ti ); return;
 
-		case TexFmt_CI4_8888: break;
-		case TexFmt_CI8_8888: break;
+		default: break;
 
 		}
 		#ifdef DAEDALUS_DEBUG_CONSOLE
@@ -360,8 +359,7 @@ struct SConvertIA4
 		case TexFmt_4444:	ConvertTextureT< NativePf4444 >( dsti, ti ); return;
 		case TexFmt_8888:	ConvertTextureT< NativePf8888 >( dsti, ti ); return;
 
-		case TexFmt_CI4_8888: break;
-		case TexFmt_CI8_8888: break;
+		default: break;
 
 		}
 		#ifdef DAEDALUS_DEBUG_CONSOLE
@@ -424,9 +422,7 @@ struct SConvertI4
 		case TexFmt_4444:	ConvertTextureT< NativePf4444 >( dsti, ti ); return;
 		case TexFmt_8888:	ConvertTextureT< NativePf8888 >( dsti, ti ); return;
 
-		case TexFmt_CI4_8888: break;
-		case TexFmt_CI8_8888: break;
-
+		default: break;
 		}
 		#ifdef DAEDALUS_DEBUG_CONSOLE
 		DAEDALUS_DL_ERROR( "Unhandled format" );
@@ -597,11 +593,14 @@ static void ConvertCI8(const TextureDestInfo & dsti, const TextureInfo & ti)
 							   ConvertCI8_Row< 0x3 > );
 		break;
 
-#ifdef DAEDALUS_DEBUG_CONSOLE
+
+
 	default:
+#ifdef DAEDALUS_DEBUG_CONSOLE
 		DAEDALUS_ERROR( "Unhandled format for CI8 textures" );
-		break;
 		#endif
+		break;
+
 	}
 }
 
@@ -631,11 +630,13 @@ static void ConvertCI4(const TextureDestInfo & dsti, const TextureInfo & ti)
 							   ConvertCI4_Row< 0x3 > );
 		break;
 
-#ifdef DAEDALUS_DEBUG_CONSOLE
+
 	default:
+	#ifdef DAEDALUS_DEBUG_CONSOLE
 		DAEDALUS_ERROR( "Unhandled format for CI4 textures" );
+			#endif
 		break;
-		#endif
+
 	}
 }
 

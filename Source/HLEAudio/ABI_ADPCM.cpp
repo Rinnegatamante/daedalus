@@ -10,9 +10,6 @@
 
 #include "Debug/DBGConsole.h"
 
-extern bool isMKABI;
-extern bool isZeldaABI;
-
 void ADPCM(AudioHLECommand command)
 {
   u8		flags( command.Abi1ADPCM.Flags );

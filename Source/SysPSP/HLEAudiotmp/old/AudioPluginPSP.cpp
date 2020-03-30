@@ -103,7 +103,6 @@ bool		CAudioPluginPsp::StartEmulation()
 //*****************************************************************************
 void	CAudioPluginPsp::StopEmulation()
 {
-	Audio_Reset();
 	mAudioOutput->StopAudio();
 }
 

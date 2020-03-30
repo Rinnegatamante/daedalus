@@ -10,8 +10,6 @@
 
 #include "Debug/DBGConsole.h"
 
-extern bool isMKABI;
-extern bool isZeldaABI;
 
 inline u16 Sample_Mask( u32 x )
 {
@@ -191,9 +189,7 @@ void SEGMENT( AudioHLECommand command )
 
 void SEGMENT2( AudioHLECommand command )
 {
-	#ifdef DEBUG_AUDIO
-		DBGConsole_Msg(0, "SEGMENT2");
-		#endif
+
   if (isZeldaABI) {
 		FILTER2( command );
 		return;

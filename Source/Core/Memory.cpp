@@ -684,8 +684,9 @@ void MemoryUpdateSPStatus( u32 flags )
 	set_bits |= (flags & SP_SET_SIG6) >> 9;
 	set_bits |= (flags & SP_SET_SIG7) >> 10;
 
+	#ifdef DAEDALUS_DEBUG_CONSOLE
 	u32 new_status = Memory_SP_SetRegisterBits( SP_STATUS_REG, ~clr_bits, set_bits );
-
+	#endif
 	//
 	// We execute the task here, after we've written to the SP status register.
 	//

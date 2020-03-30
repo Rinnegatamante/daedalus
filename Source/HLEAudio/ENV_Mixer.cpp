@@ -10,8 +10,6 @@
 
 #include "Debug/DBGConsole.h"
 
-extern bool isMKABI;
-extern bool isZeldaABI;
 
 static u32 gEnv_t3 {}, gEnv_s5 {}, gEnv_s6 {};
 static u16 env[8] {};

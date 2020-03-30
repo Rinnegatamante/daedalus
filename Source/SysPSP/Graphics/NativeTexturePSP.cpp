@@ -283,39 +283,38 @@ CNativeTexture::CNativeTexture( u32 w, u32 h, ETextureFormat texture_format )
 	mScale.x = 1.0f / mCorrectedWidth;
 	mScale.y = 1.0f / mCorrectedHeight;
 
-	u32		bytes_required( GetBytesRequired() );
+
+	u32		bytes_required{GetBytesRequired()};
 
 	if( !CVideoMemoryManager::Get()->Alloc( bytes_required, &mpData, &mIsDataVidMem ) )
 	{
-			#ifdef DAEDALUS_DEBUG_CONSOLE
+		#ifdef DAEDALUS_DEBUG_CONSOLE
 		DAEDALUS_ERROR( "Out of memory for texels ( %d bytes)", bytes_required );
-		#endif
+			#endif
 	}
 	switch( texture_format )
 	{
 	case TexFmt_CI4_8888:
 		if( !CVideoMemoryManager::Get()->Alloc( kPalette4BytesRequired, &mpPalette, &mIsPaletteVidMem ) )
 		{
-				#ifdef DAEDALUS_DEBUG_CONSOLE
+			#ifdef DAEDALUS_DEBUG_CONSOLE
 			DAEDALUS_ERROR( "Out of memory for 4-bit palette, %d bytes", kPalette4BytesRequired );
-			#endif
+				#endif
 		}
 		break;
 
 	case TexFmt_CI8_8888:
 		if( !CVideoMemoryManager::Get()->Alloc( kPalette8BytesRequired, &mpPalette, &mIsPaletteVidMem ) )
-		{
-			#ifdef DAEDALUS_DEBUG_CONSOLE
-			DAEDALUS_ERROR( "Out of memory for 8-bit palette, %d bytes", kPalette8BytesRequired );
-			#endif
-		}
+		{}
 		break;
-#ifdef DAEDALUS_ENABLE_ASSERTS
+
 	default:
+	#ifdef DAEDALUS_DEBUG_CONSOLE
 		DAEDALUS_ASSERT( !IsTextureFormatPalettised( texture_format ), "Unhandled palette texture" );
-		break;
-		#endif
+			#endif
+				break;
 	}
+
 }
 
 //*****************************************************************************
@@ -374,11 +373,13 @@ void	CNativeTexture::InstallTexture() const
 			sceGuClutLoad( 256/8, mpPalette );
 			break;
 
-		#ifdef DAEDALUS_ENABLE_ASSERTS
+
 		default:
+				#ifdef DAEDALUS_ENABLE_ASSERTS
 			DAEDALUS_ASSERT( !IsTextureFormatPalettised( mTextureFormat ), "Unhandled palette texture" );
-			break;
 			#endif
+			break;
+
 		}
 	}
 }

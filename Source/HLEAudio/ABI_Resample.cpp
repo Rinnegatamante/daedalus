@@ -10,9 +10,6 @@
 
 #include "Debug/DBGConsole.h"
 
-extern bool isMKABI;
-extern bool isZeldaABI;
-
 inline s32		FixedPointMul16( s32 a, s32 b )
 {
 	return s32( ( a * b ) >> 16 );
