@@ -55,8 +55,8 @@ const u32	PSP_NUM_SAMPLES {512};
 // Global variables
 SceUID bufferEmpty {};
 
-s32 sound_channel {PSP_AUDIO_NEXT_CHANNEL};
- s32 sound_volume {PSP_AUDIO_VOLUME_MAX};
+auto sound_channel {PSP_AUDIO_NEXT_CHANNEL};
+auto sound_volume {PSP_AUDIO_VOLUME_MAX};
 u32 sound_status {0};
 
 int pcmflip {0};

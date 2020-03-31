@@ -123,13 +123,13 @@ Possible Blending Factors:
 //*****************************************************************************
 //
 //*****************************************************************************
-const char * sc_szBlClr[4] = { "In",  "Mem",  "Bl",     "Fog" };
-const char * sc_szBlA1[4]  = { "AIn", "AFog", "AShade", "0" };
-const char * sc_szBlA2[4]  = { "1-A", "AMem", "1",      "?" };
+const auto * sc_szBlClr[4] { "In",  "Mem",  "Bl",     "Fog" };
+const auto * sc_szBlA1[4]  { "AIn", "AFog", "AShade", "0" };
+const auto * sc_szBlA2[4]  { "1-A", "AMem", "1",      "?" };
 
 inline void DebugBlender( u32 blender )
 {
-	static u32 mBlender = 0;
+	static u32 mBlender {};
 
 	if(mBlender != blender)
 	{

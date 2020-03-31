@@ -74,29 +74,23 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //#define GU_ABS			(5)
 
 
-//*****************************************************************************
-//
-//*****************************************************************************
+
 CAlphaRenderSettings::CAlphaRenderSettings( const char * description )
 :	mDescription( description )
 ,	mInexact( false )
 ,	mUsesTexel0( false )
 ,	mUsesTexel1( false )
-,	mConstantExpression( NULL )
+,	mConstantExpression( nullptr )
 {
 }
 
-//*****************************************************************************
-//
-//*****************************************************************************
+
 CAlphaRenderSettings::~CAlphaRenderSettings()
 {
 	delete mConstantExpression;
 }
 
-//*****************************************************************************
-//
-//*****************************************************************************
+
 void	CAlphaRenderSettings::AddTermTexel0()
 {
 	if( mUsesTexel0 || mUsesTexel1 )
@@ -106,9 +100,7 @@ void	CAlphaRenderSettings::AddTermTexel0()
 	mUsesTexel0 = true;
 }
 
-//*****************************************************************************
-//
-//*****************************************************************************
+
 void	CAlphaRenderSettings::AddTermTexel1()
 {
 	if( mUsesTexel0 || mUsesTexel1 )
@@ -118,12 +110,10 @@ void	CAlphaRenderSettings::AddTermTexel1()
 	mUsesTexel1 = true;
 }
 
-//*****************************************************************************
-//
-//*****************************************************************************
+
 void	CAlphaRenderSettings::AddTermConstant( const CBlendConstantExpression * constant_expression )
 {
-	if( mConstantExpression != NULL )
+	if( mConstantExpression != nullptr )
 	{
 		mConstantExpression = new CBlendConstantExpressionMul( mConstantExpression, constant_expression );
 	}
@@ -133,20 +123,16 @@ void	CAlphaRenderSettings::AddTermConstant( const CBlendConstantExpression * con
 	}
 }
 
-//*****************************************************************************
-//
-//*****************************************************************************
+
 void	CAlphaRenderSettings::Finalise()
 {
-	if( mConstantExpression == NULL )
+	if( mConstantExpression == nullptr )
 	{
 		mConstantExpression = new CBlendConstantExpressionValue( BC_1 );
 	}
 }
 
-//*****************************************************************************
-//
-//*****************************************************************************
+
 void		CAlphaRenderSettings::Apply( bool texture_installed, const SRenderState & state, SRenderStateOut & out ) const
 {
 	out.VertexExpressionA = mConstantExpression;
@@ -164,9 +150,7 @@ void		CAlphaRenderSettings::Apply( bool texture_installed, const SRenderState & 
 	}
 }
 #ifdef DAEDALUS_DEBUG_DISPLAYLIST
-//*****************************************************************************
-//
-//*****************************************************************************
+
 void		CAlphaRenderSettings::Print( bool texture_installed ) const
 {
 	DAEDALUS_ASSERT( mConstantExpression != NULL, "Should always have settings" );
@@ -185,29 +169,23 @@ void		CAlphaRenderSettings::Print( bool texture_installed ) const
 }
 
 #endif
-//*****************************************************************************
-//
-//*****************************************************************************
+
 CRenderSettingsModulate::CRenderSettingsModulate( const char * description )
 	:	CRenderSettings( description )
-	,	mConstantExpression( NULL )
+	,	mConstantExpression( nullptr )
 	,	mUsesTexel0( false )
 	,	mUsesTexel1( false )
 	,	mInexact( false )
 {
 }
 
-//*****************************************************************************
-//
-//*****************************************************************************
+
 CRenderSettingsModulate::~CRenderSettingsModulate()
 {
 	delete mConstantExpression;
 }
 
-//*****************************************************************************
-//
-//*****************************************************************************
+
 void	CRenderSettingsModulate::AddTermTexel0()
 {
 	if( mUsesTexel0 )
@@ -217,9 +195,7 @@ void	CRenderSettingsModulate::AddTermTexel0()
 	mUsesTexel0 = true;
 }
 
-//*****************************************************************************
-//
-//*****************************************************************************
+
 void	CRenderSettingsModulate::AddTermTexel1()
 {
 	if( mUsesTexel0 || mUsesTexel1 )
@@ -229,9 +205,7 @@ void	CRenderSettingsModulate::AddTermTexel1()
 	mUsesTexel1 = true;
 }
 
-//*****************************************************************************
-//
-//*****************************************************************************
+
 void	CRenderSettingsModulate::AddTermConstant( const CBlendConstantExpression * constant_expression )
 {
 	if( mConstantExpression != NULL )
@@ -244,16 +218,12 @@ void	CRenderSettingsModulate::AddTermConstant( const CBlendConstantExpression * 
 	}
 }
 
-//*****************************************************************************
-//
-//*****************************************************************************
+
 void	CRenderSettingsModulate::Finalise()
 {
 }
 
-//*****************************************************************************
-//
-//*****************************************************************************
+
 void		CRenderSettingsModulate::Apply( bool texture_installed, const SRenderState & state, SRenderStateOut & out ) const
 {
 	out.VertexExpressionRGB = mConstantExpression;
@@ -270,7 +240,7 @@ void		CRenderSettingsModulate::Apply( bool texture_installed, const SRenderState
 			out.MakeTextureWhite = true;
 		}
 
-		if( mConstantExpression != NULL )
+		if( mConstantExpression != nullptr )
 		{
 			out.BlendMode = PBM_MODULATE;
 		}
@@ -290,9 +260,7 @@ void		CRenderSettingsModulate::Apply( bool texture_installed, const SRenderState
 	}
 }
 #ifdef DAEDALUS_DEBUG_DISPLAYLIST
-//*****************************************************************************
-//
-//*****************************************************************************
+
 void		CRenderSettingsModulate::Print( bool texture_installed ) const
 {
 	if( texture_installed )
@@ -303,7 +271,7 @@ void		CRenderSettingsModulate::Print( bool texture_installed ) const
 			printf( "    Need white texture\n" );
 		}
 
-		if( mConstantExpression != NULL )
+		if( mConstantExpression != nullptr )
 		{
 			// Replace vertex shade colour with modulate_colour
 			printf( "    GU_TFX_MODULATE, diffuse_rgb := %s\n", mConstantExpression->ToString().c_str() );
@@ -316,7 +284,7 @@ void		CRenderSettingsModulate::Print( bool texture_installed ) const
 	else
 	{
 		// Disable texturing
-		if( mConstantExpression != NULL )
+		if( mConstantExpression != nullptr )
 		{
 			// Replace vertex shade colour with modulate_colour
 			printf( "    No tex, diffuse_rgb := %s\n", mConstantExpression->ToString().c_str() );
@@ -330,9 +298,7 @@ void		CRenderSettingsModulate::Print( bool texture_installed ) const
 }
 
 #endif
-//*****************************************************************************
-//
-//*****************************************************************************
+
 CRenderSettingsBlend::CRenderSettingsBlend( const char * description, const CBlendConstantExpression * a, const CBlendConstantExpression * b )
 	:	CRenderSettings( description )
 	,	mConstantExpressionA( a )
@@ -341,9 +307,7 @@ CRenderSettingsBlend::CRenderSettingsBlend( const char * description, const CBle
 {
 }
 
-//*****************************************************************************
-//
-//*****************************************************************************
+
 CRenderSettingsBlend::~CRenderSettingsBlend()
 {
 	delete mConstantExpressionA;
@@ -351,9 +315,7 @@ CRenderSettingsBlend::~CRenderSettingsBlend()
 }
 
 
-//*****************************************************************************
-//
-//*****************************************************************************
+
 void		CRenderSettingsBlend::Apply( bool texture_installed, const SRenderState & state, SRenderStateOut & out ) const
 {
 	#ifdef DAEDALUS_ENABLE_ASSERTS
@@ -368,9 +330,7 @@ void		CRenderSettingsBlend::Apply( bool texture_installed, const SRenderState & 
 	out.BlendMode = PBM_BLEND;
 }
 #ifdef DAEDALUS_DEBUG_DISPLAYLIST
-//*****************************************************************************
-//
-//*****************************************************************************
+
 void		CRenderSettingsBlend::Print( bool texture_installed ) const
 {
 	std::string		mod_str_a( mConstantExpressionA->ToString() );
@@ -381,18 +341,14 @@ void		CRenderSettingsBlend::Print( bool texture_installed ) const
 }
 
 #endif
-//*****************************************************************************
-//
-//*****************************************************************************
+
 CBlendStates::CBlendStates()
-:	mAlphaSettings( NULL )
+:	mAlphaSettings( nullptr )
 {
 
 }
 
-//*****************************************************************************
-//
-//*****************************************************************************
+
 CBlendStates::~CBlendStates()
 {
 	delete mAlphaSettings;
@@ -402,9 +358,7 @@ CBlendStates::~CBlendStates()
 	}
 }
 
-//*****************************************************************************
-//
-//*****************************************************************************
+
 bool	CBlendStates::IsInexact() const
 {
 	if(mAlphaSettings->IsInexact())
@@ -426,9 +380,7 @@ bool	CBlendStates::IsInexact() const
 }
 
 #ifdef DAEDALUS_DEBUG_DISPLAYLIST
-//*****************************************************************************
-//
-//*****************************************************************************
+
 void	CBlendStates::Print() const
 {
 	if(mAlphaSettings->IsInexact())
@@ -440,12 +392,12 @@ void	CBlendStates::Print() const
 		printf( "Alpha: %s\n", mAlphaSettings->GetDescription() );
 	}
 
-	for( u32 i = 0; i < mColourSettings.size(); ++i )
+	for( u32 i {}; i < mColourSettings.size(); ++i )
 	{
 		const CRenderSettings *		settings( mColourSettings[ i ] );
 
-		bool		install_texture0( settings->UsesTexture0() || mAlphaSettings->UsesTexture0() );
-		bool		install_texture1( settings->UsesTexture1() || mAlphaSettings->UsesTexture1() );
+		bool	install_texture0{ settings->UsesTexture0() || mAlphaSettings->UsesTexture0() };
+		bool	install_texture1{ settings->UsesTexture1() || mAlphaSettings->UsesTexture1() };
 
 		if( settings->IsInexact() || (install_texture0 && install_texture1) )
 		{

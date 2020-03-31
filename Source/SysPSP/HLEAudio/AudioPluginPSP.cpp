@@ -68,7 +68,7 @@ CAudioPluginPSP::~CAudioPluginPSP()
 }
 
 
-CAudioPluginPSP *	CAudioPluginPSP::Create()
+CAudioPluginPSP *CAudioPluginPSP::Create()
 {
 	return new CAudioPluginPSP();
 }
@@ -88,9 +88,9 @@ void	CAudioPluginPSP::StopEmulation()
 void	CAudioPluginPSP::DacrateChanged( int SystemType )
 {
 //	printf( "DacrateChanged( %s )\n", (SystemType == ST_NTSC) ? "NTSC" : "PAL" );
-	u32 type {(u32)((SystemType == ST_NTSC) ? VI_NTSC_CLOCK : VI_PAL_CLOCK)};
-	u32 dacrate {Memory_AI_GetRegister(AI_DACRATE_REG)};
-	u32	frequency {type / (dacrate + 1)};
+	auto type {(u32)((SystemType == ST_NTSC) ? VI_NTSC_CLOCK : VI_PAL_CLOCK)};
+	auto dacrate {Memory_AI_GetRegister(AI_DACRATE_REG)};
+	auto	frequency {type / (dacrate + 1)};
 
 	mAudioOutput->SetFrequency( frequency );
 }
@@ -103,8 +103,8 @@ void	CAudioPluginPSP::LenChanged()
 	{
 		//mAudioOutput->SetAdaptFrequency( gAdaptFrequency );
 
-		u32		address( Memory_AI_GetRegister(AI_DRAM_ADDR_REG) & 0xFFFFFF );
-		u32		length(Memory_AI_GetRegister(AI_LEN_REG));
+		auto		address( Memory_AI_GetRegister(AI_DRAM_ADDR_REG) & 0xFFFFFF );
+		auto		length(Memory_AI_GetRegister(AI_LEN_REG));
 
 		mAudioOutput->AddBuffer( g_pu8RamBase + address, length );
 
@@ -125,12 +125,12 @@ struct SHLEStartJob : public SJob
 {
 	SHLEStartJob()
 	{
-		 InitJob = NULL;
+		 InitJob = nullptr;
 		 DoJob = &DoHLEStartStatic;
 		 FiniJob = &DoHLEFinishedStatic;
 	}
 
-	static int DoHLEStartStatic( SJob * arg )
+static int DoHLEStartStatic( SJob * arg )
 	{
 		 SHLEStartJob *  job( static_cast< SHLEStartJob * >( arg ) );
 		 return job->DoHLEStart();

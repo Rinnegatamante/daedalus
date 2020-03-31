@@ -45,8 +45,8 @@ extern void HandleEndOfFrame();
 
 extern bool gFrameskipActive;
 
-u32		gSoundSync {44100};
-u32		gVISyncRate {1500};
+auto		gSoundSync {44100};
+auto		gVISyncRate {1500};
 bool	gTakeScreenshot {false};
 bool	gTakeScreenshotSS {false};
 
@@ -57,7 +57,7 @@ namespace
 	//u32					gVblCount = 0;
 	u32					gFlipCount {};
 	//float				gCurrentVblrate = 0.0f;
-	float				gCurrentFramerate {0.0f};
+	auto				gCurrentFramerate {0.0f};
 	u64					gLastFramerateCalcTime {};
 	u64					gTicksPerSecond {};
 
@@ -96,7 +96,7 @@ static void	UpdateFramerate()
 #endif
 
 	// If 1 second has elapsed since last recalculation, do it now
-	u64		ticks_since_recalc( now - gLastFramerateCalcTime );
+	u64		ticks_since_recalc {now - gLastFramerateCalcTime} ;
 	if(ticks_since_recalc > gTicksPerSecond)
 	{
 		//gCurrentVblrate = float( gVblCount * gTicksPerSecond ) / float( ticks_since_recalc );
@@ -180,7 +180,7 @@ void CGraphicsPluginImpl::UpdateScreen()
 	//gVblCount++;
 
 	static u32		last_origin {};
-	u32 current_origin = Memory_VI_GetRegister(VI_ORIGIN_REG);
+	auto current_origin = Memory_VI_GetRegister(VI_ORIGIN_REG);
 	static bool Old_FrameskipActive {false};
 	static bool Older_FrameskipActive {false};
 
@@ -190,10 +190,10 @@ void CGraphicsPluginImpl::UpdateScreen()
 		if( gGlobalPreferences.DisplayFramerate )
 			UpdateFramerate();
 
-		const f32 Fsync = FramerateLimiter_GetSync();
+		const auto Fsync = FramerateLimiter_GetSync();
 
 		//Calc sync rates for audio and game speed //Corn
-		const f32 inv_Fsync {1.0f / Fsync};
+		const auto inv_Fsync {1.0f / Fsync};
 		gSoundSync = {(u32)(44100.0f * inv_Fsync)};
 		gVISyncRate = {(u32)(1500.0f * inv_Fsync)};
 		if( gVISyncRate > 4000 ) gVISyncRate = 4000;

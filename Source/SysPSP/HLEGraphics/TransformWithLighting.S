@@ -30,18 +30,18 @@
 	lv.q		R101, 16($a1)
 	lv.q		R102, 32($a1)
 	lv.q		R103, 48($a1)
-	
+
 	lv.q		R700, PARAMS_AMBIENT($t1)		// Load ambient
 	lv.q		R701, PARAMS_FOG_TXSCAL($t1)	// Load params [fog_m, fog_o, tscale_x, tscale_y]
-	
+
 	# Load 1/256 (vuc2i/vi2f end up converting 0xff to 256.0)
 	vfim.s		S400, 0.00390625
-	
+
 	# Calculate the last light index
 	or			$t6, $t2, $0		// first_light = p_lights
 	sll			$t7, $t3, 5			// num_lights*32
 	addu		$t7, $t6, $t7		// last_light = p_lights + num_lights*32
-	
+
 	sll			$t0, $t0, 4			// count = count * 16
 	addu		$t0, $a2, $t0		// end_ptr = start_ptr + count * 16
 
@@ -58,10 +58,10 @@ next_vertex_\function:
 
 	vtfm4.q		R201, M000, R200			// World transform
 	vtfm4.q		R202, M100, R200			// Projection transform
-	
+
 	sv.q		R201, 0($a3)				// Store world transform
 	sv.q		R202, 16($a3)				// Store projection transform
-	
+
 .if \fog_mode == 1
 	#	Calculate the Colour alpha value from the foq. We do this while the projected point
 	#	is still loaded, and merge it in after the rgb components are calculated by the lighting calc below
@@ -81,8 +81,8 @@ next_vertex_\function:
 	vnop
 	mfvc		$t4, $131					// VFPU_CC. Corresponds to X_NEG/Y_NEG/Z_NEG (will become X_POS/Y_POS/Z_POS later)
 	andi		$t4, $t4, 0x7				// Mask out the condition codes we don't care about
-	sll			$t4, $t4, 3					// Shift up to create X_POS/Y_POS/Z_POS	
-	
+	sll			$t4, $t4, 3					// Shift up to create X_POS/Y_POS/Z_POS
+
 	vcmp.q		GT, R202, R202[w,w,w,0]		// x > w, y > w, z > w
 	vnop
 	mfvc		$t5, $131					// VFPU_CC. Corresponds to X_NEG/Y_NEG/Z_NEG
@@ -90,21 +90,21 @@ next_vertex_\function:
 	or			$t4, $t4, $t5
 
 	sw			$t4, 56($a3)				// Store ClipFlags
-	
-	
+
+
 	# Convert the alpha in R200 to float and pass it along to light color
 	lv.s		S200, 12($a2)				// load normal word [w,z,y,x]
 	.word		0xd0380000 | (8<<8) | (43)	// vuc2i.s	R203, S200					// R200 = [?,z,y,x]
 	vi2f.s		S203, S203, 23				// int -> float
 	vmul.s		S431, S400, S203			// R431 = [a * 1/256]
-	
+
 	# Convert the normal in R200 to float and transform
 	.word		0xd0398080 | (8<<8) | (40)	// vc2i.s		R200, S200					// R200 = [?,z,y,x]
 	vi2f.q		R200, R200, 0				// int -> float (obliterates world transform)
 	vmov.q		R201, R200[w,z,y,0]			// Unfiddle
 	vmov.q		R203, R201					// store vertice normal temporary for env map later
 	vtfm3.t		R200, M000, R201			// Transform with world matrix (only need 3x3)//Corn
-	
+
 	vdot.t		S201, R200, R200			// S201 = x*x + y*y + z*z
 	vrsq.s		S201, S201					// S201 = 1/sqrt(x*x + y*y + z*z)
 	vscl.t		R200, R200, S201			// S200 = v.normalise().
@@ -124,7 +124,7 @@ next_vertex_\function:
 	vmul.q		R202, R202, R701[w,z,0,0]	// multiply by mTextureScale
 	sv.s		S212, 0x30($a3)				// Store Texture.x
 	sv.s		S202, 0x34($a3)				// Store Texture.y
-	
+
 
 .elseif \texture_mode == 2
 # EnvMapped G_TEXTURE_GEN_LINEAR
@@ -176,13 +176,13 @@ next_vertex_\function:
 	vmul.p		R202, R202[1/2,1/2], R202			// X * 0.5, Y * 0.25
 	sv.s		S202, 0x30($a3)						// Store Texture.x
 	sv.s		S212, 0x34($a3)						// Store Texture.y
-	
+
 .endif
 
 	# Lighting calculation
 	# M000: World Matrix
 	# M100: Projection Matrix
-	# R200: Material normal 
+	# R200: Material normal
 	# R201: Accumulated colour
 	# R202: ?
 	# R203: ?
@@ -198,7 +198,7 @@ next_vertex_\function:
 	# t4 = cur_light
 	# t6 = first_light
 	# t7 = last_light
-	
+
 	vmov.q		R201, R700					// Colour = ambient
 
 	beq			$t6, $t7, done_lighting_\function		// cur_light == last_light?
@@ -216,13 +216,13 @@ next_light_\function:
 
 done_lighting_\function:
 	vmov.t		R401[0:1,0:1,0:1], R201		// Clamp 0..1 and merge with vertex alpha in S431
-	
+
 .if \fog_mode == 1
 	# Merge in the computed fog colour
 	vmov.s		S431, S600
 .endif
 
-	
+
 	addiu		$a2, $a2, 16				// Next input vertex
 	sv.q		R401, 32($a3)				// Store colour
 
@@ -230,7 +230,7 @@ done_lighting_\function:
 	bne			$a2, $t0, next_vertex_\function
 	addiu		$a3, $a3, 64				// Next output vertex
 
-finished_\function:	
+finished_\function:
 	jr			$ra
 	nop
 .endm
@@ -247,22 +247,22 @@ TransformWithLightingM _TransformVerticesWithLighting_f1_t2, 1, 2
 .global _CalcClipFlagsVFPU
 _CalcClipFlagsVFPU:
 	lv.q		R000, 0($a0)		// Load vertex
-	
+
 	vcmp.q		GT, R000[-x,-y,-z,0], R000[w,w,w,0]		//-x>w,-y>w,-z>w
 	vnop
 	mfvc		$v0, $131			// VFPU_CC. Corresponds to X_NEG/Y_NEG/Z_NEG
 	andi		$v0, $v0, 0x7
-	
+
 	vcmp.q		GT, R000, R000[w,w,w,0]					// x>w, y>w, z>w
 	vnop
 	mfvc		$t0, $131			// VFPU_CC. Corresponds to X_NEG/Y_NEG/Z_NEG
 	andi		$t0, $t0, 0x7
-	
+
 	nor			$t1, $v0, $v0		// If X_POS etc is set, don't set X_NEG
 	and			$t0, $t0, $t1		// mask out any values which are already set
 
 
-	sll			$v0, $v0, 3			// Shift up to create X_POS/Y_POS/Z_POS	
+	sll			$v0, $v0, 3			// Shift up to create X_POS/Y_POS/Z_POS
 	jr			$ra
 	or			$v0, $v0, $t0
 

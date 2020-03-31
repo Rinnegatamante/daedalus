@@ -69,8 +69,8 @@ extern u32 gNumInstructionsExecuted;
 //*****************************************************************************
 //
 //*****************************************************************************
-static bool	gDebugDisplayList = false;
-static bool	gSingleStepFrames = false;
+static bool	gDebugDisplayList {false};
+static bool	gSingleStepFrames {false};
 
 
 class CDisplayListDebugger
@@ -98,7 +98,7 @@ bool DLDebugger_Process()
 	// DLParser_Process may set this flag, so check again after execution
 	if(gDebugDisplayList)
 	{
-		CDisplayListDebugger *	debugger = CDisplayListDebugger::Create();
+		CDisplayListDebugger *debugger {CDisplayListDebugger::Create()};
 		debugger->Run();
 		delete debugger;
 		gDebugDisplayList = gSingleStepFrames;

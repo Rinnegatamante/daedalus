@@ -30,8 +30,8 @@
 #define GL_TRUE                           1
 #define GL_FALSE                          0
 
-BaseRenderer * gRenderer    = nullptr;
-RendererPSP  * gRendererPSP = nullptr;
+BaseRenderer *gRenderer    {nullptr};
+RendererPSP  *gRendererPSP {nullptr};
 
 extern void InitBlenderMode( u32 blender );
 
@@ -40,9 +40,9 @@ extern void InitBlenderMode( u32 blender );
 // General blender used for Blend Explorer when debuging Dlists //Corn
 DebugBlendSettings gDBlend;
 
-static const u32 kPlaceholderTextureWidth  = 16;
-static const u32 kPlaceholderTextureHeight = 16;
-static const u32 kPlaceholderSize = kPlaceholderTextureWidth * kPlaceholderTextureHeight;
+static const auto kPlaceholderTextureWidth  {16};
+static const auto kPlaceholderTextureHeight {16};
+static const auto kPlaceholderSize {kPlaceholderTextureWidth * kPlaceholderTextureHeight};
 
 ALIGNED_GLOBAL(u32,       gWhiteTexture[kPlaceholderSize], DATA_ALIGN);
 ALIGNED_GLOBAL(u32, gPlaceholderTexture[kPlaceholderSize], DATA_ALIGN);
@@ -51,7 +51,7 @@ ALIGNED_GLOBAL(u32,    gSelectedTexture[kPlaceholderSize], DATA_ALIGN);
 
 #define BLEND_MODE_MAKER \
 { \
-	const u32 PSPtxtFunc[5] = \
+	const auto PSPtxtFunc[5] = \
 	{ \
 		GU_TFX_MODULATE, \
 		GU_TFX_BLEND, \
@@ -59,7 +59,7 @@ ALIGNED_GLOBAL(u32,    gSelectedTexture[kPlaceholderSize], DATA_ALIGN);
 		GU_TFX_REPLACE, \
 		GU_TFX_DECAL \
 	}; \
-	const u32 PSPtxtA[2] = \
+	const auto PSPtxtA[2] = \
 	{ \
 		GU_TCC_RGB, \
 		GU_TCC_RGBA \
@@ -156,8 +156,8 @@ RendererPSP::RendererPSP()
 	//
 	mCopyBlendStates = new CBlendStates;
 	{
-		CAlphaRenderSettings *	alpha_settings( new CAlphaRenderSettings( "Copy" ) );
-		CRenderSettingsModulate *	colour_settings( new CRenderSettingsModulate( "Copy" ) );
+		CAlphaRenderSettings *alpha_settings {new CAlphaRenderSettings( "Copy" )};
+		CRenderSettingsModulate *colour_settings {new CRenderSettingsModulate( "Copy" )};
 
 		alpha_settings->AddTermTexel0();
 		colour_settings->AddTermTexel0();
@@ -171,8 +171,8 @@ RendererPSP::RendererPSP()
 	//
 	mFillBlendStates = new CBlendStates;
 	{
-		CAlphaRenderSettings *	alpha_settings( new CAlphaRenderSettings( "Fill" ) );
-		CRenderSettingsModulate *	colour_settings( new CRenderSettingsModulate( "Fill" ) );
+		CAlphaRenderSettings *	alpha_settings {new CAlphaRenderSettings( "Fill" )};
+		CRenderSettingsModulate *	colour_settings {new CRenderSettingsModulate( "Fill" )};
 
 		alpha_settings->AddTermConstant( new CBlendConstantExpressionValue( BC_SHADE ) );
 		colour_settings->AddTermConstant(  new CBlendConstantExpressionValue( BC_SHADE ) );
@@ -187,13 +187,13 @@ RendererPSP::RendererPSP()
 	memset( &gDBlend.TexInstall, 0, sizeof(gDBlend) );
 	gDBlend.TexInstall = 1;
 
-	u32	texel_idx = 0;
-	const u32	COL_MAGENTA = c32::Magenta.GetColour();
-	const u32	COL_GREEN   = c32::Green.GetColour();
-	const u32	COL_BLACK   = c32::Black.GetColour();
-	for(u32 y = 0; y < kPlaceholderTextureHeight; ++y)
+	u32	texel_idx {};
+	const auto	COL_MAGENTA = c32::Magenta.GetColour();
+	const auto	COL_GREEN   = c32::Green.GetColour();
+	const auto	COL_BLACK   = c32::Black.GetColour();
+	for(u32 y {}; y < kPlaceholderTextureHeight; ++y)
 	{
-		for(u32 x = 0; x < kPlaceholderTextureWidth; ++x)
+		for(u32 x {}; x < kPlaceholderTextureWidth; ++x)
 		{
 			gPlaceholderTexture[ texel_idx ] = ((x&1) == (y&1)) ? COL_MAGENTA : COL_BLACK;
 			gSelectedTexture[ texel_idx ]    = ((x&1) == (y&1)) ? COL_GREEN   : COL_BLACK;
@@ -328,8 +328,8 @@ void RendererPSP::RenderTriangles( DaedalusVtx * p_vertices, u32 num_vertices, b
 
 		if( texture && (mTnL.Flags._u32 & (TNL_LIGHT|TNL_TEXGEN)) != (TNL_LIGHT|TNL_TEXGEN) )
 		{
-			float scale_x {texture->GetScaleX()};
-			float scale_y {texture->GetScaleY()};
+			auto scale_x {texture->GetScaleX()};
+			auto scale_y {texture->GetScaleY()};
 
 			// Hack to fix the sun in Zelda OOT/MM
 			if( g_ROM.ZELDA_HACK && (gRDPOtherMode.L == 0x0c184241) )	 //&& ti.GetFormat() == G_IM_FMT_I && (ti.GetWidth() == 64)
@@ -365,12 +365,12 @@ inline void RendererPSP::RenderFog( DaedalusVtx * p_vertices, u32 num_vertices, 
 		sceGuDisable(GU_ALPHA_TEST);
 		sceGuBlendFunc(GU_ADD, GU_SRC_ALPHA, GU_ONE_MINUS_SRC_ALPHA, 0, 0);
 
-		u32 FogColor {mFogColour.GetColour()};
+		auto FogColor {mFogColour.GetColour()};
 
 		//Copy fog color to vertices
 		for(u32 i {} ; i < num_vertices ; i++)
 		{
-			u32 alpha {p_vertices[i].Colour.GetColour() & 0xFF000000};
+			auto alpha {p_vertices[i].Colour.GetColour() & 0xFF000000};
 			p_vertices[i].Colour = (c32)(alpha | FogColor);
 		}
 
@@ -436,7 +436,7 @@ void RendererPSP::RenderUsingCurrentBlendMode( DaedalusVtx * p_vertices, u32 num
 		sceGuTexFilter(GU_NEAREST,GU_NEAREST);
 	}
 
-	u32 cycle_mode {gRDPOtherMode.cycle_type};
+	auto cycle_mode {gRDPOtherMode.cycle_type};
 
 	// Initiate Blender
 	//
@@ -453,7 +453,7 @@ void RendererPSP::RenderUsingCurrentBlendMode( DaedalusVtx * p_vertices, u32 num
 	//
 	if( (gRDPOtherMode.alpha_compare == G_AC_THRESHOLD) && !gRDPOtherMode.alpha_cvg_sel )
 	{
-		u8 alpha_threshold {mBlendColour.GetA()};
+		auto alpha_threshold {mBlendColour.GetA()};
 		sceGuAlphaFunc( (alpha_threshold | g_ROM.ALPHA_HACK) ? GU_GEQUAL : GU_GREATER, alpha_threshold, 0xff);
 		sceGuEnable(GU_ALPHA_TEST);
 	}
@@ -479,7 +479,7 @@ void RendererPSP::RenderUsingCurrentBlendMode( DaedalusVtx * p_vertices, u32 num
 		case CYCLE_2CYCLE:		blend_entry = LookupBlendState( mMux, true ); break;
 	}
 
-	u32 render_flags {GU_TEXTURE_32BITF | GU_COLOR_8888 | GU_VERTEX_32BITF | render_mode};
+	auto render_flags {GU_TEXTURE_32BITF | GU_COLOR_8888 | GU_VERTEX_32BITF | render_mode};
 
 #ifdef DAEDALUS_DEBUG_DISPLAYLIST
 	// Used for Blend Explorer, or Nasty texture
@@ -512,7 +512,7 @@ void RendererPSP::RenderUsingCurrentBlendMode( DaedalusVtx * p_vertices, u32 num
 
 		if( details.InstallTexture )
 		{
-			u32 texture_idx {g_ROM.T1_HACK ? 1 : 0};
+			auto texture_idx {g_ROM.T1_HACK ? 1 : 0};
 
 			if( mBoundTexture[ texture_idx ] )
 			{
@@ -619,7 +619,7 @@ void RendererPSP::RenderUsingRenderSettings( const CBlendStates * states, Daedal
 
 		if(install_texture0 || install_texture1)
 		{
-			u32	tfx {GU_TFX_MODULATE};
+			auto	tfx {GU_TFX_MODULATE};
 			switch( out.BlendMode )
 			{
 			case PBM_MODULATE:		tfx = GU_TFX_MODULATE; break;
@@ -638,8 +638,8 @@ void RendererPSP::RenderUsingRenderSettings( const CBlendStates * states, Daedal
 
 				if( install_texture1 && texture1 && mTnL.Flags.Texture && (mTnL.Flags._u32 & (TNL_LIGHT|TNL_TEXGEN)) != (TNL_LIGHT|TNL_TEXGEN) )
 				{
-					float scale_x = texture1->GetScaleX();
-					float scale_y = texture1->GetScaleY();
+					auto scale_x = texture1->GetScaleX();
+					auto scale_y = texture1->GetScaleY();
 
 					sceGuTexOffset( -mTileTopLeft[ 1 ].s * scale_x / 4.f,
 									-mTileTopLeft[ 1 ].t * scale_y / 4.f );
@@ -743,7 +743,7 @@ void RendererPSP::TexRect( u32 tile_idx, const v2 & xy0, const v2 & xy1, TexCoor
 #else
 	//	To be used with TRIANGLE_STRIP, which requires 40% less verts than TRIANGLE
 	//	For reference for future ports and if SPRITES( which uses %60 less verts than TRIANGLE) causes issues
-	DaedalusVtx * p_vertices = static_cast<DaedalusVtx *>(sceGuGetMemory(4 * sizeof(DaedalusVtx)));
+	DaedalusVtx *p_vertices = static_cast<DaedalusVtx *>(sceGuGetMemory(4 * sizeof(DaedalusVtx)));
 
 	p_vertices[0].Position.x = screen0.x;
 	p_vertices[0].Position.y = screen0.y;
@@ -1024,30 +1024,30 @@ void RendererPSP::Draw2DTextureBlit(f32 x, f32 y, f32 width, f32 height,
 		return;
 	}
 
-	f32 cur_v {v0};
-	f32 cur_y {y};
-	f32 v_end {v1};
-	f32 y_end {height};
-	f32 vslice {512.f};
-	f32 ystep {(height/(v1-v0) * vslice)};
-	f32 vstep {(v1-v0) > 0 ? vslice : -vslice};
+	auto cur_v {v0};
+	auto cur_y {y};
+	auto v_end {v1};
+	auto y_end {height};
+	auto vslice {512.f};
+	auto ystep {(height/(v1-v0) * vslice)};
+	auto vstep {(v1-v0) > 0 ? vslice : -vslice};
 
-	f32 x_end {width};
-	f32 uslice {64.f};
+	auto x_end {width};
+	auto uslice {64.f};
 	//f32 ustep = (u1-u0)/width * xslice;
-	f32 xstep {(width/(u1-u0) * uslice)};
-	f32 ustep {(u1-u0) > 0 ? uslice : -uslice};
+	auto xstep {(width/(u1-u0) * uslice)};
+	auto ustep {(u1-u0) > 0 ? uslice : -uslice};
 
-	const u8* data {static_cast<const u8*>(texture->GetData())};
+	const auto* data {static_cast<const u8*>(texture->GetData())};
 
 	for ( ; cur_y < y_end; cur_y+=ystep, cur_v+=vstep )
 	{
-		f32 cur_u {u0};
-		f32 cur_x {x};
-		f32 u_end {u1};
+		auto cur_u {u0};
+		auto cur_x {x};
+		auto u_end {u1};
 
-		f32 poly_height {((cur_y+ystep) > y_end) ? (y_end-cur_y) : ystep};
-		f32 source_height {vstep};
+		auto poly_height {((cur_y+ystep) > y_end) ? (y_end-cur_y) : ystep};
+		auto source_height {vstep};
 
 		// support negative vsteps
 		if ((vstep > 0) && (cur_v+vstep > v_end))
@@ -1059,14 +1059,14 @@ void RendererPSP::Draw2DTextureBlit(f32 x, f32 y, f32 width, f32 height,
 			source_height = (cur_v-v_end);
 		}
 
-		const u8* udata {data};
+		const auto* udata {data};
 		// blit maximizing the use of the texture-cache
 		for( ; cur_x < x_end; cur_x+=xstep, cur_u+=ustep )
 		{
 			// support large images (width > 512)
 			if (cur_u>512.f || cur_u+ustep>512.f)
 			{
-				s32 off = (ustep>0) ? ((int)cur_u & ~31) : ((int)(cur_u+ustep) & ~31);
+				auto off {(ustep>0) ? ((int)cur_u & ~31) : ((int)(cur_u+ustep) & ~31)};
 
 				udata += off * GetBitsPerPixel( texture->GetFormat() );
 				cur_u -= off;
@@ -1076,8 +1076,8 @@ void RendererPSP::Draw2DTextureBlit(f32 x, f32 y, f32 width, f32 height,
 			TextureVtx *p_verts = (TextureVtx*)sceGuGetMemory(2*sizeof(TextureVtx));
 
 			//f32 poly_width = ((cur_x+xstep) > x_end) ? (x_end-cur_x) : xstep;
-			f32 poly_width {xstep};
-			f32 source_width {ustep};
+			auto poly_width {xstep};
+			auto source_width {ustep};
 
 			// support negative usteps
 			if ((ustep > 0) && (cur_u+ustep > u_end))
@@ -1191,7 +1191,7 @@ void RendererPSP::DebugMux( const CBlendStates * states, DaedalusVtx * p_vertice
 			Dump_GetDumpDirectory(filepath, g_ROM.settings.GameName.c_str());
 			IO::Path::Append(filepath, "missing_mux.txt");
 
-			FILE * fh = fopen(filepath, mUnhandledCombinerStates.empty() ? "w" : "a");
+			FILE *fh = fopen(filepath, mUnhandledCombinerStates.empty() ? "w" : "a");
 			if (fh != nullptr)
 			{
 				DLDebug_PrintMux( fh, mux );

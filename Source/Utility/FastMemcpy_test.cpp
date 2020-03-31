@@ -13,7 +13,7 @@ TEST(memcpy_byteswap, WorksWithZeroLength)
 	EXPECT_EQ(92, dst);
 }
 
-class MemcpyByteSwapTest : public ::testing::TestWithParam< ::std::tr1::tuple<u32, u32, u32> >
+class MemcpyByteSwapTest : public ::testing::TestWithParam< ::std::tuple<u32, u32, u32> >
 {
 protected:
 	virtual void SetUp()
@@ -44,9 +44,9 @@ static void memcpy_byteswap_reference( void * dst, u32 dst_off, const void * src
 
 TEST_P(MemcpyByteSwapTest, WorksWithSmallCopies)
 {
-	u32 src_off = ::std::tr1::get<0>(GetParam());
-	u32 dst_off = ::std::tr1::get<1>(GetParam());
-	u32 len = ::std::tr1::get<2>(GetParam());
+	u32 src_off = ::std::get<0>(GetParam());
+	u32 dst_off = ::std::get<1>(GetParam());
+	u32 len = ::std::get<2>(GetParam());
 
 	memcpy_byteswap(&mDst[dst_off], &mSrc[src_off], len);
 	memcpy_byteswap_reference(mExpected, dst_off, mSrc, src_off, len);
@@ -55,5 +55,5 @@ TEST_P(MemcpyByteSwapTest, WorksWithSmallCopies)
 }
 
 INSTANTIATE_TEST_CASE_P(X, MemcpyByteSwapTest, ::testing::Combine(::testing::Values(0,1,2,3),
-																  ::testing::Values(0,1,2,3), 
+																  ::testing::Values(0,1,2,3),
 																  ::testing::Values(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16)));

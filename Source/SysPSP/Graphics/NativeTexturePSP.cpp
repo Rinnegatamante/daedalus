@@ -114,10 +114,10 @@ inline void swizzle_fast(u8* out, const u8* in, u32 width, u32 height)
 	DAEDALUS_ASSERT( (height & 7 ) == 0, "Height is not a multiple of 8 - is %d", height );
 	#endif
 #if 1	//1->Raphaels version, 0->Original
-	u32 rowblocks = (width / 16);
-	u32 rowblocks_add = (rowblocks - 1) * 128;
-	u32 block_address = 0;
-	u32 *src = (u32*)in;
+	auto rowblocks = (width / 16);
+	auto rowblocks_add = (rowblocks - 1) * 128;
+	u32 block_address {};
+	auto *src = (u32*)in;
 
 	for (u32 j = 0; j < height; j++,block_address+=16)
 	{

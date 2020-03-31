@@ -65,7 +65,7 @@ bool	PatchJumpLong( CJumpLocation jump, CCodeLabel target )
 		DAEDALUS_ASSERT( is_standard_branch || is_regimm_branch || is_cop1_branch, "Unhandled branch type" );
 #endif
 
-		s32		offset( ( jump.GetOffset( target ) >> 2 ) - 1 );
+		auto	offset{ ( jump.GetOffset( target ) >> 2 ) - 1};
 
 		//
 		//	Check if the branch is within range

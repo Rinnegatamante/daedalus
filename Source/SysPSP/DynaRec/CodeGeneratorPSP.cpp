@@ -164,7 +164,7 @@ PspOpCode		gReplacementOps[2];
 void Dynarec_ClearedCPUStuffToDo()
 {
 	// Replace first two ops of _ReturnFromDynaRecIfStuffToDo with 'jr ra, nop'
-	u8 *			p_void_function( reinterpret_cast< u8 * >( _ReturnFromDynaRecIfStuffToDo ) );
+	auto *			p_void_function( reinterpret_cast< u8 * >( _ReturnFromDynaRecIfStuffToDo ) );
 	PspOpCode *		p_function_address = reinterpret_cast< PspOpCode * >( MAKE_UNCACHED_PTR( p_void_function ) );
 
 	if(!gHaveSavedPatchedOps)
@@ -186,9 +186,9 @@ void Dynarec_ClearedCPUStuffToDo()
 	p_function_address[0] = gReplacementOps[0];
 	p_function_address[1] = gReplacementOps[1];
 
-	const u8 * p_lower( RoundPointerDown( p_void_function, 64 ) );
-	const u8 * p_upper( RoundPointerUp( p_void_function + 8, 64 ) );
-	const u32  size( p_upper - p_lower);
+	const auto * p_lower( RoundPointerDown( p_void_function, 64 ) );
+	const auto * p_upper( RoundPointerUp( p_void_function + 8, 64 ) );
+	const auto  size( p_upper - p_lower);
 	//sceKernelDcacheWritebackRange( p_lower, size );
 	//sceKernelIcacheInvalidateRange( p_lower, size );
 
@@ -199,15 +199,15 @@ void Dynarec_SetCPUStuffToDo()
 {
 	// Restore first two ops of _ReturnFromDynaRecIfStuffToDo
 
-	u8 *			p_void_function( reinterpret_cast< u8 * >( _ReturnFromDynaRecIfStuffToDo ) );
+	auto *			p_void_function( reinterpret_cast< u8 * >( _ReturnFromDynaRecIfStuffToDo ) );
 	PspOpCode *		p_function_address = reinterpret_cast< PspOpCode * >( MAKE_UNCACHED_PTR( p_void_function ) );
 
 	p_function_address[0] = gOriginalOps[0];
 	p_function_address[1] = gOriginalOps[1];
 
-	const u8 * p_lower( RoundPointerDown( p_void_function, 64 ) );
-	const u8 * p_upper( RoundPointerUp( p_void_function + 8, 64 ) );
-	const u32  size( p_upper - p_lower);
+	const auto * p_lower( RoundPointerDown( p_void_function, 64 ) );
+	const auto * p_upper( RoundPointerUp( p_void_function + 8, 64 ) );
+	const auto  size( p_upper - p_lower);
 	//sceKernelDcacheWritebackRange( p_lower, size );
 	//sceKernelIcacheInvalidateRange( p_lower, size );
 
@@ -345,7 +345,7 @@ void	CCodeGeneratorPSP::SetRegisterSpanList( const SRegisterUsageInfo & register
 		#ifdef DAEDALUS_ENABLE_ASSERTS
 	DAEDALUS_ASSERT( mAvailableRegisters.empty(), "Why isn't the available register list empty?" );
 	#endif
-	for( u32 i {0}; i < NUM_CACHE_REGS; i++ )
+	for( auto i {0}; i < NUM_CACHE_REGS; i++ )
 	{
 		mAvailableRegisters.push( gRegistersToUseForCaching[ i ] );
 	}
@@ -376,7 +376,7 @@ void	CCodeGeneratorPSP::SetRegisterSpanList( const SRegisterUsageInfo & register
 		//	Pull all the cached registers into memory
 		//
 		// Skip r0
-		u32 i {1};
+		auto i {1};
 		while( i < NUM_N64_REGS )
 		{
 			EN64Reg	n64_reg = EN64Reg( i );
@@ -872,7 +872,7 @@ void CCodeGeneratorPSP::FlushRegister( CN64RegisterCachePSP & cache, EN64Reg n64
 	{
 		if( cache.IsKnownValue( n64_reg, lo_hi_idx ) )
 		{
-			s32		known_value( cache.GetKnownValue( n64_reg, lo_hi_idx )._s32 );
+			auto	known_value { cache.GetKnownValue( n64_reg, lo_hi_idx )._s32 };
 
 			SetVar( lo_hi_idx ? &gGPR[ n64_reg ]._u32_1 : &gGPR[ n64_reg ]._u32_0, known_value );
 		}
@@ -919,7 +919,7 @@ void	CCodeGeneratorPSP::FlushAllRegisters( CN64RegisterCachePSP & cache, bool in
 	mMultIsValid = false;	//Mult hi/lo are invalid
 
 	// Skip r0
-	for( u32 i = 1; i < NUM_N64_REGS; i++ )
+	for( auto i {1}; i < NUM_N64_REGS; i++ )
 	{
 		EN64Reg	n64_reg = EN64Reg( i );
 
@@ -938,7 +938,7 @@ void	CCodeGeneratorPSP::FlushAllRegisters( CN64RegisterCachePSP & cache, bool in
 
 void	CCodeGeneratorPSP::FlushAllFloatingPointRegisters( CN64RegisterCachePSP & cache, bool invalidate )
 {
-	for( u32 i {0}; i < NUM_N64_FP_REGS; i++ )
+	for( auto i {0}; i < NUM_N64_FP_REGS; i++ )
 	{
 		EN64FloatReg	n64_reg = EN64FloatReg( i );
 		if( cache.IsFPDirty( n64_reg ) )
@@ -969,7 +969,7 @@ void	CCodeGeneratorPSP::FlushAllFloatingPointRegisters( CN64RegisterCachePSP & c
 void	CCodeGeneratorPSP::FlushAllTemporaryRegisters( CN64RegisterCachePSP & cache, bool invalidate )
 {
 	// Skip r0
-	for( u32 i {1}; i < NUM_N64_REGS; i++ )
+	for( auto i {1}; i < NUM_N64_REGS; i++ )
 	{
 		EN64Reg	n64_reg = EN64Reg( i );
 
@@ -994,7 +994,7 @@ void	CCodeGeneratorPSP::FlushAllTemporaryRegisters( CN64RegisterCachePSP & cache
 void	CCodeGeneratorPSP::RestoreAllRegisters( CN64RegisterCachePSP & current_cache, CN64RegisterCachePSP & new_cache )
 {
 	// Skip r0
-	for( u32 i {1}; i < NUM_N64_REGS; i++ )
+	for( auto i {1}; i < NUM_N64_REGS; i++ )
 	{
 		EN64Reg	n64_reg = EN64Reg( i );
 
@@ -1009,7 +1009,7 @@ void	CCodeGeneratorPSP::RestoreAllRegisters( CN64RegisterCachePSP & current_cach
 	}
 
 	// XXXX some fp regs are preserved across function calls?
-	for( u32 i {0}; i < NUM_N64_FP_REGS; ++i )
+	for( auto i {0}; i < NUM_N64_FP_REGS; ++i )
 	{
 		EN64FloatReg	n64_reg = EN64FloatReg( i );
 		if( new_cache.IsFPValid( n64_reg ) && !current_cache.IsFPValid( n64_reg ) )
@@ -1045,7 +1045,7 @@ CJumpLocation CCodeGeneratorPSP::GenerateExitCode( u32 exit_address, u32 jump_ad
 		//	Pull in any registers which may have been flushed for whatever reason.
 		//
 		// Skip r0
-		for( u32 i {1}; i < NUM_N64_REGS; i++ )
+		for( auto i {1}; i < NUM_N64_REGS; i++ )
 		{
 			EN64Reg	n64_reg = EN64Reg( i );
 
@@ -1337,7 +1337,7 @@ void	CCodeGeneratorPSP::GetFloatVar( EPspFloatReg dst_reg, const f32 * p_var )
 
 void	CCodeGeneratorPSP::GetBaseRegisterAndOffset( const void * p_address, EPspReg * p_reg, s16 * p_offset )
 {
-	s32		base_pointer_offset( reinterpret_cast< const u8 * >( p_address ) - mpBasePointer );
+	auto	base_pointer_offset{ reinterpret_cast< const u8 * >( p_address ) - mpBasePointer} ;
 	if( (base_pointer_offset > SHRT_MIN) & (base_pointer_offset < SHRT_MAX) )
 	{
 		*p_reg = mBaseRegister;
@@ -1345,9 +1345,9 @@ void	CCodeGeneratorPSP::GetBaseRegisterAndOffset( const void * p_address, EPspRe
 	}
 	else
 	{
-		u32		address( reinterpret_cast< u32 >( p_address ) );
-		u16		hi_bits( (u16)( address >> 16 ) );
-		u16		lo_bits( (u16)( address ) );
+		auto		address( reinterpret_cast< u32 >( p_address ) );
+		auto	hi_bits( (u16)( address >> 16 ) );
+		auto		lo_bits( (u16)( address ) );
 
 		//
 		//	Move up
@@ -1359,11 +1359,11 @@ void	CCodeGeneratorPSP::GetBaseRegisterAndOffset( const void * p_address, EPspRe
 
 		hi_bits += lo_bits >> 15;
 
-		s32		long_offset( address - ((s32)hi_bits<<16) );
+		auto	long_offset{ address - ((s32)hi_bits<<16) };
 		#ifdef DAEDALUS_ENABLE_ASSERTS
 		DAEDALUS_ASSERT( long_offset >= SHRT_MIN && long_offset <= SHRT_MAX, "Offset is out of range!" );
 		#endif
-		s16		offset( (s16)long_offset );
+		auto	offset{ (s16)long_offset};
 		#ifdef DAEDALUS_ENABLE_ASSERTS
 		DAEDALUS_ASSERT( ((s32)hi_bits<<16) + offset == (s32)address, "Incorrect address calculation" );
 		#endif
@@ -1404,9 +1404,9 @@ CJumpLocation	CCodeGeneratorPSP::GenerateOpCode( const STraceEntry& ti, bool bra
 	#ifdef DAEDALUS_PROFILE
 	DAEDALUS_PROFILE( "CCodeGeneratorPSP::GenerateOpCode" );
 	#endif
-	u32 address = ti.Address;
+	auto address {ti.Address};
 	OpCode op_code = ti.OpCode;
-	bool	handled( false );
+	bool	handled {false};
 	bool	is_nop( op_code._u32 == 0 );
 
 	if( is_nop )
@@ -1426,8 +1426,8 @@ CJumpLocation	CCodeGeneratorPSP::GenerateOpCode( const STraceEntry& ti, bool bra
 	const EN64Reg	rt = EN64Reg( op_code.rt );
 	const EN64Reg	rd = EN64Reg( op_code.rd );
 	const EN64Reg	base = EN64Reg( op_code.base );
-	const u32		ft = op_code.ft;
-	const u32		sa = op_code.sa;
+	const auto ft {op_code.ft};
+	const auto sa {op_code.sa};
 	//const u32		jump_target( (address&0xF0000000) | (op_code.target<<2) );
 	//const u32		branch_target( address + ( ((s32)(s16)op_code.immediate)<<2 ) + 4);
 
@@ -1707,12 +1707,12 @@ CJumpLocation	CCodeGeneratorPSP::GenerateOpCode( const STraceEntry& ti, bool bra
 #if 0
 //1->Show not handled OP codes (Require that DAEDALUS_SILENT flag is undefined)
 	  // Note: Cop1Op_DInstr are handled elsewhere!
-		char msg[128];
+		auto msg[128];
 		SprintOpCodeInfo( msg, address, op_code );
 		printf( "Unhandled: 0x%08x %s\n", address, msg );
 #endif
 
-		bool BranchDelaySet = false;
+		bool BranchDelaySet {false};
 
 		if( R4300_InstructionHandlerNeedsPC( op_code ) )
 		{
@@ -1838,13 +1838,13 @@ inline bool	CCodeGeneratorPSP::GenerateDirectLoad( EPspReg psp_dst, EN64Reg base
 {
 	if(mRegisterCache.IsKnownValue( base, 0 ))
 	{
-		u32		base_address( mRegisterCache.GetKnownValue( base, 0 )._u32 );
-		u32		address( (base_address + s32( offset )) ^ swizzle );
+		auto	base_address{ mRegisterCache.GetKnownValue( base, 0 )._u32};
+		auto	address{(base_address + s32( offset )) ^ swizzle };
 
 		if( load_op == OP_LWL )
 		{
 			load_op = OP_LW;
-			u32 shift = address & 3;
+			auto shift {address & 3};
 			address ^= shift;	//Zero low 2 bits in address
 			ADDIU( PspReg_A3, PspReg_R0, shift);	//copy low 2 bits to A3
 		}
@@ -1857,7 +1857,7 @@ inline bool	CCodeGeneratorPSP::GenerateDirectLoad( EPspReg psp_dst, EN64Reg base
 			//printf( "Loading from %s %08x + %04x (%08x) op %d\n", RegNames[ base ], base_address, u16(offset), address, load_op );
 
 			EPspReg		reg_base;
-			s16			base_offset;
+			s16	base_offset {};
 			GetBaseRegisterAndOffset( p_memory, &reg_base, &base_offset );
 
 			CAssemblyWriterPSP::LoadRegister( psp_dst, load_op, reg_base, base_offset );
@@ -2108,7 +2108,7 @@ void	CCodeGeneratorPSP::GenerateLoad( u32 current_pc,
 
 inline void CCodeGeneratorPSP::GenerateAddressCheckFixups()
 {
-	for( u32 i {0}; i < mAddressCheckFixups.size(); ++i )
+	for( auto i {0}; i < mAddressCheckFixups.size(); ++i )
 	{
 		GenerateAddressCheckFixup( mAddressCheckFixups[ i ] );
 	}
@@ -2169,8 +2169,8 @@ inline bool	CCodeGeneratorPSP::GenerateDirectStore( EPspReg psp_src, EN64Reg bas
 {
 	if(mRegisterCache.IsKnownValue( base, 0 ))
 	{
-		u32		base_address( mRegisterCache.GetKnownValue( base, 0 )._u32 );
-		u32		address( (base_address + s32( offset )) ^ swizzle );
+		auto	base_address{ mRegisterCache.GetKnownValue( base, 0 )._u32};
+		auto	address{ (base_address + s32( offset )) ^ swizzle};
 
 		const MemFuncWrite & m( g_MemoryLookupTableWrite[ address >> 18 ] );
 		if( m.pWrite )
@@ -2180,7 +2180,7 @@ inline bool	CCodeGeneratorPSP::GenerateDirectStore( EPspReg psp_src, EN64Reg bas
 			//printf( "Storing to %s %08x + %04x (%08x) op %d\n", RegNames[ base ], base_address, u16(offset), address, store_op );
 
 			EPspReg		reg_base;
-			s16			base_offset;
+			s16			base_offset {};
 			GetBaseRegisterAndOffset( p_memory, &reg_base, &base_offset );
 
 			CAssemblyWriterPSP::StoreRegister( psp_src, store_op, reg_base, base_offset );
@@ -2945,7 +2945,7 @@ inline void	CCodeGeneratorPSP::GenerateAND( EN64Reg rd, EN64Reg rs, EN64Reg rt )
 {
 	//gGPR[ op_code.rd ]._u64 = gGPR[ op_code.rs ]._u64 & gGPR[ op_code.rt ]._u64;
 
-	bool HiIsDone = false;
+	bool HiIsDone {false};
 
 	if (mRegisterCache.IsKnownValue(rs, 1) & mRegisterCache.IsKnownValue(rt, 1))
 	{
@@ -3001,7 +3001,7 @@ void	CCodeGeneratorPSP::GenerateOR( EN64Reg rd, EN64Reg rs, EN64Reg rt )
 {
 	//gGPR[ op_code.rd ]._u64 = gGPR[ op_code.rs ]._u64 | gGPR[ op_code.rt ]._u64;
 
-	bool HiIsDone = false;
+	bool HiIsDone {false};
 
 	if (mRegisterCache.IsKnownValue(rs, 1) & mRegisterCache.IsKnownValue(rt, 1))
 	{
@@ -3119,7 +3119,7 @@ inline void	CCodeGeneratorPSP::GenerateXOR( EN64Reg rd, EN64Reg rs, EN64Reg rt )
 {
 	//gGPR[ op_code.rd ]._u64 = gGPR[ op_code.rs ]._u64 ^ gGPR[ op_code.rt ]._u64;
 
-	bool HiIsDone = false;
+	bool HiIsDone {false};
 
 	if (mRegisterCache.IsKnownValue(rs, 1) & mRegisterCache.IsKnownValue(rt, 1))
 	{
@@ -3170,7 +3170,7 @@ inline void	CCodeGeneratorPSP::GenerateNOR( EN64Reg rd, EN64Reg rs, EN64Reg rt )
 {
 	//gGPR[ op_code.rd ]._u64 = ~(gGPR[ op_code.rs ]._u64 | gGPR[ op_code.rt ]._u64);
 
-	bool HiIsDone = false;
+	bool HiIsDone {false};
 
 	if (mRegisterCache.IsKnownValue(rs, 1) & mRegisterCache.IsKnownValue(rt, 1))
 	{
@@ -3325,7 +3325,7 @@ inline void	CCodeGeneratorPSP::GenerateADDIU( EN64Reg rt, EN64Reg rs, s16 immedi
 	}
 	else if(mRegisterCache.IsKnownValue( rs, 0 ))
 	{
-		s32		known_value( mRegisterCache.GetKnownValue( rs, 0 )._s32 + (s32)immediate );
+		auto known_value {mRegisterCache.GetKnownValue( rs, 0 )._s32 + (s32)immediate};
 		SetRegister32s( rt, known_value );
 	}
 	else
@@ -3348,8 +3348,8 @@ inline void	CCodeGeneratorPSP::GenerateANDI( EN64Reg rt, EN64Reg rs, u16 immedia
 
 	if(mRegisterCache.IsKnownValue( rs, 0 ))
 	{
-		s32		known_value_lo( mRegisterCache.GetKnownValue( rs, 0 )._u32 & (u32)immediate );
-		s32		known_value_hi( 0 );
+		auto		known_value_lo {mRegisterCache.GetKnownValue( rs, 0 )._u32 & (u32)immediate};
+		s32		known_value_hi{};
 
 		SetRegister64( rt, known_value_lo, known_value_hi );
 	}
@@ -3377,8 +3377,8 @@ inline void	CCodeGeneratorPSP::GenerateORI( EN64Reg rt, EN64Reg rs, u16 immediat
 	}
 	else if(mRegisterCache.IsKnownValue( rs, 0 ))
 	{
-		s32		known_value_lo( mRegisterCache.GetKnownValue( rs, 0 )._u32 | (u32)immediate );
-		s32		known_value_hi( mRegisterCache.GetKnownValue( rs, 1 )._u32 );
+		auto known_value_lo{ mRegisterCache.GetKnownValue( rs, 0 )._u32 | (u32)immediate};
+		auto known_value_hi{ mRegisterCache.GetKnownValue( rs, 1 )._u32};
 
 		SetRegister64( rt, known_value_lo, known_value_hi );
 	}
@@ -3410,8 +3410,8 @@ inline void	CCodeGeneratorPSP::GenerateXORI( EN64Reg rt, EN64Reg rs, u16 immedia
 
 	if(mRegisterCache.IsKnownValue( rs, 0 ))
 	{
-		s32		known_value_lo( mRegisterCache.GetKnownValue( rs, 0 )._u32 ^ (u32)immediate );
-		s32		known_value_hi( mRegisterCache.GetKnownValue( rs, 1 )._u32 );
+		auto		known_value_lo{ mRegisterCache.GetKnownValue( rs, 0 )._u32 ^ (u32)immediate};
+		auto	known_value_hi{ mRegisterCache.GetKnownValue( rs, 1 )._u32 };
 
 		SetRegister64( rt, known_value_lo, known_value_hi );
 	}

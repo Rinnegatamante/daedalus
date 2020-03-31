@@ -73,7 +73,7 @@ static const CBlendConstantExpression * BuildConstantExpression( const CCombiner
 {
 	if(operand->IsInput())
 	{
-		const CCombinerInput *	input( static_cast< const CCombinerInput * >( operand ) );
+		const CCombinerInput *input {static_cast< const CCombinerInput * >( operand )};
 
 		switch( input->GetInput() )
 		{
@@ -94,25 +94,25 @@ static const CBlendConstantExpression * BuildConstantExpression( const CCombiner
 	}
 	else if(operand->IsSum())
 	{
-		const CCombinerSum *	sum( static_cast< const CCombinerSum * >( operand ) );
+		const CCombinerSum *sum {static_cast< const CCombinerSum * >( operand )};
 
-		const CBlendConstantExpression *	sum_expr( NULL );
+		const CBlendConstantExpression *sum_expr{nullptr};
 
-		for( u32 i = 0; i < sum->GetNumOperands(); ++i )
+		for( u32 i {}; i < sum->GetNumOperands(); ++i )
 		{
 			const CCombinerOperand *			sum_term( sum->GetOperand( i ) );
 			const CBlendConstantExpression *	lhs( sum_expr );
 			const CBlendConstantExpression *	rhs( BuildConstantExpression( sum_term, options ) );
 
-			if( rhs == NULL )
+			if( rhs == nullptr )
 			{
 				delete sum_expr;
-				return NULL;
+				return nullptr;
 			}
 
 			if( sum->IsTermNegated( i ) )
 			{
-				if( lhs == NULL )
+				if( lhs == nullptr )
 				{
 					lhs = new CBlendConstantExpressionValue( BC_0 );
 				}
@@ -121,7 +121,7 @@ static const CBlendConstantExpression * BuildConstantExpression( const CCombiner
 			}
 			else
 			{
-				if( lhs == NULL )
+				if( lhs == nullptr )
 				{
 					sum_expr = rhs;
 				}
@@ -136,23 +136,23 @@ static const CBlendConstantExpression * BuildConstantExpression( const CCombiner
 	}
 	else if(operand->IsProduct())
 	{
-		const CCombinerProduct *	product( static_cast< const CCombinerProduct * >( operand ) );
+		const CCombinerProduct *product{static_cast< const CCombinerProduct * >( operand )};
 
-		const CBlendConstantExpression *	product_expr( NULL );
+		const CBlendConstantExpression *product_expr{nullptr};
 
-		for( u32 i = 0; i < product->GetNumOperands(); ++i )
+		for( u32 i {}; i < product->GetNumOperands(); ++i )
 		{
-			const CCombinerOperand *			product_term( product->GetOperand( i ) );
-			const CBlendConstantExpression *	lhs( product_expr );
-			const CBlendConstantExpression *	rhs( BuildConstantExpression( product_term, options ) );
+			const CCombinerOperand *product_term {product->GetOperand( i )};
+			const CBlendConstantExpression *lhs {product_expr };
+			const CBlendConstantExpression *rhs {BuildConstantExpression( product_term, options )};
 
-			if( rhs == NULL )
+			if( rhs == nullptr )
 			{
 				delete product_expr;
-				return NULL;
+				return nullptr;
 			}
 
-			if( lhs == NULL )
+			if( lhs == nullptr )
 			{
 				product_expr = rhs;
 			}
@@ -166,7 +166,7 @@ static const CBlendConstantExpression * BuildConstantExpression( const CCombiner
 	}
 	else
 	{
-		return NULL;
+		return nullptr;
 	}
 }
 
@@ -178,10 +178,10 @@ static const CBlendConstantExpression * BuildConstantExpression( const CCombiner
 //*****************************************************************************
 CCombinerTree::CCombinerTree( u64 mux, bool two_cycles )
 :	mMux( mux )
-,	mCycle1( NULL )
-,	mCycle1A( NULL )
-,	mCycle2( NULL )
-,	mCycle2A( NULL )
+,	mCycle1( nullptr )
+,	mCycle1A( nullptr )
+,	mCycle2( nullptr )
+,	mCycle2A( nullptr )
 {
 	RDP_Combine m;	m.mux = mux;
 	//fprintf(fh, "\n\t\tcase 0x%08x%08xLL:\n", mux0, mux1);
@@ -222,10 +222,10 @@ CCombinerTree::~CCombinerTree()
 //*****************************************************************************
 CCombinerOperand *	CCombinerTree::BuildCycle1( ECombinerInput a, ECombinerInput b, ECombinerInput c, ECombinerInput d )
 {
-	CCombinerOperand *	input_a( new CCombinerInput( a ) );
-	CCombinerOperand *	input_b( new CCombinerInput( b ) );
-	CCombinerOperand *	input_c( new CCombinerInput( c ) );
-	CCombinerOperand *	input_d( new CCombinerInput( d ) );
+	CCombinerOperand *input_a {new CCombinerInput( a )};
+	CCombinerOperand *input_b {new CCombinerInput( b )};
+	CCombinerOperand *input_c {new CCombinerInput( c )};
+	CCombinerOperand *input_d {new CCombinerInput( d )};
 
 	return Build( input_a, input_b, input_c, input_d );
 }
@@ -235,10 +235,10 @@ CCombinerOperand *	CCombinerTree::BuildCycle1( ECombinerInput a, ECombinerInput 
 //*****************************************************************************
 CCombinerOperand *	CCombinerTree::BuildCycle2( ECombinerInput a, ECombinerInput b, ECombinerInput c, ECombinerInput d, const CCombinerOperand * cycle_1_output )
 {
-	CCombinerOperand *	input_a( a == CI_COMBINED ? cycle_1_output->Clone() : new CCombinerInput( a ) );
-	CCombinerOperand *	input_b( b == CI_COMBINED ? cycle_1_output->Clone() : new CCombinerInput( b ) );
-	CCombinerOperand *	input_c( c == CI_COMBINED ? cycle_1_output->Clone() : new CCombinerInput( c ) );
-	CCombinerOperand *	input_d( d == CI_COMBINED ? cycle_1_output->Clone() : new CCombinerInput( d ) );
+	CCombinerOperand *input_a{ a == CI_COMBINED ? cycle_1_output->Clone() : new CCombinerInput( a )};
+	CCombinerOperand *input_b{ b == CI_COMBINED ? cycle_1_output->Clone() : new CCombinerInput( b )};
+	CCombinerOperand *input_c{ c == CI_COMBINED ? cycle_1_output->Clone() : new CCombinerInput( c )};
+	CCombinerOperand *input_d{ d == CI_COMBINED ? cycle_1_output->Clone() : new CCombinerInput( d )};
 
 	return Build( input_a, input_b, input_c, input_d );
 }
@@ -248,14 +248,14 @@ CCombinerOperand *	CCombinerTree::BuildCycle2( ECombinerInput a, ECombinerInput 
 //*****************************************************************************
 CCombinerOperand *	CCombinerTree::Build( CCombinerOperand * a, CCombinerOperand * b, CCombinerOperand * c, CCombinerOperand * d )
 {
-	CCombinerSum * sum( new CCombinerSum( NULL ) );
+	CCombinerSum *sum {new CCombinerSum( nullptr )};
 	sum->Add( a );
 	sum->Sub( b );
 
-	CCombinerProduct * product( new CCombinerProduct( sum ) );
+	CCombinerProduct *product {new CCombinerProduct( sum )};
 	product->Mul( c );
 
-	CCombinerSum * output( new CCombinerSum( product ) );
+	CCombinerSum *output {new CCombinerSum( product )};
 	output->Add( d );
 
 	return Simplify( output );
@@ -276,7 +276,7 @@ COutputStream &	CCombinerTree::Stream( COutputStream & stream ) const
 //*****************************************************************************
 CBlendStates *	CCombinerTree::GenerateBlendStates( const CCombinerOperand * colour_operand, const CCombinerOperand * alpha_operand ) const
 {
-	CBlendStates *		states( new CBlendStates );
+	CBlendStates *states {new CBlendStates};
 
 	states->SetAlphaSettings( GenerateAlphaRenderSettings( alpha_operand ) );
 
@@ -295,7 +295,7 @@ void	ApplyAlphaModulateTerm( CAlphaRenderSettings * settings, const CCombinerOpe
 {
 	if( operand->IsInput() )
 	{
-		const CCombinerInput *	input( static_cast< const CCombinerInput * >( operand ) );
+		const CCombinerInput *input{ static_cast< const CCombinerInput * >( operand )};
 
 		switch( input->GetInput() )
 		{
@@ -367,15 +367,15 @@ void	ApplyAlphaModulateTerm( CAlphaRenderSettings * settings, const CCombinerOpe
 //*****************************************************************************
 CAlphaRenderSettings * CCombinerTree::GenerateAlphaRenderSettings( const CCombinerOperand * operand ) const
 {
-	COutputStringStream			str;
+	COutputStringStream	str {};
 	operand->Stream( str );
 
 	CAlphaRenderSettings *		settings( new CAlphaRenderSettings( str.c_str() ) );
 
 	if(operand->IsProduct())
 	{
-		const CCombinerProduct *	product( static_cast< const CCombinerProduct * >( operand ) );
-		for( u32 i = 0; i < product->GetNumOperands(); ++i )
+		const CCombinerProduct *product {static_cast< const CCombinerProduct * >( operand )};
+		for( u32 i {}; i < product->GetNumOperands(); ++i )
 		{
 			ApplyAlphaModulateTerm( settings, product->GetOperand( i ) );
 		}
@@ -399,7 +399,7 @@ void	ApplyModulateTerm( CRenderSettingsModulate * settings, const CCombinerOpera
 {
 	if( operand->IsInput() )
 	{
-		const CCombinerInput *	input( static_cast< const CCombinerInput * >( operand ) );
+		const CCombinerInput *input {static_cast< const CCombinerInput * >( operand )};
 
 		switch( input->GetInput() )
 		{
@@ -445,14 +445,14 @@ void	ApplyModulateTerm( CRenderSettingsModulate * settings, const CCombinerOpera
 		//	Try to reduce to a constant term, and add that
 		//
 		const CBlendConstantExpression *	constant_expression( BuildConstantExpression( operand, BCE_ALLOW_SHADE ) );
-		if( constant_expression != NULL )
+		if( constant_expression != nullptr )
 		{
 			settings->AddTermConstant( constant_expression );
 		}
 		else
 		{
 #ifdef DAEDALUS_DEBUG_DISPLAYLIST
-			COutputStringStream	str;
+			COutputStringStream	str {};
 			operand->Stream( str );
 			printf( "\n********************************\n" );
 			printf( "Unhandled rgb - not a simple term: %s\n", str.c_str() );
@@ -473,7 +473,7 @@ void	CCombinerTree::GenerateRenderSettings( CBlendStates * states, const CCombin
 {
 	if(operand->IsInput())
 	{
-		COutputStringStream	str;
+		COutputStringStream	str {};
 		operand->Stream( str );
 
 		CRenderSettingsModulate *	settings( new CRenderSettingsModulate( str.c_str() ) );
@@ -486,17 +486,17 @@ void	CCombinerTree::GenerateRenderSettings( CBlendStates * states, const CCombin
 	}
 	else if(operand->IsSum())
 	{
-		const CCombinerSum *	sum( static_cast< const CCombinerSum * >( operand ) );
+		const CCombinerSum *sum {static_cast< const CCombinerSum * >( operand )};
 
-		for( u32 i = 0; i < sum->GetNumOperands(); ++i )
+		for( u32 i {}; i < sum->GetNumOperands(); ++i )
 		{
-			const CCombinerOperand *	sum_term( sum->GetOperand( i ) );
+			const CCombinerOperand *sum_term {sum->GetOperand( i )};
 
 			// Recurse
 			if( sum->IsTermNegated( i ) )
 			{
 				printf( "Negative term!!\n" );
-				COutputStringStream	str;
+				COutputStringStream	str {};
 				str << "- ";
 				sum->Stream( str );
 				states->AddColourSettings( new CRenderSettingsInvalid( str.c_str() ) );
@@ -509,14 +509,14 @@ void	CCombinerTree::GenerateRenderSettings( CBlendStates * states, const CCombin
 	}
 	else if(operand->IsProduct())
 	{
-		const CCombinerProduct *	product( static_cast< const CCombinerProduct * >( operand ) );
+			const CCombinerProduct *product {static_cast< const CCombinerProduct * >( operand )};
 
-		COutputStringStream	str;
+		COutputStringStream	str {};
 		product->Stream( str );
 
-		CRenderSettingsModulate *	settings( new CRenderSettingsModulate( str.c_str() ) );
+		CRenderSettingsModulate *settings { new CRenderSettingsModulate( str.c_str() ) };
 
-		for( u32 i = 0; i < product->GetNumOperands(); ++i )
+		for( u32 i {}; i < product->GetNumOperands(); ++i )
 		{
 			ApplyModulateTerm( settings, product->GetOperand( i ) );
 		}
@@ -533,9 +533,9 @@ void	CCombinerTree::GenerateRenderSettings( CBlendStates * states, const CCombin
 		const CCombinerOperand *	operand_b( blend->GetInputB() );		// Needs to be a constant factor
 		const CCombinerOperand *	operand_f( blend->GetInputF() );
 
-		COutputStringStream	str;
+		COutputStringStream	str {};
 		blend->Stream( str );
-		bool	handled( false );
+		bool	handled {false};
 
 		if( operand_f->IsInput( CI_TEXEL0 ) )
 		{
@@ -604,10 +604,10 @@ void	CCombinerTree::GenerateRenderSettings( CBlendStates * states, const CCombin
 //*****************************************************************************
 CCombinerOperand * CCombinerTree::Simplify( CCombinerOperand * operand )
 {
-	bool	did_something;
+	bool did_something {};
 	do
 	{
-		CCombinerOperand *	new_tree( operand->SimplifyAndReduce() );
+		CCombinerOperand *new_tree {operand->SimplifyAndReduce()};
 
 		did_something = !new_tree->IsEqual( *operand );
 		delete operand;
