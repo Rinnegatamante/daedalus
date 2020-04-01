@@ -11,8 +11,8 @@
 #include "Debug/DBGConsole.h"
 
 
-static u32 gEnv_t3 {}, gEnv_s5 {}, gEnv_s6 {};
-static u16 env[8] {};
+static auto gEnv_t3 {0}, gEnv_s5 {0}, gEnv_s6 {0};
+static u16 env[8] {0};
 
 inline u16 Sample_Mask( u32 x )
 {
@@ -24,7 +24,7 @@ void ENVSETUP1(AudioHLECommand command)
 {
   //fprintf (dfile, "ENVSETUP1: cmd0 = %08X, cmd1 = %08X\n", command.cmd0, command.cmd1);
   	gEnv_t3 = command.cmd0 & 0xFFFF;
-  	u32 tmp	= (command.cmd0 >> 0x8) & 0xFF00;
+  	auto tmp	= (command.cmd0 >> 0x8) & 0xFF00;
   	env[4] = Sample_Mask(tmp);
   	env[5] = Sample_Mask(tmp + gEnv_t3);
   	gEnv_s5 = command.cmd1 >> 0x10;
@@ -35,11 +35,11 @@ void ENVSETUP1(AudioHLECommand command)
 void ENVSETUP2(AudioHLECommand command)
 {
   //fprintf (dfile, "ENVSETUP2: cmd0 = %08X, cmd1 = %08X\n", command.cmd0, command.cmd1);
-	u32 tmp1 = (command.cmd1 >> 0x10);
+	auto tmp1 = (command.cmd1 >> 0x10);
 	env[0] = Sample_Mask(tmp1);
 	env[1] = Sample_Mask(tmp1 + gEnv_s5);
 
-	u32 tmp2 = command.cmd1 & 0xffff;
+	auto tmp2 = command.cmd1 & 0xffff;
 	env[2] = Sample_Mask(tmp2);
 	env[3] = Sample_Mask(tmp2 + gEnv_s6);
 	//fprintf (dfile, "	env[0] = %X / env[1] = %X / env[2] = %X / env[3] = %X\n", env[0], env[1], env[2], env[3]);
@@ -54,8 +54,8 @@ void ENVSETUP3(AudioHLECommand command)
 void ENVMIXER(AudioHLECommand command)
 {
 	//static int envmixcnt = 0;
-	u8	flags( command.Abi1EnvMixer.Flags );
-	u32 address( command.Abi1EnvMixer.Address );// + gAudioHLEState.Segments[(command.cmd1>>24)&0xf];
+	auto	flags {command.Abi1EnvMixer.Flags};
+	auto address {command.Abi1EnvMixer.Address};// + gAudioHLEState.Segments[(command.cmd1>>24)&0xf];
 
 	gAudioHLEState.EnvMixer( flags, address );
 }
@@ -69,24 +69,24 @@ void ENVMIXER_GE(AudioHLECommand command)
 void ENVMIXER2(AudioHLECommand command)
 {
   //fprintf (dfile, "ENVMIXER: cmd0 = %08X, cmd1 = %08X\n", command.cmd0, command.cmd1);
-  	s16 vec9, vec10;
+  	auto vec9 {0}, vec10 {0};
 
-  	s16 *buffs3 = (s16 *)(gAudioHLEState.Buffer + ((command.cmd0 >> 0x0c)&0x0ff0));
-  	s16 *bufft6 = (s16 *)(gAudioHLEState.Buffer + ((command.cmd1 >> 0x14)&0x0ff0));
-  	s16 *bufft7 = (s16 *)(gAudioHLEState.Buffer + ((command.cmd1 >> 0x0c)&0x0ff0));
-  	s16 *buffs0 = (s16 *)(gAudioHLEState.Buffer + ((command.cmd1 >> 0x04)&0x0ff0));
-  	s16 *buffs1 = (s16 *)(gAudioHLEState.Buffer + ((command.cmd1 << 0x04)&0x0ff0));
+  	auto *buffs3 = (s16 *)(gAudioHLEState.Buffer + ((command.cmd0 >> 0x0c)&0x0ff0));
+  	auto *bufft6 = (s16 *)(gAudioHLEState.Buffer + ((command.cmd1 >> 0x14)&0x0ff0));
+  	auto *bufft7 = (s16 *)(gAudioHLEState.Buffer + ((command.cmd1 >> 0x0c)&0x0ff0));
+  	auto *buffs0 = (s16 *)(gAudioHLEState.Buffer + ((command.cmd1 >> 0x04)&0x0ff0));
+  	auto *buffs1 = (s16 *)(gAudioHLEState.Buffer + ((command.cmd1 << 0x04)&0x0ff0));
 
 
-  	s16 v2[8];
+  	s16 v2[8] {0};
   	v2[0] = 0 - (s16)((command.cmd0 & 0x2) >> 1);
   	v2[1] = 0 - (s16)((command.cmd0 & 0x1));
   	v2[2] = 0 - (s16)((command.cmd0 & 0x8) >> 1);
   	v2[3] = 0 - (s16)((command.cmd0 & 0x4) >> 1);
 
-  	s32 count = (command.cmd0 >> 8) & 0xff;
+  	auto count {(command.cmd0 >> 8) & 0xff};
 
-  	u32 adder;
+  	auto adder {0};
   	if (!isMKABI)
   	{
   		gEnv_s5 *= 2; gEnv_s6 *= 2; gEnv_t3 *= 2;
@@ -102,8 +102,8 @@ void ENVMIXER2(AudioHLECommand command)
 
   	while (count > 0)
   	{
-  		int temp;
-  		for (int x=0; x < 0x8; x++)
+  		auto temp {0};
+  		for (auto x {0}; x < 0x8; x++)
   		{
   			vec9  = (s16)(((s32)buffs3[x^1] * (u32)env[0]) >> 0x10) ^ v2[0];
   			vec10 = (s16)(((s32)buffs3[x^1] * (u32)env[2]) >> 0x10) ^ v2[1];
@@ -130,7 +130,7 @@ void ENVMIXER2(AudioHLECommand command)
   		}
 
   		if (!isMKABI)
-  		for (int x=0x8; x < 0x10; x++)
+  		for (auto x {0x8}; x < 0x10; x++)
   		{
   			vec9  = (s16)(((s32)buffs3[x^1] * (u32)env[1]) >> 0x10) ^ v2[0];
   			vec10 = (s16)(((s32)buffs3[x^1] * (u32)env[3]) >> 0x10) ^ v2[1];
@@ -169,29 +169,29 @@ void ENVMIXER2(AudioHLECommand command)
 
 void ENVMIXER3(AudioHLECommand command)
 {
-  u8 flags = (u8)((command.cmd0 >> 16) & 0xff);
-  	u32 addy = (command.cmd1 & 0xFFFFFF);
+  auto flags {(u8)((command.cmd0 >> 16) & 0xff)};
+  	auto addy {command.cmd1 & 0xFFFFFF};
 
-   	s16 *inp=(s16 *)(gAudioHLEState.Buffer+0x4F0);
-  	s16 *out=(s16 *)(gAudioHLEState.Buffer+0x9D0);
-  	s16 *aux1=(s16 *)(gAudioHLEState.Buffer+0xB40);
-  	s16 *aux2=(s16 *)(gAudioHLEState.Buffer+0xCB0);
-  	s16 *aux3=(s16 *)(gAudioHLEState.Buffer+0xE20);
-  	s32 MainR;
-  	s32 MainL;
-  	s32 AuxR;
-  	s32 AuxL;
-  	s32 i1,o1,a1,a2,a3;
+   	auto *inp {(s16 *)(gAudioHLEState.Buffer+0x4F0)};
+  	auto *out {(s16 *)(gAudioHLEState.Buffer+0x9D0)};
+  	auto *aux1 {(s16 *)(gAudioHLEState.Buffer+0xB40)};
+  	auto *aux2 {(s16 *)(gAudioHLEState.Buffer+0xCB0)};
+  	auto *aux3 {(s16 *)(gAudioHLEState.Buffer+0xE20)};
+  	auto MainR {0};
+  	auto MainL {0};
+  	auto AuxR {0};
+  	auto AuxL {0};
+  	auto i1{0},o1 {0}, a1 {0},a2 {0},a3 {0};
 
-  	s32 LAdder, LAcc, LVol;
-  	s32 RAdder, RAcc, RVol;
-  	s16 RSig, LSig; // Most significant part of the Ramp Value
-  	s16 Wet, Dry;
-  	s16 LTrg, RTrg;
+  	auto LAdder {0}, LAcc {0}, LVol {0};
+  	auto RAdder {0}, RAcc {0}, RVol {0};
+  	auto RSig {0}, LSig {0}; // Most significant part of the Ramp Value
+  	auto Wet {0}, Dry {0};
+  	auto LTrg {0}, RTrg {0};
 
   	gAudioHLEState.VolRight = (s16)command.cmd0;
 
-  	s16* buff = (s16*)(rdram+addy);
+  	auto *buff {(s16*)(rdram+addy)};
 
   	if (flags & A_INIT)
   	{
@@ -234,7 +234,7 @@ void ENVMIXER3(AudioHLECommand command)
   	//	aux2=aux3=zero;
   	//}
 
-  	for (s32 y = 0; y < (0x170/2); y++) {
+  	for (auto y {0}; y < (0x170/2); y++) {
 
   		// Left
   		LAcc += LAdder;
@@ -325,10 +325,10 @@ void ENVMIXER3(AudioHLECommand command)
 void SETVOL(AudioHLECommand command)
 {
   // Might be better to unpack these depending on the flags...
-  	u8 flags = (u8)((command.cmd0 >> 16) & 0xff);
-  	s16 vol = (s16)(command.cmd0 & 0xffff);
+  	auto flags {(u8)((command.cmd0 >> 16) & 0xff)};
+  	auto vol {(s16)(command.cmd0 & 0xffff)};
   //	u16 voltgt =(u16)((command.cmd1 >> 16)&0xffff);
-  	u16 volrate = (u16)((command.cmd1 & 0xffff));
+  	auto volrate {(u16)((command.cmd1 & 0xffff))};
 
   	if (flags & A_AUX)
   	{
@@ -367,7 +367,7 @@ void SETVOL(AudioHLECommand command)
 
 void SETVOL3(AudioHLECommand command)
 {
-  u8 Flags = (u8)(command.cmd0 >> 0x10);
+  auto Flags {(u8)(command.cmd0 >> 0x10)};
 	if (Flags & 0x4)
 	{ // 288
 		if (Flags & 0x2)

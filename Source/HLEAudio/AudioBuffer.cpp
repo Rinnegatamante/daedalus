@@ -51,7 +51,7 @@ u32 CAudioBuffer::GetNumBufferedSamples() const
 // #endif
 
 	// Safe? What if we read mWrite, and then mRead moves to start of buffer?
-	s32 diff = mWritePtr - mReadPtr;
+	auto diff {mWritePtr - mReadPtr};
 
 	if( diff < 0 )
 	{
@@ -77,8 +77,8 @@ void CAudioBuffer::AddSamples( const Sample * samples, u32 num_samples, u32 freq
 	#ifdef DAEDALUS_PSP
 	//sceKernelDcacheWritebackInvalidateAll();
 	#endif
-	const Sample *	read_ptr( mReadPtr );		// No need to invalidate, as this is uncached/volatile
-	Sample *		write_ptr( mWritePtr );
+	const Sample *read_ptr {mReadPtr};		// No need to invalidate, as this is uncached/volatile
+	Sample 			*write_ptr { mWritePtr };
 
 	//
 	//	'r' is the number of input samples we progress through for each output sample.
@@ -88,12 +88,11 @@ void CAudioBuffer::AddSamples( const Sample * samples, u32 num_samples, u32 freq
 	//	and reduce s by 1.0 (to keep it in the range 0.0 .. 1.0)
 	//	Principle is the same but rewritten to integer mode (faster & less ASM) //Corn
 
-	const s32 r( (frequency << 12)  / output_freq );
-	s32		  s( 0 );
-	u32		  in_idx( 0 );
-	u32		  output_samples( (( num_samples * output_freq ) / frequency) - 1);
+	const auto r {(frequency << 12)  / output_freq };
+	auto s{0}, in_idx {0};
+	auto output_samples {(( num_samples * output_freq ) / frequency) - 1};
 
-	for( u32 i = output_samples; i != 0 ; i-- )
+	for( auto i {output_samples}; i != 0 ; i-- )
 	{
 		#ifdef DAEDALUS_ENABLE_ASSERTS
 		DAEDALUS_ASSERT( in_idx + 1 < num_samples, "Input index out of range - %d / %d", in_idx+1, num_samples );
@@ -115,7 +114,7 @@ void CAudioBuffer::AddSamples( const Sample * samples, u32 num_samples, u32 freq
 		//
 // #else
 		// Resample in integer mode (faster & less ASM code) //Corn
-		Sample	out;
+		Sample	out {};
 
 		out.L = samples[ in_idx ].L + ((( samples[ in_idx + 1 ].L - samples[ in_idx ].L ) * s ) >> 12 );
 		out.R = samples[ in_idx ].R + ((( samples[ in_idx + 1 ].R - samples[ in_idx ].R ) * s ) >> 12 );
@@ -162,11 +161,11 @@ u32	CAudioBuffer::Drain( Sample * samples, u32 num_samples )
 	//sceKernelDcacheWritebackInvalidateAll();
 	#endif
 
-	const Sample *	read_ptr( mReadPtr );		// No need to invalidate, as this is uncached/volatile
-	const Sample *	write_ptr( mWritePtr );		//
+	const Sample *read_ptr {mReadPtr};		// No need to invalidate, as this is uncached/volatile
+	const Sample *write_ptr {mWritePtr};		//
 
-	Sample *	out_ptr( samples );
-	u32			samples_required( num_samples );
+	Sample *out_ptr {samples };
+	auto		samples_required {num_samples};
 
 	while( samples_required > 0 )
 	{

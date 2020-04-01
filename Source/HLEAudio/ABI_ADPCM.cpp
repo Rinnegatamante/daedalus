@@ -12,9 +12,9 @@
 
 void ADPCM(AudioHLECommand command)
 {
-  u8		flags( command.Abi1ADPCM.Flags );
+  auto	flags {command.Abi1ADPCM.Flags};
 //u16	gain( command.Abi1ADPCM.Gain );		// Not used?
-u32		address( command.Abi1ADPCM.Address );// + gAudioHLEState.Segments[(command.cmd1>>24)&0xf];
+ auto address {command.Abi1ADPCM.Address};// + gAudioHLEState.Segments[(command.cmd1>>24)&0xf];
 
 gAudioHLEState.ADPCMDecode( flags, address );
 
@@ -75,14 +75,14 @@ void Decode8( int (&inp1)[8], u32 icode_a, u32 icode_b, u32 icode_c, u32 icode_d
 
 void ADPCM2_Decode4( int (&inp1)[8], int (&inp2)[8], u32 inPtr, u8 code )
 {
-	u32 icode_a=gAudioHLEState.Buffer[(gAudioHLEState.InBuffer+inPtr+0)^3];
-	u32 icode_b=gAudioHLEState.Buffer[(gAudioHLEState.InBuffer+inPtr+1)^3];
-	u32 icode_c=gAudioHLEState.Buffer[(gAudioHLEState.InBuffer+inPtr+2)^3];
-	u32 icode_d=gAudioHLEState.Buffer[(gAudioHLEState.InBuffer+inPtr+3)^3];
+	auto icode_a {gAudioHLEState.Buffer[(gAudioHLEState.InBuffer+inPtr+0)^3]};
+	auto icode_b {gAudioHLEState.Buffer[(gAudioHLEState.InBuffer+inPtr+1)^3]};
+	auto icode_c {gAudioHLEState.Buffer[(gAudioHLEState.InBuffer+inPtr+2)^3]};
+	auto icode_d {gAudioHLEState.Buffer[(gAudioHLEState.InBuffer+inPtr+3)^3]};
 
 	if( code < 0xE )
 	{
-		int vscale(0x8000>>((0xE - code)-1));
+		int vscale {0x8000>>((0xE - code)-1)};
 		Decode4_Scale( inp1, icode_a, icode_b, vscale );
 		Decode4_Scale( inp2, icode_c, icode_d, vscale );
 	}
@@ -95,18 +95,18 @@ void ADPCM2_Decode4( int (&inp1)[8], int (&inp2)[8], u32 inPtr, u8 code )
 
 void ADPCM2_Decode8( int (&inp1)[8], int (&inp2)[8], u32 inPtr, u8 code )
 {
-	u32 icode_a=gAudioHLEState.Buffer[(gAudioHLEState.InBuffer+inPtr+0)^3];
-	u32 icode_b=gAudioHLEState.Buffer[(gAudioHLEState.InBuffer+inPtr+1)^3];
-	u32 icode_c=gAudioHLEState.Buffer[(gAudioHLEState.InBuffer+inPtr+2)^3];
-	u32 icode_d=gAudioHLEState.Buffer[(gAudioHLEState.InBuffer+inPtr+3)^3];
-	u32 icode_e=gAudioHLEState.Buffer[(gAudioHLEState.InBuffer+inPtr+4)^3];
-	u32 icode_f=gAudioHLEState.Buffer[(gAudioHLEState.InBuffer+inPtr+5)^3];
-	u32 icode_g=gAudioHLEState.Buffer[(gAudioHLEState.InBuffer+inPtr+6)^3];
-	u32 icode_h=gAudioHLEState.Buffer[(gAudioHLEState.InBuffer+inPtr+7)^3];
+	auto icode_a {gAudioHLEState.Buffer[(gAudioHLEState.InBuffer+inPtr+0)^3]};
+	auto icode_b {gAudioHLEState.Buffer[(gAudioHLEState.InBuffer+inPtr+1)^3]};
+	auto icode_c {gAudioHLEState.Buffer[(gAudioHLEState.InBuffer+inPtr+2)^3]};
+	auto icode_d {gAudioHLEState.Buffer[(gAudioHLEState.InBuffer+inPtr+3)^3]};
+	auto icode_e {gAudioHLEState.Buffer[(gAudioHLEState.InBuffer+inPtr+4)^3]};
+	auto icode_f {gAudioHLEState.Buffer[(gAudioHLEState.InBuffer+inPtr+5)^3]};
+	auto icode_g {gAudioHLEState.Buffer[(gAudioHLEState.InBuffer+inPtr+6)^3]};
+	auto icode_h {gAudioHLEState.Buffer[(gAudioHLEState.InBuffer+inPtr+7)^3]};
 
 	if( code < 0xC )
 	{
-		int vscale(0x8000>>((0xC - code)-1));
+		auto vscale {0x8000>>((0xC - code)-1)};
 		Decode8_Scale( inp1, icode_a, icode_b, icode_c, icode_d, vscale );
 		Decode8_Scale( inp2, icode_e, icode_f, icode_g, icode_h, vscale );
 	}
@@ -119,10 +119,10 @@ void ADPCM2_Decode8( int (&inp1)[8], int (&inp2)[8], u32 inPtr, u8 code )
 
 void ADPCM2_Loop( s32 (&a)[8], int (&i1)[8], const s16 * b1, const s16 * b2, s16 * out )
 {
-	int l1( a[6] );
-	int l2( a[7] );
+	auto l1 {a[6]};
+	auto l2 {a[7]};
 
-	const int scl( 2048 );
+	const auto scl {2048};
 
 	a[0] = ((int)b1[0]*l1) + ((int)b2[0]*l2) + ((int)i1[0]*scl);
 	a[1] = ((int)b1[1]*l1) + ((int)b2[1]*l2) + ((int)b2[0]*i1[0]) + ((int)i1[1]*scl);
@@ -133,9 +133,9 @@ void ADPCM2_Loop( s32 (&a)[8], int (&i1)[8], const s16 * b1, const s16 * b2, s16
 	a[6] = ((int)b1[6]*l1) + ((int)b2[6]*l2) + ((int)b2[5]*i1[0]) + ((int)b2[4]*i1[1]) + ((int)b2[3]*i1[2]) + ((int)b2[2]*i1[3]) + ((int)b2[1]*i1[4]) + ((int)b2[0]*i1[5]) + ((int)i1[6]*scl);
 	a[7] = ((int)b1[7]*l1) + ((int)b2[7]*l2) + ((int)b2[6]*i1[0]) + ((int)b2[5]*i1[1]) + ((int)b2[4]*i1[2]) + ((int)b2[3]*i1[3]) + ((int)b2[2]*i1[4]) + ((int)b2[1]*i1[5]) + ((int)b2[0]*i1[6]) + ((int)i1[7]*scl);
 
-	for(u32 j=0;j<8;j++)
+	for(auto j {0}; j<8; j++)
 	{
-		s16 r = Saturate<s16>( a[j^1] >> 11 );
+		auto r {Saturate<s16>( a[j^1] >> 11 )};
 		a[j^1] = r;
 		out[j]=r;		// XXXX endian issues
 	}
@@ -144,13 +144,13 @@ void ADPCM2(AudioHLECommand command)
 {
 
   // Verified to be 100% Accurate...
-  	u8 Flags=(u8)((command.cmd0>>16)&0xff);
+  	auto Flags {(u8)((command.cmd0>>16)&0xff)};
   	//u16 Gain=(u16)(command.cmd0&0xffff);	// XXXX Unused
-  	u32 Address=(command.cmd1 & 0xffffff);// + gAudioHLEState.Segments[(command.cmd1>>24)&0xf];
+  	auto Address {(command.cmd1 & 0xffffff)};// + gAudioHLEState.Segments[(command.cmd1>>24)&0xf];
 
-  	bool init( (Flags&0x1) != 0 );
-  	bool loop( (Flags&0x2) != 0 );
-  	bool decode4( (Flags & 0x4) != 0 );		// 4 bytes -> 16 output samples
+  	bool init {(Flags&0x1) != 0 };
+  	bool loop {(Flags&0x2) != 0 };
+  	bool decode4 {(Flags & 0x4) != 0};		// 4 bytes -> 16 output samples
 
   	s16 * out( (s16 *)(gAudioHLEState.Buffer+gAudioHLEState.OutBuffer) );
   	if(init)
@@ -159,40 +159,40 @@ void ADPCM2(AudioHLECommand command)
   	}
   	else
   	{
-  		u32		src_addr( loop ? gAudioHLEState.LoopVal : Address );
+  		auto src_addr  {loop ? gAudioHLEState.LoopVal : Address};
   		memmove(out,&rdram[src_addr],32);		// XXXX Endian issues?
   	}
 
-  	u16 inPtr=0;
+  	auto inPtr {0};
 
-  	s32 a[8] = { 0,0,0,0,0,0,out[15],out[14] };		// XXXX Endian issues - should be 14/15^TWIDDLE?
+  	s32 a[8] { 0,0,0,0,0,0,out[15],out[14] };		// XXXX Endian issues - should be 14/15^TWIDDLE?
 
-  	out+=16;
-  	short count=gAudioHLEState.Count;
+  	out += 16;
+  	short count {gAudioHLEState.Count};
   	while(count>0)
   	{
-  		u8 idx_code=gAudioHLEState.Buffer[(gAudioHLEState.InBuffer+inPtr)^3];
+  		auto idx_code {gAudioHLEState.Buffer[(gAudioHLEState.InBuffer+inPtr)^3]};
   		inPtr++;
 
-  		u16 index((idx_code&0xf)<<4);
-  		u8	code(idx_code>>=4);
+  		auto index {(idx_code & 0xf) << 4};
+  		auto code {idx_code >>= 4};
 
-  		s16 * book1=(s16 *)&gAudioHLEState.ADPCMTable[index];
-  		s16 * book2=book1+8;
+  		auto *book1 {(s16 *) &gAudioHLEState.ADPCMTable[index]};
+  		auto *book2 {book1 + 8};
 
   		// Decode inputs
-  		int inp1[8];
-  		int inp2[8];
+  		int inp1[8] {0};
+  		int inp2[8] {0};
 
   		if( decode4 )
   		{
   			ADPCM2_Decode4( inp1, inp2, inPtr, code );
-  			inPtr+=4;
+  			inPtr += 4;
   		}
   		else
   		{
   			ADPCM2_Decode8( inp1, inp2, inPtr, code );
-  			inPtr+=8;
+  			inPtr += 8;
   		}
 
   		// Generate samples
@@ -200,28 +200,25 @@ void ADPCM2(AudioHLECommand command)
   		ADPCM2_Loop( a, inp2, book1, book2, out+8 );
 
   		out += 16;
-  		count-=32;
+  		count -= 32;
   	}
-  	out-=16;
+  	out -= 16;
   	memmove(&rdram[Address],out,32);
 
 }
 
 void ADPCM3(AudioHLECommand command)
 {
-  u8 Flags=(u8)(command.cmd1>>0x1c)&0xff;
+  auto Flags {(u8)(command.cmd1>>0x1c)&0xff};
   	//u16 Gain=(u16)(command.cmd0&0xffff);
-  	u32 Address=(command.cmd0 & 0xffffff);// + gAudioHLEState.Segments[(command.cmd1>>24)&0xf];
-  	u32 inPtr=(command.cmd1>>12)&0xf;
+  	auto Address {(command.cmd0 & 0xffffff)};// + gAudioHLEState.Segments[(command.cmd1>>24)&0xf];
+  	auto inPtr {(command.cmd1>>12) &0xf};
   	//s16 *out=(s16 *)(testbuff+(gAudioHLEState.OutBuffer>>2));
-  	s16 *out=(s16 *)(gAudioHLEState.Buffer+(command.cmd1&0xfff)+0x4f0);
+  	auto *out {(s16 *)( gAudioHLEState.Buffer + (command.cmd1 &0xfff) + 0x4f0)};
   	//u8 *in=(u8 *)(gAudioHLEState.Buffer+((command.cmd1>>12)&0xf)+0x4f0);
-  	s16 count=(s16)((command.cmd1 >> 16)&0xfff);
-  	u8 icode;
-  	u8 code;
-  	s32 vscale;
-  	u16 index;
-  	u16 j;
+  	auto count {(s16)((command.cmd1 >> 16)&0xfff)};
+    auto icode {0}, code {0}, vscale {0}, index {0}, j {0};
+
   	s32 a[8];
   	s16 *book1,*book2;
 
@@ -232,11 +229,11 @@ void ADPCM3(AudioHLECommand command)
   		memmove(out,&rdram[(Flags&0x2) ? gAudioHLEState.LoopVal : Address],32);
   	}
 
-  	s32 l1=out[15];
-  	s32 l2=out[14];
+  	auto l1 {out[15]};
+  	auto l2 {out[14]};
   	s32 inp1[8];
   	s32 inp2[8];
-  	out+=16;
+  	out += 16;
   	while(count>0)
   	{
   													// the first interation through, these values are
@@ -244,13 +241,13 @@ void ADPCM3(AudioHLECommand command)
   													// area of memory in the case of A_LOOP or just
   													// the values we calculated the last time
 
-  		code=gAudioHLEState.Buffer[(0x4f0+inPtr)^3];
-  		index=code&0xf;
-  		index<<=4;									// index into the adpcm code table
-  		book1=(s16 *)&gAudioHLEState.ADPCMTable[index];
-  		book2=book1+8;
-  		code>>=4;									// upper nibble is scale
-  		vscale=(0x8000>>((12-code)-1));				// very strange. 0x8000 would be .5 in 16:16 format
+  		code = gAudioHLEState.Buffer[( 0x4f0 + inPtr) ^3];
+  		index = code &0xf;
+  		index <<= 4;									// index into the adpcm code table
+  		book1 = (s16 *)&gAudioHLEState.ADPCMTable[index];
+  		book2 = book1 + 8;
+  		code >>=4;									// upper nibble is scale
+  		vscale = (0x8000 >> ((12-code)-1));				// very strange. 0x8000 would be .5 in 16:16 format
   													// so this appears to be a fractional scale based
   													// on the 12 based inverse of the scale value.  note
   													// that this could be negative, in which case we do
@@ -258,43 +255,43 @@ void ADPCM3(AudioHLECommand command)
   													// if(code>12) check below
 
   		inPtr++;									// coded adpcm data lies next
-  		j=0;
-  		while(j<8)									// loop of 8, for 8 coded nibbles from 4 bytes
+  		j = 0;
+  		while ( j < 8 )									// loop of 8, for 8 coded nibbles from 4 bytes
   													// which yields 8 s16 pcm values
   		{
-  			icode=gAudioHLEState.Buffer[(0x4f0+inPtr)^3];
+  			icode = gAudioHLEState.Buffer[ (0x4f0 + inPtr) ^3];
   			inPtr++;
 
-  			inp1[j]=(s16)((icode&0xf0)<<8);			// this will in effect be signed
+  			inp1[j] = (s16)((icode &0xf0) << 8);			// this will in effect be signed
 
   			// Conker and Banjo set this!
-  			if(code<12)
-  				inp1[j]=((s32)((s32)inp1[j]*(s32)vscale)>>16);
+  			if (code < 12)
+  				inp1[j] = ((s32)((s32)inp1[j] *(s32)vscale) >>16);
 
   			j++;
 
-  			inp1[j]=(s16)((icode&0xf)<<12);
+  			inp1[j] = (s16)((icode & 0xf) <<12);
 
-  			inp1[j]=((s32)((s32)inp1[j]*(s32)vscale)>>16);
+  			inp1[j] = ((s32)((s32)inp1[j] * (s32)vscale) >>16);
   			j++;
   		}
 
-  		j=0;
-  		while(j<8)
+  		j = 0;
+  		while( j < 8)
   		{
-  			icode=gAudioHLEState.Buffer[(0x4f0+inPtr)^3];
+  			icode = gAudioHLEState.Buffer[( 0x4f0 + inPtr) ^3];
   			inPtr++;
 
-  			inp2[j]=(s16)((icode&0xf0)<<8);			// this will in effect be signed
+  			inp2[j] = (s16)((icode &0xf0 ) << 8);			// this will in effect be signed
 
-  			if(code<12)
-  				inp2[j]=((s32)((s32)inp2[j]*(s32)vscale)>>16);
+  			if( code < 12)
+  				inp2[j] = ((s32)((s32)inp2[j] * (s32)vscale) >>16);
 
   			j++;
 
-  			inp2[j]=(s16)((icode&0xf)<<12);
+  			inp2[j] = (s16)((icode &0xf) <<12);
 
-  			inp2[j]=((s32)((s32)inp2[j]*(s32)vscale)>>16);
+  			inp2[j] = ((s32)((s32)inp2[j] * (s32)vscale) >>16);
   			j++;
   		}
 
@@ -444,8 +441,8 @@ void ADPCM3(AudioHLECommand command)
 
 void LOADADPCM(AudioHLECommand command)
 {
-  u32		address(command.Abi1LoadADPCM.Address );// + gAudioHLEState.Segments[(command.cmd1>>24)&0xf];
-	u16		count( command.Abi1LoadADPCM.Count );
+  auto		address(command.Abi1LoadADPCM.Address );// + gAudioHLEState.Segments[(command.cmd1>>24)&0xf];
+	auto		count( command.Abi1LoadADPCM.Count );
 
 	gAudioHLEState.LoadADPCM( address, count );
 }
@@ -453,16 +450,16 @@ void LOADADPCM(AudioHLECommand command)
 void LOADADPCM2(AudioHLECommand command)
 {
   // Loads an ADPCM table - Works 100% Now 03-13-01
-	u32		address(command.Abi2LoadADPCM.Address );// + gAudioHLEState.Segments[(command.cmd1>>24)&0xf];
-	u16		count( command.Abi2LoadADPCM.Count );
+	auto		address(command.Abi2LoadADPCM.Address );// + gAudioHLEState.Segments[(command.cmd1>>24)&0xf];
+	auto	count( command.Abi2LoadADPCM.Count );
 
 	gAudioHLEState.LoadADPCM( address, count );
 }
 
 void LOADADPCM3(AudioHLECommand command)
 {
-  u32		address(command.Abi3LoadADPCM.Address );// + gAudioHLEState.Segments[(command.cmd1>>24)&0xf];
-	u16		count( command.Abi3LoadADPCM.Count );
+  auto		address(command.Abi3LoadADPCM.Address );// + gAudioHLEState.Segments[(command.cmd1>>24)&0xf];
+	auto	count( command.Abi3LoadADPCM.Count );
 
 	gAudioHLEState.LoadADPCM( address, count );
 }

@@ -68,27 +68,26 @@ void	AudioHLEState::EnvMixer( u8 flags, u32 address )
 	MessageBox (nullptr, "Unaligned EnvMixer... please report this to Azimer with the following information: RomTitle, Place in the rom it occurred, and any save state just before the error", "AudioHLE Error", MB_OK);
 	}*/
 	// ------------------------------------------------------------
-	s16 *inp=(s16 *)(Buffer+InBuffer);
-	s16 *out=(s16 *)(Buffer+OutBuffer);
-	s16 *aux1=(s16 *)(Buffer+AuxA);
-	s16 *aux2=(s16 *)(Buffer+AuxC);
-	s16 *aux3=(s16 *)(Buffer+AuxE);
-	s32 MainR {}; s32 MainL {};
-	s32 AuxR {};	s32 AuxL {};
-	s32 i1 {},o1 {},a1 {},a2 {},a3 {};
-	u16 AuxIncRate {1};
+	auto *inp {(s16 *)(Buffer+InBuffer)};
+	auto *out {(s16 *)(Buffer+OutBuffer)};
+	auto *aux1 {(s16 *)(Buffer+AuxA)};
+	auto *aux2 {(s16 *)(Buffer+AuxC)};
+ 	auto *aux3 {(s16 *)(Buffer+AuxE)};
+ 	auto MainR {0},  MainL {0};
+	auto AuxR {0}, AuxL {0};
+	auto i1 {0},o1 {0},a1 {0},a2 {0},a3 {0};
+	auto AuxIncRate {1};
 	s16 zero[8] {};
 	memset(zero,0,sizeof(s16) * 8);
-	s32 LVol {}, RVol {};
-	s32 LAcc {}, RAcc {};
-	s32 LTrg {}, RTrg {};
-	s16 Wet {}, Dry {};
-	u32 ptr {};
-	s32 RRamp {}, LRamp {};
-	s32 LAdderStart {}, RAdderStart {}, LAdderEnd {}, RAdderEnd {};
-	s32 oMainR {}, oMainL {}, oAuxR {}, oAuxL {};
-
-	s16* buff = (s16*)(rdram+address);
+	auto LVol {0}, RVol {0};
+	auto LAcc {0}, RAcc {0};
+	auto LTrg {0}, RTrg {0};
+	auto Wet {0}, Dry {0};
+	auto ptr {0};
+	auto RRamp {0}, LRamp {0};
+	auto LAdderStart {0}, RAdderStart {0}, LAdderEnd {0}, RAdderEnd {0};
+	auto oMainR {0}, oMainL {0}, oAuxR {0}, oAuxL {0};
+	auto *buff {(s16*)(rdram+address)};
 
 	//envmixcnt++;
 
@@ -135,7 +134,7 @@ void	AudioHLEState::EnvMixer( u8 flags, u32 address )
 	oMainR = (Dry * (RTrg>>16) + 0x4000) >> 15;
 	oAuxR  = (Wet * (RTrg>>16) + 0x4000) >> 15;
 
-	for (s32 y = 0; y < Count; y += 0x10)
+	for (auto y{0}; y < Count; y += 0x10)
 	{
 		if (LAdderStart != LTrg)
 		{
@@ -145,7 +144,7 @@ void	AudioHLEState::EnvMixer( u8 flags, u32 address )
 			//LAdderStart = ((s64)LAcc * (s64)LRamp) >> 16;
 
 			// Assembly code which this replaces slightly different from commented out code above...
-			u32 orig_ladder_end = LAdderEnd;
+			auto orig_ladder_end {LAdderEnd};
 			LAcc = LAdderStart;
 			LVol = (LAdderEnd - LAdderStart) >> 3;
 			LAdderEnd = FixedPointMulFull16( LAdderEnd, LRamp );
@@ -165,7 +164,7 @@ void	AudioHLEState::EnvMixer( u8 flags, u32 address )
 			//RAdderEnd   = ((s64)RAdderEnd * (s64)RRamp) >> 16;
 			//RAdderStart = ((s64)RAcc * (s64)RRamp) >> 16;
 
-			u32 orig_radder_end = RAdderEnd;
+			auto orig_radder_end {RAdderEnd};
 			RAcc = RAdderStart;
 			RVol = (orig_radder_end - RAdderStart) >> 3;
 			RAdderEnd = FixedPointMulFull16( RAdderEnd, RRamp );
@@ -177,11 +176,12 @@ void	AudioHLEState::EnvMixer( u8 flags, u32 address )
 			RVol = 0;
 		}
 
-		for (s32 x = 0; x < 8; x++)
+		for (auto x {0}; x < 8; x++)
 		{
 			i1=(s32)inp[ptr^1];
 			o1=(s32)out[ptr^1];
 			a1=(s32)aux1[ptr^1];
+
 			if (AuxIncRate)
 			{
 				a2=(s32)aux2[ptr^1];
@@ -391,18 +391,18 @@ const u16 ResampleLUT[0x200] =
 
 void	AudioHLEState::Resample( u8 flags, u32 pitch, u32 address )
 {
-	bool	init( (flags & 0x1) != 0 );
+	bool	init {(flags & 0x1) != 0};
 	#ifdef DAEDALUS_ENABLE_ASSERTS
 	DAEDALUS_ASSERT( (flags & 0x2) == 0, "Resample: unhandled flags %02x", flags );		// Was breakpoint - StrmnNrmn
 	#endif
 	pitch *= 2;
 
-	s16 *	buffer( (s16 *)(Buffer) );
-	u32		srcPtr(InBuffer/2);
-	u32		dstPtr(OutBuffer/2);
+	auto *buffer {(s16 *)(Buffer)};
+	auto	srcPtr(InBuffer/2);
+	auto	dstPtr(OutBuffer/2);
 	srcPtr -= 4;
 
-	u32 accumulator;
+	auto accumulator {0};
 	if (init)
 	{
 		for (u32 x=0; x < 4; x++)
@@ -413,7 +413,7 @@ void	AudioHLEState::Resample( u8 flags, u32 pitch, u32 address )
 	}
 	else
 	{
-		for (u32 x=0; x < 4; x++)
+		for (auto x {0}; x < 4; x++)
 		{
 			buffer[(srcPtr+x)^1] = ((u16 *)rdram)[((address/2)+x)^1];
 		}
@@ -421,14 +421,13 @@ void	AudioHLEState::Resample( u8 flags, u32 pitch, u32 address )
 	}
 
 
-	u32		loops( ((Count+0xf) & 0xFFF0)/2 );
-	for(u32 i = 0; i < loops ; ++i )
+	auto	loops {((Count+0xf) & 0xFFF0)/2};
+	for(auto i {0}; i < loops ; ++i )
 	{
-		u32			location( (accumulator >> 0xa) << 0x3 );
-		const s16 *	lut( (s16 *)(((u8 *)ResampleLUT) + location) );
+		auto location {(accumulator >> 0xa) << 0x3 };
+		const auto *lut {(s16 *)(((u8 *)ResampleLUT) + location)};
 
-		s32 accum;
-
+		auto accum {0};
 		accum  = FixedPointMul15( buffer[(srcPtr+0)^1], lut[0] );
 		accum += FixedPointMul15( buffer[(srcPtr+1)^1], lut[1] );
 		accum += FixedPointMul15( buffer[(srcPtr+2)^1], lut[2] );
@@ -441,7 +440,7 @@ void	AudioHLEState::Resample( u8 flags, u32 pitch, u32 address )
 		accumulator&=0xffff;
 	}
 
-	for (u32 x=0; x < 4; x++)
+	for (auto x{0}; x < 4; x++)
 	{
 		((u16 *)rdram)[((address/2)+x)^1] = buffer[(srcPtr+x)^1];
 	}
@@ -451,7 +450,7 @@ void	AudioHLEState::Resample( u8 flags, u32 pitch, u32 address )
 
 inline void AudioHLEState::ExtractSamplesScale( s32 * output, u32 inPtr, s32 vscale ) const
 {
-	u8 icode;
+	auto icode {0};
 
 	// loop of 8, for 8 coded nibbles from 4 bytes which yields 8 s16 pcm values
 	icode = Buffer[(InBuffer+inPtr++)^3];
@@ -470,7 +469,7 @@ inline void AudioHLEState::ExtractSamplesScale( s32 * output, u32 inPtr, s32 vsc
 
 inline void AudioHLEState::ExtractSamples( s32 * output, u32 inPtr ) const
 {
-	u8 icode;
+	auto icode {0};
 
 	// loop of 8, for 8 coded nibbles from 4 bytes which yields 8 s16 pcm values
 	icode = Buffer[(InBuffer+inPtr++)^3];
@@ -568,7 +567,7 @@ inline void DecodeSamples( s16 * out, s32 & l1, s32 & l2, const s32 * input, con
 #else
 inline void DecodeSamples( s16 * out, s32 & l1, s32 & l2, const s32 * input, const s16 * book1, const s16 * book2 )
 {
-	s32 a[8];
+	s32 a[8] {0};
 
 	a[0]= (s32)book1[0]*l1;
 	a[0]+=(s32)book2[0]*l2;
@@ -630,10 +629,10 @@ inline void DecodeSamples( s16 * out, s32 & l1, s32 & l2, const s32 * input, con
 	a[7]+=(s32)book2[0]*input[6];
 	a[7]+=input[7]*2048;
 
-	s16 r[8];
-	for(u32 j=0;j<8;j++)
+	s16 r[8] {0};
+	for(auto j {0};j<8;j++)
 	{
-		u32 idx( j^1 );
+		auto idx {j^1};
 		r[idx] = Saturate<s16>( a[idx] >> 11 );
 		*(out++) = r[idx];
 	}
@@ -645,11 +644,11 @@ inline void DecodeSamples( s16 * out, s32 & l1, s32 & l2, const s32 * input, con
 
 void AudioHLEState::ADPCMDecode( u8 flags, u32 address )
 {
-	bool	init( (flags&0x1) != 0 );
-	bool	loop( (flags&0x2) != 0 );
+	bool	init  {(flags&0x1) != 0};
+	bool	loop  {(flags&0x2) != 0};
 
-	u16 inPtr=0;
-	s16 *out=(s16 *)(Buffer+OutBuffer);
+	auto inPtr {0};
+	auto *out {(s16 *)(Buffer+OutBuffer)};
 
 	if(init)
 	{
@@ -657,18 +656,18 @@ void AudioHLEState::ADPCMDecode( u8 flags, u32 address )
 	}
 	else
 	{
-		u32 addr( loop ? LoopVal : address );
+		auto addr {loop ? LoopVal : address };
 		memmove( out, &rdram[addr], 32 );
 	}
 
-	s32 l1=out[15];
-	s32 l2=out[14];
+	s32 l1 = out[15];
+	s32 l2 = out[14];
 	out+=16;
 
 	s32 inp1[8];
 	s32 inp2[8];
 
-	s32 count = (s16)Count;		// XXXX why convert this to signed?
+	auto count { (s16)Count};		// XXXX why convert this to signed?
 	while(count>0)
 	{
 													// the first iteration through, these values are
@@ -676,17 +675,17 @@ void AudioHLEState::ADPCMDecode( u8 flags, u32 address )
 													// area of memory in the case of A_LOOP or just
 													// the values we calculated the last time
 
-		u8 code=Buffer[(InBuffer+inPtr)^3];
-		u32 index=code&0xf;							// index into the adpcm code table
-		s16 * book1=(s16 *)&ADPCMTable[index<<4];
-		s16 * book2=book1+8;
+													auto code {Buffer[(InBuffer+inPtr)^3]};
+		auto index {code &0xf};							// index into the adpcm code table
+		auto *book1 {(s16 *)&ADPCMTable[index<<4]};
+		auto *book2 {book1+8};
 		code>>=4;									// upper nibble is scale
 
 		inPtr++;									// coded adpcm data lies next
 
 		if( code < 12 )
 		{
-			s32 vscale=(0x8000>>((12-code)-1));			// very strange. 0x8000 would be .5 in 16:16 format
+			auto vscale {(0x8000>>((12-code)-1))};			// very strange. 0x8000 would be .5 in 16:16 format
 														// so this appears to be a fractional scale based
 														// on the 12 based inverse of the scale value.  note
 														// that this could be negative, in which case we do
@@ -783,7 +782,7 @@ void	AudioHLEState::DmemMove( u32 dst, u32 src, u16 count )
 	//Can't use fast_memcpy_swizzle, since this code can run on the ME, and VFPU is not accessible
 	memcpy_swizzle(Buffer + dst, Buffer + src, count);
 #else
-	for (u32 i = 0; i < count; i++)
+	for (auto i {0}; i < count; i++)
 	{
 		*(u8 *)(Buffer+((i+dst)^3)) = *(u8 *)(Buffer+((i+src)^3));
 	}
@@ -792,10 +791,10 @@ void	AudioHLEState::DmemMove( u32 dst, u32 src, u16 count )
 
 void	AudioHLEState::LoadADPCM( u32 address, u16 count )
 {
-	u32	loops( count / 16 );
+	auto	loops {count / 16};
 
-	const u16 *table( (const u16 *)(rdram + address) );
-	for (u32 x = 0; x < loops; x++)
+	const auto *table {(const u16 *)(rdram + address)};
+	for (auto x {0}; x < loops; x++)
 	{
 		ADPCMTable[0x1+(x<<3)] = table[0];
 		ADPCMTable[0x0+(x<<3)] = table[1];
@@ -814,14 +813,14 @@ void	AudioHLEState::LoadADPCM( u32 address, u16 count )
 
 void	AudioHLEState::Interleave( u16 outaddr, u16 laddr, u16 raddr, u16 count )
 {
-	u32 *		out = (u32 *)(Buffer + outaddr);	//Save some bandwith also corrected left and right//Corn
-	const u16 *	inr = (const u16 *)(Buffer + raddr);
-	const u16 *	inl = (const u16 *)(Buffer + laddr);
+	auto *out {(u32 *)(Buffer + outaddr)};	//Save some bandwith also corrected left and right//Corn
+	const auto *inr {(const u16 *)(Buffer + raddr)};
+	const auto *inl {(const u16 *)(Buffer + laddr)};
 
-	for( u32 x = (count >> 2); x != 0; x-- )
+	for( auto x {(count >> 2)}; x != 0; x-- )
 	{
-		const u16 right = *inr++;
-		const u16 left  = *inl++;
+		const auto right {*inr++};
+		const auto left {*inl++};
 
 		*out++ = (*inr++ << 16) | *inl++;
 		*out++ = (right  << 16) | left;
@@ -838,20 +837,20 @@ void	AudioHLEState::Mixer( u16 dmemout, u16 dmemin, s32 gain, u16 count )
 #if 1	//1->fast, 0->safe/slow //Corn
 
 	// Make sure we are on even address (YOSHI)
-	s16*  in( (s16 *)(Buffer + dmemin) );
-	s16* out( (s16 *)(Buffer + dmemout) );
+	s16 *in { (s16 *)(Buffer + dmemin)};
+	s16 *out { (s16 *)(Buffer + dmemout)};
 
-	for( u32 x = count >> 1; x != 0; x-- )
+	for( auto x {count >> 1}; x != 0; x-- )
 	{
 		*out = Saturate<s16>( FixedPointMul15( *in++, gain ) + s32( *out ) );
 		out++;
 	}
 
 #else
-	for( u32 x=0; x < count; x+=2 )
+	for( auto x {0}; x < count; x+=2 )
 	{
-		s16 in( *(s16 *)(Buffer+(dmemin+x)) );
-		s16 out( *(s16 *)(Buffer+(dmemout+x)) );
+		auto in { *(s16 *)(Buffer+(dmemin+x))};
+		auto out { *(s16 *)(Buffer+(dmemout+x))};
 
 		*(s16 *)(Buffer+((dmemout+x) & (N64_AUDIO_BUFF - 2)) ) = Saturate<s16>( FixedPointMul15( in, gain ) + s32( out ) );
 	}

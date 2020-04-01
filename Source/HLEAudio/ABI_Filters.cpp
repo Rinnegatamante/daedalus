@@ -17,9 +17,9 @@ void FILTER2(AudioHLECommand command)
   	DBGConsole_Msg(0, "FILTER2");
     #endif
 
-  static int cnt = 0;
-	static s16 *lutt6;
-	static s16 *lutt5;
+  static auto cnt {0};
+	static s16 *lutt6 {nullptr};
+	static s16 *lutt5 {nullptr};
 	u8 *save = (rdram+(command.cmd1&0xFFFFFF));
 	u8 t4 = (u8)((command.cmd0 >> 0x10) & 0xFF);
 
@@ -39,19 +39,19 @@ void FILTER2(AudioHLECommand command)
 
 //			lutt5 = (short *)(dmem + 0xFC0);
 //			lutt6 = (short *)(dmem + 0xFE0);
-	for (int x = 0; x < 8; x++) {
+	for (auto x {0}; x < 8; x++) {
 		s32 a;
 		a = (lutt5[x] + lutt6[x]) >> 1;
 		lutt5[x] = lutt6[x] = (short)a;
 	}
-	short *inp1, *inp2;
-	s32 out1[8];
+	s16 *inp1 {}, *inp2 {};
+	s32 out1[8] {};
 	s16 outbuff[0x3c0], *outp;
-	u32 inPtr = (u32)(command.cmd0&0xffff);
+	u32 inPtr {(u32)(command.cmd0&0xffff)};
 	inp1 = (short *)(save);
 	outp = outbuff;
 	inp2 = (short *)(gAudioHLEState.Buffer+inPtr);
-	for (int x = 0; x < cnt; x+=0x10) {
+	for (auto x {0}; x < cnt; x+=0x10) {
 		out1[1] =  inp1[0]*lutt6[6];
 		out1[1] += inp1[3]*lutt6[7];
 		out1[1] += inp1[2]*lutt6[4];

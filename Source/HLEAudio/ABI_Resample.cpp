@@ -20,9 +20,9 @@ void RESAMPLE(AudioHLECommand command)
 	#ifdef DEBUG_AUDIO
 		DBGConsole_Msg(0, "RESAMPLE");
 		#endif
-  u8 flags(command.Abi1Resample.Flags);
-	u32 pitch(command.Abi1Resample.Pitch);
-	u32 address(command.Abi1Resample.Address);// + gAudioHLEState.Segments[(command.cmd1>>24)&0xf];
+  auto flags {command.Abi1Resample.Flags};
+	auto pitch {command.Abi1Resample.Pitch};
+	auto address {command.Abi1Resample.Address};// + gAudioHLEState.Segments[(command.cmd1>>24)&0xf];
 
 	gAudioHLEState.Resample( flags, pitch, address );
 }
@@ -32,9 +32,9 @@ void RESAMPLE2(AudioHLECommand command)
 	#ifdef DEBUG_AUDIO
 		DBGConsole_Msg(0, "RESAMPLE2");
 		#endif
-u8 flags(command.Abi2Resample.Flags);
-u32 pitch(command.Abi2Resample.Pitch);
-u32 address(command.Abi2Resample.Address);// + gAudioHLEState.Segments[(command.cmd1>>24)&0xf];
+auto flags {command.Abi2Resample.Flags};
+auto pitch {command.Abi2Resample.Pitch};
+auto address {command.Abi2Resample.Address};// + gAudioHLEState.Segments[(command.cmd1>>24)&0xf];
 
 gAudioHLEState.Resample( flags, pitch, address );
 }
@@ -44,16 +44,16 @@ void RESAMPLE3(AudioHLECommand command)
 	#ifdef DEBUG_AUDIO
 		DBGConsole_Msg(0, "RESAMPLE3");
 		#endif
-  u8 Flags=(u8)((command.cmd1>>0x1e));
-  	u32 Pitch=((command.cmd1>>0xe)&0xffff) << 1;
-  	u32 addy = (command.cmd0 & 0xffffff);
-  	u32 Accum;
-  	s16 *dst;
-  	s16 *src;
+		auto Flags {(u8)((command.cmd1>>0x1e))};
+  	auto Pitch {((command.cmd1>>0xe)&0xffff) << 1};
+  	auto addy  {(command.cmd0 & 0xffffff)};
+  	auto Accum {0};
+		s16 *dst {0}, *src {0};
   	dst=(s16 *)(gAudioHLEState.Buffer);
   	src=(s16 *)(gAudioHLEState.Buffer);
-  	u32 srcPtr=((((command.cmd1>>2)&0xfff)+0x4f0)/2);
-  	u32 dstPtr;//=(gAudioHLEState.OutBuffer/2);
+  	auto srcPtr {((((command.cmd1>>2)&0xfff)+0x4f0)/2)};
+  	auto dstPtr {0};//=(gAudioHLEState.OutBuffer/2);
+
 
   	srcPtr -= 1;
 
@@ -71,7 +71,7 @@ void RESAMPLE3(AudioHLECommand command)
   		Accum = 0;
   	}
 
-  	for(u32 i=0;i < 0x170/2;i++)
+  	for(auto i {0};i < 0x170/2;i++)
   	{
   		dst[dstPtr^1] = src[srcPtr^1] + FixedPointMul16( src[(srcPtr+1)^1] - src[srcPtr^1], Accum );
   		++dstPtr;

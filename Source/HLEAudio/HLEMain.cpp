@@ -81,8 +81,8 @@ extern AudioHLEInstruction ABI3[0x20];
 
 AudioHLEInstruction *ABI = ABIUnknown;
 //bool bAudioChanged = false;
-bool isZeldaABI = false;
-bool isMKABI = false;
+bool isZeldaABI {false};
+bool isMKABI {false};
 
 //*****************************************************************************
 //
@@ -101,7 +101,7 @@ void Audio_Reset()
 inline void Audio_Ucode_Detect(OSTask * pTask)
 {
 	//		bAudioChanged = false;
-	u8* p_base = g_pu8RamBase + (u32)pTask->t.ucode_data;
+	auto *p_base {g_pu8RamBase + (u32)pTask->t.ucode_data};
 	if (*(u32*)(p_base + 0) != 0x01)
 	{
 	switch (*(u32*)(p_base + (0x10)))
@@ -189,7 +189,7 @@ void Audio_Ucode()
 	#ifdef DAEDALUS_PROFILE
 	DAEDALUS_PROFILE( "HLEMain::Audio_Ucode" );
 #endif
-	OSTask * pTask = (OSTask *)(g_pu8SpMemBase + 0x0FC0);
+	OSTask *pTask {(OSTask *)(g_pu8SpMemBase + 0x0FC0)};
 
 	// Only detect ABI once per game
 	// if ( !bAudioChanged )
@@ -201,8 +201,8 @@ void Audio_Ucode()
 	gAudioHLEState.LoopVal = 0;
 	//memset( gAudioHLEState.Segments, 0, sizeof( gAudioHLEState.Segments ) );
 
-	u32 * p_alist = (u32 *)(g_pu8RamBase + (u32)pTask->t.data_ptr);
-	u32 ucode_size = (pTask->t.data_size >> 3);	//ABI5 can return 0 here!!!
+	auto *p_alist {(u32 *)(g_pu8RamBase + (u32)pTask->t.data_ptr)};
+	auto ucode_size {(pTask->t.data_size >> 3)};	//ABI5 can return 0 here!!!
 
 	while( ucode_size )
 	{
