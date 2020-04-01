@@ -74,7 +74,7 @@ std::vector< DBG_BreakPoint > g_BreakPoints;
 volatile u32 eventQueueLocked {};
 
 static bool			gCPURunning      {false};			// CPU is actively running
-u8 *				gLastAddress       {nullptr};
+u8 *gLastAddress       {nullptr};
 std::string			gSaveStateFilename {""};
 
 static bool			gCPUStopOnSimpleState {false};			// When stopping, try to stop in a 'simple' state (i.e. no RSP running and not in a branch delay slot)
@@ -89,9 +89,9 @@ enum ESaveStateOperation
 
 static ESaveStateOperation		gSaveStateOperation {SSO_NONE};
 
-const  u32			kInitialVIInterruptCycles {62500};
-static u32			gVerticalInterrupts {};
-static u32			VI_INTR_CYCLES {kInitialVIInterruptCycles};
+const  auto			kInitialVIInterruptCycles {62500};
+static auto			gVerticalInterrupts {0};
+static auto			VI_INTR_CYCLES {kInitialVIInterruptCycles};
 
 #ifdef USE_SCRATCH_PAD
 SCPUState *gPtrCPUState {(SCPUState*)0x10000};
@@ -120,7 +120,7 @@ void CPU_RegisterVblCallback(VblCallbackFn fn, void * arg)
 
 void CPU_UnregisterVblCallback(VblCallbackFn fn, void * arg)
 {
-	for (auto it = gVblCallbacks.begin(); it != gVblCallbacks.end(); ++it)
+	for (auto it {gVblCallbacks.begin()}; it != gVblCallbacks.end(); ++it)
 	{
 		if (it->Fn == fn && it->Arg == arg)
 		{
@@ -170,7 +170,7 @@ void CPU_AddEvent( s32 count, ECPUEventType event_type )
 			//
 			event.mCount -= count;
 
-			u32 num_to_copy {gCPUState.NumEvents - event_idx};
+			auto num_to_copy {gCPUState.NumEvents - event_idx};
 			if( num_to_copy > 0 )
 			{
 				memmove( &gCPUState.Events[ event_idx+1 ], &gCPUState.Events[ event_idx ], num_to_copy * sizeof( CPUEvent ) );
@@ -202,7 +202,7 @@ static void CPU_SetCompareEvent( s32 count )
 		//
 		//	Remove any existing compare events. Need to adjust any subsequent timer's count.
 		//
-		for( u32 i {}; i < gCPUState.NumEvents; ++i )
+		for( auto i {0}; i < gCPUState.NumEvents; ++i )
 		{
 			if( gCPUState.Events[ i ].mEventType == CPU_EVENT_COMPARE )
 			{
@@ -236,7 +236,7 @@ static ECPUEventType CPU_PopEvent()
 
 	ECPUEventType event_type = gCPUState.Events[ 0 ].mEventType;
 
-	u32	num_to_copy {gCPUState.NumEvents - 1};
+	auto	num_to_copy {gCPUState.NumEvents - 1};
 	if( num_to_copy > 0 )
 	{
 		memmove( &gCPUState.Events[ 0 ], &gCPUState.Events[ 1 ], num_to_copy * sizeof( CPUEvent ) );
@@ -249,7 +249,7 @@ static ECPUEventType CPU_PopEvent()
 // XXXX This is for savestate. Looks very suspicious to me
 u32 CPU_GetVideoInterruptEventCount()
 {
-	for( u32 i {}; i < gCPUState.NumEvents; ++i )
+	for( auto i {0}; i < gCPUState.NumEvents; ++i )
 	{
 		if(gCPUState.Events[ i ].mEventType == CPU_EVENT_VBL)
 		{
@@ -263,7 +263,7 @@ u32 CPU_GetVideoInterruptEventCount()
 // XXXX This is for savestate. Looks very suspicious to me
 void CPU_SetVideoInterruptEventCount( u32 count )
 {
-	for( u32 i {}; i < gCPUState.NumEvents; ++i )
+	for( auto i {0}; i < gCPUState.NumEvents; ++i )
 	{
 		if(gCPUState.Events[ i ].mEventType == CPU_EVENT_VBL)
 		{
@@ -290,7 +290,7 @@ void SCPUState::AddJob( u32 job )
 
 void SCPUState::ClearJob( u32 job )
 {
-	u32 stuff( AtomicBitSet( &StuffToDo, ~job, 0x00000000 ) );
+	auto stuff( AtomicBitSet( &StuffToDo, ~job, 0x00000000 ) );
 	if( stuff == 0 )
 	{
 		Dynarec_ClearedCPUStuffToDo();
@@ -312,7 +312,7 @@ void SCPUState::Dump()
 
 	DBGConsole_Msg(0, "Emulation CPU State:");
 	{
-		for(int i=0; i<32; i+=4)
+		for(auto i {0}; i<32; i+=4)
 		{
 			DBGConsole_Msg(0, "%s:%08X %s:%08X %s:%08X %s:%08X",
 			kRegisterNames[i+0], gCPUState.CPU[i+0]._u32_0,
@@ -345,7 +345,7 @@ bool CPU_RomOpen()
 	gCPUState.MultHi._u64 = 0;
 	gCPUState.MultLo._u64 = 0;
 
-	for(u32 i {}; i < 32; i++)
+	for(auto i {0}; i < 32; i++)
 	{
 		gCPUState.CPU[i]._u64        = 0;
 		gCPUState.CPUControl[i]._u32 = 0;
@@ -354,7 +354,7 @@ bool CPU_RomOpen()
 	}
 
 	// Init TLBs:
-	for (u32 i {}; i < 32; i++)
+	for (auto i {0}; i < 32; i++)
 	{
 		g_TLBs[i].Reset();
 	}
@@ -395,7 +395,7 @@ bool CPU_RomOpen()
 
 static bool	CPU_IsStateSimple()
 {
-	bool rsp_halted = !RSP_IsRunning();
+	bool rsp_halted {!RSP_IsRunning()};
 
 	return rsp_halted && (gCPUState.Delay == NO_DELAY);
 }
@@ -580,7 +580,7 @@ void CPU_Halt( const char * reason )
 #ifdef DAEDALUS_BREAKPOINTS_ENABLED
 void CPU_AddBreakPoint( u32 address )
 {
-	OpCode * pdwOp;
+	OpCode *pdwOp;
 
 	// Force 4 byte alignment
 	address &= 0xFFFFFFFC;
@@ -628,7 +628,7 @@ void CPU_EnableBreakPoint( u32 address, bool enable )
 		}
 
 		// Entry is in lower 26 bits...
-		u32 breakpoint_idx = op_code.bp_index;
+		auto breakpoint_idx {op_code.bp_index};
 
 		if (breakpoint_idx < g_BreakPoints.size())
 		{
@@ -653,7 +653,7 @@ void CPU_HANDLE_COUNT_INTERRUPT()
 	case CPU_EVENT_VBL:
 		{
 			//Todo: Work on VI_INTR_CYCLES should be 62500 * (60/Real game FPS)
-			u32 vertical_sync_reg {Memory_VI_GetRegister( VI_V_SYNC_REG )};
+			auto vertical_sync_reg {Memory_VI_GetRegister( VI_V_SYNC_REG )};
 			if (vertical_sync_reg == 0)
 			{
 				VI_INTR_CYCLES = 62500;
@@ -750,7 +750,7 @@ void CPU_SetCompare(u32 value)
 		{
 			// NB, value can be less than COUNT here, which indicates that the counter is close to wrapping.
 			// Don't do anything special to handle this - just treat delta as an unsigned value.
-			u32 delta {value - gCPUState.CPUControl[C0_COUNT]._u32};
+			auto delta {value - gCPUState.CPUControl[C0_COUNT]._u32};
 
 			// This fires a lot for Zelda OoT. It's benign.
 			// If seems to keep setting a delta of 140624981 when the counter is close to wrapping.
@@ -773,7 +773,7 @@ void CPU_SetCompare(u32 value)
 #ifdef DAEDALUS_ENABLE_SYNCHRONISATION
 u32	CPU_ProduceRegisterHash()
 {
-	u32	hash = 0;
+	auto hash {0};
 
 	if ( DAED_SYNC_MASK & DAED_SYNC_REG_GPR )
 	{
@@ -828,7 +828,7 @@ void R4300_CALL_TYPE CPU_UpdateCounter( u32 ops_executed )
 	gTotalInstructionsExecuted += ops_executed;
 #endif
 
-	const u32 cycles {ops_executed * COUNTER_INCREMENT_PER_OP};
+	const auto cycles {ops_executed * COUNTER_INCREMENT_PER_OP};
 
 	// Increment count register
 	gCPUState.CPUControl[C0_COUNT]._u32 += cycles;
@@ -857,7 +857,7 @@ void CPU_UpdateCounterNoInterrupt( u32 ops_executed )
 		gCPUState.CPUControl[C0_COUNT]._u32 += cycles;
 
 #ifdef DAEDALUS_ENABLE_ASSERTS
-		bool	ready = CPU_ProcessEventCycles( cycles );
+		bool	ready {CPU_ProcessEventCycles( cycles )};
 		use( ready );
 		DAEDALUS_ASSERT(!ready, "Ignoring Count interrupt");	// Just a test - remove eventually (needs to handle this)
 #endif

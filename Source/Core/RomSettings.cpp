@@ -42,7 +42,7 @@ namespace
 
 EExpansionPakUsage	ExpansionPakUsageFromString( const char * str )
 {
-	for( u32 i {}; i < NUM_EXPANSIONPAK_USAGE_TYPES; ++i )
+	for( auto i {0}; i < NUM_EXPANSIONPAK_USAGE_TYPES; ++i )
 	{
 		EExpansionPakUsage	pak_usage = EExpansionPakUsage( i );
 
@@ -57,7 +57,7 @@ EExpansionPakUsage	ExpansionPakUsageFromString( const char * str )
 
 ESaveType	SaveTypeFromString( const char * str )
 {
-	for( u32 i {}; i < NUM_SAVE_TYPES; ++i )
+	for( auto i {0}; i < NUM_SAVE_TYPES; ++i )
 	{
 		ESaveType	save_type = ESaveType( i );
 
@@ -176,16 +176,16 @@ IRomSettingsDB::~IRomSettingsDB()
 //	Remove the specified characters from p_string
 static bool	trim( char * p_string, const char * p_trim_chars )
 {
-	u32 num_trims {strlen( p_trim_chars )};
-	char * pin {p_string};
-	char * pout {p_string};
+	auto num_trims {strlen( p_trim_chars )};
+	auto * pin {p_string};
+	auto * pout {p_string};
 	bool found {false};
 	while ( *pin )
 	{
-		char c {*pin};
+		auto c {*pin};
 
 		found = false;
-		for ( u32 i = 0; i < num_trims; i++ )
+		for ( auto i {0}; i < num_trims; i++ )
 		{
 			if ( p_trim_chars[ i ] == c )
 			{
@@ -214,7 +214,7 @@ static bool	trim( char * p_string, const char * p_trim_chars )
 
 static RomID	RomIDFromString( const char * str )
 {
-	u32 crc1, crc2, country;
+	auto crc1 {0}, crc2 {0}, country {0};
 	sscanf( str, "%08x%08x-%02x", &crc1, &crc2, &country );
 	return RomID( crc1, crc2, (u8)country );
 }
@@ -233,7 +233,7 @@ bool IRomSettingsDB::OpenSettingsFile( const char * filename )
 		return false;
 	}
 
-	for( u32 section_idx = 0; section_idx < p_ini_file->GetNumSections(); ++section_idx )
+	for( auto section_idx {0}; section_idx < p_ini_file->GetNumSections(); ++section_idx )
 	{
 		const CIniFileSection * p_section( p_ini_file->GetSection( section_idx ) );
 

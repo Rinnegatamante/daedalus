@@ -58,9 +58,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #define TRACE_SIZE 1024
 #endif
 
-static const u32					gMaxFragmentCacheSize {(8192 + 1024)}; //Maximum amount of fragments in the cache
+static const auto					gMaxFragmentCacheSize {(8192 + 1024)}; //Maximum amount of fragments in the cache
 static const u32					gMaxHotTraceMapSize {(2048 + TRACE_SIZE)};
-static const u32					gHotTraceThreshold {10};	//How many times interpreter has to loop a trace before it becomes hot and sent to dynarec
+static const auto					gHotTraceThreshold {10};	//How many times interpreter has to loop a trace before it becomes hot and sent to dynarec
 
 //typedef CMemoryPoolAllocator< std::pair< const u32, u32 > > MyAllocator;
 //std::map< u32, u32, std::less<u32>, MyAllocator >				gHotTraceCountMap;
@@ -130,7 +130,7 @@ void R4300_CALL_TYPE CPU_InvalidateICacheRange( u32 address, u32 length )
 template< bool TraceEnabled > DAEDALUS_FORCEINLINE void CPU_EXECUTE_OP()
 {
 
-	u8 * p_Instruction {};
+	u8 *p_Instruction {0};
 	CPU_FETCH_INSTRUCTION( p_Instruction, gCPUState.CurrentPC );
 	OpCode op_code = *(OpCode*)p_Instruction;
 
@@ -151,13 +151,13 @@ template< bool TraceEnabled > DAEDALUS_FORCEINLINE void CPU_EXECUTE_OP()
 		#ifdef DAEDALUS_ENABLE_ASSERTS
 		DAEDALUS_ASSERT( gTraceRecorder.IsTraceActive(), "If TraceEnabled is set, trace should be active" );
 		#endif
-		u32		pc( gCPUState.CurrentPC ) ;
-		bool	branch_delay_slot( gCPUState.Delay == EXEC_DELAY );
+		auto		pc {gCPUState.CurrentPC};
+		bool	branch_delay_slot {gCPUState.Delay == EXEC_DELAY};
 
 		R4300_ExecuteInstruction(op_code);
 		gGPR[0]._u64 = 0;	//Ensure r0 is zero
 
-		bool	branch_taken( gCPUState.Delay == DO_DELAY );
+		bool	branch_taken {gCPUState.Delay == DO_DELAY};
 
 		CPU_UpdateTrace( pc, op_code, branch_delay_slot, branch_taken );
 	}
@@ -229,14 +229,15 @@ void	CPU_ResetFragmentCache()
 //*****************************************************************************
 template < bool DynaRec, bool TraceEnabled > void CPU_Go()
 {
+	#ifdef DAEDLAUS_PROFILER
 	DAEDALUS_PROFILE( __FUNCTION__ );
-
+	#endif
 	while (CPU_KeepRunning())
 	{
 		//
 		// Keep executing ops as long as there's nothing to do
 		//
-		u32	stuff_to_do( gCPUState.GetStuffToDo() );
+		auto	stuff_to_do {gCPUState.GetStuffToDo()};
 		while(stuff_to_do == 0)
 		{
 			CPU_EXECUTE_OP< TraceEnabled >();
@@ -362,7 +363,7 @@ void	CPU_DumpFragmentCache()
 //*****************************************************************************
 void CPU_CreateAndAddFragment()
 {
-	CFragment * p_fragment( gTraceRecorder.CreateFragment( gFragmentCache.GetCodeBufferManager() ) );
+	CFragment *p_fragment( gTraceRecorder.CreateFragment( gFragmentCache.GetCodeBufferManager() ) );
 
 	if( p_fragment != nullptr )
 	{
@@ -576,7 +577,7 @@ void Dynamo_Reset()
 
 void Dynamo_SelectCore()
 {
-	bool trace_enabled = gTraceRecorder.IsTraceActive();
+	bool trace_enabled {gTraceRecorder.IsTraceActive()};
 
 	if (trace_enabled)
 	{

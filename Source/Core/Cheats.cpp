@@ -71,7 +71,7 @@ u32		codegroupcount		{};
 static void CheatCodes_Apply(u32 index, u32 mode)
 {
 	CHEATCODENODE *code = (CHEATCODENODE*)codegrouplist[index].codelist;
-	u32 num {codegrouplist[index].codecount}; // number of codes
+	auto num {codegrouplist[index].codecount}; // number of codes
 	bool enable {codegrouplist[index].enable};
 	bool skip {false};
 
@@ -84,10 +84,10 @@ static void CheatCodes_Apply(u32 index, u32 mode)
 			code++;
 			continue;
 		}
-		u32 address {(code->addr & 0xFFFFFF)};
-		u16 value	{code->val};
-		u32 type	{(code->addr >> 24) & 0xFF};
-		u8* p_mem	{g_pu8RamBase + address}; // addr is already pre-swapped
+		auto address {(code->addr & 0xFFFFFF)};
+		auto value	{code->val};
+		auto type	{(code->addr >> 24) & 0xFF};
+		auto *p_mem	{g_pu8RamBase + address}; // addr is already pre-swapped
 
 		switch(type)
 		{
@@ -148,9 +148,9 @@ static void CheatCodes_Apply(u32 index, u32 mode)
 		case 0x50:
 			{
 				skip		= true;
-				s32	count	{(s32)(address & 0x0000FF00) >> 8};	// repeat count
-				u32	offset	{(address & 0x000000FF)};
-				u16	valinc	{value};
+				auto	count	{(s32)(address & 0x0000FF00) >> 8};	// repeat count
+				auto	offset	{(address & 0x000000FF)};
+				auto	valinc	{value};
 
 				if( (num - 1) > 0)
 				{
@@ -196,7 +196,7 @@ static void CheatCodes_Apply(u32 index, u32 mode)
 //*****************************************************************************
 void CheatCodes_Activate( CHEAT_MODE mode )
 {
-	for(u32 i {}; i < codegroupcount; i++)
+	for(auto i {0}; i < codegroupcount; i++)
 	{
 		// Apply only activated cheats
 		if(codegrouplist[i].active)
@@ -265,7 +265,7 @@ bool CheatCodes_Read(const char *rom_name, const char *file, u8 countryID)
 	static char		last_rom_name[128] {};
 
 	char			line[2048] {}, romname[256] {}/*, errormessage[400]*/;	//changed line length to 2048 previous was 256
-	bool			bfound;
+	bool			bfound {};
 	u32				c1 {}, c2 {};
 	FILE			*stream {};
 

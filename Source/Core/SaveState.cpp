@@ -79,8 +79,8 @@ public:
 
 	void skip( size_t size )
 	{
-		const size_t	MAX_ZEROES = 512;
-		char			zeroes[ MAX_ZEROES ];
+		const size_t	MAX_ZEROES {512};
+		char zeroes[ MAX_ZEROES ];
 		if( mStream.IsOpen() )
 		{
 			memset( zeroes, 0, sizeof( zeroes ) );
@@ -88,7 +88,7 @@ public:
 			size_t	remaining( size );
 			while( remaining > 0 )
 			{
-				u32		max_to_write( Min( remaining, MAX_ZEROES ) );
+				auto	max_to_write {Min( remaining, MAX_ZEROES )};
 
 				mStream.WriteData( zeroes, max_to_write );
 
@@ -147,9 +147,9 @@ public:
 
 	inline void read_memory_buffer_write_value(int buffernum, int address)
 	{
-		for( u32 i = 0; i < MemoryRegionSizes[buffernum]; i += 4 )
+		for( auto i {0}; i < MemoryRegionSizes[buffernum]; i += 4 )
 		{
-			u32 value;
+			auto value {0};
 			*this >> value;
 			Write32Bits(address + i, value);
 		}
@@ -160,12 +160,12 @@ public:
 		if( mStream.IsOpen() )
 		{
 			const size_t	BUFFER_SIZE = 512;
-			u8				buffer[ BUFFER_SIZE ];
+			u8	buffer[ BUFFER_SIZE ];
 
 			size_t		remaining( size );
 			while( remaining > 0 )
 			{
-				u32		max_to_read( Min( remaining, BUFFER_SIZE ) );
+				auto	max_to_read {Min( remaining, BUFFER_SIZE )};
 
 				mStream.ReadData( buffer, max_to_read );
 
@@ -205,17 +205,17 @@ bool SaveState_SaveToFile( const char * filename )
 
 	stream << gCPUState.CurrentPC;
 	stream.write(gGPR, 256);
-	u32 i;
-	for(i = 0; i < 32; i++)
+;
+	for(auto i {0}; i < 32; i++)
 	{
 		stream << gCPUState.FPU[i]._u32;
 	}
 	stream.skip(0x80); // used when FPU is in 64-bit mode
-	for(i = 0; i < 32; i++)
+	for( auto i {0}; i < 32; i++)
 	{
 		stream << gCPUState.CPUControl[i]._u32;
 	}
-	for(i = 0; i < 32; i++)
+	for(auto i {0}; i < 32; i++)
 	{
 		stream << gCPUState.FPUControl[i]._u32;
 	}
@@ -235,7 +235,7 @@ bool SaveState_SaveToFile( const char * filename )
 	stream << Memory_SI_GetRegister( SI_PIF_ADDR_RD64B_REG );
 	stream << Memory_SI_GetRegister( SI_PIF_ADDR_WR64B_REG );
 	stream << Memory_SI_GetRegister( SI_STATUS_REG );
-	for(i = 0; i < 32; i++)
+	for( auto i {0}; i < 32; i++)
 	{
 		// boolean that tells whether the entry is defined
 		stream << (u32)(((g_TLBs[i].pfne & TLBLO_V) || (g_TLBs[i].pfno & TLBLO_V)) ? 1 : 0);
@@ -255,7 +255,7 @@ bool SaveState_SaveToFile( const char * filename )
 // Now that is fixed this been added for compatibility reasons for any ss created within those revs..
 static void Swap_PIF()
 {
-	u8 * pPIFRam = (u8 *)g_pMemoryBuffers[MEM_PIF_RAM];
+	u8 *pPIFRam {(u8 *)g_pMemoryBuffers[MEM_PIF_RAM]};
 
 	if(pPIFRam[0] & 0xC0)
 	{
@@ -263,10 +263,10 @@ static void Swap_PIF()
 		return;
 	}
 
-	u8 temp[64];
+	u8 temp[64] {};
 	memcpy( temp, pPIFRam, 64 );
 
-	for (u32 i = 0; i < 64; i++)
+	for (auto i {0}; i < 64; i++)
 	{
 		pPIFRam[i] = temp[ i ^ U8_TWIDDLE ];
 	}
@@ -279,7 +279,7 @@ bool SaveState_LoadFromFile( const char * filename )
 	if( !stream.IsValid() )
 		return false;
 
-	u32 value;
+	u32 value {};
 	stream >> value;
 	if(value != SAVESTATE_PROJECT64_MAGIC_NUMBER)
 	{
@@ -307,25 +307,24 @@ bool SaveState_LoadFromFile( const char * filename )
 		return false;
 	}
 
-	u32 count = 0;
+	u32 count {0};
 	stream >> count;
 	CPU_SetVideoInterruptEventCount( count );
 	stream >> value;
 	CPU_SetPC(value);
 	stream.read(gGPR, 256);
-	int i;
-	for(i = 0; i < 32; i++)
+	for(auto i {0}; i < 32; i++)
 	{
 		stream >> value;
 		gCPUState.FPU[i]._u32 = value;
 	}
 	stream.skip(0x80); // used when FPU is in 64-bit mode
 	u32 g_dwNewCPR0[32];
-	for(i = 0; i < 32; i++)
+	for( auto i {0}; i < 32; i++)
 	{
 		stream >> g_dwNewCPR0[i];
 	}
-	for(i = 0; i < 32; i++)
+	for(auto i {0}; i < 32; i++)
 	{
 		stream >> value;
 		gCPUState.FPUControl[i]._u32 = value;
@@ -360,7 +359,7 @@ bool SaveState_LoadFromFile( const char * filename )
 	stream >> value; Memory_SI_SetRegister( SI_PIF_ADDR_RD64B_REG, value );
 	stream >> value; Memory_SI_SetRegister( SI_PIF_ADDR_WR64B_REG, value );
 	stream >> value; Memory_SI_SetRegister( SI_STATUS_REG, value );
-	for(i = 0; i < 32; i++)
+	for( auto i {0}; i < 32; i++)
 	{
 		stream.skip(4); // boolean that tells whether the entry is defined - seems redundant
 		int pagemask, hi, lo0, lo1;
@@ -371,7 +370,7 @@ bool SaveState_LoadFromFile( const char * filename )
 
 		g_TLBs[i].UpdateValue(pagemask, hi, lo1, lo0);
 	}
-	for(i = 0; i < 32; i++)
+	for( auto i {0}; i < 32; i++)
 	{
 		if(i == C0_SR)
 		{
@@ -408,12 +407,12 @@ RomID SaveState_GetRomID( const char * filename )
 	if( !stream.IsValid() )
 		return RomID();
 
-	u32 value;
+	auto value {0};
 	stream >> value;
 	if(value != SAVESTATE_PROJECT64_MAGIC_NUMBER)
 		return RomID();
 
-	u32 ram_size;
+	auto ram_size {0};
 	stream >> ram_size;
 
 	ROMHeader rom_header;
@@ -430,12 +429,12 @@ const char* SaveState_GetRom( const char * filename )
 	if( !stream.IsValid() )
 		return nullptr;
 
-	u32 value;
+	auto value {0};
 	stream >> value;
 	if(value != SAVESTATE_PROJECT64_MAGIC_NUMBER)
 		return nullptr;
 
-	u32 ram_size;
+	auto ram_size {0};
 	stream >> ram_size;
 
 	ROMHeader rom_header;

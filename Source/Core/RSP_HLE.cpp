@@ -55,10 +55,10 @@ static void RDP_DumpRSPCode(char * name, u32 crc, u32 * mem_base, u32 pc_base, u
 	if (fp == nullptr)
 		return;
 
-	for (u32 i = 0; i < len; i+=4)
+	for (auto i {0}; i < len; i+=4)
 	{
 		OpCode op;
-		u32 pc = i & 0x0FFF;
+		auto pc {i & 0x0FFF};
 		op._u32 = mem_base[i/4];
 
 		char opinfo[400];
@@ -86,10 +86,10 @@ static void RDP_DumpRSPData(char * name, u32 crc, u32 * mem_base, u32 pc_base, u
 	if (fp == nullptr)
 		return;
 
-	for (u32 i = 0; i < len; i+=4)
+	for (auto i {0}; i < len; i+=4)
 	{
-		u32 pc = i & 0x0FFF;
-		u32 data = mem_base[i/4];
+		auto pc {i & 0x0FFF};
+		auto data = mem_base[i/4];
 
 		fprintf(fp, "0x%08x: 0x%08x\n", pc + pc_base, data);
 	}
@@ -187,7 +187,7 @@ static EProcessResult RSP_HLE_Audio()
 // RSP_HLE_Jpeg and RSP_HLE_CICX105 were borrowed from Mupen64plus
 static u32 sum_bytes(const u8 *bytes, u32 size)
 {
-    u32 sum {};
+    auto sum {0};
     const u8 * const bytes_end = bytes + size;
 
     while (bytes != bytes_end)
@@ -205,7 +205,7 @@ void jpeg_decode_OB(OSTask *task);
 
 	// most ucode_boot procedure copy 0xf80 bytes of ucode whatever the ucode_size is.
 	// For practical purpose we use a ucode_size = min(0xf80, task->ucode_size)
-	u32 sum {sum_bytes(g_pu8RamBase + (u32)task->t.ucode , Min<u32>(task->t.ucode_size, 0xf80) >> 1)};
+	auto sum {sum_bytes(g_pu8RamBase + (u32)task->t.ucode , Min<u32>(task->t.ucode_size, 0xf80) >> 1)};
 
 	//DBGConsole_Msg(0, "JPEG Task: Sum=0x%08x", sum);
 	switch(sum)
@@ -227,7 +227,7 @@ void jpeg_decode_OB(OSTask *task);
 
 EProcessResult RSP_HLE_CICX105(OSTask * task)
 {
-    const u32 sum {sum_bytes(g_pu8SpImemBase, 0x1000 >> 1)};
+    const auto sum {sum_bytes(g_pu8SpImemBase, 0x1000 >> 1)};
 
     switch(sum)
     {
@@ -235,15 +235,15 @@ EProcessResult RSP_HLE_CICX105(OSTask * task)
         case 0x9e2: /* CIC 6105 */
         case 0x9f2: /* CIC 7105 */
 			{
-				u32 i;
-				u8 * dst {g_pu8RamBase + 0x2fb1f0};
-				u8 * src {g_pu8SpImemBase + 0x120};
+			//	auto i {0};
+				auto *dst {g_pu8RamBase + 0x2fb1f0};
+				auto *src {g_pu8SpImemBase + 0x120};
 
 				/* dma_read(0x1120, 0x1e8, 0x1e8) */
 				memcpy(g_pu8SpImemBase + 0x120, g_pu8RamBase + 0x1e8, 0x1f0);
 
 				/* dma_write(0x1120, 0x2fb1f0, 0xfe817000) */
-				for (i = 0; i < 24; ++i)
+				for (auto i {0}; i < 24; ++i)
 				{
 					memcpy(dst, src, 8);
 					dst += 0xff0;

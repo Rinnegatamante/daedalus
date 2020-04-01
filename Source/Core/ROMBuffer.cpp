@@ -90,9 +90,9 @@ namespace
 			CDebugConsole::Get()->MsgOverwriteStart();
 #endif
 
-			u32				offset( 0 );
-			u32				total_length( p_rom_file->GetRomSize() );
-			u32				length_remaining( total_length );
+			u32				offset {0};
+			u32				total_length{ p_rom_file->GetRomSize()};
+			u32				length_remaining {total_length};
 
 			while( length_remaining > 0 )
 			{
@@ -347,15 +347,15 @@ namespace
 	void	CopyBytesRaw( ROMFileCache * p_cache, u8 * p_dst, u32 rom_offset, u32 length )
 	{
 		// Read the cached bytes into our scratch buffer, and return that
-		u32		dst_offset( 0 );
-		u32		src_offset( rom_offset );
+		auto		dst_offset{0};
+			auto		src_offset {rom_offset};
 
 		// Similar algorithm to below - we don't care about byte swapping though
 		while(length > 0)
 		{
-			u8 *	p_chunk_base {};
-			u32		chunk_offset {};
-			u32		chunk_size {};
+			u8 *p_chunk_base {nullptr};
+			u32		chunk_offset {0};
+			u32		chunk_size {0};
 
 			if( !p_cache->GetChunk( src_offset, &p_chunk_base, &chunk_offset, &chunk_size ) )
 			{
@@ -364,9 +364,9 @@ namespace
 			}
 
 			// Calculate how many bytes we can transfer this pass
-			u32		offset_into_chunk( src_offset - chunk_offset );
-			u32		bytes_remaining_in_chunk( chunk_size - offset_into_chunk );
-			u32		bytes_this_pass( Min( length, bytes_remaining_in_chunk ) );
+			auto		offset_into_chunk {src_offset - chunk_offset};
+			auto		bytes_remaining_in_chunk{ chunk_size - offset_into_chunk};
+			auto		bytes_this_pass{ Min( length, bytes_remaining_in_chunk )};
 
 			#ifdef DAEDALUS_ENABLE_ASSERTS
 			DAEDALUS_ASSERT( s32( bytes_this_pass ) > 0, "How come we're trying to copy <= 0 bytes across?" );
@@ -446,8 +446,8 @@ void RomBuffer::CopyToRam( u8 * p_dst, u32 dst_offset, u32 dst_size, u32 src_off
 {
 	if( sRomFixed )
 	{
-		const u8 *	p_src( (const u8 *)spRomData );
-		u32			src_size( sRomSize );
+		const u8 *p_src{ (const u8 *)spRomData};
+		auto			src_size{sRomSize} ;
 
 		DMA_HandleTransfer( p_dst, dst_offset, dst_size, p_src, src_offset, src_size, length );
 	}
@@ -455,9 +455,9 @@ void RomBuffer::CopyToRam( u8 * p_dst, u32 dst_offset, u32 dst_size, u32 src_off
 	{
 		while(length > 0)
 		{
-			u8 *	p_chunk_base {};
-			u32		chunk_offset {};
-			u32		chunk_size {};
+			u8 *p_chunk_base {nullptr};
+			u32	chunk_offset {0};
+			u32	chunk_size {0};
 
 			if( !spRomFileCache->GetChunk( src_offset, &p_chunk_base, &chunk_offset, &chunk_size ) )
 			{
@@ -466,9 +466,9 @@ void RomBuffer::CopyToRam( u8 * p_dst, u32 dst_offset, u32 dst_size, u32 src_off
 			}
 
 			// Calculate how many bytes we can transfer this pass
-			u32		offset_into_chunk( src_offset - chunk_offset );
-			u32		bytes_remaining_in_chunk( chunk_size - offset_into_chunk );
-			u32		bytes_this_pass( Min( length, bytes_remaining_in_chunk ) );
+			auto		offset_into_chunk{ src_offset - chunk_offset};
+			auto		bytes_remaining_in_chunk{ chunk_size - offset_into_chunk};
+			auto		bytes_this_pass {Min( length, bytes_remaining_in_chunk )};
 			#ifdef DAEDALUS_ENABLE_ASSERTS
 			DAEDALUS_ASSERT( s32( bytes_this_pass ) > 0, "How come we're trying to copy <= 0 bytes across?" );
 			#endif

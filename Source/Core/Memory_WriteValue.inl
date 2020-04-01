@@ -27,13 +27,13 @@ static void WriteValueInvalid( u32 address, u32 value )
 
 static void WriteValueMapped( u32 address, u32 value )
 {
-	bool missing;
+	bool missing {};
 
 #ifdef DAEDALUS_PROFILE_EXECUTION
 	gTLBWriteHit++;
 #endif
 
-	u32 physical_addr {TLBEntry::Translate(address, missing)};
+	auto physical_addr {TLBEntry::Translate(address, missing)};
 	if (physical_addr != 0)
 	{
 		*(u32*)(g_pu8RamBase + (physical_addr & 0x007FFFFF)) = value;
@@ -123,7 +123,7 @@ static void WriteValue_8410_841F( u32 address, u32 value )
 	#ifdef DAEDALUS_DEBUG_CONSOLE
 	DPF( DEBUG_MEMORY_DP, "Writing to DP_COMMAND_REG: 0x%08x", address );
 	#endif
-	u32 offset {address & 0xFF};
+	auto offset {address & 0xFF};
 
 	switch (offset)
 	{
@@ -178,7 +178,7 @@ static void WriteValue_8430_843F( u32 address, u32 value )
 	#ifdef DAEDALUS_DEBUG_CONSOLE
 	DPF( DEBUG_MEMORY_MI, "Writing to MI Registers: 0x%08x", address );
 	#endif
-	u32 offset {address & 0xFF};
+	auto offset {address & 0xFF};
 
 	switch (offset)
 	{
@@ -201,7 +201,7 @@ static void WriteValue_8430_843F( u32 address, u32 value )
 #ifdef DAEDALUS_PSP	// This is out of spec but only writes to VI_CURRENT_REG do something.. /Salvy
 static void WriteValue_8440_844F( u32 address, u32 value )
 {
-	u32 offset {address & 0xFF};
+	auto offset {address & 0xFF};
 	if (offset == 0x10)
 	{
 		Memory_MI_ClrRegisterBits(MI_INTR_REG, MI_INTR_VI);
@@ -216,7 +216,7 @@ extern void RenderFrameBuffer(u32);
 extern u32 gRDPFrame;
 static void WriteValue_8440_844F( u32 address, u32 value )
 {
-	u32 offset {address & 0xFF};
+	auto offset {address & 0xFF};
 
 	switch (offset)
 	{
@@ -282,7 +282,7 @@ static void WriteValue_8450_845F( u32 address, u32 value )
 		#ifdef DAEDALUS_DEBUG_CONSOLE
 	DPF( DEBUG_MEMORY_AI, "Writing to AI Registers: 0x%08x", address );
 	#endif
-	u32 offset {address & 0xFF};
+	auto offset {address & 0xFF};
 
 	switch (offset)
 	{
@@ -320,7 +320,7 @@ static void WriteValue_8450_845F( u32 address, u32 value )
 // 0x0460 0000 to 0x046F FFFF Peripheral Interface (PI) Registers
 static void WriteValue_8460_846F( u32 address, u32 value )
 {
-	u32 offset {address & 0xFF};
+	auto offset {address & 0xFF};
 	switch (offset)
 	{
 /*
@@ -365,7 +365,7 @@ static void WriteValue_8480_848F( u32 address, u32 value )
 		#ifdef DAEDALUS_DEBUG_CONSOLE
 	DPF( DEBUG_MEMORY_SI, "Writing to MEM_SI_REG: 0x%08x", address );
 #endif
-	u32 offset {address & 0xFF};
+	auto offset {address & 0xFF};
 	switch (offset)
 	{
 	case 0x0:	//SI_DRAM_ADDR_REG
@@ -398,8 +398,8 @@ static void WriteValue_8480_848F( u32 address, u32 value )
 // 0x1FC0 07C0 to 0x1FC0 07FF PIF RAM
 static void WriteValue_9FC0_9FCF( u32 address, u32 value )
 {
-	//u32 offset = address & 0x0FFF;
-	u32 pif_ram_offset = address & 0x3F;
+	auto offset = address & 0x0FFF;
+	auto pif_ram_offset = address & 0x3F;
 
 	#ifdef DAEDALUS_DEBUG_CONSOLE
 	// Writing PIF ROM or outside PIF RAM
@@ -421,7 +421,7 @@ static void WriteValue_9FC0_9FCF( u32 address, u32 value )
 
 static void WriteValue_FlashRam( u32 address, u32 value )
 {
-	u32 offset {address & 0xFF};
+	auto offset {address & 0xFF};
 	if (g_ROM.settings.SaveType == SAVE_TYPE_FLASH && offset == 0)
 	{
 		if ((address&0x1FFFFFFF) == FLASHRAM_WRITE_ADDR)

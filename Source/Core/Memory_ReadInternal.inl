@@ -34,9 +34,9 @@ static bool InternalReadInvalid( u32 address, void ** translated )
 
 static bool InternalReadMapped( u32 address, void ** translated )
 {
-	bool missing;
+	bool missing {};
 
-	u32 physical_addr = TLBEntry::Translate(address, missing);
+	auto physical_addr = TLBEntry::Translate(address, missing);
 	if (physical_addr != 0)
 	{
 		*translated = g_pu8RamBase + (physical_addr & 0x007FFFFF);
@@ -62,7 +62,7 @@ static bool InternalRead_8Mb_8000_807F( u32 address, void ** translated )
 static bool InternalReadROM( u32 address, void ** translated )
 {
 	// Note: NOT 0x1FFFFFFF
-	u32		offset( address & 0x00FFFFFF );
+	auto		offset( address & 0x00FFFFFF );
 
 	*translated = RomBuffer::GetAddressRaw( offset );
 	if (*translated != NULL)
@@ -73,14 +73,15 @@ static bool InternalReadROM( u32 address, void ** translated )
 
 static bool InternalRead_8400_8400( u32 address, void ** translated )
 {
-	u32 offset;
+
 
 	// 0x0400 0000 to 0x0400 FFFF  SP registers
 	if ((address&0x1FFFFFFF) < 0x4002000)
 	{
+		#ifdef DAEDALUS_DEBUG_CONSOLE
 		DPF( DEBUG_MEMORY_SP_IMEM, "Reading from SP_MEM: 0x%08x", address );
-
-		offset = address & 0x1FFF;
+		#endif
+	auto offset {address & 0x1FFF};
 
 		*translated = (u8 *)g_pMemoryBuffers[MEM_SP_MEM] + offset;
 		return true;
@@ -91,22 +92,23 @@ static bool InternalRead_8400_8400( u32 address, void ** translated )
 
 static bool InternalRead_9FC0_9FCF( u32 address, void ** translated )
 {
-	u32 offset;
 
 	if ((address&0x1FFFFFFF) <= PIF_ROM_END)
 	{
+		#ifdef DAEDALUS_DEBUG_CONSOLE
 		DPF( DEBUG_MEMORY_PIF, "Reading from MEM_PIF_ROM: 0x%08x", address );
-
-		offset = address & 0x0FFF;
+		#endif
+	auto offset {address & 0x0FFF};
 
 		*translated = (u8 *)g_pMemoryBuffers[MEM_PIF_RAM] + offset;
 		return true;
 	}
 	else if ((address&0x1FFFFFFF) <= PIF_RAM_END)
 	{
+		#ifdef DAEDALUS_DEBUG_CONSOLE
 		DPF( DEBUG_MEMORY_PIF, "Reading from MEM_PIF_RAM: 0x%08x", address );
 		DBGConsole_Msg(0, "[WReading directly from PI ram]: 0x%08x!", address);
-
+		#endif
 		offset = address & 0x0FFF;
 
 		*translated = (u8 *)g_pMemoryBuffers[MEM_PIF_RAM] + offset;
@@ -157,10 +159,10 @@ void Memory_InitInternalTables(u32 ram_size)
 {
 	memset(gInternalReadFastTable, 0, sizeof(gInternalReadFastTable));
 
-	u32 i = 0;
-	u32 entry = 0;
-	u32 start_addr = 0;
-	u32 end_addr = 0;
+	auto i {nullptr};
+	u32 entry {nullptr};
+	u32 start_addr {nullptr};
+	u32 end_addr {nullptr};
 
 	while (InternalMemMapEntries[entry].InternalReadFastFunction != NULL)
 	{

@@ -165,7 +165,7 @@ DAEDALUS_FORCEINLINE void SpeedHack(u32 pc, u32 new_pc)
 #endif
 		// TODO: Should maybe use some internal function, so we can account
 		// for things like Branch/DelaySlot pair straddling a page boundary.
-		u32 next_op {*(u32 *)(gLastAddress + 4)};
+		auto next_op {*(u32 *)(gLastAddress + 4)};
 
 		// If nop, then this is a busy-wait for an interrupt
 		if (next_op == 0)
@@ -262,21 +262,21 @@ DAEDALUS_FORCEINLINE void StoreFPR_Double( u32 reg, d64 value )
 #endif
 }
 
-DAEDALUS_FORCEINLINE s32 LoadFPR_Word( u32 reg ) { 	return gCPUState.FPU[reg]._s32; }
+DAEDALUS_FORCEINLINE auto LoadFPR_Word( u32 reg ) { 	return gCPUState.FPU[reg]._s32; }
 DAEDALUS_FORCEINLINE void StoreFPR_Word( u32 reg, s32 value ) { gCPUState.FPU[reg]._s32 = value;}
-DAEDALUS_FORCEINLINE f32 LoadFPR_Single( u32 reg ) { return gCPUState.FPU[reg]._f32; }
+DAEDALUS_FORCEINLINE auto LoadFPR_Single( u32 reg ) { return gCPUState.FPU[reg]._f32; }
 DAEDALUS_FORCEINLINE void StoreFPR_Single( u32 reg, f32 value ) { gCPUState.FPU[reg]._f32 = value; }
 
 //	int -> float conversion routines
-DAEDALUS_FORCEINLINE f32 s32_to_f32( s32 x ) { return (f32)x; }
-DAEDALUS_FORCEINLINE d64 s32_to_d64( s32 x ) { return (d64)x; }
-DAEDALUS_FORCEINLINE f32 s64_to_f32( s64 x ) { return (f32)x; }
-DAEDALUS_FORCEINLINE d64 s64_to_d64( s64 x ) { return (d64)x; }
+DAEDALUS_FORCEINLINE auto s32_to_f32( s32 x ) { return (f32)x; }
+DAEDALUS_FORCEINLINE auto s32_to_d64( s32 x ) { return (d64)x; }
+DAEDALUS_FORCEINLINE auto s64_to_f32( s64 x ) { return (f32)x; }
+DAEDALUS_FORCEINLINE auto s64_to_d64( s64 x ) { return (d64)x; }
 
 
 //	float -> float conversion routines
-DAEDALUS_FORCEINLINE d64 f32_to_d64( f32 x ) { return (d64)x; }
-DAEDALUS_FORCEINLINE f32 d64_to_f32( d64 x ) { return (f32)x; }
+DAEDALUS_FORCEINLINE auto f32_to_d64( f32 x ) { return (d64)x; }
+DAEDALUS_FORCEINLINE auto d64_to_f32( d64 x ) { return (f32)x; }
 
 
 //	Float -> int conversion routines
@@ -291,45 +291,45 @@ inline s32 round_w_s( f32 x )						{ DAEDALUS_ASSERT( x >= LONG_MIN && x <= LONG
 inline s32 ceil_w_s( f32 x )						{ DAEDALUS_ASSERT( x >= LONG_MIN && x <= LONG_MAX, "Float too large, can't convert with 32bit PSP instruction" );s32 r; asm volatile ( "ceil.w.s  %1, %1\nmfc1 %0,%1\n" : "=r"(r) : "f"(x) ); return r; }
 inline s32 floor_w_s( f32 x )						{ DAEDALUS_ASSERT( x >= LONG_MIN && x <= LONG_MAX, "Float too large, can't convert with 32bit PSP instruction" );s32 r; asm volatile ( "floor.w.s %1, %1\nmfc1 %0,%1\n" : "=r"(r) : "f"(x) ); return r; }
 #else
-inline s32 cvt_w_s( f32 x )							{s32 r; asm volatile ( "cvt.w.s %1, %1\nmfc1 %0,%1\n" : "=r"(r) : "f"(x) ); return r; }
-inline s32 trunc_w_s( f32 x )						{s32 r; asm volatile ( "trunc.w.s %1, %1\nmfc1 %0,%1\n" : "=r"(r) : "f"(x) ); return r; }
-inline s32 round_w_s( f32 x )						{s32 r; asm volatile ( "round.w.s %1, %1\nmfc1 %0,%1\n" : "=r"(r) : "f"(x) ); return r; }
-inline s32 ceil_w_s( f32 x )						{s32 r; asm volatile ( "ceil.w.s  %1, %1\nmfc1 %0,%1\n" : "=r"(r) : "f"(x) ); return r; }
-inline s32 floor_w_s( f32 x )						{s32 r; asm volatile ( "floor.w.s %1, %1\nmfc1 %0,%1\n" : "=r"(r) : "f"(x) ); return r; }
+inline auto cvt_w_s( f32 x )							{s32 r; asm volatile ( "cvt.w.s %1, %1\nmfc1 %0,%1\n" : "=r"(r) : "f"(x) ); return r; }
+inline auto trunc_w_s( f32 x )						{s32 r; asm volatile ( "trunc.w.s %1, %1\nmfc1 %0,%1\n" : "=r"(r) : "f"(x) ); return r; }
+inline auto round_w_s( f32 x )						{s32 r; asm volatile ( "round.w.s %1, %1\nmfc1 %0,%1\n" : "=r"(r) : "f"(x) ); return r; }
+inline auto ceil_w_s( f32 x )						{s32 r; asm volatile ( "ceil.w.s  %1, %1\nmfc1 %0,%1\n" : "=r"(r) : "f"(x) ); return r; }
+inline auto floor_w_s( f32 x )						{s32 r; asm volatile ( "floor.w.s %1, %1\nmfc1 %0,%1\n" : "=r"(r) : "f"(x) ); return r; }
 #endif
 
-inline s32 f32_to_s32_trunc( f32 x )				{ return pspFpuTrunc(x); }
-inline s32 f32_to_s32_round( f32 x )				{ return pspFpuRound(x); }
-inline s32 f32_to_s32_ceil( f32 x )					{ return pspFpuCeil(x); }
-inline s32 f32_to_s32_floor( f32 x )				{ return pspFpuFloor(x); }
-inline s32 f32_to_s32( f32 x )						{ pspFpuSetRoundmode( gNativeRoundingModes[ gRoundingMode ] ); return cvt_w_s( x ); }
+inline auto f32_to_s32_trunc( f32 x )				{ return pspFpuTrunc(x); }
+inline auto f32_to_s32_round( f32 x )				{ return pspFpuRound(x); }
+inline auto f32_to_s32_ceil( f32 x )					{ return pspFpuCeil(x); }
+inline auto f32_to_s32_floor( f32 x )				{ return pspFpuFloor(x); }
+inline auto f32_to_s32( f32 x )						{ pspFpuSetRoundmode( gNativeRoundingModes[ gRoundingMode ] ); return cvt_w_s( x ); }
 
 //inline s64 f32_to_s64_trunc( f32 x )				{ return (s64)trunc_w_s( x ); }
-inline s64 f32_to_s64_trunc( f32 x )				{ return (s64)truncf( x ); }
-inline s64 f32_to_s64_round( f32 x )				{ return (s64)round_w_s( x ); }
-inline s64 f32_to_s64_ceil( f32 x )					{ return (s64)ceil_w_s( x ); }
-inline s64 f32_to_s64_floor( f32 x )				{ return (s64)floor_w_s( x ); }
-inline s64 f32_to_s64( f32 x )						{ pspFpuSetRoundmode( gNativeRoundingModes[ gRoundingMode ] ); return (s64)x; }	// XXXX Need to do a cvt really
+inline auto f32_to_s64_trunc( f32 x )				{ return (s64)truncf( x ); }
+inline auto f32_to_s64_round( f32 x )				{ return (s64)round_w_s( x ); }
+inline auto f32_to_s64_ceil( f32 x )					{ return (s64)ceil_w_s( x ); }
+inline auto f32_to_s64_floor( f32 x )				{ return (s64)floor_w_s( x ); }
+inline auto f32_to_s64( f32 x )						{ pspFpuSetRoundmode( gNativeRoundingModes[ gRoundingMode ] ); return (s64)x; }	// XXXX Need to do a cvt really
 
-inline s32 d64_to_s32_trunc( d64 x )				{ return pspFpuTrunc( (f32)x ); }
-inline s32 d64_to_s32_round( d64 x )				{ return pspFpuRound( (f32)x ); }
-inline s32 d64_to_s32_ceil( d64 x )					{ return pspFpuCeil( (f32)x ); }
-inline s32 d64_to_s32_floor( d64 x )				{ return pspFpuFloor( (f32)x ); }
-inline s32 d64_to_s32( d64 x )						{ pspFpuSetRoundmode( gNativeRoundingModes[ gRoundingMode ] ); return cvt_w_s( (f32)x ); }
+inline auto d64_to_s32_trunc( d64 x )				{ return pspFpuTrunc( (f32)x ); }
+inline auto d64_to_s32_round( d64 x )				{ return pspFpuRound( (f32)x ); }
+inline auto d64_to_s32_ceil( d64 x )					{ return pspFpuCeil( (f32)x ); }
+inline auto d64_to_s32_floor( d64 x )				{ return pspFpuFloor( (f32)x ); }
+inline auto d64_to_s32( d64 x )						{ pspFpuSetRoundmode( gNativeRoundingModes[ gRoundingMode ] ); return cvt_w_s( (f32)x ); }
 
-inline s64 d64_to_s64_trunc( d64 x )				{ return (s64)x; }
-inline s64 d64_to_s64_round( d64 x )				{ return (s64)( x + 0.5f ); }
-inline s64 d64_to_s64_ceil( d64 x )					{ return (s64)ceilf( x ); }
-inline s64 d64_to_s64_floor( d64 x )				{ return (s64)floorf( x ); }
-inline s64 d64_to_s64( d64 x )						{ pspFpuSetRoundmode( gNativeRoundingModes[ gRoundingMode ] ); return (s64)x; }	// XXXX Need to do a cvt really
+inline auto d64_to_s64_trunc( d64 x )				{ return (s64)x; }
+inline auto d64_to_s64_round( d64 x )				{ return (s64)( x + 0.5f ); }
+inline auto d64_to_s64_ceil( d64 x )					{ return (s64)ceilf( x ); }
+inline auto d64_to_s64_floor( d64 x )				{ return (s64)floorf( x ); }
+inline auto d64_to_s64( d64 x )						{ pspFpuSetRoundmode( gNativeRoundingModes[ gRoundingMode ] ); return (s64)x; }	// XXXX Need to do a cvt really
 
 #else
 
-DAEDALUS_FORCEINLINE s32 f32_to_s32_trunc( f32 x )	{ SET_ROUND_MODE( RM_TRUNC ); return (s32)truncf(x); }
-DAEDALUS_FORCEINLINE s32 f32_to_s32_round( f32 x )	{ SET_ROUND_MODE( RM_ROUND ); return (s32)roundf(x); }
-DAEDALUS_FORCEINLINE s32 f32_to_s32_ceil( f32 x )	{ SET_ROUND_MODE( RM_CEIL ); return (s32)ceilf(x); }
-DAEDALUS_FORCEINLINE s32 f32_to_s32_floor( f32 x )	{ SET_ROUND_MODE( RM_FLOOR ); return (s32)floorf(x); }
-DAEDALUS_FORCEINLINE s32 f32_to_s32( f32 x )
+DAEDALUS_FORCEINLINE auto f32_to_s32_trunc( f32 x )	{ SET_ROUND_MODE( RM_TRUNC ); return (s32)truncf(x); }
+DAEDALUS_FORCEINLINE auto f32_to_s32_round( f32 x )	{ SET_ROUND_MODE( RM_ROUND ); return (s32)roundf(x); }
+DAEDALUS_FORCEINLINE auto f32_to_s32_ceil( f32 x )	{ SET_ROUND_MODE( RM_CEIL ); return (s32)ceilf(x); }
+DAEDALUS_FORCEINLINE auto f32_to_s32_floor( f32 x )	{ SET_ROUND_MODE( RM_FLOOR ); return (s32)floorf(x); }
+DAEDALUS_FORCEINLINE auto f32_to_s32( f32 x )
 {
 #ifdef ACCURATE_CVT
 	switch ( gCPUState.FPUControl[31]._u32 & FPCSR_RM_MASK )
@@ -345,11 +345,11 @@ DAEDALUS_FORCEINLINE s32 f32_to_s32( f32 x )
 	return (s32)x;
 #endif
 }
-DAEDALUS_FORCEINLINE s64 f32_to_s64_trunc( f32 x )	{ SET_ROUND_MODE( RM_TRUNC ); return (s64)truncf(x); }
-DAEDALUS_FORCEINLINE s64 f32_to_s64_round( f32 x )	{ SET_ROUND_MODE( RM_ROUND ); return (s64)roundf(x); }
-DAEDALUS_FORCEINLINE s64 f32_to_s64_ceil( f32 x )	{ SET_ROUND_MODE( RM_CEIL ); return (s64)ceilf(x); }
-DAEDALUS_FORCEINLINE s64 f32_to_s64_floor( f32 x )	{ SET_ROUND_MODE( RM_FLOOR ); return (s64)floorf(x); }
-DAEDALUS_FORCEINLINE s64 f32_to_s64( f32 x )
+DAEDALUS_FORCEINLINE auto f32_to_s64_trunc( f32 x )	{ SET_ROUND_MODE( RM_TRUNC ); return (s64)truncf(x); }
+DAEDALUS_FORCEINLINE auto f32_to_s64_round( f32 x )	{ SET_ROUND_MODE( RM_ROUND ); return (s64)roundf(x); }
+DAEDALUS_FORCEINLINE auto f32_to_s64_ceil( f32 x )	{ SET_ROUND_MODE( RM_CEIL ); return (s64)ceilf(x); }
+DAEDALUS_FORCEINLINE auto f32_to_s64_floor( f32 x )	{ SET_ROUND_MODE( RM_FLOOR ); return (s64)floorf(x); }
+DAEDALUS_FORCEINLINE auto f32_to_s64( f32 x )
 {
 #ifdef ACCURATE_CVT
 	switch ( gCPUState.FPUControl[31]._u32 & FPCSR_RM_MASK )
@@ -365,11 +365,11 @@ DAEDALUS_FORCEINLINE s64 f32_to_s64( f32 x )
 	return (s64)x;
 #endif
 }
-DAEDALUS_FORCEINLINE s32 d64_to_s32_trunc( d64 x )	{ SET_ROUND_MODE( RM_TRUNC ); return (s32)trunc(x); }
-DAEDALUS_FORCEINLINE s32 d64_to_s32_round( d64 x )	{ SET_ROUND_MODE( RM_ROUND ); return (s32)round(x); }
-DAEDALUS_FORCEINLINE s32 d64_to_s32_ceil( d64 x )	{ SET_ROUND_MODE( RM_CEIL ); return (s32)ceil(x); }
-DAEDALUS_FORCEINLINE s32 d64_to_s32_floor( d64 x )	{ SET_ROUND_MODE( RM_FLOOR ); return (s32)floor(x); }
-DAEDALUS_FORCEINLINE s32 d64_to_s32( d64 x )
+DAEDALUS_FORCEINLINE auto d64_to_s32_trunc( d64 x )	{ SET_ROUND_MODE( RM_TRUNC ); return (s32)trunc(x); }
+DAEDALUS_FORCEINLINE auto d64_to_s32_round( d64 x )	{ SET_ROUND_MODE( RM_ROUND ); return (s32)round(x); }
+DAEDALUS_FORCEINLINE auto d64_to_s32_ceil( d64 x )	{ SET_ROUND_MODE( RM_CEIL ); return (s32)ceil(x); }
+DAEDALUS_FORCEINLINE auto d64_to_s32_floor( d64 x )	{ SET_ROUND_MODE( RM_FLOOR ); return (s32)floor(x); }
+DAEDALUS_FORCEINLINE auto d64_to_s32( d64 x )
 {
 #ifdef ACCURATE_CVT
 	switch ( gCPUState.FPUControl[31]._u32 & FPCSR_RM_MASK )
@@ -385,11 +385,11 @@ DAEDALUS_FORCEINLINE s32 d64_to_s32( d64 x )
 	return (s32)x;
 #endif
 }
-DAEDALUS_FORCEINLINE s64 d64_to_s64_trunc( d64 x ) { SET_ROUND_MODE( RM_TRUNC ); return (s64)trunc(x); }
-DAEDALUS_FORCEINLINE s64 d64_to_s64_round( d64 x ) { SET_ROUND_MODE( RM_ROUND ); return (s64)round(x); }
-DAEDALUS_FORCEINLINE s64 d64_to_s64_ceil( d64 x )  { SET_ROUND_MODE( RM_CEIL ); return (s64)ceil(x); }
-DAEDALUS_FORCEINLINE s64 d64_to_s64_floor( d64 x ) { SET_ROUND_MODE( RM_FLOOR ); return (s64)floor(x); }
-DAEDALUS_FORCEINLINE s64 d64_to_s64( d64 x )
+DAEDALUS_FORCEINLINE auto d64_to_s64_trunc( d64 x ) { SET_ROUND_MODE( RM_TRUNC ); return (s64)trunc(x); }
+DAEDALUS_FORCEINLINE auto d64_to_s64_round( d64 x ) { SET_ROUND_MODE( RM_ROUND ); return (s64)round(x); }
+DAEDALUS_FORCEINLINE auto d64_to_s64_ceil( d64 x )  { SET_ROUND_MODE( RM_CEIL ); return (s64)ceil(x); }
+DAEDALUS_FORCEINLINE auto d64_to_s64_floor( d64 x ) { SET_ROUND_MODE( RM_FLOOR ); return (s64)floor(x); }
+DAEDALUS_FORCEINLINE auto d64_to_s64( d64 x )
 {
 #ifdef ACCURATE_CVT
 	switch ( gCPUState.FPUControl[31]._u32 & FPCSR_RM_MASK )
@@ -541,11 +541,11 @@ void R4300_CALL_TYPE R4300_SetSR( u32 new_value )
 	}
 #endif
 
-	bool interrupts_enabled_before =(gCPUState.CPUControl[C0_SR]._u32 & SR_IE) != 0;
+	bool interrupts_enabled_before {(gCPUState.CPUControl[C0_SR]._u32 & SR_IE) != 0};
 
 	gCPUState.CPUControl[C0_SR]._u32 = new_value;
 
-	bool interrupts_enabled_after = (gCPUState.CPUControl[C0_SR]._u32 & SR_IE) != 0;
+	bool interrupts_enabled_after {(gCPUState.CPUControl[C0_SR]._u32 & SR_IE) != 0};
 
 	// CHECK COP1 UNUSUABLE
 	if( (gCPUState.CPUControl[C0_SR]._u32 & SR_CU1) == 0 )
@@ -661,7 +661,7 @@ static void R4300_CALL_TYPE R4300_JAL( R4300_CALL_SIGNATURE ) 				// Jump And Li
 
 	u32 pc {gCPUState.CurrentPC };
 	gGPR[REG_ra]._s64 = (s64)(s32)(pc + 8);		// Store return address
-	u32	new_pc {(pc & 0xF0000000) | (op_code.target<<2) };
+	auto new_pc {(pc & 0xF0000000) | (op_code.target<<2) };
 	SpeedHack(pc, new_pc);
 	CPU_TakeBranch( new_pc );
 }
@@ -720,7 +720,7 @@ static void R4300_CALL_TYPE R4300_BGTZ( R4300_CALL_SIGNATURE ) 			// Branch on G
 	//if (gGPR[op_code.rs]._s32_0 > 0)
 	if (gGPR[op_code.rs]._s64 > 0)
 	{
-		s16 offset{ (s16)op_code.immediate };
+		auto offset{ (s16)op_code.immediate };
 		u32 pc{ gCPUState.CurrentPC };
 		u32 new_pc{ pc + ((s32)offset<<2) + 4 };
 
@@ -826,9 +826,9 @@ static void R4300_CALL_TYPE R4300_BEQL( R4300_CALL_SIGNATURE ) 			// Branch on E
 	//branch if rs == rt
 	if ( gGPR[op_code.rs]._u64 == gGPR[op_code.rt]._u64 )
 	{
-		s16 offset( (s16)op_code.immediate );
-		u32 pc( gCPUState.CurrentPC );
-		u32 new_pc( pc + ((s32)offset<<2) + 4 );
+		auto offset( (s16)op_code.immediate );
+		auto pc( gCPUState.CurrentPC );
+		auto new_pc( pc + ((s32)offset<<2) + 4 );
 
 		SpeedHack(pc, new_pc);
 		CPU_TakeBranch( new_pc );
@@ -847,9 +847,9 @@ static void R4300_CALL_TYPE R4300_BNEL( R4300_CALL_SIGNATURE ) 			// Branch on N
 	//branch if rs <> rt
 	if ( gGPR[op_code.rs]._u64 != gGPR[op_code.rt]._u64 )
 	{
-		s16 offset{ (s16)op_code.immediate};
-		u32 pc {gCPUState.CurrentPC};
-		u32 new_pc {pc + ((s32)offset<<2) + 4 };
+		auto offset{ (s16)op_code.immediate};
+		auto pc {gCPUState.CurrentPC};
+		auto new_pc {pc + ((s32)offset<<2) + 4 };
 		CPU_TakeBranch( new_pc );
 		SpeedHack(pc, new_pc);
 	}
@@ -867,9 +867,9 @@ static void R4300_CALL_TYPE R4300_BLEZL( R4300_CALL_SIGNATURE ) 		// Branch on L
 	//branch if rs <= 0
 	if ( gGPR[op_code.rs]._s64 <= 0 )
 	{
-		s16 offset{ (s16)op_code.immediate };
-		u32 pc{ gCPUState.CurrentPC };
-		u32 new_pc{ pc + ((s32)offset<<2) + 4 };
+		auto offset{ (s16)op_code.immediate };
+		auto pc{ gCPUState.CurrentPC };
+		auto new_pc{ pc + ((s32)offset<<2) + 4 };
 
 		SpeedHack(pc, new_pc);
 		CPU_TakeBranch( new_pc );
@@ -889,7 +889,7 @@ static void R4300_CALL_TYPE R4300_BGTZL( R4300_CALL_SIGNATURE ) 		// Branch on G
 	if ( gGPR[op_code.rs]._s64 > 0 )
 	{
 		//ToDo : SpeedHack?
-		u32	new_pc { gCPUState.CurrentPC + ((s32)(s16)op_code.immediate<<2) + 4 };
+		auto	new_pc { gCPUState.CurrentPC + ((s32)(s16)op_code.immediate<<2) + 4 };
 		CPU_TakeBranch( new_pc );
 	}
 	else
@@ -905,7 +905,7 @@ static void R4300_CALL_TYPE R4300_LB( R4300_CALL_SIGNATURE ) 			// Load Byte
 	#ifdef DAEDALUS_DEBUG_CONSOLE
 
 #endif
-	u32 address {(u32)( gGPR[op_code.base]._s32_0 + (s32)(s16)op_code.immediate )};
+	auto address {(u32)( gGPR[op_code.base]._s32_0 + (s32)(s16)op_code.immediate )};
 
 	gGPR[op_code.rt]._s64 = (s64)(s8)Read8Bits(address);
 }
@@ -917,7 +917,7 @@ static void R4300_CALL_TYPE R4300_LBU( R4300_CALL_SIGNATURE ) 			// Load Byte Un
 
 	#endif
 
-	u32 address {(u32)( gGPR[op_code.base]._s32_0 + (s32)(s16)op_code.immediate)};
+	auto address {(u32)( gGPR[op_code.base]._s32_0 + (s32)(s16)op_code.immediate)};
 
 	gGPR[op_code.rt]._u64 = (u64)(u8)Read8Bits(address);
 }
@@ -928,7 +928,7 @@ static void R4300_CALL_TYPE R4300_LH( R4300_CALL_SIGNATURE ) 		// Load Halfword
 		#ifdef DAEDALUS_DEBUG_CONSOLE
 
 #endif
-	u32 address {(u32)( gGPR[op_code.base]._s32_0 + (s32)(s16)op_code.immediate )};
+	auto address {(u32)( gGPR[op_code.base]._s32_0 + (s32)(s16)op_code.immediate )};
 
 	gGPR[op_code.rt]._s64 = (s64)(s16)Read16Bits(address);
 }
@@ -939,7 +939,7 @@ static void R4300_CALL_TYPE R4300_LHU( R4300_CALL_SIGNATURE )			// Load Halfword
 		#ifdef DAEDALUS_DEBUG_CONSOLE
 
 #endif
-	u32 address {(u32)( gGPR[op_code.base]._s32_0 + (s32)(s16)op_code.immediate )};
+	auto address {(u32)( gGPR[op_code.base]._s32_0 + (s32)(s16)op_code.immediate )};
 
 	gGPR[op_code.rt]._u64 = (u64)(u16)Read16Bits(address);
 }
@@ -951,9 +951,9 @@ static void R4300_CALL_TYPE R4300_LWL( R4300_CALL_SIGNATURE ) 			// Load Word Le
 		#ifdef DAEDALUS_DEBUG_CONSOLE
 
 	#endif
-	u32 address {(u32)( gGPR[op_code.base]._s32_0 + (s32)(s16)op_code.immediate )};
-	u32 nMem {Read32Bits(address & ~0x3)};
-	u32 nReg {gGPR[op_code.rt]._u32_0};
+	auto address {(u32)( gGPR[op_code.base]._s32_0 + (s32)(s16)op_code.immediate )};
+	auto nMem {Read32Bits(address & ~0x3)};
+	auto nReg {gGPR[op_code.rt]._u32_0};
 
 #if 1 //1-> tighter code, 0->old way //Corn
 	nReg = (nReg & ~(~0 << ((address & 0x3) << 3))) | (nMem << ((address & 0x3) << 3));
@@ -975,10 +975,10 @@ static void R4300_CALL_TYPE R4300_LDL( R4300_CALL_SIGNATURE )
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	u32 address {(u32)( gGPR[op_code.base]._s32_0 + (s32)(s16)op_code.immediate )};
-	u64 nMem {Read64Bits(address & ~0x7)};
+	auto address {(u32)( gGPR[op_code.base]._s32_0 + (s32)(s16)op_code.immediate )};
+	auto nMem {Read64Bits(address & ~0x7)};
 
-	u64 nReg = gGPR[op_code.rt]._u64;
+	auto nReg = gGPR[op_code.rt]._u64;
 #if 1 //1-> tighter code, 0->old way //Corn
 	nReg = (nReg & ~(~0LL << ((address & 0x7) << 3))) | (nMem << ((address & 0x7) << 3));
 #else
@@ -1002,10 +1002,9 @@ static void R4300_CALL_TYPE R4300_LWR( R4300_CALL_SIGNATURE ) 			// Load Word Ri
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	u32 address {(u32)( gGPR[op_code.base]._s32_0 + (s32)(s16)op_code.immediate )};
-	u32 nMem {Read32Bits(address & ~0x3)};
-
-	u32 nReg {gGPR[op_code.rt]._u32_0};
+	auto address {(u32)( gGPR[op_code.base]._s32_0 + (s32)(s16)op_code.immediate )};
+	auto nMem {Read32Bits(address & ~0x3)};
+	auto nReg {gGPR[op_code.rt]._u32_0};
 
 #if 1 //1-> tighter code, 0->old way //Corn
 	nReg = (nReg & (~0 << ( ((address & 0x3) + 1) << 3))) | (nMem >> ((~address & 0x3) << 3));
@@ -1027,25 +1026,11 @@ static void R4300_CALL_TYPE R4300_LDR( R4300_CALL_SIGNATURE )
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	u32 address {(u32)( gGPR[op_code.base]._s32_0 + (s32)(s16)op_code.immediate )};
-	u64 nMem {Read64Bits(address & ~0x7)};
-	u64 nReg = gGPR[op_code.rt]._u64;
+	auto address {(u32)( gGPR[op_code.base]._s32_0 + (s32)(s16)op_code.immediate )};
+	auto nMem {Read64Bits(address & ~0x7)};
+	auto nReg = gGPR[op_code.rt]._u64;
 
-#if 1 //1-> tighter code, 0->old way //Corn
 	nReg = (nReg & (~0LL << ( ((address & 0x7) + 1) << 3))) | (nMem >> ((~address & 0x7) << 3));
-#else
-	switch (address % 8)
-	{
-        case 0: nReg = (nReg & 0xFFFFFFFFFFFFFF00LL) | (nMem >> 56); break;
-        case 1: nReg = (nReg & 0xFFFFFFFFFFFF0000LL) | (nMem >> 48); break;
-        case 2: nReg = (nReg & 0xFFFFFFFFFF000000LL) | (nMem >> 40); break;
-        case 3: nReg = (nReg & 0xFFFFFFFF00000000LL) | (nMem >> 32); break;
-        case 4: nReg = (nReg & 0xFFFFFF0000000000LL) | (nMem >> 24); break;
-        case 5: nReg = (nReg & 0xFFFF000000000000LL) | (nMem >> 16); break;
-        case 6: nReg = (nReg & 0xFF00000000000000LL) | (nMem >>  8); break;
-        case 7: nReg = nMem; break;
-    }
-#endif
 
 	gGPR[op_code.rt]._s64 = nReg;
 }
@@ -1055,7 +1040,7 @@ static void R4300_CALL_TYPE R4300_LW( R4300_CALL_SIGNATURE ) 			// Load Word
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	u32 address {(u32)( gGPR[op_code.base]._s32_0 + (s32)(s16)op_code.immediate )};
+	auto address {(u32)( gGPR[op_code.base]._s32_0 + (s32)(s16)op_code.immediate )};
 	gGPR[op_code.rt]._s64 = (s64)(s32)Read32Bits(address);
 }
 
@@ -1063,7 +1048,7 @@ static void R4300_CALL_TYPE R4300_LWU( R4300_CALL_SIGNATURE ) 			// Load Word Un
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	u32 address {(u32)( gGPR[op_code.base]._s32_0 + (s32)(s16)op_code.immediate )};
+	auto address {(u32)( gGPR[op_code.base]._s32_0 + (s32)(s16)op_code.immediate )};
 	gGPR[op_code.rt]._u64 = (u64)(u32)Read32Bits(address);
 }
 
@@ -1071,7 +1056,7 @@ static void R4300_CALL_TYPE R4300_SW( R4300_CALL_SIGNATURE ) 			// Store Word
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	u32 address {(u32)( gGPR[op_code.base]._s32_0 + (s32)(s16)op_code.immediate )};
+	auto address {(u32)( gGPR[op_code.base]._s32_0 + (s32)(s16)op_code.immediate )};
 	Write32Bits(address, gGPR[op_code.rt]._u32_0);
 }
 
@@ -1079,7 +1064,7 @@ static void R4300_CALL_TYPE R4300_SH( R4300_CALL_SIGNATURE ) 			// Store Halfwor
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	u32 address {(u32)( gGPR[op_code.base]._s32_0 + (s32)(s16)op_code.immediate )};
+	auto address {(u32)( gGPR[op_code.base]._s32_0 + (s32)(s16)op_code.immediate )};
 	Write16Bits(address, (u16)(gGPR[op_code.rt]._u32_0 & 0xffff));
 }
 
@@ -1087,7 +1072,7 @@ static void R4300_CALL_TYPE R4300_SB( R4300_CALL_SIGNATURE ) 			// Store Byte
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	u32 address {(u32)( gGPR[op_code.base]._s32_0 + (s32)(s16)op_code.immediate )};
+	auto address {(u32)( gGPR[op_code.base]._s32_0 + (s32)(s16)op_code.immediate )};
 	Write8Bits(address, (u8)(gGPR[op_code.rt]._u32_0 & 0xff));
 }
 
@@ -1095,23 +1080,12 @@ static void R4300_CALL_TYPE R4300_SWL( R4300_CALL_SIGNATURE ) 			// Store Word L
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	u32 address {(u32)( gGPR[op_code.base]._s32_0 + (s32)(s16)op_code.immediate )};
-	u8* base {(u8*)ReadAddress(address & ~0x3)};
-	u32 dMem {QuickRead32Bits(base, 0x0)};
-	u32 dReg {gGPR[op_code.rt]._u32_0};
+	auto address {(u32)( gGPR[op_code.base]._s32_0 + (s32)(s16)op_code.immediate )};
+	auto* base {(u8*)ReadAddress(address & ~0x3)};
+	auto dMem {QuickRead32Bits(base, 0x0)};
+	auto dReg {gGPR[op_code.rt]._u32_0};
 
-#if 1 //1-> tighter code, 0->old way //Corn
-	u32 dNew {(dMem & ~(((u32)~0 >> ((address & 0x3) << 3)))) | (dReg >> ((address & 0x3) << 3))};
-#else
-	u32 dNew {};
-	switch (address % 4)
-	{
-	case 0:	dNew = dReg; break;			// Aligned
-	case 1:	dNew = (dMem & 0xFF000000) | (dReg >> 8 ); break;
-	case 2:	dNew = (dMem & 0xFFFF0000) | (dReg >> 16); break;
-	default:dNew = (dMem & 0xFFFFFF00) | (dReg >> 24); break;
-	}
-#endif
+	auto dNew {(dMem & ~(((u32)~0 >> ((address & 0x3) << 3)))) | (dReg >> ((address & 0x3) << 3))};
 
 	QuickWrite32Bits(base, 0x0, dNew);
 }
@@ -1120,23 +1094,13 @@ static void R4300_CALL_TYPE R4300_SWR( R4300_CALL_SIGNATURE ) 			// Store Word R
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	u32 address {(u32)( gGPR[op_code.base]._s32_0 + (s32)(s16)op_code.immediate )};
-	u8* base {(u8*)ReadAddress(address & ~0x3)};
-	u32 dMem {QuickRead32Bits(base, 0x0)};
-	u32 dReg {gGPR[op_code.rt]._u32_0};
+	auto address {(u32)( gGPR[op_code.base]._s32_0 + (s32)(s16)op_code.immediate )};
+	auto* base {(u8*)ReadAddress(address & ~0x3)};
+	auto dMem {QuickRead32Bits(base, 0x0)};
+	auto dReg {gGPR[op_code.rt]._u32_0};
 
-#if 1 //1-> tighter code, 0->old way //Corn
-	u32 dNew {(dMem & ~(~0 << ((~address & 0x3) << 3))) | (dReg << ((~address & 0x3) << 3))};
-#else
-	u32 dNew {};
-	switch (address % 4)
-	{
-	case 0:	dNew = (dMem & 0x00FFFFFF) | (dReg << 24); break;
-	case 1:	dNew = (dMem & 0x0000FFFF) | (dReg << 16); break;
-	case 2:	dNew = (dMem & 0x000000FF) | (dReg << 8); break;
-	default:dNew = dReg; break;			// Aligned
-	}
-#endif
+ auto dNew {(dMem & ~(~0 << ((~address & 0x3) << 3))) | (dReg << ((~address & 0x3) << 3))};
+
 
 	QuickWrite32Bits(base, 0x0, dNew);
 
@@ -1146,11 +1110,11 @@ static void R4300_CALL_TYPE R4300_SDL( R4300_CALL_SIGNATURE )//CYRUS64
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	u32 address {(u32)( gGPR[op_code.base]._s32_0 + (s32)(s16)op_code.immediate)};
-	u8* base {(u8*)ReadAddress(address & ~0x7)};
-	u64 nMem {QuickRead64Bits(base, 0x0)};
-	u64 nReg {gGPR[op_code.rt]._u64};
-	u64 nNew = (nMem & ~(((u64)~0LL >> ((address & 0x7) << 3)))) | (nReg >> ((address & 0x7) << 3));
+	auto address {(u32)( gGPR[op_code.base]._s32_0 + (s32)(s16)op_code.immediate)};
+	auto* base {(u8*)ReadAddress(address & ~0x7)};
+	auto nMem {QuickRead64Bits(base, 0x0)};
+	auto nReg {gGPR[op_code.rt]._u64};
+	auto nNew = (nMem & ~(((u64)~0LL >> ((address & 0x7) << 3)))) | (nReg >> ((address & 0x7) << 3));
 
 	QuickWrite64Bits(base, 0x0, nNew);
 }
@@ -1159,12 +1123,12 @@ static void R4300_CALL_TYPE R4300_SDR( R4300_CALL_SIGNATURE )//CYRUS64
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	u32 address {(u32)( gGPR[op_code.base]._s32_0 + (s32)(s16)op_code.immediate)};
-	u8* base {(u8*)ReadAddress(address & ~0x7)};
+	auto address {(u32)( gGPR[op_code.base]._s32_0 + (s32)(s16)op_code.immediate)};
+	auto* base {(u8*)ReadAddress(address & ~0x7)};
 
-	u64 nMem {QuickRead64Bits(base, 0x0)};
-	u64 nReg {gGPR[op_code.rt]._u64};
-	u64 nNew = (nMem & ~(~0LL << ((~address & 0x7) << 3))) | (nReg << ((~address & 0x7) << 3));
+	auto nMem {QuickRead64Bits(base, 0x0)};
+	auto nReg {gGPR[op_code.rt]._u64};
+	auto nNew = (nMem & ~(~0LL << ((~address & 0x7) << 3))) | (nReg << ((~address & 0x7) << 3));
 	QuickWrite64Bits(base, 0x0, nNew);
 }
 
@@ -1174,12 +1138,12 @@ static void R4300_CALL_TYPE R4300_CACHE( R4300_CALL_SIGNATURE )
 //	return;
 
 #ifdef DAEDALUS_ENABLE_DYNAREC
-	u32 cache_op  {op_code.rt};
-	u32 address {(u32)( gGPR[op_code.base]._s32_0 + (s32)(s16)op_code.immediate )};
+	auto cache_op  {op_code.rt};
+	auto address {(u32)( gGPR[op_code.base]._s32_0 + (s32)(s16)op_code.immediate )};
 
 	// Do Nothing
-	u32 dwCache {cache_op & 0x3};
-	u32 dwAction {(cache_op >> 2) & 0x7};
+	auto dwCache {cache_op & 0x3};
+	auto dwAction {(cache_op >> 2) & 0x7};
 
 	if(dwCache == 0 && (dwAction == 0 || dwAction == 4))
 	{
@@ -1194,7 +1158,7 @@ static void R4300_CALL_TYPE R4300_LWC1( R4300_CALL_SIGNATURE ) 				// Load Word 
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	u32 address {(u32)( gGPR[op_code.base]._s32_0 + (s32)(s16)op_code.immediate )};
+	auto address {(u32)( gGPR[op_code.base]._s32_0 + (s32)(s16)op_code.immediate )};
 	StoreFPR_Word( op_code.ft, Read32Bits(address) );
 }
 
@@ -1203,7 +1167,7 @@ static void R4300_CALL_TYPE R4300_LDC1( R4300_CALL_SIGNATURE )				// Load Double
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	u32 address {(u32)( gGPR[op_code.base]._s32_0 + (s32)(s16)op_code.immediate )};
+	auto address {(u32)( gGPR[op_code.base]._s32_0 + (s32)(s16)op_code.immediate )};
 	StoreFPR_Long( op_code.ft, Read64Bits(address));
 }
 
@@ -1212,7 +1176,7 @@ static void R4300_CALL_TYPE R4300_LD( R4300_CALL_SIGNATURE ) 				// Load Doublew
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	u32 address {(u32)( gGPR[op_code.base]._s32_0 + (s32)(s16)op_code.immediate )};
+	auto address {(u32)( gGPR[op_code.base]._s32_0 + (s32)(s16)op_code.immediate )};
 	gGPR[op_code.rt]._u64 = Read64Bits(address);
 }
 
@@ -1221,7 +1185,7 @@ static void R4300_CALL_TYPE R4300_SWC1( R4300_CALL_SIGNATURE ) 			// Store Word 
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	u32 address {(u32)( gGPR[op_code.base]._s32_0 + (s32)(s16)op_code.immediate )};
+	auto address {(u32)( gGPR[op_code.base]._s32_0 + (s32)(s16)op_code.immediate )};
 	Write32Bits(address, LoadFPR_Word(op_code.ft));
 }
 
@@ -1229,7 +1193,7 @@ static void R4300_CALL_TYPE R4300_SDC1( R4300_CALL_SIGNATURE )		// Store Doublew
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	u32 address {(u32)( gGPR[op_code.base]._s32_0 + (s32)(s16)op_code.immediate )};
+	auto address {(u32)( gGPR[op_code.base]._s32_0 + (s32)(s16)op_code.immediate )};
 	Write64Bits(address, LoadFPR_Long(op_code.ft));
 }
 
@@ -1238,7 +1202,7 @@ static void R4300_CALL_TYPE R4300_SD( R4300_CALL_SIGNATURE )			// Store Doublewo
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	u32 address {(u32)( gGPR[op_code.base]._s32_0 + (s32)(s16)op_code.immediate )};
+	auto address {(u32)( gGPR[op_code.base]._s32_0 + (s32)(s16)op_code.immediate )};
 	Write64Bits(address, gGPR[op_code.rt]._u64);
 }
 
@@ -1289,7 +1253,7 @@ static void R4300_CALL_TYPE R4300_Special_JR( R4300_CALL_SIGNATURE ) 			// Jump 
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	u32	new_pc( gGPR[ op_code.rs ]._u32_0 );
+	auto	new_pc( gGPR[ op_code.rs ]._u32_0 );
 	CPU_TakeBranch( new_pc );
 }
 
@@ -1299,7 +1263,7 @@ static void R4300_CALL_TYPE R4300_Special_JALR( R4300_CALL_SIGNATURE ) 		// Jump
 	R4300_CALL_MAKE_OP( op_code );
 
 	// Jump And Link
-	u32	new_pc( gGPR[ op_code.rs ]._u32_0 );
+	auto new_pc( gGPR[ op_code.rs ]._u32_0 );
 	gGPR[ op_code.rd ]._s64 = (s64)(s32)(gCPUState.CurrentPC + 8);		// Store return address;
 	CPU_TakeBranch( new_pc );
 }
@@ -1379,7 +1343,7 @@ static void R4300_CALL_TYPE R4300_Special_MULT( R4300_CALL_SIGNATURE ) 			// MUL
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	s64 dwResult {(s64)gGPR[ op_code.rs ]._s32_0 * (s64)gGPR[ op_code.rt ]._s32_0};
+	auto dwResult {(s64)gGPR[ op_code.rs ]._s32_0 * (s64)gGPR[ op_code.rt ]._s32_0};
 	gCPUState.MultLo._u64 = (s64)(s32)(dwResult & 0xffffffff);
 	gCPUState.MultHi._u64 = (s64)(s32)(dwResult >> 32);
 
@@ -1389,7 +1353,7 @@ static void R4300_CALL_TYPE R4300_Special_MULTU( R4300_CALL_SIGNATURE ) 		// MUL
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	u64 dwResult {(u64)gGPR[ op_code.rs ]._u32_0 * (u64)gGPR[ op_code.rt ]._u32_0};
+	auto dwResult {(u64)gGPR[ op_code.rs ]._u32_0 * (u64)gGPR[ op_code.rt ]._u32_0};
 	gCPUState.MultLo._u64 = (s64)(s32)(dwResult & 0xffffffff);
 	gCPUState.MultHi._u64 = (s64)(s32)(dwResult >> 32);
 }
@@ -1398,8 +1362,8 @@ static void R4300_CALL_TYPE R4300_Special_DIV( R4300_CALL_SIGNATURE ) 			//DIVid
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	s32 nDividend {gGPR[ op_code.rs ]._s32_0};
-	s32 nDivisor  {gGPR[ op_code.rt ]._s32_0};
+	auto nDividend {gGPR[ op_code.rs ]._s32_0};
+	auto nDivisor  {gGPR[ op_code.rt ]._s32_0};
 
 	if (nDivisor)
 	{
@@ -1412,8 +1376,8 @@ static void R4300_CALL_TYPE R4300_Special_DIVU( R4300_CALL_SIGNATURE ) 			// DIV
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	u32 dwDividend = gGPR[ op_code.rs ]._u32_0;
-	u32 dwDivisor  = gGPR[ op_code.rt ]._u32_0;
+	auto dwDividend = gGPR[ op_code.rs ]._u32_0;
+	auto dwDivisor  = gGPR[ op_code.rt ]._u32_0;
 
 	if (dwDivisor) {
 		gCPUState.MultLo._u64 = (s64)(s32)(dwDividend / dwDivisor);
@@ -1430,8 +1394,8 @@ static void R4300_CALL_TYPE R4300_Special_DMULT( R4300_CALL_SIGNATURE ) 		// Dou
 	gCPUState.MultLo._u64 = gGPR[ op_code.rs ]._s64 * gGPR[ op_code.rt ]._s64;
 	gCPUState.MultHi._u64 = 0;
 #else
-	s64 rrs {gGPR[ op_code.rs ]._s64};
-	s64 rrt {gGPR[ op_code.rt ]._s64};
+	auto rrs {gGPR[ op_code.rs ]._s64};
+	auto rrt {gGPR[ op_code.rt ]._s64};
 
 	bool sign {};
 
@@ -1447,23 +1411,23 @@ static void R4300_CALL_TYPE R4300_Special_DMULT( R4300_CALL_SIGNATURE ) 		// Dou
 		sign = sign ? false : true;
 	}
 
-	u64 op1 {rrs & 0xFFFFFFFF};
-	u64 op2 {(rrs >> 32) & 0xFFFFFFFF};
-	u64 op3 {rrt & 0xFFFFFFFF};
-	u64 op4 ={(rrt >> 32) & 0xFFFFFFFF};
+	auto op1 {rrs & 0xFFFFFFFF};
+	auto op2 {(rrs >> 32) & 0xFFFFFFFF};
+	auto op3 {rrt & 0xFFFFFFFF};
+	auto op4 ={(rrt >> 32) & 0xFFFFFFFF};
 
-u64 temp1 {op1 * op3};
-u64	temp2 {(temp1 >> 32) + op1 * op4};
-u64	temp3 {op2 * op3};
-u64	temp4 {(temp3 >> 32) + op2 * op4};
+auto temp1 {op1 * op3};
+auto	temp2 {(temp1 >> 32) + op1 * op4};
+auto	temp3 {op2 * op3};
+auto	temp4 {(temp3 >> 32) + op2 * op4};
 
-u64	result1 {temp1 & 0xFFFFFFFF};
-u64	result2 {temp2 + (temp3 & 0xFFFFFFFF)};
-u64	result3 {(result2 >> 32) + temp4};
-u64	result4 {(result3 >> 32)};
+auto	result1 {temp1 & 0xFFFFFFFF};
+auto	result2 {temp2 + (temp3 & 0xFFFFFFFF)};
+auto	result3 {(result2 >> 32) + temp4};
+auto	result4 {(result3 >> 32)};
 
-s64	lo {result1 | (result2 << 32)};
-s64	hi {(result3 & 0xFFFFFFFF) | (result4 << 32)};
+auto	lo {result1 | (result2 << 32)};
+auto	hi {(result3 & 0xFFFFFFFF) | (result4 << 32)};
 	if (sign)
 	{
 		hi = ~hi;
@@ -1487,23 +1451,23 @@ static void R4300_CALL_TYPE R4300_Special_DMULTU( R4300_CALL_SIGNATURE ) 			// D
 	gCPUState.MultLo._u64 = gGPR[ op_code.rs ]._u64 * gGPR[ op_code.rt ]._u64;
 	gCPUState.MultHi._u64 = 0;
 #else
-	s64 rrs = gGPR[ op_code.rs ]._s64;
-	s64 rrt = gGPR[ op_code.rt ]._s64;
+	auto rrs = gGPR[ op_code.rs ]._s64;
+	auto rrt = gGPR[ op_code.rt ]._s64;
 
-u64	op1 {rrs & 0xFFFFFFFF};
-u64	op2 {(rrs >> 32) & 0xFFFFFFFF};
-u64	op3 {rrt & 0xFFFFFFFF};
-u64	op4 {(rrt >> 32) & 0xFFFFFFFF};
+auto	op1 {rrs & 0xFFFFFFFF};
+auto	op2 {(rrs >> 32) & 0xFFFFFFFF};
+auto	op3 {rrt & 0xFFFFFFFF};
+auto	op4 {(rrt >> 32) & 0xFFFFFFFF};
 
-u64	temp1 {op1 * op3};
-u64	temp2 {(temp1 >> 32) + op1 * op4};
-u64	temp3 {op2 * op3};
-u64	temp4 {(temp3 >> 32) + op2 * op4};
+auto	temp1 {op1 * op3};
+auto temp2 {(temp1 >> 32) + op1 * op4};
+auto	temp3 {op2 * op3};
+auto	temp4 {(temp3 >> 32) + op2 * op4};
 
-u64	result1 {temp1 & 0xFFFFFFFF};
-u64	result2 {temp2 + (temp3 & 0xFFFFFFFF)};
-u64	result3 {(result2 >> 32) + temp4};
-u64	result4 {(result3 >> 32)};
+auto result1 {temp1 & 0xFFFFFFFF};
+auto	result2 {temp2 + (temp3 & 0xFFFFFFFF)};
+auto	result3 {(result2 >> 32) + temp4};
+auto	result4 {(result3 >> 32)};
 
 	gCPUState.MultLo._s64 = result1 | (result2 << 32);
 	gCPUState.MultHi._s64 = (result3 & 0xFFFFFFFF) | (result4 << 32);
@@ -1518,8 +1482,8 @@ static void R4300_CALL_TYPE R4300_Special_DDIV( R4300_CALL_SIGNATURE ) 				// Do
 	if( ((gGPR[op_code.rs]._u32_1 + (gGPR[op_code.rs]._u32_0 >> 31)) +
 		 (gGPR[op_code.rt]._u32_1 + (gGPR[op_code.rt]._u32_0 >> 31)) == 0) )
 	{	//32bit
-		s32 qwDividend {gGPR[ op_code.rs ]._s32_0};
-		s32 qwDivisor {gGPR[ op_code.rt ]._s32_0};
+		auto qwDividend {gGPR[ op_code.rs ]._s32_0};
+		auto qwDivisor {gGPR[ op_code.rt ]._s32_0};
 
 		// Reserved Instruction exception
 		if (qwDivisor)
@@ -1530,8 +1494,8 @@ static void R4300_CALL_TYPE R4300_Special_DDIV( R4300_CALL_SIGNATURE ) 				// Do
 	}
 	else
 	{	//64bit
-		s64 qwDividend {gGPR[ op_code.rs ]._s64};
-		s64 qwDivisor {gGPR[ op_code.rt ]._s64};
+		auto qwDividend {gGPR[ op_code.rs ]._s64};
+		auto qwDivisor {gGPR[ op_code.rt ]._s64};
 
 		// Reserved Instruction exception
 		if (qwDivisor)
@@ -1549,8 +1513,8 @@ static void R4300_CALL_TYPE R4300_Special_DDIVU( R4300_CALL_SIGNATURE ) 			// Do
 	// Check if this operation can be done in 32bit rather than 64bit //Corn
 	if( (gGPR[op_code.rs]._u32_1 | gGPR[op_code.rt]._u32_1) == 0 )
 	{	//32bit
-		u32 qwDividend {gGPR[ op_code.rs ]._u32_0};
-		u32 qwDivisor {gGPR[ op_code.rt ]._u32_0};
+		auto qwDividend {gGPR[ op_code.rs ]._u32_0};
+		auto qwDivisor {gGPR[ op_code.rt ]._u32_0};
 
 		// Reserved Instruction exception
 		if (qwDivisor)
@@ -1561,8 +1525,8 @@ static void R4300_CALL_TYPE R4300_Special_DDIVU( R4300_CALL_SIGNATURE ) 			// Do
 	}
 	else
 	{	//64bit
-		u64 qwDividend = gGPR[ op_code.rs ]._u64;
-		u64 qwDivisor = gGPR[ op_code.rt ]._u64;
+		auto qwDividend = gGPR[ op_code.rs ]._u64;
+		auto qwDivisor = gGPR[ op_code.rt ]._u64;
 
 		// Reserved Instruction exception
 		if (qwDivisor)
@@ -1757,9 +1721,9 @@ static void R4300_CALL_TYPE R4300_RegImm_BLTZ( R4300_CALL_SIGNATURE ) 			// Bran
 	//branch if rs < 0
 	if ( gGPR[ op_code.rs ]._s64 < 0 )
 	{
-		s16 offset {(s16)op_code.immediate };
-		u32 pc {gCPUState.CurrentPC};
-		u32 new_pc {pc + ((s32)offset<<2) + 4};
+		auto offset {(s16)op_code.immediate };
+		auto pc {gCPUState.CurrentPC};
+		auto new_pc {pc + ((s32)offset<<2) + 4};
 
 		SpeedHack(pc, new_pc);
 		CPU_TakeBranch( new_pc );
@@ -1774,7 +1738,7 @@ static void R4300_CALL_TYPE R4300_RegImm_BLTZL( R4300_CALL_SIGNATURE ) 			// Bra
 	if ( gGPR[ op_code.rs ]._s64 < 0 )
 	{
 		//ToDo: SpeedHack?
-		u32	new_pc {gCPUState.CurrentPC + ((s32)(s16)op_code.immediate<<2) + 4 };
+		auto new_pc {gCPUState.CurrentPC + ((s32)(s16)op_code.immediate<<2) + 4 };
 		CPU_TakeBranch( new_pc );
 	}
 	else
@@ -1797,7 +1761,7 @@ static void R4300_CALL_TYPE R4300_RegImm_BLTZAL( R4300_CALL_SIGNATURE ) 		// Bra
 	if ( gGPR[ op_code.rs ]._s64 < 0 )
 	{
 		//ToDo: SpeedHack?
-		u32	new_pc {gCPUState.CurrentPC + ((s32)(s16)op_code.immediate<<2) + 4 };
+		auto new_pc {gCPUState.CurrentPC + ((s32)(s16)op_code.immediate<<2) + 4 };
 		CPU_TakeBranch( new_pc );
 	}
 }
@@ -1809,9 +1773,9 @@ static void R4300_CALL_TYPE R4300_RegImm_BGEZ( R4300_CALL_SIGNATURE ) 			// Bran
 	//branch if rs >= 0
 	if ( gGPR[ op_code.rs ]._s64 >= 0 )
 	{
-		s16 offset {(s16)op_code.immediate};
-		u32 pc {gCPUState.CurrentPC };
-		u32 new_pc {pc + ((s32)offset<<2) + 4};
+		auto offset {(s16)op_code.immediate};
+		auto pc {gCPUState.CurrentPC };
+		auto new_pc {pc + ((s32)offset<<2) + 4};
 
 		SpeedHack(pc, new_pc);
 		CPU_TakeBranch( new_pc );
@@ -1826,7 +1790,7 @@ static void R4300_CALL_TYPE R4300_RegImm_BGEZL( R4300_CALL_SIGNATURE ) 			// Bra
 	if ( gGPR[ op_code.rs ]._s64 >= 0 )
 	{
 		//ToDO: SpeedHack?
-		u32	new_pc {gCPUState.CurrentPC + ((s32)(s16)op_code.immediate<<2) + 4};
+		auto new_pc {gCPUState.CurrentPC + ((s32)(s16)op_code.immediate<<2) + 4};
 		CPU_TakeBranch( new_pc );
 	}
 	else
@@ -1848,7 +1812,7 @@ static void R4300_CALL_TYPE R4300_RegImm_BGEZAL( R4300_CALL_SIGNATURE ) 		// Bra
 	if ( gGPR[ op_code.rs ]._s64 >= 0 )
 	{
 		//ToDo: SpeedHack?
-		u32	new_pc( gCPUState.CurrentPC + ((s32)(s16)op_code.immediate<<2) + 4 );
+		auto new_pc( gCPUState.CurrentPC + ((s32)(s16)op_code.immediate<<2) + 4 );
 		CPU_TakeBranch( new_pc );
 	}
 }
@@ -1898,7 +1862,7 @@ static void R4300_CALL_TYPE R4300_Cop0_MTC0( R4300_CALL_SIGNATURE )
 	R4300_CALL_MAKE_OP( op_code );
 
 	// Copy from RT to FS
-	u32 new_value {gGPR[ op_code.rt ]._u32_0};
+	auto new_value {gGPR[ op_code.rt ]._u32_0};
 
 	switch ( op_code.fs )
 	{
@@ -2027,7 +1991,7 @@ static void R4300_CALL_TYPE R4300_TLB_TLBWI( R4300_CALL_SIGNATURE )			// TLB Wri
 {
 
 
-	u32 i {gCPUState.CPUControl[C0_INX]._u32 & 0x1F};
+	auto i {gCPUState.CPUControl[C0_INX]._u32 & 0x1F};
 
  	#ifdef DAEDALUS_PROFILER
 	DPF( DEBUG_TLB, "TLBWI: INDEX: 0x%04x. ", i );
@@ -2041,10 +2005,10 @@ static void R4300_CALL_TYPE R4300_TLB_TLBWI( R4300_CALL_SIGNATURE )			// TLB Wri
 static void R4300_CALL_TYPE R4300_TLB_TLBWR( R4300_CALL_SIGNATURE )
 {
 
-	u32 wired {gCPUState.CPUControl[C0_WIRED]._u32 & 0x1F};
+	auto wired {gCPUState.CPUControl[C0_WIRED]._u32 & 0x1F};
 
 	// Select a value for index between wired and 31
-	u32 i {(R4300_Rand()%(32-wired)) + wired};
+	auto i {(R4300_Rand()%(32-wired)) + wired};
 
 		#ifdef DAEDALUS_PROFILER
 			DPF( DEBUG_TLB, "TLBWR: INDEX: 0x%04x. ", i );
@@ -2058,13 +2022,13 @@ static void R4300_CALL_TYPE R4300_TLB_TLBWR( R4300_CALL_SIGNATURE )
 
 static void R4300_CALL_TYPE R4300_TLB_TLBP( R4300_CALL_SIGNATURE ) 				// TLB Probe
 {
-	u32 entryH {gCPUState.CPUControl[C0_ENTRYHI]._u32};
+	auto entryH {gCPUState.CPUControl[C0_ENTRYHI]._u32};
 
 #ifdef DAEDALUS_PROFILER
 	DPF( DEBUG_TLB, "TLBP: ENTRYHI: 0x%08x", entryH );
 	#endif
 
-    for( u32 i {}; i < 32; i++ )
+    for( auto i {0}; i < 32; i++ )
 	{
 		if( ((g_TLBs[i].hi & TLBHI_VPN2MASK) == (entryH & TLBHI_VPN2MASK)) && ( (g_TLBs[i].g)
 			|| ((g_TLBs[i].hi & TLBHI_PIDMASK) ==  (entryH    & TLBHI_PIDMASK))) )
@@ -2181,7 +2145,7 @@ static void R4300_CALL_TYPE R4300_Cop1_CTC1( R4300_CALL_SIGNATURE ) 		// move Co
 	{
 		gCPUState.FPUControl[ 31 ]._u32 = gGPR[ op_code.rt ]._u32_0;
 
-		u32		fpcr( gCPUState.FPUControl[ 31 ]._u32 );
+		auto		fpcr( gCPUState.FPUControl[ 31 ]._u32 );
 		gRoundingMode = (ERoundingMode)( fpcr & FPCSR_RM_MASK );
 		SET_ROUND_MODE(gRoundingMode);
 	}
@@ -2214,7 +2178,7 @@ static void R4300_CALL_TYPE R4300_Cop1_CTC1_2( R4300_CALL_SIGNATURE )
 	{
 		gCPUState.FPUControl[ 31 ]._u32 = gGPR[ op_code.rt ]._u32_0;
 
-		u32		fpcr( gCPUState.FPUControl[ 31 ]._u32 );
+		auto		fpcr( gCPUState.FPUControl[ 31 ]._u32 );
 		gRoundingMode = (ERoundingMode)( fpcr & FPCSR_RM_MASK );
 		pspFpuSetRoundmode( gNativeRoundingModes[ gRoundingMode ] );
 	}
@@ -2233,7 +2197,7 @@ static void R4300_CALL_TYPE R4300_BC1_BC1F( R4300_CALL_SIGNATURE )		// Branch on
 
 	if ( !(gCPUState.FPUControl[31]._u32 & FPCSR_C) )
 	{
-		u32	new_pc {gCPUState.CurrentPC + (s32)(s16)op_code.immediate*4 + 4};
+		auto new_pc {gCPUState.CurrentPC + (s32)(s16)op_code.immediate*4 + 4};
 		CPU_TakeBranch( new_pc );
 	}
 }
@@ -2244,7 +2208,7 @@ static void R4300_CALL_TYPE R4300_BC1_BC1T( R4300_CALL_SIGNATURE )	// Branch on 
 
 	if ( gCPUState.FPUControl[31]._u32 & FPCSR_C )
 	{
-		u32	new_pc {gCPUState.CurrentPC + (s32)(s16)op_code.immediate*4 + 4};
+		auto new_pc {gCPUState.CurrentPC + (s32)(s16)op_code.immediate*4 + 4};
 		CPU_TakeBranch( new_pc );
 	}
 }
@@ -2255,7 +2219,7 @@ static void R4300_CALL_TYPE R4300_BC1_BC1FL( R4300_CALL_SIGNATURE )	// Branch on
 
 	if ( !(gCPUState.FPUControl[31]._u32 & FPCSR_C) )
 	{
-		u32	new_pc {gCPUState.CurrentPC + (s32)(s16)op_code.immediate*4 + 4};
+		auto new_pc {gCPUState.CurrentPC + (s32)(s16)op_code.immediate*4 + 4};
 		CPU_TakeBranch( new_pc );
 	}
 	else
@@ -2271,7 +2235,7 @@ static void R4300_CALL_TYPE R4300_BC1_BC1TL( R4300_CALL_SIGNATURE )		// Branch o
 
 	if ( gCPUState.FPUControl[31]._u32 & FPCSR_C )
 	{
-		u32	new_pc {gCPUState.CurrentPC + (s32)(s16)op_code.immediate*4 + 4};
+		auto new_pc {gCPUState.CurrentPC + (s32)(s16)op_code.immediate*4 + 4};
 		CPU_TakeBranch( new_pc );
 	}
 	else
@@ -2293,7 +2257,7 @@ static void R4300_CALL_TYPE R4300_Cop1_W_CVT_D( R4300_CALL_SIGNATURE )
 {
 	R4300_CALL_MAKE_OP( op_code );
 // 	SET_ROUND_MODE( gRoundingMode );		//XXXX Is this needed?
-	s32 nTemp {LoadFPR_Word( op_code.fs )};
+	auto nTemp {LoadFPR_Word( op_code.fs )};
 
 	// Convert using current rounding mode?
 	StoreFPR_Double( op_code.fd, s32_to_d64( nTemp ) );
@@ -2303,7 +2267,7 @@ static void R4300_CALL_TYPE R4300_Cop1_L_CVT_S( R4300_CALL_SIGNATURE )
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	s64 nTemp {(s64)LoadFPR_Long( op_code.fs )};
+	auto nTemp {(s64)LoadFPR_Long( op_code.fs )};
 
 // 	SET_ROUND_MODE( gRoundingMode );		//XXXX Is this needed?
 	StoreFPR_Single( op_code.fd, s64_to_f32( nTemp ));
@@ -2313,7 +2277,7 @@ static void R4300_CALL_TYPE R4300_Cop1_L_CVT_D( R4300_CALL_SIGNATURE )
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	s64 nTemp {(s64)LoadFPR_Long( op_code.fs )};
+	auto nTemp {(s64)LoadFPR_Long( op_code.fs )};
 
 // 	SET_ROUND_MODE( gRoundingMode );		//XXXX Is this needed?
 	StoreFPR_Double( op_code.fd, s64_to_d64( nTemp ) );
@@ -2326,8 +2290,8 @@ static void R4300_CALL_TYPE R4300_Cop1_S_ADD( R4300_CALL_SIGNATURE )
 	R4300_CALL_MAKE_OP( op_code );
 
 	// fd = fs+ft
-	f32 fX {LoadFPR_Single( op_code.fs )};
-	f32 fY {LoadFPR_Single( op_code.ft )};
+	auto fX {LoadFPR_Single( op_code.fs )};
+	auto fY {LoadFPR_Single( op_code.ft )};
 
 // 	SET_ROUND_MODE( gRoundingMode );		//XXXX Is this needed?
 	StoreFPR_Single( op_code.fd, fX + fY );
@@ -2338,8 +2302,8 @@ static void R4300_CALL_TYPE R4300_Cop1_S_SUB( R4300_CALL_SIGNATURE )
 	R4300_CALL_MAKE_OP( op_code );
 
 	// fd = fs-ft
-	f32 fX {LoadFPR_Single( op_code.fs )};
-	f32 fY {LoadFPR_Single( op_code.ft )};
+	auto fX {LoadFPR_Single( op_code.fs )};
+	auto fY {LoadFPR_Single( op_code.ft )};
 
 // 	SET_ROUND_MODE( gRoundingMode );		//XXXX Is this needed?
 	StoreFPR_Single( op_code.fd, fX - fY );
@@ -2350,8 +2314,8 @@ static void R4300_CALL_TYPE R4300_Cop1_S_MUL( R4300_CALL_SIGNATURE )
 	R4300_CALL_MAKE_OP( op_code );
 
 	// fd = fs*ft
-	f32 fX {LoadFPR_Single( op_code.fs )};
-	f32 fY {LoadFPR_Single( op_code.ft )};
+	auto fX {LoadFPR_Single( op_code.fs )};
+	auto fY {LoadFPR_Single( op_code.ft )};
 
 // 	SET_ROUND_MODE( gRoundingMode );		//XXXX Is this needed?
 	StoreFPR_Single( op_code.fd, fX * fY );
@@ -2362,8 +2326,8 @@ static void R4300_CALL_TYPE R4300_Cop1_S_DIV( R4300_CALL_SIGNATURE )
 	R4300_CALL_MAKE_OP( op_code );
 
 	// fd = fs/ft
-	f32 fDividend {LoadFPR_Single( op_code.fs )};
-	f32 fDivisor  {LoadFPR_Single( op_code.ft )};
+	auto fDividend {LoadFPR_Single( op_code.fs )};
+	auto fDivisor  {LoadFPR_Single( op_code.ft )};
 
 // 	SET_ROUND_MODE( gRoundingMode );		//XXXX Is this needed?
 
@@ -2396,7 +2360,7 @@ static void R4300_CALL_TYPE R4300_Cop1_S_SQRT( R4300_CALL_SIGNATURE )
 	R4300_CALL_MAKE_OP( op_code );
 
 	// fd = sqrt(fs)
-	f32 fX {LoadFPR_Single( op_code.fs )};
+	auto fX {LoadFPR_Single( op_code.fs )};
 
 // 	SET_ROUND_MODE( gRoundingMode );		//XXXX Is this needed?
 	StoreFPR_Single( op_code.fd, R4300_Sqrt(fX) );
@@ -2408,7 +2372,7 @@ static void R4300_CALL_TYPE R4300_Cop1_S_NEG( R4300_CALL_SIGNATURE )
 	R4300_CALL_MAKE_OP( op_code );
 
 	// fd = -(fs)
-	f32 fX {LoadFPR_Single( op_code.fs )};
+	auto fX {LoadFPR_Single( op_code.fs )};
 
 // 	SET_ROUND_MODE( gRoundingMode );		//XXXX Is this needed?
 	StoreFPR_Single( op_code.fd, -fX );
@@ -2419,7 +2383,7 @@ static void R4300_CALL_TYPE R4300_Cop1_S_MOV( R4300_CALL_SIGNATURE )
 	R4300_CALL_MAKE_OP( op_code );
 
 	// fd = fs
-	f32 fValue = LoadFPR_Single( op_code.fs );
+	auto fValue = LoadFPR_Single( op_code.fs );
 
 // 	SET_ROUND_MODE( gRoundingMode );		//XXXX Is this needed?
 	StoreFPR_Single( op_code.fd, fValue );// Just copy bits directly?
@@ -2429,7 +2393,7 @@ static void R4300_CALL_TYPE R4300_Cop1_S_ABS( R4300_CALL_SIGNATURE )
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	f32 fX {LoadFPR_Single( op_code.fs )};
+	auto fX {LoadFPR_Single( op_code.fs )};
 
 // 	SET_ROUND_MODE( gRoundingMode );		//XXXX Is this needed?
 	StoreFPR_Single( op_code.fd, R4300_AbsS(fX) );
@@ -2440,7 +2404,7 @@ static void R4300_CALL_TYPE R4300_Cop1_S_TRUNC_W( R4300_CALL_SIGNATURE )
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	f32 fX {LoadFPR_Single( op_code.fs )};
+	auto fX {LoadFPR_Single( op_code.fs )};
 
 	StoreFPR_Word( op_code.fd, f32_to_s32_trunc( fX ) );
 }
@@ -2449,7 +2413,7 @@ static void R4300_CALL_TYPE R4300_Cop1_S_TRUNC_L( R4300_CALL_SIGNATURE )
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	f32 fX {LoadFPR_Single( op_code.fs )};
+	auto fX {LoadFPR_Single( op_code.fs )};
 
 	StoreFPR_Long( op_code.fd, f32_to_s64_trunc( fX ) );
 }
@@ -2459,7 +2423,7 @@ static void R4300_CALL_TYPE R4300_Cop1_S_ROUND_W( R4300_CALL_SIGNATURE )
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	f32 fX {LoadFPR_Single( op_code.fs )};
+	auto fX {LoadFPR_Single( op_code.fs )};
 
 	StoreFPR_Word( op_code.fd, f32_to_s32_round( fX ) );
 }
@@ -2468,7 +2432,7 @@ static void R4300_CALL_TYPE R4300_Cop1_S_ROUND_L( R4300_CALL_SIGNATURE )
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	f32 fX {LoadFPR_Single( op_code.fs )};
+	auto fX {LoadFPR_Single( op_code.fs )};
 	StoreFPR_Long( op_code.fd, f32_to_s64_round( fX ) );
 }
 
@@ -2477,7 +2441,7 @@ static void R4300_CALL_TYPE R4300_Cop1_S_CEIL_W( R4300_CALL_SIGNATURE )
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	f32 fX {LoadFPR_Single( op_code.fs )};
+	auto fX {LoadFPR_Single( op_code.fs )};
 
 	StoreFPR_Word( op_code.fd, f32_to_s32_ceil( fX ) );
 }
@@ -2486,7 +2450,7 @@ static void R4300_CALL_TYPE R4300_Cop1_S_CEIL_L( R4300_CALL_SIGNATURE )
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	f32 fX {LoadFPR_Single( op_code.fs )};
+	auto fX {LoadFPR_Single( op_code.fs )};
 
 	StoreFPR_Long( op_code.fd, f32_to_s64_ceil( fX ) );
 }
@@ -2495,7 +2459,7 @@ static void R4300_CALL_TYPE R4300_Cop1_S_FLOOR_W( R4300_CALL_SIGNATURE )
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	f32 fX {LoadFPR_Single( op_code.fs )};
+	auto fX {LoadFPR_Single( op_code.fs )};
 
 	StoreFPR_Word( op_code.fd, f32_to_s32_floor( fX ) );
 }
@@ -2504,7 +2468,7 @@ static void R4300_CALL_TYPE R4300_Cop1_S_FLOOR_L( R4300_CALL_SIGNATURE )
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	f32 fX {LoadFPR_Single( op_code.fs )};
+	auto fX {LoadFPR_Single( op_code.fs )};
 
 	StoreFPR_Long( op_code.fd, f32_to_s64_floor( fX ) );
 }
@@ -2514,7 +2478,7 @@ static void R4300_CALL_TYPE R4300_Cop1_S_CVT_L( R4300_CALL_SIGNATURE )
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	f32 fX {LoadFPR_Single( op_code.fs )};
+	auto fX {LoadFPR_Single( op_code.fs )};
 
 	StoreFPR_Long( op_code.fd, f32_to_s64( fX ) );
 }
@@ -2525,8 +2489,8 @@ static void R4300_CALL_TYPE R4300_Cop1_S_CVT_W( R4300_CALL_SIGNATURE )
 	R4300_CALL_MAKE_OP( op_code );
 
 	// XXXX On the PSP, this seem sto be doing trunc.w.s rather than cvt.w.s
-	f32 fX {LoadFPR_Single( op_code.fs )};
-	s32	sX = f32_to_s32( fX );
+	auto fX {LoadFPR_Single( op_code.fs )};
+	auto sX {f32_to_s32( fX )};
 
 	StoreFPR_Word( op_code.fd, sX );
 }
@@ -2538,7 +2502,7 @@ static void R4300_CALL_TYPE R4300_Cop1_S_CVT_D( R4300_CALL_SIGNATURE )
 
 // 	SET_ROUND_MODE( gRoundingMode );		//XXXX Is this needed?
 
-	f32 fX {LoadFPR_Single( op_code.fs )};
+	auto fX {LoadFPR_Single( op_code.fs )};
 
 	StoreFPR_Double( op_code.fd, f32_to_d64( fX ) );
 }
@@ -2552,7 +2516,7 @@ static void R4300_CALL_TYPE R4300_Cop1_S_CVT_D_2( R4300_CALL_SIGNATURE )
 
 // 	SET_ROUND_MODE( gRoundingMode );		//XXXX Is this needed?
 
-	f32 fX {LoadFPR_Single( op_code.fs )};
+	auto fX {LoadFPR_Single( op_code.fs )};
 
 	REG64 r {};
 
@@ -2568,10 +2532,10 @@ static void R4300_CALL_TYPE R4300_Cop1_S_EQ( R4300_CALL_SIGNATURE ) 				// Compa
 	R4300_CALL_MAKE_OP( op_code );
 
 	// fs == ft?
-	f32 fX {LoadFPR_Single( op_code.fs )};
-	f32 fY {LoadFPR_Single( op_code.ft )};
+	auto fX {LoadFPR_Single( op_code.fs )};
+	auto fY {LoadFPR_Single( op_code.ft )};
 
-	u32 FPUCTRL {gCPUState.FPUControl[31]._u32 & ~FPCSR_C};
+	auto FPUCTRL {gCPUState.FPUControl[31]._u32 & ~FPCSR_C};
 
 	if( !R4300_IsNaN(fX + fY) && fX == fY ) FPUCTRL |= FPCSR_C;
 
@@ -2583,10 +2547,10 @@ static void R4300_CALL_TYPE R4300_Cop1_S_LT( R4300_CALL_SIGNATURE ) 				// Compa
 	R4300_CALL_MAKE_OP( op_code );
 
 	// fs < ft?
-	f32 fX {LoadFPR_Single( op_code.fs )};
-	f32 fY {LoadFPR_Single( op_code.ft )};
+	auto fX {LoadFPR_Single( op_code.fs )};
+	auto fY {LoadFPR_Single( op_code.ft )};
 
-	u32 FPUCTRL {gCPUState.FPUControl[31]._u32 & ~FPCSR_C};
+	auto FPUCTRL {gCPUState.FPUControl[31]._u32 & ~FPCSR_C};
 
 	if( fX < fY ) FPUCTRL |= FPCSR_C;
 
@@ -2597,10 +2561,10 @@ static void R4300_CALL_TYPE R4300_Cop1_S_NGE( R4300_CALL_SIGNATURE )
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	f32 fX {LoadFPR_Single( op_code.fs )};
-	f32 fY {LoadFPR_Single( op_code.ft )};
+	auto fX {LoadFPR_Single( op_code.fs )};
+	auto fY {LoadFPR_Single( op_code.ft )};
 
-	u32 FPUCTRL {gCPUState.FPUControl[31]._u32 & ~FPCSR_C};
+	auto FPUCTRL {gCPUState.FPUControl[31]._u32 & ~FPCSR_C};
 
 	if( fX < fY ) FPUCTRL |= FPCSR_C;
 
@@ -2612,10 +2576,10 @@ static void R4300_CALL_TYPE R4300_Cop1_S_LE( R4300_CALL_SIGNATURE ) 				// Compa
 	R4300_CALL_MAKE_OP( op_code );
 
 	// fs <= ft?
-	f32 fX {LoadFPR_Single( op_code.fs )};
-	f32 fY {LoadFPR_Single( op_code.ft )};
+	auto fX {LoadFPR_Single( op_code.fs )};
+	auto fY {LoadFPR_Single( op_code.ft )};
 
-	u32 FPUCTRL {gCPUState.FPUControl[31]._u32 & ~FPCSR_C};
+	auto FPUCTRL {gCPUState.FPUControl[31]._u32 & ~FPCSR_C};
 
 	if( fX <= fY ) FPUCTRL |= FPCSR_C;
 
@@ -2626,10 +2590,10 @@ static void R4300_CALL_TYPE R4300_Cop1_S_SEQ( R4300_CALL_SIGNATURE )
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	f32 fX {LoadFPR_Single( op_code.fs )};
-	f32 fY {LoadFPR_Single( op_code.ft )};
+	auto fX {LoadFPR_Single( op_code.fs )};
+	auto fY {LoadFPR_Single( op_code.ft )};
 
-	u32 FPUCTRL {gCPUState.FPUControl[31]._u32 & ~FPCSR_C};
+	auto FPUCTRL {gCPUState.FPUControl[31]._u32 & ~FPCSR_C};
 
 	if( fX == fY ) FPUCTRL |= FPCSR_C;
 
@@ -2640,12 +2604,12 @@ static void R4300_CALL_TYPE R4300_Cop1_S_UEQ( R4300_CALL_SIGNATURE )
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	f32 fX {LoadFPR_Single( op_code.fs )};
-	f32 fY {LoadFPR_Single( op_code.ft )};
+	auto fX {LoadFPR_Single( op_code.fs )};
+	auto fY {LoadFPR_Single( op_code.ft )};
 
 	// CATCH_NAN_EXCEPTION( "R4300_Cop1_S_UEQ", fX, fY );
 
-	u32 FPUCTRL {gCPUState.FPUControl[31]._u32 & ~FPCSR_C};
+	auto FPUCTRL {gCPUState.FPUControl[31]._u32 & ~FPCSR_C};
 
 	if( R4300_IsNaN(fX + fY) || fX == fY ) FPUCTRL |= FPCSR_C;
 
@@ -2657,8 +2621,8 @@ static void R4300_CALL_TYPE R4300_Cop1_S_NGLE( R4300_CALL_SIGNATURE )
 
 	R4300_CALL_MAKE_OP( op_code );
 
-	f32 fX {LoadFPR_Single( op_code.fs )};
-	f32 fY {LoadFPR_Single( op_code.ft )};
+	auto fX {LoadFPR_Single( op_code.fs )};
+	auto fY {LoadFPR_Single( op_code.ft )};
 
 	gCPUState.FPUControl[31]._u32 &= ~FPCSR_C;
 }
@@ -2667,10 +2631,10 @@ static void R4300_CALL_TYPE R4300_Cop1_S_OLE( R4300_CALL_SIGNATURE )
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	f32 fX {LoadFPR_Single( op_code.fs )};
-	f32 fY {LoadFPR_Single( op_code.ft )};
+	auto fX {LoadFPR_Single( op_code.fs )};
+	auto fY {LoadFPR_Single( op_code.ft )};
 
-	u32 FPUCTRL {gCPUState.FPUControl[31]._u32 & ~FPCSR_C};
+	auto FPUCTRL {gCPUState.FPUControl[31]._u32 & ~FPCSR_C};
 
 	if( !R4300_IsNaN(fX + fY) && fX <= fY ) FPUCTRL |= FPCSR_C;
 
@@ -2681,10 +2645,10 @@ static void R4300_CALL_TYPE R4300_Cop1_S_ULE( R4300_CALL_SIGNATURE )
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	f32 fX {LoadFPR_Single( op_code.fs )};
-	f32 fY {LoadFPR_Single( op_code.ft )};
+	auto fX {LoadFPR_Single( op_code.fs )};
+	auto fY {LoadFPR_Single( op_code.ft )};
 
-	u32 FPUCTRL {gCPUState.FPUControl[31]._u32 & ~FPCSR_C};
+	auto FPUCTRL {gCPUState.FPUControl[31]._u32 & ~FPCSR_C};
 
 	if( R4300_IsNaN(fX + fY) || fX <= fY ) FPUCTRL |= FPCSR_C;
 
@@ -2695,10 +2659,10 @@ static void R4300_CALL_TYPE R4300_Cop1_S_UN( R4300_CALL_SIGNATURE )
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	f32 fX {LoadFPR_Single( op_code.fs )};
-	f32 fY {LoadFPR_Single( op_code.ft )};
+	auto fX {LoadFPR_Single( op_code.fs )};
+	auto fY {LoadFPR_Single( op_code.ft )};
 
-	u32 FPUCTRL {gCPUState.FPUControl[31]._u32 & ~FPCSR_C};
+	auto FPUCTRL {gCPUState.FPUControl[31]._u32 & ~FPCSR_C};
 
 	if( R4300_IsNaN(fX + fY) ) FPUCTRL |= FPCSR_C;
 
@@ -2717,12 +2681,12 @@ static void R4300_CALL_TYPE R4300_Cop1_S_NGT( R4300_CALL_SIGNATURE )
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	f32 fX {LoadFPR_Single( op_code.fs )};
-	f32 fY {LoadFPR_Single( op_code.ft )};
+	auto fX {LoadFPR_Single( op_code.fs )};
+	auto fY {LoadFPR_Single( op_code.ft )};
 
 	// CATCH_NAN_EXCEPTION( "R4300_Cop1_S_NGT", fX, fY );
 
-	u32 FPUCTRL {gCPUState.FPUControl[31]._u32 & ~FPCSR_C};
+	auto FPUCTRL {gCPUState.FPUControl[31]._u32 & ~FPCSR_C};
 
 	if( fX <= fY ) FPUCTRL |= FPCSR_C;
 
@@ -2733,10 +2697,10 @@ static void R4300_CALL_TYPE R4300_Cop1_S_ULT( R4300_CALL_SIGNATURE )
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	f32 fX {LoadFPR_Single( op_code.fs )};
-	f32 fY {LoadFPR_Single( op_code.ft )};
+	auto fX {LoadFPR_Single( op_code.fs )};
+	auto fY {LoadFPR_Single( op_code.ft )};
 
-	u32 FPUCTRL {gCPUState.FPUControl[31]._u32 & ~FPCSR_C};
+	auto FPUCTRL {gCPUState.FPUControl[31]._u32 & ~FPCSR_C};
 
 	if( R4300_IsNaN(fX + fY) || fX < fY ) FPUCTRL |= FPCSR_C;
 
@@ -2748,8 +2712,8 @@ static void R4300_CALL_TYPE R4300_Cop1_S_SF( R4300_CALL_SIGNATURE )
 #ifdef DAEDALUS_DEBUG_CONSOLE
 	R4300_CALL_MAKE_OP( op_code );
 
-	f32 fX {LoadFPR_Single( op_code.fs )};
-	f32 fY {LoadFPR_Single( op_code.ft )};
+	auto fX {LoadFPR_Single( op_code.fs )};
+	auto fY {LoadFPR_Single( op_code.ft )};
 
 	// CATCH_NAN_EXCEPTION( "R4300_Cop1_S_SF", fX, fY );
 #endif
@@ -2761,10 +2725,10 @@ static void R4300_CALL_TYPE R4300_Cop1_S_NGL( R4300_CALL_SIGNATURE )
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	f32 fX {LoadFPR_Single( op_code.fs )};
-	f32 fY {LoadFPR_Single( op_code.ft )};
+	auto fX {LoadFPR_Single( op_code.fs )};
+	auto fY {LoadFPR_Single( op_code.ft )};
 
-	u32 FPUCTRL {gCPUState.FPUControl[31]._u32 & ~FPCSR_C};
+	auto FPUCTRL {gCPUState.FPUControl[31]._u32 & ~FPCSR_C};
 
 	if( fX == fY ) FPUCTRL |= FPCSR_C;
 
@@ -2775,12 +2739,12 @@ static void R4300_CALL_TYPE R4300_Cop1_S_OLT( R4300_CALL_SIGNATURE )
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	f32 fX {LoadFPR_Single( op_code.fs )};
-	f32 fY {LoadFPR_Single( op_code.ft )};
+	auto fX {LoadFPR_Single( op_code.fs )};
+	auto fY {LoadFPR_Single( op_code.ft )};
 
 	// CATCH_NAN_EXCEPTION( "R4300_Cop1_S_OLT", fX, fY );
 
-	u32 FPUCTRL {gCPUState.FPUControl[31]._u32 & ~FPCSR_C};
+	auto FPUCTRL {gCPUState.FPUControl[31]._u32 & ~FPCSR_C};
 
 	if( !R4300_IsNaN(fX + fY) && fX < fY ) FPUCTRL |= FPCSR_C;
 
@@ -2794,7 +2758,7 @@ static void R4300_CALL_TYPE R4300_Cop1_D_ABS( R4300_CALL_SIGNATURE )
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	d64 fX {LoadFPR_Double( op_code.fs )};
+	auto fX {LoadFPR_Double( op_code.fs )};
 
 // 	SET_ROUND_MODE( gRoundingMode );		//XXXX Is this needed?
 
@@ -2808,8 +2772,8 @@ static void R4300_CALL_TYPE R4300_Cop1_D_ADD_2( R4300_CALL_SIGNATURE )
 	R4300_CALL_MAKE_OP( op_code );
 
 	// fd = fs+ft
-	d64 fX {LoadFPR_Double( op_code.fs )};
-	d64 fY {LoadFPR_Double( op_code.ft )};
+	auto fX {LoadFPR_Double( op_code.fs )};
+	auto fY {LoadFPR_Double( op_code.ft )};
 
 // 	SET_ROUND_MODE( gRoundingMode );		//XXXX Is this needed?
 
@@ -2827,8 +2791,8 @@ static void R4300_CALL_TYPE R4300_Cop1_D_ADD( R4300_CALL_SIGNATURE )
 	R4300_CALL_MAKE_OP( op_code );
 
 	// fd = fs+ft
-	d64 fX {LoadFPR_Double( op_code.fs )};
-	d64 fY {LoadFPR_Double( op_code.ft )};
+	auto fX {LoadFPR_Double( op_code.fs )};
+	auto fY {LoadFPR_Double( op_code.ft )};
 
 // 	SET_ROUND_MODE( gRoundingMode );		//XXXX Is this needed?
 
@@ -2841,8 +2805,8 @@ static void R4300_CALL_TYPE R4300_Cop1_D_SUB( R4300_CALL_SIGNATURE )
 	R4300_CALL_MAKE_OP( op_code );
 
 	// fd = fs-ft
-	d64 fX {LoadFPR_Double( op_code.fs )};
-	d64 fY {LoadFPR_Double( op_code.ft )};
+	auto fX {LoadFPR_Double( op_code.fs )};
+	auto fY {LoadFPR_Double( op_code.ft )};
 
 // 	SET_ROUND_MODE( gRoundingMode );		//XXXX Is this needed?
 
@@ -2854,8 +2818,8 @@ static void R4300_CALL_TYPE R4300_Cop1_D_MUL( R4300_CALL_SIGNATURE )
 	R4300_CALL_MAKE_OP( op_code );
 
 	// fd = fs*ft
-	d64 fX {LoadFPR_Double( op_code.fs )};
-	d64 fY {LoadFPR_Double( op_code.ft )};
+	auto fX {LoadFPR_Double( op_code.fs )};
+	auto fY {LoadFPR_Double( op_code.ft )};
 
 // 	SET_ROUND_MODE( gRoundingMode );		//XXXX Is this needed?
 
@@ -2867,8 +2831,8 @@ static void R4300_CALL_TYPE R4300_Cop1_D_DIV( R4300_CALL_SIGNATURE )
 	R4300_CALL_MAKE_OP( op_code );
 
 	// fd = fs/ft
-	d64 fDividend = LoadFPR_Double( op_code.fs );
-	d64 fDivisor = LoadFPR_Double( op_code.ft );
+	auto fDividend = LoadFPR_Double( op_code.fs );
+	auto fDivisor = LoadFPR_Double( op_code.ft );
 
 	#ifdef DAEDALUS_ENABLE_ASSERTS
 	DAEDALUS_ASSERT(fDivisor != 0, "Double divide by zero");
@@ -2884,7 +2848,7 @@ static void R4300_CALL_TYPE R4300_Cop1_D_SQRT( R4300_CALL_SIGNATURE )
 	R4300_CALL_MAKE_OP( op_code );
 
 	// fd = sqrt(fs)
-	d64 fX {LoadFPR_Double( op_code.fs )};
+	auto fX {LoadFPR_Double( op_code.fs )};
 
 // 	SET_ROUND_MODE( gRoundingMode );		//XXXX Is this needed?
 
@@ -2897,7 +2861,7 @@ static void R4300_CALL_TYPE R4300_Cop1_D_NEG( R4300_CALL_SIGNATURE )
 	R4300_CALL_MAKE_OP( op_code );
 
 	// fd = -(fs)
-	d64 fX {LoadFPR_Double( op_code.fs )};
+	auto fX {LoadFPR_Double( op_code.fs )};
 // 	SET_ROUND_MODE( gRoundingMode );		//XXXX Is this needed?
 
 	StoreFPR_Double( op_code.fd, -fX );
@@ -2915,7 +2879,7 @@ static void R4300_CALL_TYPE R4300_Cop1_D_MOV( R4300_CALL_SIGNATURE )
 	gCPUState.FPU[op_code.fd+1]._u32 = gCPUState.FPU[op_code.fs+1]._u32;
 #else
 	// fd = fs
-	d64 fX {LoadFPR_Double( op_code.fs )};
+	auto fX {LoadFPR_Double( op_code.fs )};
 	StoreFPR_Double( op_code.fd, fX );
 #endif
 }
@@ -2924,7 +2888,7 @@ static void R4300_CALL_TYPE R4300_Cop1_D_TRUNC_W( R4300_CALL_SIGNATURE )
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	d64 fX {LoadFPR_Double( op_code.fs )};
+	auto fX {LoadFPR_Double( op_code.fs )};
 
 	StoreFPR_Word( op_code.fd, d64_to_s32_trunc( fX ) );
 }
@@ -2933,7 +2897,7 @@ static void R4300_CALL_TYPE R4300_Cop1_D_TRUNC_L( R4300_CALL_SIGNATURE )
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	d64 fX {LoadFPR_Double( op_code.fs )};
+	auto fX {LoadFPR_Double( op_code.fs )};
 
 	StoreFPR_Long( op_code.fd, d64_to_s64_trunc( fX ) );
 }
@@ -2943,7 +2907,7 @@ static void R4300_CALL_TYPE R4300_Cop1_D_ROUND_W( R4300_CALL_SIGNATURE )
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	d64 fX {LoadFPR_Double( op_code.fs )};
+	auto fX {LoadFPR_Double( op_code.fs )};
 
 	StoreFPR_Word( op_code.fd, d64_to_s32_round( fX ) );
 }
@@ -2952,7 +2916,7 @@ static void R4300_CALL_TYPE R4300_Cop1_D_ROUND_L( R4300_CALL_SIGNATURE )
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	d64 fX {LoadFPR_Double( op_code.fs )};
+	auto fX {LoadFPR_Double( op_code.fs )};
 
 	StoreFPR_Long( op_code.fd, d64_to_s64_round( fX ) );
 }
@@ -2962,7 +2926,7 @@ static void R4300_CALL_TYPE R4300_Cop1_D_CEIL_W( R4300_CALL_SIGNATURE )
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	d64 fX {LoadFPR_Double( op_code.fs )};
+	auto fX {LoadFPR_Double( op_code.fs )};
 
 	StoreFPR_Word( op_code.fd, d64_to_s32_ceil( fX ) );
 }
@@ -2971,7 +2935,7 @@ static void R4300_CALL_TYPE R4300_Cop1_D_CEIL_L( R4300_CALL_SIGNATURE )
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	d64 fX {LoadFPR_Double( op_code.fs )};
+	auto fX {LoadFPR_Double( op_code.fs )};
 
 	StoreFPR_Long( op_code.fd, d64_to_s64_ceil( fX ) );
 }
@@ -2980,7 +2944,7 @@ static void R4300_CALL_TYPE R4300_Cop1_D_FLOOR_W( R4300_CALL_SIGNATURE )
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	d64 fX {LoadFPR_Double( op_code.fs )};
+	auto fX {LoadFPR_Double( op_code.fs )};
 
 	StoreFPR_Word( op_code.fd, d64_to_s32_floor( fX ) );
 }
@@ -2989,7 +2953,7 @@ static void R4300_CALL_TYPE R4300_Cop1_D_FLOOR_L( R4300_CALL_SIGNATURE )
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	d64 fX {LoadFPR_Double( op_code.fs )};
+	auto fX {LoadFPR_Double( op_code.fs )};
 
 	StoreFPR_Long( op_code.fd, d64_to_s64_floor( fX ) );
 }
@@ -2998,7 +2962,7 @@ static void R4300_CALL_TYPE R4300_Cop1_D_CVT_S( R4300_CALL_SIGNATURE )
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	d64 fX {LoadFPR_Double( op_code.fs )};
+	auto fX {LoadFPR_Double( op_code.fs )};
 
 // 	SET_ROUND_MODE( gRoundingMode );		//XXXX Is this needed?
 
@@ -3010,7 +2974,7 @@ static void R4300_CALL_TYPE R4300_Cop1_D_CVT_W( R4300_CALL_SIGNATURE )
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	d64 fX {LoadFPR_Double( op_code.fs )};
+	auto fX {LoadFPR_Double( op_code.fs )};
 
 	StoreFPR_Word( op_code.fd, d64_to_s32( fX ) );
 }
@@ -3019,7 +2983,7 @@ static void R4300_CALL_TYPE R4300_Cop1_D_CVT_L( R4300_CALL_SIGNATURE )
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	d64 fX {LoadFPR_Double( op_code.fs )};
+	auto fX {LoadFPR_Double( op_code.fs )};
 
 	StoreFPR_Long( op_code.fd, d64_to_s64( fX ) );
 }
@@ -3029,10 +2993,10 @@ static void R4300_CALL_TYPE R4300_Cop1_D_EQ( R4300_CALL_SIGNATURE )				// Compar
 	R4300_CALL_MAKE_OP( op_code );
 
 	// fs == ft?
-	d64 fX {LoadFPR_Double( op_code.fs )};
-	d64 fY {LoadFPR_Double( op_code.ft )};
+	auto fX {LoadFPR_Double( op_code.fs )};
+	auto fY {LoadFPR_Double( op_code.ft )};
 
-	u32 FPUCTRL {gCPUState.FPUControl[31]._u32 & ~FPCSR_C};
+	auto FPUCTRL {gCPUState.FPUControl[31]._u32 & ~FPCSR_C};
 
 	if( !R4300_IsNaN(fX + fY) && fX == fY ) FPUCTRL |= FPCSR_C;
 
@@ -3044,10 +3008,10 @@ static void R4300_CALL_TYPE R4300_Cop1_D_LE( R4300_CALL_SIGNATURE )				// Compar
 	R4300_CALL_MAKE_OP( op_code );
 
 	// fs <= ft?
-	d64 fX {LoadFPR_Double( op_code.fs )};
-	d64 fY {LoadFPR_Double( op_code.ft )};
+	auto fX {LoadFPR_Double( op_code.fs )};
+	auto fY {LoadFPR_Double( op_code.ft )};
 
-	u32 FPUCTRL {gCPUState.FPUControl[31]._u32 & ~FPCSR_C};
+	auto FPUCTRL {gCPUState.FPUControl[31]._u32 & ~FPCSR_C};
 
 	if( fX <= fY ) FPUCTRL |= FPCSR_C;
 
@@ -3060,10 +3024,10 @@ static void R4300_CALL_TYPE R4300_Cop1_D_LT( R4300_CALL_SIGNATURE )
 	R4300_CALL_MAKE_OP( op_code );
 
 	// fs < ft?
-	d64 fX {LoadFPR_Double( op_code.fs )};
-	d64 fY {LoadFPR_Double( op_code.ft )};
+	auto fX {LoadFPR_Double( op_code.fs )};
+	auto fY {LoadFPR_Double( op_code.ft )};
 
-	u32 FPUCTRL {gCPUState.FPUControl[31]._u32 & ~FPCSR_C};
+	auto FPUCTRL {gCPUState.FPUControl[31]._u32 & ~FPCSR_C};
 
 	if( fX < fY ) FPUCTRL |= FPCSR_C;
 
@@ -3080,10 +3044,10 @@ static void R4300_CALL_TYPE R4300_Cop1_D_UN( R4300_CALL_SIGNATURE )
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	d64 fX {LoadFPR_Double( op_code.fs )};
-	d64 fY {LoadFPR_Double( op_code.ft )};
+	auto fX {LoadFPR_Double( op_code.fs )};
+	auto fY {LoadFPR_Double( op_code.ft )};
 
-	u32 FPUCTRL {gCPUState.FPUControl[31]._u32 & ~FPCSR_C};
+	auto FPUCTRL {gCPUState.FPUControl[31]._u32 & ~FPCSR_C};
 
 	if( R4300_IsNaN(fX + fY) ) FPUCTRL |= FPCSR_C;
 
@@ -3094,10 +3058,10 @@ static void R4300_CALL_TYPE R4300_Cop1_D_UEQ( R4300_CALL_SIGNATURE )
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	d64 fX {LoadFPR_Double( op_code.fs )};
-	d64 fY {LoadFPR_Double( op_code.ft )};
+	auto fX {LoadFPR_Double( op_code.fs )};
+	auto fY {LoadFPR_Double( op_code.ft )};
 
-	u32 FPUCTRL {gCPUState.FPUControl[31]._u32 & ~FPCSR_C};
+	auto FPUCTRL {gCPUState.FPUControl[31]._u32 & ~FPCSR_C};
 
 	if( R4300_IsNaN(fX + fY) || fX == fY ) FPUCTRL |= FPCSR_C;
 
@@ -3108,10 +3072,10 @@ static void R4300_CALL_TYPE R4300_Cop1_D_OLT( R4300_CALL_SIGNATURE )
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	d64 fX {LoadFPR_Double( op_code.fs )};
-	d64 fY {LoadFPR_Double( op_code.ft )};
+	auto fX {LoadFPR_Double( op_code.fs )};
+	auto fY {LoadFPR_Double( op_code.ft )};
 
-	u32 FPUCTRL {gCPUState.FPUControl[31]._u32 & ~FPCSR_C};
+	auto FPUCTRL {gCPUState.FPUControl[31]._u32 & ~FPCSR_C};
 
 	if( !R4300_IsNaN(fX + fY) && fX < fY ) FPUCTRL |= FPCSR_C;
 
@@ -3122,10 +3086,10 @@ static void R4300_CALL_TYPE R4300_Cop1_D_ULT( R4300_CALL_SIGNATURE )
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	d64 fX {LoadFPR_Double( op_code.fs )};
-	d64 fY {LoadFPR_Double( op_code.ft )};
+	auto fX {LoadFPR_Double( op_code.fs )};
+	auto fY {LoadFPR_Double( op_code.ft )};
 
-	u32 FPUCTRL {gCPUState.FPUControl[31]._u32 & ~FPCSR_C};
+	auto FPUCTRL {gCPUState.FPUControl[31]._u32 & ~FPCSR_C};
 
 	if( R4300_IsNaN(fX + fY) || fX < fY ) FPUCTRL |= FPCSR_C;
 
@@ -3136,10 +3100,10 @@ static void R4300_CALL_TYPE R4300_Cop1_D_OLE( R4300_CALL_SIGNATURE )
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	d64 fX {LoadFPR_Double( op_code.fs )};
-	d64 fY {LoadFPR_Double( op_code.ft )};
+	auto fX {LoadFPR_Double( op_code.fs )};
+	auto fY {LoadFPR_Double( op_code.ft )};
 
-	u32 FPUCTRL {gCPUState.FPUControl[31]._u32 & ~FPCSR_C};
+	auto FPUCTRL {gCPUState.FPUControl[31]._u32 & ~FPCSR_C};
 
 	if( !R4300_IsNaN(fX + fY) && fX <= fY ) FPUCTRL |= FPCSR_C;
 
@@ -3150,10 +3114,10 @@ static void R4300_CALL_TYPE R4300_Cop1_D_ULE( R4300_CALL_SIGNATURE )
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	d64 fX {LoadFPR_Double( op_code.fs )};
-	d64 fY {LoadFPR_Double( op_code.ft )};
+	auto fX {LoadFPR_Double( op_code.fs )};
+	auto fY {LoadFPR_Double( op_code.ft )};
 
-	u32 FPUCTRL {gCPUState.FPUControl[31]._u32 & ~FPCSR_C};
+	auto FPUCTRL {gCPUState.FPUControl[31]._u32 & ~FPCSR_C};
 
 	if( R4300_IsNaN(fX + fY) || fX <= fY ) FPUCTRL |= FPCSR_C;
 
@@ -3165,8 +3129,8 @@ static void R4300_CALL_TYPE R4300_Cop1_D_SF( R4300_CALL_SIGNATURE )
 #ifdef DAEDALUS_DEBUG_CONSOLE
 	R4300_CALL_MAKE_OP( op_code );
 
-	d64 fX {LoadFPR_Double( op_code.fs )};
-	d64 fY {LoadFPR_Double( op_code.ft )};
+	auto fX {LoadFPR_Double( op_code.fs )};
+	auto fY {LoadFPR_Double( op_code.ft )};
 
 	// CATCH_NAN_EXCEPTION( "R4300_Cop1_D_SF", fX, fY );
 #endif
@@ -3180,8 +3144,8 @@ static void R4300_CALL_TYPE R4300_Cop1_D_NGLE( R4300_CALL_SIGNATURE )
 #ifdef DAEDALUS_DEBUG_CONSOLE
 	R4300_CALL_MAKE_OP( op_code );
 
-	d64 fX {LoadFPR_Double( op_code.fs )};
-	d64 fY {LoadFPR_Double( op_code.ft )};
+	auto fX {LoadFPR_Double( op_code.fs )};
+	auto fY {LoadFPR_Double( op_code.ft )};
 
 	// CATCH_NAN_EXCEPTION( "R4300_Cop1_D_NGLE", fX, fY );
 #endif
@@ -3193,12 +3157,12 @@ static void R4300_CALL_TYPE R4300_Cop1_D_SEQ( R4300_CALL_SIGNATURE )
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	d64 fX {LoadFPR_Double( op_code.fs )};
-	d64 fY {LoadFPR_Double( op_code.ft )};
+	auto fX {LoadFPR_Double( op_code.fs )};
+	auto fY {LoadFPR_Double( op_code.ft )};
 
 	// CATCH_NAN_EXCEPTION( "R4300_Cop1_D_SEQ", fX, fY );
 
-	u32 FPUCTRL {gCPUState.FPUControl[31]._u32 & ~FPCSR_C};
+	auto FPUCTRL {gCPUState.FPUControl[31]._u32 & ~FPCSR_C};
 
 	if( fX == fY ) FPUCTRL |= FPCSR_C;
 
@@ -3210,12 +3174,12 @@ static void R4300_CALL_TYPE R4300_Cop1_D_NGL( R4300_CALL_SIGNATURE )
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	d64 fX {LoadFPR_Double( op_code.fs )};
-	d64 fY {LoadFPR_Double( op_code.ft )};
+	auto fX {LoadFPR_Double( op_code.fs )};
+	auto fY {LoadFPR_Double( op_code.ft )};
 
 	// CATCH_NAN_EXCEPTION( "R4300_Cop1_D_NGL", fX, fY );
 
-	u32 FPUCTRL {gCPUState.FPUControl[31]._u32 & ~FPCSR_C};
+	auto FPUCTRL {gCPUState.FPUControl[31]._u32 & ~FPCSR_C};
 
 	if( fX == fY ) FPUCTRL |= FPCSR_C;
 
@@ -3226,12 +3190,12 @@ static void R4300_CALL_TYPE R4300_Cop1_D_NGE( R4300_CALL_SIGNATURE )
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	d64 fX {LoadFPR_Double( op_code.fs )};
-	d64 fY {LoadFPR_Double( op_code.ft )};
+	auto fX {LoadFPR_Double( op_code.fs )};
+	auto fY {LoadFPR_Double( op_code.ft )};
 
 	// CATCH_NAN_EXCEPTION( "R4300_Cop1_D_NGE", fX, fY );
 
-	u32 FPUCTRL {gCPUState.FPUControl[31]._u32 & ~FPCSR_C};
+	auto FPUCTRL {gCPUState.FPUControl[31]._u32 & ~FPCSR_C};
 
 	if( fX < fY ) FPUCTRL |= FPCSR_C;
 
@@ -3242,12 +3206,12 @@ static void R4300_CALL_TYPE R4300_Cop1_D_NGT( R4300_CALL_SIGNATURE )
 {
 	R4300_CALL_MAKE_OP( op_code );
 
-	d64 fX {LoadFPR_Double( op_code.fs )};
-	d64 fY {LoadFPR_Double( op_code.ft )};
+	auto fX {LoadFPR_Double( op_code.fs )};
+	auto fY {LoadFPR_Double( op_code.ft )};
 
 	// CATCH_NAN_EXCEPTION( "R4300_Cop1_D_NGT", fX, fY );
 
-	u32 FPUCTRL {gCPUState.FPUControl[31]._u32 & ~FPCSR_C};
+	auto FPUCTRL {gCPUState.FPUControl[31]._u32 & ~FPCSR_C};
 
 	if( fX <= fY ) FPUCTRL |= FPCSR_C;
 

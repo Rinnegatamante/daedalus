@@ -2403,7 +2403,7 @@ inline void	CCodeGeneratorPSP::GenerateCACHE( EN64Reg base, s16 offset, u32 cach
 inline void	CCodeGeneratorPSP::GenerateJAL( u32 address )
 {
 	//gGPR[REG_ra]._s64 = (s64)(s32)(gCPUState.CurrentPC + 8);		// Store return address
-	//u32	new_pc( (gCPUState.CurrentPC & 0xF0000000) | (op_code.target<<2) );
+	//auto new_pc( (gCPUState.CurrentPC & 0xF0000000) | (op_code.target<<2) );
 	//CPU_TakeBranch( new_pc, CPU_BRANCH_DIRECT );
 
 	//EPspReg	reg_lo( GetRegisterNoLoadLo( N64Reg_RA, PspReg_V0 ) );
@@ -2417,7 +2417,7 @@ inline void	CCodeGeneratorPSP::GenerateJAL( u32 address )
 
 inline void	CCodeGeneratorPSP::GenerateJR( EN64Reg rs, const SBranchDetails * p_branch, CJumpLocation * p_branch_jump )
 {
-	//u32	new_pc( gGPR[ op_code.rs ]._u32_0 );
+	//auto new_pc( gGPR[ op_code.rs ]._u32_0 );
 	//CPU_TakeBranch( new_pc, CPU_BRANCH_INDIRECT );
 
 	EPspReg reg_lo( GetRegisterAndLoadLo( rs, PspReg_V0 ) );
@@ -2438,7 +2438,7 @@ inline void	CCodeGeneratorPSP::GenerateJR( EN64Reg rs, const SBranchDetails * p_
 inline void	CCodeGeneratorPSP::GenerateJALR( EN64Reg rs, EN64Reg rd, u32 address, const SBranchDetails * p_branch, CJumpLocation * p_branch_jump )
 {
 	// Jump And Link
-	//u32	new_pc( gGPR[ op_code.rs ]._u32_0 );
+	//auto new_pc( gGPR[ op_code.rs ]._u32_0 );
 	//gGPR[ op_code.rd ]._s64 = (s64)(s32)(gCPUState.CurrentPC + 8);		// Store return address
 	//EPspReg	savereg_lo( GetRegisterNoLoadLo( rd, PspReg_V0 ) );
 

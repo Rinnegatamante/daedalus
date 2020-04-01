@@ -35,8 +35,9 @@ void TLBEntry::UpdateValue(u32 _pagemask, u32 _hi, u32 _pfno, u32 _pfne)
 	// The TLB entry is loaded with the contents of the EntryHi and EntryLo regs.
 
 	// TLB[INDEX] <- PageMask || (EntryHi AND NOT PageMask) || EntryLo1 || EntryLo0
+	#ifdef DAEDALUS_PROFILE
 	DPF( DEBUG_TLB, "PAGEMASK: 0x%08x ENTRYHI: 0x%08x. ENTRYLO1: 0x%08x. ENTRYLO0: 0x%08x", _pagemask, _hi, _pfno, _pfne);
-
+#endif
 	pagemask = _pagemask;
 	hi = _hi;
 	pfne = _pfne;
@@ -118,10 +119,10 @@ void TLBEntry::Reset()
 //*****************************************************************************
 inline bool	TLBEntry::FindTLBEntry( u32 address, u32 * p_idx )
 {
-	static u32 i {};
+	static auto i {0};
 
-	u8 mask {(u8)(gCPUState.CPUControl[C0_ENTRYHI]._u32 & TLBHI_PIDMASK)};
-	for ( u32 count {}; count < 32; count++ )
+	auto mask {(u8)(gCPUState.CPUControl[C0_ENTRYHI]._u32 & TLBHI_PIDMASK)};
+	for ( auto count {0}; count < 32; count++ )
 	{
 		// Hack to check most recently reference entry first
 		// This gives some speedup if the matched address is near
@@ -161,7 +162,7 @@ u32 TLBEntry::Translate(u32 address, bool& missing)
 	missing = !FindTLBEntry( address, &iMatched );
 	if (!missing)
 	{
-		const TLBEntry & tlb {g_TLBs[iMatched]};
+		const TLBEntry &tlb {g_TLBs[iMatched]};
 
 		// Check for odd/even entry
 		if (address & tlb.checkbit)

@@ -41,9 +41,9 @@ u32 gNumExceptions {};
 u32 gNumInterrupts {};
 #endif
 
-static u32		gExceptionPC( ~0 );
+static auto		gExceptionPC( ~0 );
 static bool		gExceptionWasDelay( false );		// Was exception operation in a branch-delay slot?
-static u32		gExceptionVector( ~0 );
+static auto		gExceptionVector( ~0 );
 
 // CAUSE_IP8 <- This is the compare interrupt
 // CAUSE_IP7 <- This if for the RDB (debugger thinger?)
@@ -192,8 +192,8 @@ void R4300_Handle_Exception()
 void R4300_Handle_Interrupt()
 {
 #ifdef DAEDALUS_ENABLE_ASSERTS
-	bool	mi_interrupt_set( (Memory_MI_GetRegister(MI_INTR_MASK_REG) & Memory_MI_GetRegister(MI_INTR_REG)) != 0 );
-	bool	cause_int_3_set( (gCPUState.CPUControl[C0_CAUSE]._u32 & CAUSE_IP3) != 0 );
+	bool	mi_interrupt_set {(Memory_MI_GetRegister(MI_INTR_MASK_REG) & Memory_MI_GetRegister(MI_INTR_REG)) != 0 };
+	bool	cause_int_3_set {(gCPUState.CPUControl[C0_CAUSE]._u32 & CAUSE_IP3) != 0 };
 
 	DAEDALUS_ASSERT( mi_interrupt_set == cause_int_3_set, "CAUSE_IP3 inconsistant with MI_INTR_REG (%08x)", Memory_MI_GetRegister(MI_INTR_MASK_REG) & Memory_MI_GetRegister(MI_INTR_REG) );
 #endif
