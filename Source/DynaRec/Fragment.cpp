@@ -58,16 +58,16 @@ namespace
 {
 using TraceBuffer = std::vector<STraceEntry>;
 
-	const u32	INVALID_IDX( u32(~0) );
+	const auto INVALID_IDX {u32(~0)};
 
 	//
 	//	We stuff some extra instructions at the start of each fragment, for instance
 	//	to record the hitcount. This allows us to offset that from the stats.
 	//
 #ifdef FRAGMENT_RETAIN_ADDITIONAL_INFO
-	const u32	ADDITIONAL_OUTPUT_BYTES = 5 * 4;
+	const auto	ADDITIONAL_OUTPUT_BYTES {5 * 4};
 #else
-	const u32	ADDITIONAL_OUTPUT_BYTES = 0;
+	const auto ADDITIONAL_OUTPUT_BYTES {0};
 #endif
 
 }
@@ -169,11 +169,11 @@ void CFragment::Execute()
 #endif
 #ifdef FRAGMENT_SIMULATE_EXECUTION
 
-	CFragment * p_fragment( this );
+	CFragment *p_fragment {this};
 
 	while( p_fragment != nullptr )
 	{
-		CFragment * next = p_fragment->Simulate();
+		CFragment *next {p_fragment->Simulate()};
 
 #ifdef DAEDALUS_ENABLE_ASSERTS
 		DAEDALUS_ASSERT( next == nullptr || gCPUState.Delay == NO_DELAY, "Why are we entering with a delay slot active?" );
@@ -182,8 +182,8 @@ void CFragment::Execute()
 	}
 
 #else
-	const void *		p( g_pu8RamBase_8000 );
-	u32					upper( 0x80000000 + gRamSize );
+	const void *p  {g_pu8RamBase_8000};
+	auto	upper {0x80000000 + gRamSize};
 
 	_EnterDynaRec( mEntryPoint.GetTarget(), &gCPUState, p, upper );
 #endif // FRAGMENT_SIMULATE_EXECUTION
@@ -265,26 +265,26 @@ CFragment * CFragment::Simulate()
 	//
 	//	Keep executing ops until we take a branch
 	//
-	u32			instructions_executed( 0 );
+	auto	instructions_executed {0};
 
-	u32			branch_idx_taken( INVALID_IDX );		// Index into mBranchBuffer of the taken branch
-	u32			branch_taken_address( 0 );
-	bool		checked_cop1_usable( false );
+	auto			branch_idx_taken{INVALID_IDX};		// Index into mBranchBuffer of the taken branch
+	auto		branch_taken_address{0};
+	bool		checked_cop1_usable{false};
 
-	u32			count_entry( gCPUState.CPUControl[C0_COUNT]._u32_0 );
+	auto	count_entry {gCPUState.CPUControl[C0_COUNT]._u32_0};
 
 	OpCode		last_executed_op;
 
-	for( auto i {}; i < mTraceBuffer.size(); ++i)
+	for( auto i {0}; i < mTraceBuffer.size(); ++i)
 	{
-		const STraceEntry & ti( mTraceBuffer[ i ] );
-		OpCode				op_code( ti.OpCode );
-		u32					branch_idx( ti.BranchIdx );
+		const STraceEntry &ti {mTraceBuffer[ i ]};
+		OpCode				op_code {ti.OpCode};
+		auto				branch_idx {ti.BranchIdx};
 
 #ifdef DAEDALUS_ENABLE_ASSERTS
 		DAEDALUS_ASSERT( op_code._u32 == *(u32*)ReadAddress( ti.Address ), "Self modifying code detected but not handled" );
 #endif
-		bool				branch_taken;
+		bool				branch_taken {};
 
 		if( ti.BranchDelaySlot )
 		{
@@ -326,10 +326,10 @@ CFragment * CFragment::Simulate()
 			#ifdef DAEDALUS_ENABLE_ASSERTS
 			DAEDALUS_ASSERT( branch_idx < mBranchBuffer.size(), "Branch index is out of bounds" );
 			#endif
-			const SBranchDetails &	details( mBranchBuffer[ branch_idx ] );
+			const SBranchDetails &details {mBranchBuffer[ branch_idx ]};
 
 			// Check whether we want to invert the status of this branch
-			bool	exit_trace;
+			bool	exit_trace {};
 
 			if( details.Eret )
 			{
@@ -368,9 +368,9 @@ CFragment * CFragment::Simulate()
 	//
 	//	Now we're leaving the fragment, handle the exit stubs
 	//
-	CFragment * p_target_fragment( nullptr );
-	u32			exit_address {};
-	u32			exit_delay {};
+	CFragment * p_target_fragment {nullptr};
+	auto			exit_address {0};
+	auto		exit_delay {0};
 	if( branch_idx_taken != INVALID_IDX )
 	{
 		//
@@ -380,8 +380,8 @@ CFragment * CFragment::Simulate()
 		DAEDALUS_ASSERT( branch_idx_taken < mBranchBuffer.size(), "The branch index is invalid?" );
 #endif
 
-		SBranchDetails &	details( mBranchBuffer[ branch_idx_taken ] );
-		bool				executed_delay_op( true );
+		SBranchDetails &details {mBranchBuffer[ branch_idx_taken ]};
+		bool	executed_delay_op{true};
 
 		if( details.Likely )
 		{
@@ -443,8 +443,8 @@ CFragment * CFragment::Simulate()
 
 		if( executed_delay_op && details.DelaySlotTraceIndex != -1 )
 		{
-			OpCode		delay_op_code( mTraceBuffer[details.DelaySlotTraceIndex].OpCode );
-			u32 		delay_address( mTraceBuffer[details.DelaySlotTraceIndex].Address );
+			OpCode delay_op_code {mTraceBuffer[details.DelaySlotTraceIndex].OpCode};
+			auto delay_address {mTraceBuffer[details.DelaySlotTraceIndex].Address};
 
 			bool		dummy_branch_taken;
 			gCPUState.Delay = EXEC_DELAY;
@@ -576,7 +576,7 @@ void CFragment::Assemble( CCodeBufferManager * p_manager,
 {
 	DAEDALUS_PROFILE( "CFragment::Assemble" );
 
-	const u32				NO_JUMP_ADDRESS( 0 );
+	const auto				NO_JUMP_ADDRESS {0};
 
 	CCodeGenerator *		p_generator( p_manager->StartNewBlock() );
 
@@ -614,10 +614,10 @@ void CFragment::Assemble( CCodeBufferManager * p_manager,
 	std::vector< SBranchHandlerInfo >	branch_handler_info( branch_details.size() );
 //	bool								checked_cop1_usable( false );
 
-	for( u32 i {}; i < trace.size(); ++i )
+	for( auto i {0}; i < trace.size(); ++i )
 	{
-		const STraceEntry & ti( trace[ i ] );
-		u32	branch_idx( ti.BranchIdx );
+		const STraceEntry &ti {trace[ i ]};
+		u32	branch_idx {ti.BranchIdx};
 
 #ifdef FRAGMENT_RETAIN_ADDITIONAL_INFO
 		mInstructionStartLocations.push_back( p_generator->GetCurrentLocation().GetTargetU8P() );
@@ -637,7 +637,7 @@ void CFragment::Assemble( CCodeBufferManager * p_manager,
 		}
 		*/
 
-		const SBranchDetails * p_branch( nullptr );
+		const SBranchDetails *p_branch {nullptr};
 		if( branch_idx != INVALID_IDX )
 		{
 			#ifdef DAEDALUS_ENABLE_ASSERTS
@@ -703,12 +703,12 @@ void CFragment::Assemble( CCodeBufferManager * p_manager,
 #endif
 		}
 
-		CJumpLocation	branch_jump( nullptr );
+		CJumpLocation	branch_jump {nullptr};
  //PSP, We handle exceptions directly with _ReturnFromDynaRecIfStuffToDo
 #ifdef DAEDALUS_PSP
 		p_generator->GenerateOpCode( ti, ti.BranchDelaySlot, p_branch, &branch_jump);
 #else
-		CJumpLocation	exception_handler_jump( p_generator->GenerateOpCode( ti, ti.BranchDelaySlot, p_branch, &branch_jump) );
+		CJumpLocation	exception_handler_jump {p_generator->GenerateOpCode( ti, ti.BranchDelaySlot, p_branch, &branch_jump)};
 
 		if( exception_handler_jump.IsSet() )
 		{
@@ -728,18 +728,18 @@ void CFragment::Assemble( CCodeBufferManager * p_manager,
 		mInstructionStartLocations.push_back( p_generator->GetCurrentLocation().GetTargetU8P() );
 #endif
 
-	CCodeLabel		no_next_fragment( nullptr );
-	CJumpLocation	exit_jump( p_generator->GenerateExitCode( exit_address, NO_JUMP_ADDRESS, trace.size(), no_next_fragment ) );
+	CCodeLabel		no_next_fragment {nullptr};
+	CJumpLocation	exit_jump {p_generator->GenerateExitCode( exit_address, NO_JUMP_ADDRESS, trace.size(), no_next_fragment )};
 
 	AddPatch( exit_address, exit_jump );
 
 	//
 	//	Generate handlers for each exit branch
 	//
-	for( u32 i {}; i < branch_details.size(); ++i )
+	for( auto i {0}; i < branch_details.size(); ++i )
 	{
-		const SBranchDetails &	details( branch_details[ i ] );
-		u32						instruction_idx( branch_handler_info[ i ].Index );
+		const SBranchDetails &details {branch_details[ i ]};
+		auto	instruction_idx {branch_handler_info[ i ].Index};
 
 		// If we didn't generate a branch instruction, then it didn't need handling
 		if(!branch_handler_info[ i ].Jump.IsSet())
@@ -751,8 +751,8 @@ void CFragment::Assemble( CCodeBufferManager * p_manager,
 #ifdef DAEDALUS_ENABLE_ASSERTS
 		DAEDALUS_ASSERT( instruction_idx < trace.size(), "The instruction index is invalid" );
 #endif
-		u32					branch_instruction_address( trace[ instruction_idx ].Address );
-		u32					num_instructions_executed( instruction_idx + 1 );
+		auto					branch_instruction_address {trace[ instruction_idx ].Address};
+		auto  				num_instructions_executed {instruction_idx + 1};
 
 		p_generator->GenerateBranchHandler( branch_handler_info[ i ].Jump, branch_handler_info[ i ].RegisterSnapshot );
 
@@ -761,9 +761,9 @@ void CFragment::Assemble( CCodeBufferManager * p_manager,
 		//
 		if( !details.Likely && details.DelaySlotTraceIndex != -1 )
 		{
-			const STraceEntry & ti( trace[ details.DelaySlotTraceIndex ] );
+			const STraceEntry &ti {trace[ details.DelaySlotTraceIndex ]};
 #ifdef FRAGMENT_SIMULATE_EXECUTION
-			u32			delay_address( ti.Address );
+			auto		delay_address {ti.Address};
 #endif
 			/*
 #ifdef DAEDALUS_DEBUG_CONSOLE
@@ -781,7 +781,7 @@ void CFragment::Assemble( CCodeBufferManager * p_manager,
 #ifdef DAEDALUS_PSP
 			p_generator->GenerateOpCode( ti, true, nullptr, nullptr);
 #else
-			CJumpLocation	exception_handler_jump( p_generator->GenerateOpCode( ti, true, nullptr, nullptr) );
+			CJumpLocation	exception_handler_jump {p_generator->GenerateOpCode( ti, true, nullptr, nullptr)};
 
 			if( exception_handler_jump.IsSet() )
 			{
@@ -794,7 +794,7 @@ void CFragment::Assemble( CCodeBufferManager * p_manager,
 
 		if( details.Likely )
 		{
-			u32				exit_address {};
+			auto	exit_address {0};
 			CJumpLocation	jump_location {};
 
 			if( details.ConditionalBranchTaken )
@@ -812,8 +812,8 @@ void CFragment::Assemble( CCodeBufferManager * p_manager,
 		}
 		else if( details.Direct )
 		{
-			u32				exit_address( details.TargetAddress );
-			CJumpLocation	jump_location( p_generator->GenerateExitCode( details.TargetAddress, NO_JUMP_ADDRESS, num_instructions_executed, no_next_fragment ) );
+			auto		exit_address {details.TargetAddress};
+			CJumpLocation	jump_location {p_generator->GenerateExitCode( details.TargetAddress, NO_JUMP_ADDRESS, num_instructions_executed, no_next_fragment )};
 
 			AddPatch( exit_address, jump_location );
 		}
@@ -851,10 +851,10 @@ void CFragment::Assemble( CCodeBufferManager * p_manager,
 //*************************************************************************************
 void CFragment::Assemble( CCodeBufferManager * p_manager, CCodeLabel function_ptr)
 {
-	std::vector< CJumpLocation >		exception_handler_jumps;
+	std::vector< CJumpLocation >	exception_handler_jumps;
 	SRegisterUsageInfo register_usage;
 
-	CCodeGenerator *p_generator = p_manager->StartNewBlock();
+	CCodeGenerator *p_generator {p_manager->StartNewBlock()};
 	mEntryPoint = p_generator->GetEntryPoint();
 
 
@@ -864,7 +864,7 @@ void CFragment::Assemble( CCodeBufferManager * p_manager, CCodeLabel function_pt
 		p_generator->Initialise( mEntryAddress, 0, nullptr, &gCPUState, register_usage );
 #endif
 
-	CJumpLocation jump = p_generator->ExecuteNativeFunction(function_ptr, true);
+	CJumpLocation jump {p_generator->ExecuteNativeFunction(function_ptr, true)};
 	p_generator->GenerateIndirectExitCode(100, mpIndirectExitMap);
 	AssemblyUtils::PatchJumpLong(jump, p_generator->GetCurrentLocation());
 	p_generator->GenerateEretExitCode(100, mpIndirectExitMap);
@@ -890,15 +890,15 @@ const char * Sanitise( const char * str )
 	//
 	//	Quickly check to see if there are any illegal characters in the string
 	//
-	const char * b( str );
-	const char * e( str + strlen(str) );		//  Point to nullptr char
-	const char * s = std::find_first_of( b, e, gIllegalChars, gIllegalChars+ARRAYSIZE(gIllegalChars));
+	const char *b( str );
+	const char *e( str + strlen(str) );		//  Point to nullptr char
+	const char *s = std::find_first_of( b, e, gIllegalChars, gIllegalChars+ARRAYSIZE(gIllegalChars));
 	if( s == e )
 	{
 		return str;
 	}
 
-	static std::string		out;
+	static std::string out;
 	out.resize( 0 );
 	out.reserve( strlen( str ) );
 
@@ -947,13 +947,13 @@ void DisassembleBuffer( const u8 * buf, int buf_size, FILE * fh )
 	const int	STRBUF_LEN {1024};
 	char		strbuf[STRBUF_LEN+1];
 
-	const OpCode *	p_op( reinterpret_cast< const OpCode * >( buf ) );
-	const OpCode *	p_op_end( reinterpret_cast< const OpCode * >( buf + buf_size ) );
+	const OpCode *p_op {reinterpret_cast< const OpCode * >( buf )} ;
+	const OpCode *op_op_end {reinterpret_cast< const OpCode * >( buf + buf_size )};
 
 	while( p_op < p_op_end )
 	{
-		u32		address( reinterpret_cast< u32 >( p_op ) );
-		OpCode	op_code( *p_op );
+		auto		address {reinterpret_cast< u32 >( p_op )};
+		OpCode	op_code {*p_op};
 
 		SprintOpCodeInfo( strbuf, address, op_code );
 		fprintf( fh, "%08x: %08x %s\n", address, op_code._u32, Sanitise( strbuf ) );

@@ -181,12 +181,12 @@ CFragment * CFragmentCache::LookupFragmentQ( u32 address ) const
 //*************************************************************************************
 void CFragmentCache::InsertFragment( CFragment * p_fragment )
 {
-	u32		fragment_address( p_fragment->GetEntryAddress() );
+	auto	fragment_address {p_fragment->GetEntryAddress()};
 
 	mCacheCoverage.ExtendCoverage( fragment_address, p_fragment->GetInputLength() );
 
-	SFragmentEntry				entry( fragment_address, nullptr );
-	FragmentVec::iterator		it( std::lower_bound( mFragments.begin(), mFragments.end(), entry ) );
+	SFragmentEntry	entry {fragment_address, nullptr} ;
+	FragmentVec::iterator	it {std::lower_bound( mFragments.begin(), mFragments.end(), entry )};
 	#ifdef DAEDALUS_ENABLE_ASSERTS
 	DAEDALUS_ASSERT( it == mFragments.end() || it->Address != fragment_address, "A fragment with this address already exists" );
 	#endif
@@ -194,15 +194,15 @@ void CFragmentCache::InsertFragment( CFragment * p_fragment )
 	mFragments.insert( it, entry );
 
 	// Update the hash table (it stores failed lookups now, so we need to be sure to purge any stale entries in there
-	u32 ix {MakeHashIdx( fragment_address )};
+	auto ix {MakeHashIdx( fragment_address )};
 	mpCacheHashTable[ix].addr = fragment_address;
 	mpCacheHashTable[ix].ptr = reinterpret_cast< u32 >( p_fragment );
 
 	// Process any jumps for this before inserting new ones
-	JumpMap::iterator	jump_it( mJumpMap.find( fragment_address ) );
+	JumpMap::iterator	jump_it {mJumpMap.find( fragment_address )};
 	if( jump_it != mJumpMap.end() )
 	{
-		const JumpList &		jumps( jump_it->second );
+		const JumpList &jumps {jump_it->second};
 		for( JumpList::const_iterator it = jumps.begin(); it != jumps.end(); ++it )
 		{
 			//DBGConsole_Msg( 0, "Inserting [R%08x], patching jump at %08x ", address, (*it) );
@@ -217,8 +217,8 @@ void CFragmentCache::InsertFragment( CFragment * p_fragment )
 	const FragmentPatchList &	patch_list( p_fragment->GetPatchList() );
 	for( FragmentPatchList::const_iterator it = patch_list.begin(); it != patch_list.end(); ++it )
 	{
-		u32				target_address( it->Address );
-		CJumpLocation	jump( it->Jump );
+		auto				target_address {it->Address};
+		CJumpLocation	jump {it->Jump};
 
 	#ifdef DAEDALUS_ENABLE_ASSERTS
 		DAEDALUS_ASSERT( jump.IsSet(), "No exit jump?" );
@@ -227,7 +227,8 @@ void CFragmentCache::InsertFragment( CFragment * p_fragment )
 #ifdef DAEDALUS_DEBUG_DYNAREC
 		CFragment * p_fragment( LookupFragment( target_address ) );
 #else
-		CFragment * p_fragment( LookupFragmentQ( target_address ) );
+
+		CFragment *p_fragment {LookupFragmentQ( target_address )};
 #endif
 		if( p_fragment != nullptr )
 		{
@@ -258,7 +259,7 @@ void CFragmentCache::InsertFragment( CFragment * p_fragment )
 #ifdef DAEDALUS_DEBUG_CONSOLE
 	if((mFragments.size() % 100) == 0)
 	{
-		u32		expansion = 1;
+		auto expansion {1};
 		if(mInputLength > 0)
 		{
 			expansion = (100 * mOutputLength) / mInputLength;
@@ -330,7 +331,7 @@ void CFragmentCache::DumpStats( const char * outputdir ) const
 
 	all_fragments.reserve( mFragments.size() );
 
-	u32		total_cycles( 0 );
+	u32		total_cycles {0};
 
 	// Sort in order of expended cycles
 	for(FragmentVec::const_iterator it = mFragments.begin(); it != mFragments.end(); ++it)
@@ -415,11 +416,11 @@ void CFragmentCache::DumpStats( const char * outputdir ) const
 //*************************************************************************************
 void CFragmentCacheCoverage::ExtendCoverage( u32 address, u32 len )
 {
-	u32 first_entry( AddressToIndex( address ) );
-	u32 last_entry( AddressToIndex( address + len ) );
+	auto first_entry {AddressToIndex( address )};
+	auto last_entry {AddressToIndex( address + len )};
 
 	// Mark all entries as true
-	for( u32 i = first_entry; i <= last_entry && i < NUM_MEM_USAGE_ENTRIES; ++i )
+	for( auto i {first_entry}; i <= last_entry && i < NUM_MEM_USAGE_ENTRIES; ++i )
 	{
 		mCacheCoverage[ i ] = true;
 	}
@@ -437,11 +438,11 @@ bool CFragmentCacheCoverage::IsCovered( u32 address, u32 len ) const
 		return true;
 	}
 #endif
-	u32 first_entry( AddressToIndex( address ) );
-	u32 last_entry( AddressToIndex( address + len ) );
+	auto first_entry {AddressToIndex( address )};
+	u32 last_entry {AddressToIndex( address + len )};
 
 	// Mark all entries as true
-	for( u32 i = first_entry; i <= last_entry && i < NUM_MEM_USAGE_ENTRIES; ++i )
+	for( auto i {first_entry}; i <= last_entry && i < NUM_MEM_USAGE_ENTRIES; ++i )
 	{
 		if( mCacheCoverage[ i ] )
 			return true;

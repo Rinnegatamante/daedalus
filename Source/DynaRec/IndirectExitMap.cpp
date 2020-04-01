@@ -49,7 +49,7 @@ CFragment *	CIndirectExitMap::LookupIndirectExit( u32 exit_address )
 	#ifdef DAEDALUS_DEBUG_CONSOLE
 	DAEDALUS_ASSERT( mpCache != nullptr, "Why do we have no cache?" );
 	#endif
-	CFragment * p( mpCache->LookupFragmentQ( exit_address ) );
+	CFragment *p {mpCache->LookupFragmentQ( exit_address )};
 
 	DYNAREC_PROFILE_LOGLOOKUP( exit_address, p );
 

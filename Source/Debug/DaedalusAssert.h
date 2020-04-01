@@ -84,7 +84,7 @@ inline void SetAssertHook( DaedalusAssertHook hook )
 //
 #define DAEDALUS_ASSERT( e, ... )												\
 {																				\
-	static bool ignore = false;													\
+	static bool ignore {false};													\
 	if ( !(e) && !ignore )														\
 	{																			\
 		EAssertResult ar;														\
@@ -108,7 +108,7 @@ inline void SetAssertHook( DaedalusAssertHook hook )
 //
 #define DAEDALUS_ASSERT_Q( e )													\
 {																				\
-	static bool ignore = false;													\
+	static bool ignore {false};													\
 	if ( !(e) && !ignore )														\
 	{																			\
 		EAssertResult ar;														\
@@ -132,7 +132,7 @@ inline void SetAssertHook( DaedalusAssertHook hook )
 //
 #define DAEDALUS_ERROR( ... )													\
 {																				\
-	static bool ignore = false;													\
+	static bool ignore {false};													\
 	if ( !ignore )																\
 	{																			\
 		EAssertResult ar;														\

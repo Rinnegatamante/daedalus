@@ -120,7 +120,7 @@ void Dump_GetSaveDirectory(char * rootdir, const char * rom_filename, const char
 //*****************************************************************************
 void Dump_DisassembleMIPSRange(FILE * fh, u32 address_offset, const OpCode * b, const OpCode * e)
 {
-	u32 address( address_offset );
+	auto address {address_offset};
 	const OpCode * p( b );
 	while( p < e )
 	{
@@ -157,7 +157,7 @@ void Dump_Disassemble(u32 start, u32 end, const char * p_file_name)
 	if (end < start)
 		end = start + end;
 
-	if (p_file_name == NULL || strlen(p_file_name) == 0)
+	if (p_file_name == nullptr || strlen(p_file_name) == 0)
 	{
 		Dump_GetDumpDirectory(file_path, "");
 		IO::Path::Append(file_path, "dis.txt");
@@ -167,15 +167,15 @@ void Dump_Disassemble(u32 start, u32 end, const char * p_file_name)
 		IO::Path::Assign(file_path, p_file_name);
 	}
 
-	u8 * p_base;
+	u8 *p_base {0};
 	if (!Memory_GetInternalReadAddress(start, (void**)&p_base))
 	{
 		DBGConsole_Msg(0, "[Ydis: Invalid base 0x%08x]", start);
 		return;
 	}
 
-	FILE * fp( fopen(file_path, "w") );
-	if (fp == NULL)
+	FILE *fp( fopen(file_path, "w") );
+	if (fp == nullptr)
 		return;
 
 	DBGConsole_Msg(0, "Disassembling from 0x%08x to 0x%08x ([C%s])", start, end, file_path);
@@ -197,16 +197,16 @@ void Dump_Disassemble(u32 start, u32 end, const char * p_file_name)
 //*****************************************************************************
 void Dump_MemoryRange(FILE * fh, u32 address_offset, const u32 * b, const u32 * e)
 {
-	u32 address( address_offset );
-	const u32 * p( b );
+	auto address {address_offset};
+	const auto *p {b};
 	while( p < e )
 	{
 		fprintf(fh, "0x%08x: %08x %08x %08x %08x ", address, p[0], p[1], p[2], p[3]);
 
-		const u8 * p8( reinterpret_cast< const u8 * >( p ) );
-		for (u32 i = 0; i < 16; i++)
+		const auto *p8 {reinterpret_cast< const u8 * >( p )};
+		for (auto i {0}; i < 16; i++)
 		{
-			u8 c( p8[i ^ U8_TWIDDLE] );
+			auto c {p8[i ^ U8_TWIDDLE]};
 			if (c >= 32 && c < 128)
 				fprintf(fh, "%c", c);
 			else
@@ -224,8 +224,8 @@ void Dump_MemoryRange(FILE * fh, u32 address_offset, const u32 * b, const u32 * 
 
 void Dump_DisassembleRSPRange(FILE * fh, u32 address_offset, const OpCode * b, const OpCode * e)
 {
-	u32 address( address_offset );
-	const OpCode * p( b );
+	auto address {address_offset};
+	const OpCode *p {b};
 	while( p < e )
 	{
 		char opinfo[400];
@@ -251,7 +251,7 @@ void Dump_RSPDisassemble(const char * p_file_name)
 
 	IO::Filename file_path;
 
-	if (p_file_name == NULL || strlen(p_file_name) == 0)
+	if (p_file_name == nullptr || strlen(p_file_name) == 0)
 	{
 		Dump_GetDumpDirectory(file_path, "");
 		IO::Path::Append(file_path, "rdis.txt");
@@ -264,7 +264,7 @@ void Dump_RSPDisassemble(const char * p_file_name)
 	DBGConsole_Msg(0, "Disassembling from 0x%08x to 0x%08x ([C%s])", start, end, file_path);
 
 	FILE * fp( fopen(file_path, "w") );
-	if (fp == NULL)
+	if (fp == nullptr)
 		return;
 
 	const u32 * mem_start( reinterpret_cast< const u32 * >( base + 0x0000 ) );
@@ -292,7 +292,7 @@ void Dump_Strings( const char * p_file_name )
 
 	static const u32 MIN_LENGTH = 5;
 
-	if (p_file_name == NULL || strlen(p_file_name) == 0)
+	if (p_file_name == nullptr || strlen(p_file_name) == 0)
 	{
 		Dump_GetDumpDirectory(file_path, "");
 		IO::Path::Append(file_path, "strings.txt");
@@ -306,7 +306,7 @@ void Dump_Strings( const char * p_file_name )
 
 	// Overwrite here
 	fp = fopen(file_path, "w");
-	if (fp == NULL)
+	if (fp == nullptr)
 		return;
 
 	// Memory dump
@@ -343,4 +343,3 @@ void Dump_Strings( const char * p_file_name )
 	fclose(fp);
 }
 #endif
-
