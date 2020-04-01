@@ -57,10 +57,11 @@ inline u32 Vector2ColourClampedVFPU(const v4 * col_in)
 // Around 463,000 ticks/million
 inline u32 Vector2ColourClampedCPU( const v4 * col_in )
 {
-	u8 r = u8( Clamp<s32>( s32(col_in->x * 255.0f), 0, 255 ) );
-	u8 g = u8( Clamp<s32>( s32(col_in->y * 255.0f), 0, 255 ) );
-	u8 b = u8( Clamp<s32>( s32(col_in->z * 255.0f), 0, 255 ) );
-	u8 a = u8( Clamp<s32>( s32(col_in->w * 255.0f), 0, 255 ) );
+
+	auto r = u8( Clamp<s32>( s32(col_in->x * 255.0f), 0, 255 ) );
+	auto g = u8( Clamp<s32>( s32(col_in->y * 255.0f), 0, 255 ) );
+ auto b = u8( Clamp<s32>( s32(col_in->z * 255.0f), 0, 255 ) );
+	auto a = u8( Clamp<s32>( s32(col_in->w * 255.0f), 0, 255 ) );
 
 	return c32::Make( r, g, b, a );
 }
@@ -120,122 +121,122 @@ v4	c32::GetColourV4() const
 
 c32	c32::Add( c32 colour ) const
 {
-	u8 r = AddComponent( GetR(), colour.GetR() );
-	u8 g = AddComponent( GetG(), colour.GetG() );
-	u8 b = AddComponent( GetB(), colour.GetB() );
-	u8 a = AddComponent( GetA(), colour.GetA() );
+	auto r {AddComponent( GetR(), colour.GetR() )};
+	auto g {AddComponent( GetG(), colour.GetG() )};
+ auto b {AddComponent( GetB(), colour.GetB() )};
+	auto a {AddComponent( GetA(), colour.GetA() )};
 
 	return c32( r, g, b, a );
 }
 
 c32	c32::AddRGB( c32 colour ) const
 {
-	u8 r = AddComponent( GetR(), colour.GetR() );
-	u8 g = AddComponent( GetG(), colour.GetG() );
-	u8 b = AddComponent( GetB(), colour.GetB() );
-	u8 a = GetA();
+	auto r {AddComponent( GetR(), colour.GetR() )};
+	auto g {AddComponent( GetG(), colour.GetG() )};
+ auto b {AddComponent( GetB(), colour.GetB() )};
+	auto a {GetA()};
 
 	return c32( r, g, b, a );
 }
 
 c32	c32::AddA( c32 colour ) const
 {
-	u8 r = GetR();
-	u8 g = GetG();
-	u8 b = GetB();
-	u8 a = AddComponent( GetA(), colour.GetA() );
+	auto r {GetR()};
+	auto g {GetG()};
+ auto b {GetB()};
+	auto a {AddComponent( GetA(), colour.GetA() )};
 
 	return c32( r, g, b, a );
 }
 
 c32	c32::Sub( c32 colour ) const
 {
-	u8 r = SubComponent( GetR(), colour.GetR() );
-	u8 g = SubComponent( GetG(), colour.GetG() );
-	u8 b = SubComponent( GetB(), colour.GetB() );
-	u8 a = SubComponent( GetA(), colour.GetA() );
+	auto r {SubComponent( GetR(), colour.GetR() )};
+	auto g {SubComponent( GetG(), colour.GetG() )};
+ auto b {SubComponent( GetB(), colour.GetB() )};
+	auto a {SubComponent( GetA(), colour.GetA() )};
 
 	return c32( r, g, b, a );
 }
 
 c32	c32::SubRGB( c32 colour ) const
 {
-	u8 r = SubComponent( GetR(), colour.GetR() );
-	u8 g = SubComponent( GetG(), colour.GetG() );
-	u8 b = SubComponent( GetB(), colour.GetB() );
-	u8 a = GetA();
+	auto r {SubComponent( GetR(), colour.GetR() )};
+	auto g {SubComponent( GetG(), colour.GetG() )};
+ auto b {SubComponent( GetB(), colour.GetB() )};
+	auto a {GetA()};
 
 	return c32( r, g, b, a );
 }
 
 c32	c32::SubA( c32 colour ) const
 {
-	u8 r = GetR();
-	u8 g = GetG();
-	u8 b = GetB();
-	u8 a = SubComponent( GetA(), colour.GetA() );
+	auto r {GetR()};
+	auto g {GetG()};
+ auto b {GetB()};
+	auto a {SubComponent( GetA(), colour.GetA() )};
 
 	return c32( r, g, b, a );
 }
 
 c32	c32::Modulate( c32 colour ) const
 {
-	u8 r = ModulateComponent( GetR(), colour.GetR() );
-	u8 g = ModulateComponent( GetG(), colour.GetG() );
-	u8 b = ModulateComponent( GetB(), colour.GetB() );
-	u8 a = ModulateComponent( GetA(), colour.GetA() );
+	auto r {ModulateComponent( GetR(), colour.GetR() )};
+	auto g {ModulateComponent( GetG(), colour.GetG() )};
+ auto b {ModulateComponent( GetB(), colour.GetB() )};
+	auto a {ModulateComponent( GetA(), colour.GetA() )};
 
 	return c32( r, g, b, a );
 }
 
 c32	c32::ModulateRGB( c32 colour ) const
 {
-	u8 r = ModulateComponent( GetR(), colour.GetR() );
-	u8 g = ModulateComponent( GetG(), colour.GetG() );
-	u8 b = ModulateComponent( GetB(), colour.GetB() );
-	u8 a = GetA();
+	auto r {ModulateComponent( GetR(), colour.GetR() )};
+	auto g {ModulateComponent( GetG(), colour.GetG() )};
+ auto b {ModulateComponent( GetB(), colour.GetB() )};
+	 auto a {GetA()};
 
 	return c32( r, g, b, a );
 }
 
 c32	c32::ModulateA( c32 colour ) const
 {
-	u8 r = GetR();
-	u8 g = GetG();
-	u8 b = GetB();
-	u8 a = ModulateComponent( GetA(), colour.GetA() );
+	auto r {GetR()};
+	auto g {GetG()};
+ auto b {GetB()};
+	auto a {ModulateComponent( GetA(), colour.GetA() )};
 
 	return c32( r, g, b, a );
 }
 
 c32	c32::Interpolate( c32 colour, float factor ) const
 {
-	u8 r = InterpolateComponent( GetR(), colour.GetR(), factor );
-	u8 g = InterpolateComponent( GetG(), colour.GetG(), factor );
-	u8 b = InterpolateComponent( GetB(), colour.GetB(), factor );
-	u8 a = InterpolateComponent( GetA(), colour.GetA(), factor );
+	auto r {InterpolateComponent( GetR(), colour.GetR(), factor)};
+	auto g {InterpolateComponent( GetG(), colour.GetG(), factor)};
+ auto b {InterpolateComponent( GetB(), colour.GetB(), factor)};
+	auto a {InterpolateComponent( GetA(), colour.GetA(), factor)};
 
 	return c32( r, g, b, a );
 }
 
 c32	c32::Interpolate( c32 colour, c32 factor ) const
 {
-	float	factor_r( factor.GetR() / 255.0f );
-	float	factor_g( factor.GetG() / 255.0f );
-	float	factor_b( factor.GetB() / 255.0f );
-	float	factor_a( factor.GetA() / 255.0f );
+	auto	factor_r {factor.GetR() / 255.0f };
+	auto	factor_g {factor.GetG() / 255.0f };
+	auto	factor_b {factor.GetB() / 255.0f };
+	auto  factor_a {factor.GetA() / 255.0f };
 
-	u8 r {InterpolateComponent( GetR(), colour.GetR(), factor_r )};
-	u8 g {InterpolateComponent( GetG(), colour.GetG(), factor_g )};
-	u8 b {InterpolateComponent( GetB(), colour.GetB(), factor_b )};
-	u8 a {InterpolateComponent( GetA(), colour.GetA(), factor_a )};
+	auto r {InterpolateComponent( GetR(), colour.GetR(), factor_r )};
+	auto g {InterpolateComponent( GetG(), colour.GetG(), factor_g )};
+	auto b {InterpolateComponent( GetB(), colour.GetB(), factor_b )};
+	auto a {InterpolateComponent( GetA(), colour.GetA(), factor_a )};
 
 	return c32( r, g, b, a );
 }
 
 c32 c32::ReplicateAlpha() const
 {
-	u8 a {GetA()};
+	auto a {GetA()};
 
 	return c32( a, a, a, a );
 }

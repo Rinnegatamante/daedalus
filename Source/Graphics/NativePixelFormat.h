@@ -53,23 +53,24 @@ struct NativePf5650
 	u8	GetB() const { u8 b( u8( ( Bits & MaskB ) >> ShiftB ) ); return (b << (8 - BitsB)) | (b >> (BitsB - (8 - BitsB))); }
 	u8	GetA() const { return 255; }
 
-	static const u32	MaskR = 0x001f;
-	static const u32	MaskG = 0x07e0;
-	static const u32	MaskB = 0xf800;
+	static const auto	MaskR {0x001f};
+	static const auto	MaskG {0x07e0};
+	static const auto	MaskB {0xf800};
 	//static const u32	MaskA = 0x0000;
 
-	static const u32	ShiftR = 0;
-	static const u32	ShiftG = 5;
-	static const u32	ShiftB = 11;
+	static const auto	ShiftR {0};
+	static const auto	ShiftG {5};
+	static const auto	ShiftB {11};
 	//static const u32	ShiftA = 16;
 
-	static const u32	BitsR = 5;
-	static const u32	BitsG = 6;
-	static const u32	BitsB = 5;
+	static const auto	BitsR {5};
+	static const auto	BitsG {6};
+	static const auto	BitsB {5};
 	//static const u32	BitsA = 0;
 };
+#ifdef DAEDALUS_ENABLE_ASSERTS
 DAEDALUS_STATIC_ASSERT( sizeof( NativePf5650 ) == 2 );
-
+#endif
 struct NativePf5551
 {
 	u16	Bits;
@@ -92,25 +93,25 @@ struct NativePf5551
 	{
 	}
 
-	u8	GetR() const { u8 r( u8( ( Bits & MaskR ) >> ShiftR ) ); return (r << (8 - BitsR)) | (r >> (BitsR - (8 - BitsR))); }
-	u8	GetG() const { u8 g( u8( ( Bits & MaskG ) >> ShiftG ) ); return (g << (8 - BitsG)) | (g >> (BitsG - (8 - BitsG))); }
-	u8	GetB() const { u8 b( u8( ( Bits & MaskB ) >> ShiftB ) ); return (b << (8 - BitsB)) | (b >> (BitsB - (8 - BitsB))); }
-	u8	GetA() const { return (Bits & MaskA) ? 255 : 0; }
+	auto	GetR() const { u8 r( u8( ( Bits & MaskR ) >> ShiftR ) ); return (r << (8 - BitsR)) | (r >> (BitsR - (8 - BitsR))); }
+	auto	GetG() const { u8 g( u8( ( Bits & MaskG ) >> ShiftG ) ); return (g << (8 - BitsG)) | (g >> (BitsG - (8 - BitsG))); }
+	auto	GetB() const { u8 b( u8( ( Bits & MaskB ) >> ShiftB ) ); return (b << (8 - BitsB)) | (b >> (BitsB - (8 - BitsB))); }
+	auto	GetA() const { return (Bits & MaskA) ? 255 : 0; }
 
-	static const u32	MaskR = 0x001f;
-	static const u32	MaskG = 0x03e0;
-	static const u32	MaskB = 0x7c00;
-	static const u32	MaskA = 0x8000;
+	static const auto	MaskR {0x001f};
+	static const auto	MaskG {0x03e0};
+	static const auto	MaskB {0x7c00};
+	static const auto	MaskA {0x8000};
 
-	static const u32	ShiftR = 0;
-	static const u32	ShiftG = 5;
-	static const u32	ShiftB = 10;
-	static const u32	ShiftA = 15;
+	static const auto	ShiftR {0};
+	static const auto	ShiftG {5};
+	static const auto	ShiftB {10};
+	static const auto	ShiftA {15};
 
-	static const u32	BitsR = 5;
-	static const u32	BitsG = 5;
-	static const u32	BitsB = 5;
-	static const u32	BitsA = 1;
+	static const auto	BitsR {5};
+	static const auto	BitsG {5};
+	static const auto	BitsB {5};
+	static const auto	BitsA {1};
 };
 DAEDALUS_STATIC_ASSERT( sizeof( NativePf5551 ) == 2 );
 
@@ -135,27 +136,30 @@ struct NativePf4444
 	{
 	}
 
-	u8	GetR() const { u8 r( u8( ( Bits & MaskR ) >> ShiftR ) ); return (r << (8 - BitsR)) | (r >> (BitsR - (8 - BitsR))); }
-	u8	GetG() const { u8 g( u8( ( Bits & MaskG ) >> ShiftG ) ); return (g << (8 - BitsG)) | (g >> (BitsG - (8 - BitsG))); }
-	u8	GetB() const { u8 b( u8( ( Bits & MaskB ) >> ShiftB ) ); return (b << (8 - BitsB)) | (b >> (BitsB - (8 - BitsB))); }
-	u8	GetA() const { u8 a( u8( ( Bits & MaskA ) >> ShiftA ) ); return (a << (8 - BitsA)) | (a >> (BitsA - (8 - BitsA))); }
+	auto	GetR() const { u8 r( u8( ( Bits & MaskR ) >> ShiftR ) ); return (r << (8 - BitsR)) | (r >> (BitsR - (8 - BitsR))); }
+	auto	GetG() const { u8 g( u8( ( Bits & MaskG ) >> ShiftG ) ); return (g << (8 - BitsG)) | (g >> (BitsG - (8 - BitsG))); }
+	auto	GetB() const { u8 b( u8( ( Bits & MaskB ) >> ShiftB ) ); return (b << (8 - BitsB)) | (b >> (BitsB - (8 - BitsB))); }
+	auto	GetA() const { u8 a( u8( ( Bits & MaskA ) >> ShiftA ) ); return (a << (8 - BitsA)) | (a >> (BitsA - (8 - BitsA))); }
 
-	static const u32	MaskR = 0x000f;
-	static const u32	MaskG = 0x00f0;
-	static const u32	MaskB = 0x0f00;
-	static const u32	MaskA = 0xf000;
+	static const auto	MaskR {0x000f};
+	static const auto	MaskG {0x00f0};
+	static const auto	MaskB {0x0f00};
+	static const auto	MaskA {0xf000};
 
-	static const u32	ShiftR = 0;
-	static const u32	ShiftG = 4;
-	static const u32	ShiftB = 8;
-	static const u32	ShiftA = 12;
+	static const auto	ShiftR {0};
+	static const auto	ShiftG {4};
+	static const auto	ShiftB {8};
+	static const auto	ShiftA {12};
 
-	static const u32	BitsR = 4;
-	static const u32	BitsG = 4;
-	static const u32	BitsB = 4;
-	static const u32	BitsA = 4;
+	static const auto	BitsR {4};
+	static const auto	BitsG {4};
+	static const auto	BitsB {4};
+	static const auto	BitsA {4};
 };
+
+#ifdef DAEDALUS_ENABLE_ASSERTS
 DAEDALUS_STATIC_ASSERT( sizeof( NativePf4444 ) == 2 );
+#endif
 
 struct NativePf8888
 {
@@ -200,27 +204,30 @@ struct NativePf8888
 	{
 	}
 
-	u8	GetR() const { return R; }
-	u8	GetG() const { return G; }
-	u8	GetB() const { return B; }
-	u8	GetA() const { return A; }
+	auto	GetR() const { return R; }
+	auto	GetG() const { return G; }
+	auto	GetB() const { return B; }
+	auto	GetA() const { return A; }
 
-	static const u32	MaskR = 0x000000ff;
-	static const u32	MaskG = 0x0000ff00;
-	static const u32	MaskB = 0x00ff0000;
-	static const u32	MaskA = 0xff000000;
+	static const auto	MaskR {0x000000ff};
+	static const auto	MaskG {0x0000ff00};
+	static const auto	MaskB {0x00ff0000};
+	static const auto	MaskA {0xff000000};
 
-	static const u32	ShiftR = 0;
-	static const u32	ShiftG = 8;
-	static const u32	ShiftB = 16;
-	static const u32	ShiftA = 24;
+	static const auto	ShiftR {0};
+	static const auto	ShiftG {8};
+	static const auto	ShiftB {16};
+	static const auto	ShiftA {24};
 
-	static const u32	BitsR = 8;
-	static const u32	BitsG = 8;
-	static const u32	BitsB = 8;
-	static const u32	BitsA = 8;
+	static const auto	BitsR {8};
+	static const auto	BitsG {8};
+	static const auto	BitsB {8};
+	static const auto	BitsA {8};
 };
+
+#ifdef DAEDALUS_ENABLE_ASSERTS
 DAEDALUS_STATIC_ASSERT( sizeof( NativePf8888 ) == 4 );
+#endif
 
 struct NativePfCI44		// This represents 2 pixels
 {
@@ -241,8 +248,8 @@ struct NativePfCI44		// This represents 2 pixels
 	inline void SetIdxA(u8 value) 	{ Bits &= MaskPixelA; Bits |= (value << 4 )& MaskPixelB; }
 	inline void SetIdxB(u8 value) 	{ Bits &= MaskPixelB; Bits |= value & MaskPixelA; }
 
-	static const u8	MaskPixelA = 0x0f;
-	static const u8	MaskPixelB = 0xf0;
+	static const auto	MaskPixelA {0x0f};
+	static const auto MaskPixelB {0xf0};
 
 };
 DAEDALUS_STATIC_ASSERT( sizeof( NativePfCI44 ) == 1 );
@@ -260,6 +267,7 @@ struct NativePfCI8
 	{
 	}
 };
+#ifdef DAEDALUS_ENABLE_ASSERTS
 DAEDALUS_STATIC_ASSERT( sizeof( NativePfCI8 ) == 1 );
-
+#endif
 #endif // GRAPHICS_NATIVEPIXELFORMAT_H_

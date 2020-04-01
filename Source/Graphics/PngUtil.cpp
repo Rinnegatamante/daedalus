@@ -31,11 +31,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 template< typename T >
 static void WritePngRow( u8 * line, const void * src, u32 width )
 {
-	u32 i {};
+	auto i {0};
 
-	const T *	p_src( reinterpret_cast< const T * >( src ) );
+	const T *p_src {reinterpret_cast< const T * >( src )};
 
-	for ( u32 x = 0; x < width; x++ )
+	for ( auto x {0}; x < width; x++ )
 	{
 		T	color( p_src[ x ] );
 
@@ -48,14 +48,14 @@ static void WritePngRow( u8 * line, const void * src, u32 width )
 
 static void WritePngRowPal4( u8 * line, const void * src, u32 width, const NativePf8888 * palette )
 {
-	u32 i = 0;
+	auto i {0};
 
-	const NativePfCI44 * p_src = reinterpret_cast< const NativePfCI44 * >( src );
+	const NativePfCI44 *p_src {reinterpret_cast< const NativePfCI44 * >( src )};
 
-	for ( u32 x = 0; x < width; x++ )
+	for ( auto x {0}; x < width; x++ )
 	{
 		NativePfCI44	colors( p_src[ x / 2 ] );
-		u8				color_idx( (x&1) ? colors.GetIdxB() : colors.GetIdxA() );	// FIXME(strmnnrmn): A/B should be swapped? NativeTextureOSX is broken with this ordering.
+		auto color_idx( (x&1) ? colors.GetIdxB() : colors.GetIdxA() );	// FIXME(strmnnrmn): A/B should be swapped? NativeTextureOSX is broken with this ordering.
 		NativePf8888	color( palette[ color_idx ] );
 
 		line[i++] = color.GetR();
@@ -67,14 +67,14 @@ static void WritePngRowPal4( u8 * line, const void * src, u32 width, const Nativ
 
 static void WritePngRowPal8( u8 * line, const void * src, u32 width, const NativePf8888 * palette )
 {
-	u32 i = 0;
+	auto i {0};
 
-	const NativePfCI8 * p_src = reinterpret_cast< const NativePfCI8 * >( src );
+	const NativePfCI8 *p_src {reinterpret_cast< const NativePfCI8 * >( src )};
 
-	for ( u32 x = 0; x < width; x++ )
+	for ( auto x {0}; x < width; x++ )
 	{
-		u8				color_idx( p_src[ x ].Bits );
-		NativePf8888	color( palette[ color_idx ] );
+		auto				color_idx { p_src[ x ].Bits };
+		NativePf8888	color {palette[ color_idx ]} ;
 
 		line[i++] = color.GetR();
 		line[i++] = color.GetG();
@@ -85,13 +85,13 @@ static void WritePngRowPal8( u8 * line, const void * src, u32 width, const Nativ
 
 static void DAEDALUS_ZLIB_CALL_TYPE PngWrite(png_structp png_ptr, png_bytep data, png_size_t len)
 {
-	DataSink * sink = static_cast<DataSink*>(png_get_io_ptr(png_ptr));
+	DataSink *sink {static_cast<DataSink*>(png_get_io_ptr(png_ptr))};
 	sink->Write(data, len);
 }
 
 static void DAEDALUS_ZLIB_CALL_TYPE PngFlush(png_structp png_ptr)
 {
-	DataSink * sink = static_cast<DataSink*>(png_get_io_ptr(png_ptr));
+	DataSink *sink {static_cast<DataSink*>(png_get_io_ptr(png_ptr))};
 	sink->Flush();
 }
 
@@ -104,11 +104,11 @@ void PngSaveImage( DataSink * sink, const void * data, const void * palette, ETe
 	#ifdef DAEDALUS_ENABLE_ASSERTS
 	DAEDALUS_ASSERT( !IsTextureFormatPalettised( pixelformat ) || palette, "No palette specified" );
 	#endif
-	png_structp png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, nullptr, nullptr, nullptr);
+	png_structp png_ptr {png_create_write_struct(PNG_LIBPNG_VER_STRING, nullptr, nullptr, nullptr)};
 	if (!png_ptr)
 		return;
 
-	png_infop info_ptr = png_create_info_struct(png_ptr);
+	png_infop info_ptr {png_create_info_struct(png_ptr)};
 	if (!info_ptr)
 	{
 		png_destroy_write_struct(&png_ptr, (png_infopp)nullptr);
@@ -121,8 +121,8 @@ void PngSaveImage( DataSink * sink, const void * data, const void * palette, ETe
 
 	u8* line = (u8*) malloc(width * 4);
 
-	const u8 *				p       = reinterpret_cast< const u8 * >( data );
-	const NativePf8888 *	pal8888 = reinterpret_cast< const NativePf8888 * >( palette );
+	const auto *p {reinterpret_cast< const u8 * >( data )};
+	const NativePf8888 *pal8888 {reinterpret_cast< const NativePf8888 * >( palette )};
 
 	// If the pitch is negative (i.e for a screenshot), start at the last row and work backwards.
 	if (pitch < 0)
@@ -130,7 +130,7 @@ void PngSaveImage( DataSink * sink, const void * data, const void * palette, ETe
 		p += -pitch * (height-1);
 	}
 
-	for ( u32 y = 0; y < height; y++ )
+	for ( auto y {0}; y < height; y++ )
 	{
 		switch (pixelformat)
 		{
@@ -148,7 +148,7 @@ void PngSaveImage( DataSink * sink, const void * data, const void * palette, ETe
 		//
 		if( !use_alpha )
 		{
-			for( u32 x = 0; x < width; ++x )
+			for( auto x {0}; x < width; ++x )
 			{
 				line[ x*4 + 3 ] = 0xff;
 			}
@@ -194,18 +194,18 @@ void PngSaveImage( DataSink * sink, const CNativeTexture * texture )
 // Should live elsewhere, but need to share WritePngRow.
 void FlattenTexture(const CNativeTexture * texture, void * dst, size_t len)
 {
-	const u8 *           p       = reinterpret_cast< const u8 * >( texture->GetData() );
-	const NativePf8888 * pal8888 = reinterpret_cast< const NativePf8888 * >( texture->GetPalette() );
+	const u8 *p {reinterpret_cast< const u8 * >( texture->GetData() )};
+	const NativePf8888 *pal8888 {reinterpret_cast< const NativePf8888 * >( texture->GetPalette() )};
 
-	u32 width  = texture->GetWidth();
-	u32 height = texture->GetHeight();
-	u32 pitch  = texture->GetStride();
+	auto width  {texture->GetWidth()};
+	auto height {texture->GetHeight()};
+  auto pitch  {texture->GetStride()};
 
 #ifdef DAEDALUS_ENABLE_ASSERTS
 	DAEDALUS_ASSERT(len == width * sizeof(NativePf8888) * height, "Unexpected number of bytes.");
 #endif
-	u8 * line = static_cast<u8 *>( dst );
-	for ( u32 y = 0; y < height; y++ )
+	auto *line {static_cast<u8 *>( dst )};
+	for ( auto y {0}; y < height; y++ )
 	{
 		switch (texture->GetFormat())
 		{
