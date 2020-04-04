@@ -53,28 +53,29 @@ struct N64Pf5551
 	{
 	}
 
-	u8	GetR() const { u8 r( u8( ( Bits & MaskR ) >> ShiftR ) ); return (r << (8 - BitsR)) | (r >> (BitsR - (8 - BitsR))); }
-	u8	GetG() const { u8 g( u8( ( Bits & MaskG ) >> ShiftG ) ); return (g << (8 - BitsG)) | (g >> (BitsG - (8 - BitsG))); }
-	u8	GetB() const { u8 b( u8( ( Bits & MaskB ) >> ShiftB ) ); return (b << (8 - BitsB)) | (b >> (BitsB - (8 - BitsB))); }
-	u8	GetA() const { return (Bits & MaskA) ? 255 : 0; }
+	auto GetR() const { u8 r( u8( ( Bits & MaskR ) >> ShiftR ) ); return (r << (8 - BitsR)) | (r >> (BitsR - (8 - BitsR))); }
+	auto GetG() const { u8 g( u8( ( Bits & MaskG ) >> ShiftG ) ); return (g << (8 - BitsG)) | (g >> (BitsG - (8 - BitsG))); }
+	auto GetB() const { u8 b( u8( ( Bits & MaskB ) >> ShiftB ) ); return (b << (8 - BitsB)) | (b >> (BitsB - (8 - BitsB))); }
+	auto GetA() const { return (Bits & MaskA) ? 255 : 0; }
 
-	static const u32	MaskR {0xf800};
-	static const u32	MaskG {0x07c0};
-	static const u32	MaskB {0x003e};
-	static const u32	MaskA {0x0001};
+	static const auto	MaskR {0xf800};
+	static const auto	MaskG {0x07c0};
+	static const auto	MaskB {0x003e};
+	static const auto	MaskA {0x0001};
 
-	static const u32	ShiftR {11};
-	static const u32	ShiftG {6};
-	static const u32	ShiftB {1};
-	static const u32	ShiftA {};
+	static const auto	ShiftR {11};
+	static const auto	ShiftG {6};
+	static const auto	ShiftB {1};
+	static const auto	ShiftA {0};
 
-	static const u32	BitsR {5};
-	static const u32	BitsG {5};
-	static const u32	BitsB {5};
-	static const u32	BitsA {1};
+	static const auto	BitsR {5};
+	static const auto	BitsG {5};
+	static const auto	BitsB {5};
+	static const auto	BitsA {1};
 };
+#ifdef DAEDALUS_ENABLE_ASSERTS
 DAEDALUS_STATIC_ASSERT( sizeof( N64Pf5551 ) == 2 );
-
+#endif
 struct N64Pf8888
 {
 	union
@@ -117,28 +118,29 @@ struct N64Pf8888
 	{
 	}
 
-	u8	GetR() const { return R; }
-	u8	GetG() const { return G; }
-	u8	GetB() const { return B; }
-	u8	GetA() const { return A; }
+	auto	GetR() const { return R; }
+	auto	GetG() const { return G; }
+	auto	GetB() const { return B; }
+	auto	GetA() const { return A; }
 
-	static const u32	MaskR {0xff000000};
-	static const u32	MaskG {0x00ff0000};
-	static const u32	MaskB {0x0000ff00};
-	static const u32	MaskA {0x000000ff};
+	static const auto	MaskR {0xff000000};
+	static const auto	MaskG {0x00ff0000};
+	static const auto	MaskB {0x0000ff00};
+	static const auto	MaskA {0x000000ff};
 
-	static const u32	ShiftR {24};
-	static const u32	ShiftG {16};
-	static const u32	ShiftB {8};
-	static const u32	ShiftA {0};
+	static const auto	ShiftR {24};
+	static const auto	ShiftG {16};
+	static const auto	ShiftB {8};
+	static const auto	ShiftA {0};
 
-	static const u32	BitsR {8};
-	static const u32	BitsG {8};
-	static const u32	BitsB {8};
-	static const u32	BitsA {8};
+	static const auto	BitsR {8};
+	static const auto	BitsG {8};
+	static const auto	BitsB {8};
+	static const auto	BitsA {8};
 };
+#ifdef DAEDALUS_ENABLE_ASSERTS
 DAEDALUS_STATIC_ASSERT( sizeof( N64Pf8888 ) == 4 );
-
+#endif
 struct N64PfIA8
 {
 	u8	Bits;
@@ -147,24 +149,20 @@ struct N64PfIA8
 	{
 	}
 
-	u8	GetR() const { return GetI(); }
-	u8	GetG() const { return GetI(); }
-	u8	GetB() const { return GetI(); }
+	auto	GetR() const { return GetI(); }
+	auto	GetG() const { return GetI(); }
+	auto	GetB() const { return GetI(); }
 
-	u8	GetI() const { u8 i( ( Bits & MaskI ) >> ShiftI ); return (i << (8 - BitsI)) | (i >> (BitsI - (8 - BitsI))); }
-	u8	GetA() const { u8 a( ( Bits & MaskA ) >> ShiftA ); return (a << (8 - BitsA)) | (a >> (BitsA - (8 - BitsA))); }
+	u8	GetI() const { auto i( ( Bits & MaskI ) >> ShiftI ); return (i << (8 - BitsI)) | (i >> (BitsI - (8 - BitsI))); }
+	u8	GetA() const { auto a( ( Bits & MaskA ) >> ShiftA ); return (a << (8 - BitsA)) | (a >> (BitsA - (8 - BitsA))); }
 
-	static const u32	MaskI {0xf0};
-	static const u32	MaskA {0x0f};
-
-	static const u32	ShiftI {4};
-	static const u32	ShiftA {};
-
-	static const u32	BitsI {4};
-	static const u32	BitsA {4};
+	static const auto	MaskI {0xf0}, MaskA {0x0f};
+	static const auto	ShiftI {4}, ShiftA {0};
+	static const auto	BitsI {4}, BitsA {4};
 };
+#ifdef DAEDALUS_ENABLE_ASSERTS
 DAEDALUS_STATIC_ASSERT( sizeof( N64PfIA8 ) == 1 );
-
+#endif
 struct N64PfIA16
 {
 	union
@@ -181,21 +179,23 @@ struct N64PfIA16
 	{
 	}
 
-	u8	GetR() const { return I; }
-	u8	GetG() const { return I; }
-	u8	GetB() const { return I; }
+	auto	GetR() const { return I; }
+	auto	GetG() const { return I; }
+	auto	GetB() const { return I; }
 	u8	GetA() const { return A; }
 
-	static const u32	MaskI {0xff00};
-	static const u32	MaskA {0x00ff};
+	static const auto	MaskI {0xff00};
+	static const auto	MaskA {0x00ff};
 
-	static const u32	ShiftI {8};
-	static const u32	ShiftA {};
+	static const auto	ShiftI {8};
+	static const auto	ShiftA {0};
 
-	static const u32	BitsI {8};
-	static const u32	BitsA {8};
+	static const auto	BitsI {8};
+	static const auto	BitsA {8};
 };
+#ifdef DAEDALUS_ENABLE_ASSERTS
 DAEDALUS_STATIC_ASSERT( sizeof( N64PfIA16 ) == 2 );
+#endif
 
 struct N64PfI8
 {
@@ -212,17 +212,16 @@ struct N64PfI8
 	{
 	}
 
-	u8	GetR() const { return I; }
-	u8	GetG() const { return I; }
-	u8	GetB() const { return I; }
-	u8	GetA() const { return I; }		// Always I and not 255?
+	auto	GetR() const { return I; }
+	auto	GetG() const { return I; }
+	auto	GetB() const { return I; }
+	auto	GetA() const { return I; }		// Always I and not 255?
 
-	static const u32	MaskI {0xff};
+	static const auto	MaskI {0xff}, ShiftI {0}, BitsI {0};
 
-	static const u32	ShiftI {};
-
-	static const u32	BitsI {};
 };
+#ifdef DAEDALUS_ENABLE_ASSERTS
 DAEDALUS_STATIC_ASSERT( sizeof( N64PfI8 ) == 1 );
+#endif
 
 #endif // HLEGRAPHICS_N64PIXELFORMAT_H_

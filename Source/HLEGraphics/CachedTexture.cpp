@@ -51,9 +51,9 @@ static NativePf8888			gPaletteBuffer[ 256 ];
 // we just skip the hashing process entirely, and update textures every frame
 // regardless of whether they've actually changed.
 #ifdef DAEDALUS_PSP
-static const bool kUpdateTexturesEveryFrame = false;
+static const bool kUpdateTexturesEveryFrame {false};
 #else
-static const bool kUpdateTexturesEveryFrame = true;
+static const bool kUpdateTexturesEveryFrame {true};
 #endif
 
 
@@ -96,7 +96,7 @@ static const ETextureFormat TFmt_hack[ 32 ] =
 
 static ETextureFormat SelectNativeFormat(const TextureInfo & ti)
 {
-	u32 idx = (ti.GetFormat() << 2) | ti.GetSize();
+	auto idx {(ti.GetFormat() << 2) | ti.GetSize()};
 	return g_ROM.LOAD_T1_HACK ? TFmt_hack[idx] : TFmt[idx];
 }
 #endif
@@ -116,7 +116,7 @@ static bool GenerateTexels(void ** p_texels,
 		gTexelBuffer.resize( buffer_size );
 	}
 
-	void *			texels  = &gTexelBuffer[0];
+	void *texels  {&gTexelBuffer[0]};
 	NativePf8888 *	palette = IsTextureFormatPalettised( texture_format ) ? gPaletteBuffer : nullptr;
 
 #ifdef DAEDALUS_ACCURATE_TMEM
@@ -158,10 +158,10 @@ static void UpdateTexture( const TextureInfo & ti, CNativeTexture * texture )
 	if ( texture != nullptr && texture->HasData() )
 	{
 		ETextureFormat	format = texture->GetFormat();
-		u32 			stride {texture->GetStride()};
+		u32 stride {texture->GetStride()};
 
-		void *	texels;
-		void *	palette;
+		void *texels;
+		void *palette;
 		if( GenerateTexels( &texels, &palette, ti, format, stride, texture->GetBytesRequired() ) )
 		{
 			//
@@ -204,7 +204,7 @@ CachedTexture * CachedTexture::Create( const TextureInfo & ti )
 		return nullptr;
 	}
 
-	CachedTexture *	texture = new CachedTexture( ti );
+	CachedTexture *texture = new CachedTexture( ti );
 	if (!texture->Initialise())
 	{
 		return nullptr;
@@ -231,8 +231,8 @@ bool CachedTexture::Initialise()
 	#ifdef DAEDALUS_ENABLE_ASSERTS
 	DAEDALUS_ASSERT_Q(mpTexture == nullptr);
 	#endif
-	u32 width  {mTextureInfo.GetWidth()};
-	u32 height {mTextureInfo.GetHeight()};
+	auto width  {mTextureInfo.GetWidth()};
+	auto height {mTextureInfo.GetHeight()};
 
 	if (mTextureInfo.GetEmulateMirrorS()) width  *= 2;
 	if (mTextureInfo.GetEmulateMirrorT()) height *= 2;
@@ -264,7 +264,7 @@ bool CachedTexture::UpdateTextureHash()
 		return true;
 	}
 
-	u32 new_hash_value {mTextureInfo.GenerateHashValue()};
+	auto new_hash_value {mTextureInfo.GenerateHashValue()};
 	bool changed       {new_hash_value != mTextureContentsHash};
 
 	mTextureContentsHash = new_hash_value;
@@ -352,8 +352,8 @@ void CachedTexture::DumpTexture( const TextureInfo & ti, const CNativeTexture * 
 
 		IO::Path::Append( filepath, filename );
 
-		void *	texels;
-		void *	palette;
+		void *texels;
+		void *palette;
 
 		// Note that we re-convert the texels because those in the native texture may well already
 		// be swizzle. Maybe we should just have an unswizzle routine?
@@ -365,7 +365,7 @@ void CachedTexture::DumpTexture( const TextureInfo & ti, const CNativeTexture * 
 			// We have to do this because the palette texels come from emulated tmem, rather
 			// than ram. This means that when we dump out the texture here, tmem won't necessarily
 			// contain our pixels.
-			const void * native_palette = texture->GetPalette();
+			const void *native_palette {texture->GetPalette()};
 
 			PngSaveImage( filepath, texels, native_palette, texture->GetFormat(), texture->GetStride(), ti.GetWidth(), ti.GetHeight(), true );
 		}

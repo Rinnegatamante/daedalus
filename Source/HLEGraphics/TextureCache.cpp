@@ -73,6 +73,7 @@ inline u32 CTextureCache::MakeHashIdxB( const TextureInfo & ti )
 }
 
 // Purge any textures that haven't been used recently
+// breaks here
 void CTextureCache::PurgeOldTextures()
 {
 	MutexLock lock(GetDebugMutex());
@@ -81,13 +82,13 @@ void CTextureCache::PurgeOldTextures()
 	//	Erase expired textures in reverse order, which should require less
 	//	copying when large clumps of textures are released simultaneously.
 	//
-	for( s32 i = mTextures.size() - 1; i >= 0; --i )
+	for( s32 i {mTextures.size() - 1}; i >= 0; --i )
 	{
-		CachedTexture * texture = mTextures[ i ];
+		CachedTexture *texture {mTextures[ i ]};
 		if ( texture->HasExpired() )
 		{
-			u32	ixa = MakeHashIdxA( texture->GetTextureInfo() );
-			u32 ixb = MakeHashIdxB( texture->GetTextureInfo() );
+			auto ixa {MakeHashIdxA( texture->GetTextureInfo() )};
+			auto ixb {MakeHashIdxB( texture->GetTextureInfo() )};
 
 			if( mpCacheHashTable[ixa] == texture )
 			{
@@ -104,17 +105,17 @@ void CTextureCache::PurgeOldTextures()
 		}
 	}
 }
-
+// Here
 void CTextureCache::DropTextures()
 {
 	MutexLock lock(GetDebugMutex());
 
-	for( u32 i {}; i < mTextures.size(); ++i)
+	for( auto i {0}; i < mTextures.size(); ++i)
 	{
 		delete mTextures[i];
 	}
 	mTextures.clear();
-	for( u32 i {}; i < HASH_TABLE_SIZE; ++i )
+	for( auto i {0}; i < HASH_TABLE_SIZE; ++i )
 	{
 		mpCacheHashTable[i] = nullptr;
 	}
@@ -137,9 +138,6 @@ static void TextureCacheStat( u32 l1_hit, u32 l2_hit, u32 size )
 		total_lookups = total_l1_hits = total_l2_hits = 0;
 	}
 }
-#else
-
-#define RECORD_CACHE_HIT( a, b )
 
 #endif
 
@@ -177,30 +175,36 @@ CachedTexture * CTextureCache::GetOrCreateCachedTexture(const TextureInfo & ti)
 	//
 	// Retrieve the texture from the cache (if it already exists)
 	//
-	u32	ixa {MakeHashIdxA( ti )};
+	auto ixa {MakeHashIdxA( ti )};
 	if( mpCacheHashTable[ixa] && mpCacheHashTable[ixa]->GetTextureInfo() == ti )
 	{
+		#ifdef PROFILE_TEXTURE_CACHE
 		RECORD_CACHE_HIT( 1, 0 );
+		#endif
 		mpCacheHashTable[ixa]->UpdateIfNecessary();
 
 		return mpCacheHashTable[ixa];
 	}
 
-	u32 ixb {MakeHashIdxB( ti )};
+	auto ixb {MakeHashIdxB( ti )};
 	if( mpCacheHashTable[ixb] && mpCacheHashTable[ixb]->GetTextureInfo() == ti )
 	{
+		#ifdef PROFILE_TEXTURE_CACHE
 		RECORD_CACHE_HIT( 1, 0 );
+		#endif
 		mpCacheHashTable[ixb]->UpdateIfNecessary();
 
 		return mpCacheHashTable[ixb];
 	}
 
-	CachedTexture *	texture = nullptr;
-	TextureVec::iterator	it = std::lower_bound( mTextures.begin(), mTextures.end(), ti, SSortTextureEntries() );
+	CachedTexture *texture {nullptr};
+	TextureVec::iterator	it {std::lower_bound( mTextures.begin(), mTextures.end(), ti, SSortTextureEntries() )};
 	if( it != mTextures.end() && (*it)->GetTextureInfo() == ti )
 	{
 		texture = *it;
+		#ifdef PROFILE_TEXTURE_CACHE
 		RECORD_CACHE_HIT( 0, 1 );
+		#endif
 	}
 	else
 	{
@@ -209,8 +213,9 @@ CachedTexture * CTextureCache::GetOrCreateCachedTexture(const TextureInfo & ti)
 		{
 			mTextures.insert( it, texture );
 		}
-
+#ifdef PROFILE_TEXTURE_CACHE
 		RECORD_CACHE_HIT( 0, 0 );
+		#endif
 	}
 
 	// Update the hashtable
@@ -227,7 +232,7 @@ CachedTexture * CTextureCache::GetOrCreateCachedTexture(const TextureInfo & ti)
 
 CRefPtr<CNativeTexture> CTextureCache::GetOrCreateTexture(const TextureInfo & ti)
 {
-	CachedTexture * base_texture = GetOrCreateCachedTexture(ti);
+	CachedTexture * base_texture {GetOrCreateCachedTexture(ti)};
 	if (!base_texture)
 		return nullptr;
 

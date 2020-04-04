@@ -127,14 +127,14 @@ static void ConvertGeneric( const TextureDestInfo & dsti,
 							ConvertRowFunction swapped_fn,
 							ConvertRowFunction unswapped_fn )
 {
-	OutT *		dst        = reinterpret_cast< OutT * >( dsti.Data );
-	const u8 *	src  {g_pu8RamBase};
-	u32			src_offset {ti.GetLoadAddress()};
-	u32			src_pitch  {ti.GetPitch()};
+	OutT *dst    {reinterpret_cast< OutT * >( dsti.Data )};
+	const u8 *src  {g_pu8RamBase};
+	auto			src_offset {ti.GetLoadAddress()};
+	auto		src_pitch  {ti.GetPitch()};
 
 	if ( ti.IsSwapped())
 	{
-		for (u32 y {}; y < ti.GetHeight(); y++)
+		for (auto y {0}; y < ti.GetHeight(); y++)
 		{
 			if ((y&1) == 0)
 			{
@@ -151,7 +151,7 @@ static void ConvertGeneric( const TextureDestInfo & dsti,
 	}
 	else
 	{
-		for (u32 y {}; y < ti.GetHeight(); y++)
+		for (auto y {0}; y < ti.GetHeight(); y++)
 		{
 			unswapped_fn( dst, src, src_offset, ti.GetWidth() );
 
@@ -171,14 +171,14 @@ static void ConvertPalettisedTo8888( const TextureDestInfo & dsti, const Texture
 									 ConvertPalettisedRowFunction swapped_fn,
 									 ConvertPalettisedRowFunction unswapped_fn )
 {
-	NativePf8888 *	dst        = reinterpret_cast< NativePf8888 * >( dsti.Data );
-	const u8 *		src        = g_pu8RamBase;
-	u32				src_offset = ti.GetLoadAddress();
-	u32				src_pitch  = ti.GetPitch();
+	NativePf8888 *dst       {reinterpret_cast< NativePf8888 * >( dsti.Data )};
+	const u8 *src        {g_pu8RamBase};
+	auto				src_offset {ti.GetLoadAddress()};
+	auto				src_pitch  {ti.GetPitch()};
 
 	if (ti.IsSwapped())
 	{
-		for (u32 y {}; y < ti.GetHeight(); y++)
+		for (auto y {0}; y < ti.GetHeight(); y++)
 		{
 			if ((y&1) == 0)
 			{
@@ -195,7 +195,7 @@ static void ConvertPalettisedTo8888( const TextureDestInfo & dsti, const Texture
 	}
 	else
 	{
-		for (u32 y {}; y < ti.GetHeight(); y++)
+		for (auto y {0}; y < ti.GetHeight(); y++)
 		{
 			unswapped_fn( dst, src, src_offset, ti.GetWidth(), palette );
 
@@ -210,14 +210,14 @@ static void ConvertPalettisedToCI( const TextureDestInfo & dsti, const TextureIn
 								   void (*swapped_fn)( OutT * dst, const u8 * src, u32 src_offset, u32 width ),
 								   void (*unswapped_fn)( OutT * dst, const u8 * src, u32 src_offset, u32 width ) )
 {
-	OutT *		dst        = reinterpret_cast< OutT * >( dsti.Data );
-	const u8 *	src        = g_pu8RamBase;
-	u32			src_offset = ti.GetLoadAddress();
-	u32			src_pitch  = ti.GetPitch();
+	OutT *dst        = reinterpret_cast< OutT * >( dsti.Data );
+	const u8 *src   {g_pu8RamBase};
+	auto src_offset {ti.GetLoadAddress()};
+	auto src_pitch  {ti.GetPitch()};
 
 	if (ti.IsSwapped())
 	{
-		for (u32 y {}; y < ti.GetHeight(); y++)
+		for (auto y {0}; y < ti.GetHeight(); y++)
 		{
 			if ((y&1) == 0)
 			{
@@ -234,7 +234,7 @@ static void ConvertPalettisedToCI( const TextureDestInfo & dsti, const TextureIn
 	}
 	else
 	{
-		for (u32 y {}; y < ti.GetHeight(); y++)
+		for (auto y {0}; y < ti.GetHeight(); y++)
 		{
 			unswapped_fn( dst, src, src_offset, ti.GetWidth() );
 
@@ -271,7 +271,7 @@ struct SConvert
 		//
 		width = AlignPow2( width, 1<<OutFiddle );
 
-		for (u32 x {}; x < width; x++)
+		for (auto x {0}; x < width; x++)
 		{
 			InT	colour( *reinterpret_cast< const InT * >( &src[src_offset ^ InFiddle] ) );
 
@@ -315,9 +315,9 @@ struct SConvertIA4
 	static inline void ConvertRow( OutT * dst, const u8 * src, u32 src_offset, u32 width )
 	{
 		// Do two pixels at a time
-		for (u32 x {}; x < width; x+=2)
+		for (auto x {0}; x < width; x+=2)
 		{
-			u8 b = src[src_offset ^ F];
+			auto b {src[src_offset ^ F]};
 
 			// Even
 			dst[x + 0] = OutT( ThreeToEight[(b & 0xE0) >> 5],
@@ -334,7 +334,7 @@ struct SConvertIA4
 
 		if(width & 1)
 		{
-			u8 b {src[src_offset ^ F]};
+			auto b {src[src_offset ^ F]};
 
 			// Even
 			dst[width-1] = OutT( ThreeToEight[(b & 0xE0) >> 5],
@@ -376,9 +376,9 @@ struct SConvertI4
 	static inline void ConvertRow( OutT * dst, const u8 * src, u32 src_offset, u32 width )
 	{
 		// Do two pixels at a time
-		for ( u32 x {}; x+1 < width; x+=2 )
+		for ( auto x {0}; x+1 < width; x+=2 )
 		{
-			u8 b {src[src_offset ^ F]};
+			auto b {src[src_offset ^ F]};
 
 			// Even
 			dst[x + 0] = OutT( FourToEight[(b & 0xF0)>>4],
@@ -396,7 +396,7 @@ struct SConvertI4
 
 		if(width & 1)
 		{
-			u8 b {src[src_offset ^ F]};
+			auto b {src[src_offset ^ F]};
 
 			// Even
 			dst[width-1] = OutT( FourToEight[(b & 0xF0)>>4],
@@ -436,7 +436,7 @@ static void ConvertPalette(ETLutFmt tlut_format, NativePf8888 * dst, const void 
 	{
 		const N64PfIA16 * palette = static_cast< const N64PfIA16 * >( src );
 
-		for( u32 i {}; i < count; ++i )
+		for( auto i {0}; i < count; ++i )
 		{
 			dst[ i ] = NativePf8888::Make( palette[ i ^ U16H_TWIDDLE ] );
 		}
@@ -446,19 +446,19 @@ static void ConvertPalette(ETLutFmt tlut_format, NativePf8888 * dst, const void 
 		// NB: assume RGBA for all other tlut_formats.
 		const N64Pf5551 * palette = static_cast< const N64Pf5551 * >( src );
 
-		for( u32 i {}; i < count; ++i )
+		for( auto i {0}; i < count; ++i )
 		{
 			dst[ i ] = NativePf8888::Make( palette[ i ^ U16H_TWIDDLE ] );
 		}
 	}
 }
 
-template< u32 F >
+template< auto F >
 static void ConvertCI4_Row( NativePfCI44 * dst, const u8 * src, u32 src_offset, u32 width )
 {
-	for (u32 x {}; x+1 < width; x+=2)
+	for (auto x {0}; x+1 < width; x+=2)
 	{
-		u8 b = src[src_offset ^ F];
+		auto b {src[src_offset ^ F]};
 
 		dst[ x/2 ].Bits = (b >> 4) | (b << 4);
 
@@ -468,25 +468,25 @@ static void ConvertCI4_Row( NativePfCI44 * dst, const u8 * src, u32 src_offset, 
 	// Handle any remaining odd pixels
 	if( width & 1 )
 	{
-		u8 b {src[src_offset ^ F]};
+		auto b {src[src_offset ^ F]};
 
 		dst[ width/2 ].Bits = (b >> 4) | 0;
 	}
 }
 
-template< u32 F >
+template< auto F >
 static void ConvertCI4_Row_To_8888( NativePf8888 * dst, const u8 * src, u32 src_offset, u32 width, const NativePf8888 * palette )
 {
 	#ifdef DAEDALUS_ENABLE_ASSERTS
 	DAEDALUS_ASSERT(palette, "No palette");
 	#endif
 
-	for (u32 x {}; x+1 < width; x+=2)
+	for (auto x {0}; x+1 < width; x+=2)
 	{
-		u8 b {src[src_offset ^ F]};
+		auto b {src[src_offset ^ F]};
 
-		u32 bhi {(u32)(b&0xf0)>>4};
-		u32 blo {(u32)(b&0x0f)};
+		auto bhi {(u32)(b&0xf0)>>4};
+		auto blo {(u32)(b&0x0f)};
 
 		dst[ x + 0 ] = palette[ bhi ];	// Remember palette has already been swapped
 		dst[ x + 1 ] = palette[ blo ];
@@ -497,34 +497,34 @@ static void ConvertCI4_Row_To_8888( NativePf8888 * dst, const u8 * src, u32 src_
 	// Handle any remaining odd pixels
 	if(width & 1)
 	{
-		u8 b {src[src_offset ^ F]};
+		auto b {src[src_offset ^ F]};
 
-		u8 bhi {(u8)((b&0xf0)>>4)};
+		auto bhi {(u8)((b&0xf0)>>4)};
 
 		dst[width-1] = palette[ bhi ];	// Remember palette has already been swapped
 	}
 }
 
-template< u32 F >
+template< auto F >
 static void ConvertCI8_Row( NativePfCI8 * dst, const u8 * src, u32 src_offset, u32 width )
 {
-	for (u32 x {}; x < width; x++)
+	for (auto x {0}; x < width; x++)
 	{
 		dst[ x ].Bits = src[src_offset ^ F];
 		src_offset++;
 	}
 }
 
-template< u32 F >
+template< auto F >
 static  void ConvertCI8_Row_To_8888( NativePf8888 * dst, const u8 * src, u32 src_offset, u32 width, const NativePf8888 * palette )
 {
 	#ifdef DAEDALUS_ENABLE_ASSERTS
 	DAEDALUS_ASSERT(palette, "No palette");
 	#endif
 
-	for (u32 x {}; x < width; x++)
+	for (auto x {0}; x < width; x++)
 	{
-		u8 b     {src[src_offset ^ F]};
+		auto b     {src[src_offset ^ F]};
 		dst[ x ] = palette[ b ];	// Remember palette has already been swapped
 		src_offset++;
 	}
@@ -611,8 +611,8 @@ static void ConvertCI4(const TextureDestInfo & dsti, const TextureInfo & ti)
 #endif
 	NativePf8888 temp_palette[16];
 
-	NativePf8888 *	dst_palette = dsti.Palette ? reinterpret_cast< NativePf8888 * >( dsti.Palette ) : temp_palette;
-	const void * 	src_palette = reinterpret_cast< const void * >( ti.GetTlutAddress() );
+	NativePf8888 *dst_palette {dsti.Palette ? reinterpret_cast< NativePf8888 * >( dsti.Palette ) : temp_palette};
+	const void *src_palette {reinterpret_cast< const void * >( ti.GetTlutAddress())};
 
 	ConvertPalette(ti.GetTLutFormat(), dst_palette, src_palette, 16);
 
@@ -678,7 +678,7 @@ bool ConvertTexture(const TextureInfo & ti,
 	dsti.Pitch   = pitch;
 	dsti.Palette = palette;
 
-	const ConvertFunction fn = gConvertFunctions[ (ti.GetFormat() << 2) | ti.GetSize() ];
+	const ConvertFunction fn {gConvertFunctions[ (ti.GetFormat() << 2) | ti.GetSize() ]};
 	if( fn )
 	{
 		fn( dsti, ti );

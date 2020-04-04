@@ -474,7 +474,7 @@ const MicroCodeInstruction gNormalInstruction[MAX_UCODE_TABLE][256] =
 //
 //*************************************************************************************
 #if defined(DAEDALUS_DEBUG_DISPLAYLIST) || defined(DAEDALUS_ENABLE_PROFILING)
-const char * gNormalInstructionName[MAX_UCODE_TABLE][256] =
+const char *gNormalInstructionName[MAX_UCODE_TABLE][256] =
 {
 	// uCode 0 - RSP SW 2.0X
 	// Games: Super Mario 64, Tetrisphere, Demos

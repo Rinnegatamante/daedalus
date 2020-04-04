@@ -14,7 +14,7 @@
 #include "Utility/Macros.h"
 
 
-DLDebugOutput * gDLDebugOutput = nullptr;
+DLDebugOutput *gDLDebugOutput {nullptr};
 
 void DLDebug_SetOutput(DLDebugOutput * output)
 {
