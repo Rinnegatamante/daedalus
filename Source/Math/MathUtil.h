@@ -115,7 +115,7 @@ inline bool IsAligned( u32 x, u32 r )
 
 inline u32 GetNextPowerOf2( u32 x )
 {
-	u32 n = 1;
+	auto n {1};
 	while ( n < x )
 	{
 		n = n<<1;

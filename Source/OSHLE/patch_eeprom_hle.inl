@@ -9,8 +9,8 @@ TEST_DISABLE_EEPROM_FUNCS
 	// Return status of Eeeprom in OSContStatus struct passed in a1.
 	// a0 is the message queue to block on, and is ignored
 
-	u32 ContStatus = gGPR[REG_a1]._u32_0;
-	u32 type, data;
+	auto ContStatus {gGPR[REG_a1]._u32_0};
+	auto type {0}, data {0};
 #ifdef DAEDALUS_DEBUG_CONSOLE
 	DBGConsole_Msg(0, "osEepStatus(), ra = 0x%08x", (u32)gGPR[REG_ra]._s64);
 #endif
@@ -81,7 +81,7 @@ TEST_DISABLE_EEPROM_FUNCS
 	#ifdef DAEDALUS_DEBUG_CONSOLE
 	DBGConsole_Msg(0, "osEepromProbe(), ra = 0x%08x", gGPR[REG_ra]._u32_0);
 #endif
-	u32 data = 0;
+	auto data {0};
 	switch( g_ROM.settings.SaveType )
 	{
 	case SAVE_TYPE_EEP4K:

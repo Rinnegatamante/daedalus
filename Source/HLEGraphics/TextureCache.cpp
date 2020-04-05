@@ -81,7 +81,7 @@ void CTextureCache::PurgeOldTextures()
 	//
 	//	Erase expired textures in reverse order, which should require less
 	//	copying when large clumps of textures are released simultaneously.
-	//
+	// Setting this to auto breaks textures.. 
 	for( s32 i {mTextures.size() - 1}; i >= 0; --i )
 	{
 		CachedTexture *texture {mTextures[ i ]};

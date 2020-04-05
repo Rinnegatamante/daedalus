@@ -318,5 +318,3 @@ u32 Patch___ldiv()
 {
 	return PATCH_RET_NOT_PROCESSED;
 }
-
-

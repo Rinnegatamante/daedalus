@@ -52,7 +52,7 @@ void OS_HLE_osCreateMesgQueue(u32 queue, u32 msgBuffer, u32 msgCount)
 {
 	COSMesgQueue q(queue);
 
-	const u32 addr = VAR_ADDRESS(osNullMsgQueue);
+	const auto addr {VAR_ADDRESS(osNullMsgQueue)};
 
 	q.SetEmptyQueue(addr);
 	q.SetFullQueue(addr);
@@ -64,7 +64,7 @@ void OS_HLE_osCreateMesgQueue(u32 queue, u32 msgBuffer, u32 msgCount)
 	//DBGConsole_Msg(0, "osCreateMsgQueue(0x%08x, 0x%08x, %d)",
 	//	queue, msgBuffer, msgCount);
 #ifdef DUMPOSFUNCTIONS
-	for ( u32 i = 0; i < g_MessageQueues.size(); i++)
+	for ( auto i {0}; i < g_MessageQueues.size(); i++)
 	{
 		if (g_MessageQueues[i] == queue)
 			return;		// Already in list
@@ -83,16 +83,15 @@ u32 OS_HLE___osProbeTLB(u32 vaddr)
 {
 	u32 PAddr = ~0;	// Return -1 on failure
 
-	u32 pid = gCPUState.CPUControl[C0_ENTRYHI]._u32 & TLBHI_PIDMASK;
-	u32 vpn2 = vaddr & TLBHI_VPN2MASK;
-	u32 pageMask;
-	u32 entryLo;
+	auto pid {gCPUState.CPUControl[C0_ENTRYHI]._u32 & TLBHI_PIDMASK};
+	auto vpn2 {vaddr & TLBHI_VPN2MASK};
+	auto pageMask {0}, entryLo {0};
 
 	// Code from TLBP and TLBR
 
-    for(u32 i = 0; i < 32; i++)
+    for(auto i {0}; i < 32; i++)
 	{
-		const TLBEntry & tlb = g_TLBs[i];
+		const TLBEntry &tlb {g_TLBs[i]};
 
 		if( ((tlb.hi & TLBHI_VPN2MASK) == vpn2) && ( (tlb.g) || ((tlb.hi & TLBHI_PIDMASK) == pid) ) )
 		{

@@ -44,10 +44,10 @@
 //Note that we pass s32 even if it is a f32! The check for <= 0.0f is valid also with signed integers(bit31 in f32 is sign bit)
 //(((Bx - Ax)*(Cy - Ay) - (Cx - Ax)*(By - Ay)) * Aw * Bw * C.w)
 inline s32 vfpu_TriNormSign(u8 *Base, u32 v0, u32 v1, u32 v2) {
-    u8* A= Base + (v0<<6);	//Base + v0 * sizeof( DaedalusVtx4 )
-    u8* B= Base + (v1<<6);	//Base + v1 * sizeof( DaedalusVtx4 )
-    u8* C= Base + (v2<<6);	//Base + v2 * sizeof( DaedalusVtx4 )
-	s32 result;
+    auto *A {Base + (v0<<6)};	//Base + v0 * sizeof( DaedalusVtx4 )
+    auto *B {Base + (v1<<6)};	//Base + v1 * sizeof( DaedalusVtx4 )
+    auto *C {Base + (v2<<6)};	//Base + v2 * sizeof( DaedalusVtx4 )
+	auto result {0.0f};
 
     __asm__ volatile (
 		"lv.q	R000, 16+%1\n"				//load projected V0 (A)
@@ -93,7 +93,7 @@ inline void vfpu_sincos(float r, float *s, float *c) {
 }
 
 inline float vfpu_randf(float min, float max) {
-    float result;
+    auto result {0.0f};
     __asm__ volatile (
 		"mtv      %1, S000\n"
         "mtv      %2, S001\n"
@@ -111,7 +111,7 @@ inline float vfpu_randf(float min, float max) {
 //VFPU 4D Dot product //Corn
 inline float vfpu_dot_4Dvec(const float x, const float y, const float z, const float w, const float a, const float b, const float c, const float d)
 {
-	float result;
+	auto result {0.0f};
 	__asm__ volatile (
        "mtv   %1, S000\n"
        "mtv   %2, S001\n"
@@ -131,7 +131,7 @@ inline float vfpu_dot_4Dvec(const float x, const float y, const float z, const f
 
 inline float vfpu_dot_3Dvec(const float x, const float y, const float z, const float a, const float b, const float c)
 {
-	float result;
+	auto result {0.0f};
 	__asm__ volatile (
        "mtv   %1, S000\n"
        "mtv   %2, S001\n"
@@ -168,7 +168,7 @@ inline float vfpu_invSqrt(float x)
 {
 //	return 1.0f/sqrtf(x);
 
-	float result;
+	auto result {0.0f};
 	__asm__ volatile (
 		"mtv		%0, S000\n"
 		"vrsq.s		S000, S000\n"
@@ -341,7 +341,7 @@ inline float pspFpuSqrt(float fs)
 #if 1	//0=fast, 1=original //Corn
 inline float pspFpuAbs(float fs)
 {
-float fd;
+auto fd {0.0f};
 	asm (
 		"abs.s %0, %1\n"
 		: "=f"(fd)
@@ -407,7 +407,7 @@ inline float pspFpuMin(float fs1, float fs2)
 */
 inline int pspFpuIsNaN(float f)
 {
-	int v;
+	auto v {0};
 	asm (
 		".set push\n"
 		".set noreorder\n"

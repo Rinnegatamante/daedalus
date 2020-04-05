@@ -16,7 +16,7 @@ TEST_DISABLE_AI_FUNCS
 //*****************************************************************************
 inline bool IsAiDeviceBusy()
 {
-	u32 status = Memory_AI_GetRegister( AI_STATUS_REG );
+	auto status {Memory_AI_GetRegister( AI_STATUS_REG )};
 
 	if (status & (AI_STATUS_DMA_BUSY | AI_STATUS_FIFO_FULL))
 		return true;
@@ -30,8 +30,8 @@ inline bool IsAiDeviceBusy()
 u32 Patch_osAiSetNextBuffer()
 {
 TEST_DISABLE_AI_FUNCS
-	u32 addr = gGPR[REG_a0]._u32_0;
-	u32 len  = gGPR[REG_a1]._u32_0;
+	auto addr {gGPR[REG_a0]._u32_0};
+	auto len  {gGPR[REG_a1]._u32_0};
 
 	// If Ai interface is busy, stop the dma operation, can this happen??
 	#ifdef DAEDALUS_ENABLE_ASSERTS
