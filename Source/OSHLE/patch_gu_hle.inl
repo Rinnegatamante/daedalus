@@ -318,7 +318,7 @@ TEST_DISABLE_GU_FUNCS
 u32 Patch_guScale()
 {
 TEST_DISABLE_GU_FUNCS
-	const f32 fScale = 65536.0f;
+	const f32 fScale {65536.0f};
 
 	const auto address = gGPR[REG_a0]._u32_0;
 	auto *pMtxBase {(u8 *)ReadAddress(address)};
@@ -378,24 +378,20 @@ TEST_DISABLE_GU_FUNCS
 	auto *pMtxLBaseLoBits {(u8 *)(pMtxBase + 0x20)};
 
 	REG32 a, b;
-	u32 tmp_a, tmp_b;
-	u32 hibits;
-	u32 lobits;
-	u32 row;
 
-	for (row = 0; row < 4; row++)
+	for (auto row {0}; row < 4; row++)
 	{
 		a._u32 = QuickRead32Bits(pMtxFBase, (row << 4) + 0x0);
 		b._u32 = QuickRead32Bits(pMtxFBase, (row << 4) + 0x4);
 
 		// Should be TRUNC
-		tmp_a = (u32)(a._f32 * fScale);
-		tmp_b = (u32)(b._f32 * fScale);
+	auto	tmp_a {(u32)(a._f32 * fScale)};
+	auto	tmp_b {(u32)(b._f32 * fScale)};
 
-		hibits = (tmp_a & 0xFFFF0000) | (tmp_b >> 16);
+		auto hibits {(tmp_a & 0xFFFF0000) | (tmp_b >> 16)};
 		QuickWrite32Bits(pMtxLBaseHiBits, (row << 3) , hibits);
 
-		lobits = (tmp_a << 16) | (tmp_b & 0x0000FFFF);
+auto lobits {(tmp_a << 16) | (tmp_b & 0x0000FFFF)};
 		QuickWrite32Bits(pMtxLBaseLoBits, (row << 3) , lobits);
 
 		/////
@@ -570,19 +566,17 @@ TEST_DISABLE_GU_FUNCS
 	auto *pMtxLBaseHiBits {(u8 *)(pMtxBase + 0x00)};
 	auto *pMtxLBaseLoBits {(u8 *)(pMtxBase + 0x20)};
 
-	u32 tmp_a, tmp_b;
-	u32 hibits,lobits;
-	u32 row, indx=0;
+auto indx {0};
 
-	for (row = 0; row < 4; row++)
+	for (auto row {0}; row < 4; row++)
 	{
-		tmp_a = s_TempMatrix[indx++];
-		tmp_b = s_TempMatrix[indx++];
+		auto	tmp_a {s_TempMatrix[indx++]};
+		auto	tmp_b {s_TempMatrix[indx++]};
 
-		hibits = (tmp_a & 0xFFFF0000) | (tmp_b >> 16);
+auto hibits {(tmp_a & 0xFFFF0000) | (tmp_b >> 16)};
 		QuickWrite32Bits(pMtxLBaseHiBits, (row << 3) , hibits);
 
-		lobits = (tmp_a << 16) | (tmp_b & 0x0000FFFF);
+	auto	lobits {(tmp_a << 16) | (tmp_b & 0x0000FFFF)};
 		QuickWrite32Bits(pMtxLBaseLoBits, (row << 3) , lobits);
 
 		/////
@@ -608,8 +602,8 @@ u32 Patch_guRotateF()
 {
 TEST_DISABLE_GU_FUNCS
 
-	f32 s,c;
-	REG32 a, r, x, y, z;
+	f32 s {0.0f},c {0.0f};
+	REG32 a {}, r, x, y, z;
 
 	auto  *pMtxBase {(u8 *)ReadAddress(gGPR[REG_a0]._u32_0)};		//Matrix base address
 	auto *pStackBase {g_pu8RamBase_8000 + gGPR[REG_sp]._u32_0};	//Base stack address, this is safe since stack is always in physical memory
