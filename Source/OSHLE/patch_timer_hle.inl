@@ -148,7 +148,7 @@ TEST_DISABLE_TIMER_FUNCS
 
 	//DBGConsole_Msg(0, "osSetTime(0x%08x%08x)", TimeHi, TimeLo);
 
-	u8 * pTimeBase	 = (u8 *)ReadAddress(VAR_ADDRESS(osSystemTimeHi));
+	auto *pTimeBase	 {(u8 *)ReadAddress(VAR_ADDRESS(osSystemTimeHi))};
 
 	QuickWrite32Bits(pTimeBase, 0x0, gGPR[REG_a1]._u32_0);	// TimeHi
 	QuickWrite32Bits(pTimeBase, 0x4, gGPR[REG_a0]._u32_0);	// TimeLo
@@ -164,11 +164,12 @@ u32 Patch_osGetTime()
 TEST_DISABLE_TIMER_FUNCS
 	u8 * pTimeBase = (u8 *)ReadAddress(VAR_ADDRESS(osSystemTimeHi));
 
-	u32 LastCount  = Read32Bits(VAR_ADDRESS(osSystemCount));
-	u32 TimeLo	   = QuickRead32Bits(pTimeBase, 0x4);
-	u32 TimeHi	   = QuickRead32Bits(pTimeBase, 0x0);
+	auto LastCount  {Read32Bits(VAR_ADDRESS(osSystemCount))};
+	auto TimeLo	   {QuickRead32Bits(pTimeBase, 0x4)};
+	auto TimeHi	   {QuickRead32Bits(pTimeBase, 0x0)};
 
-	u32 count	   = gCPUState.CPUControl[C0_COUNT]._u32;
+	auto count	  {gCPUState.CPUControl[C0_COUNT]._u32};
+
 
 	TimeLo += count - LastCount;		// Increase by elapsed time
 

@@ -6,7 +6,7 @@
 u32 Patch___osDisableInt_Mario()
 {
 TEST_DISABLE_REG_FUNCS
-	u32 CurrSR = gCPUState.CPUControl[C0_SR]._u32;
+	auto CurrSR {gCPUState.CPUControl[C0_SR]._u32};
 
 	gCPUState.CPUControl[C0_SR]._u32 = CurrSR & ~SR_IE;
 	gGPR[REG_v0]._s64 = (s64)(CurrSR & SR_IE);
@@ -21,7 +21,7 @@ u32 Patch___osDisableInt_Zelda()
 {
 TEST_DISABLE_REG_FUNCS
 	// Same as the above
-	u32 CurrSR = gCPUState.CPUControl[C0_SR]._u32;
+	auto CurrSR {gCPUState.CPUControl[C0_SR]._u32};
 
 	gCPUState.CPUControl[C0_SR]._u32 = CurrSR & ~SR_IE;
 	gGPR[REG_v0]._s64 = (s64)(CurrSR & SR_IE);

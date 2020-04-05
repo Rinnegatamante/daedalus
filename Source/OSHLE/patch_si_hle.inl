@@ -39,7 +39,7 @@ TEST_DISABLE_SI_FUNCS
 u32 Patch___osSiGetAccess()
 {
 TEST_DISABLE_SI_FUNCS
-	u32 created = Read32Bits(VAR_ADDRESS(osSiAccessQueueCreated));
+	auto created {Read32Bits(VAR_ADDRESS(osSiAccessQueueCreated))};
 
 	if (created == 0)
 	{
@@ -71,7 +71,7 @@ TEST_DISABLE_SI_FUNCS
 //*****************************************************************************
 inline bool IsSiDeviceBusy()
 {
-	u32 status = Memory_SI_GetRegister( SI_STATUS_REG );
+	auto status {Memory_SI_GetRegister( SI_STATUS_REG )};
 
 	if (status & (SI_STATUS_DMA_BUSY | SI_STATUS_RD_BUSY))
 		return true;
@@ -94,8 +94,8 @@ u32 Patch___osSiDeviceBusy()
 //*****************************************************************************
 u32 Patch___osSiRawReadIo_Mario()
 {
-	u32 port = gGPR[REG_a0]._u32_0;
-	u32 valAddr = gGPR[REG_a1]._u32_0;
+	auto port {gGPR[REG_a0]._u32_0};
+	auto valAddr {gGPR[REG_a1]._u32_0};
 
 	if (IsSiDeviceBusy() != 0)
 		gGPR[REG_v0]._s64 = -1;
@@ -113,8 +113,8 @@ u32 Patch___osSiRawReadIo_Mario()
 //*****************************************************************************
 u32 Patch___osSiRawReadIo_Zelda()
 {
-	u32 port = gGPR[REG_a0]._u32_0;
-	u32 valAddr = gGPR[REG_a1]._u32_0;
+	auto port {gGPR[REG_a0]._u32_0};
+	auto valAddr {gGPR[REG_a1]._u32_0};
 
 	if (IsSiDeviceBusy() != 0)
 		gGPR[REG_v0]._s64 = -1;
@@ -132,8 +132,8 @@ u32 Patch___osSiRawReadIo_Zelda()
 //*****************************************************************************
 u32 Patch___osSiRawWriteIo_Mario()
 {
-	u32 port = gGPR[REG_a0]._u32_0;
-	u32 val = gGPR[REG_a1]._u32_0;
+	auto port {gGPR[REG_a0]._u32_0};
+	auto val {gGPR[REG_a1]._u32_0};
 
 	if (IsSiDeviceBusy() != 0)
 		gGPR[REG_v0]._s64 = -1;
@@ -151,8 +151,8 @@ u32 Patch___osSiRawWriteIo_Mario()
 //*****************************************************************************
 u32 Patch___osSiRawWriteIo_Zelda()
 {
-	u32 port = gGPR[REG_a0]._u32_0;
-	u32 val = gGPR[REG_a1]._u32_0;
+	auto port {gGPR[REG_a0]._u32_0};
+	auto val {gGPR[REG_a1]._u32_0};
 
 	if (IsSiDeviceBusy() != 0)
 		gGPR[REG_v0]._s64 = -1;
@@ -170,8 +170,8 @@ u32 Patch___osSiRawWriteIo_Zelda()
 //*****************************************************************************
 u32 Patch___osSiRawStartDma_Mario()
 {
-	u32 RWflag = gGPR[REG_a0]._u32_0;
-	u32 SIAddr = gGPR[REG_a1]._u32_0;
+	auto RWflag {gGPR[REG_a0]._u32_0};
+	auto SIAddr {gGPR[REG_a1]._u32_0};
 	#ifdef DAEDALUS_ENABLE_ASSERTS
 	DAEDALUS_ASSERT( !IsSiDeviceBusy(), "Si Device is BUSY, Need to handle!");
 	#endif
@@ -183,7 +183,7 @@ u32 Patch___osSiRawStartDma_Mario()
 	}
 	*/
 
-	u32 PAddr = ConvertToPhysics(SIAddr);
+	auto PAddr {ConvertToPhysics(SIAddr)};
 
 	Memory_SI_SetRegister( SI_DRAM_ADDR_REG, PAddr);
 	if(RWflag == OS_READ)
@@ -207,8 +207,8 @@ u32 Patch___osSiRawStartDma_Mario()
 //*****************************************************************************
 u32 Patch___osSiRawStartDma_Rugrats()
 {
-	u32 RWflag = gGPR[REG_a0]._u32_0;
-	u32 SIAddr = gGPR[REG_a1]._u32_0;
+	auto RWflag {gGPR[REG_a0]._u32_0};
+	auto SIAddr {gGPR[REG_a1]._u32_0};
 	#ifdef DAEDALUS_ENABLE_ASSERTS
 	DAEDALUS_ASSERT( !IsSiDeviceBusy(), "Si Device is BUSY, Need to handle!");
 	#endif
@@ -220,7 +220,7 @@ u32 Patch___osSiRawStartDma_Rugrats()
 	}
 	*/
 
-	u32 PAddr = ConvertToPhysics(SIAddr);
+	auto PAddr {ConvertToPhysics(SIAddr)};
 
 	Memory_SI_SetRegister( SI_DRAM_ADDR_REG, PAddr);
 	if(RWflag == OS_READ)

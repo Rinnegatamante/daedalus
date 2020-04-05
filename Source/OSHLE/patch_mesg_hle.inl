@@ -6,9 +6,9 @@
 u32 Patch_osSetEventMesg_Mario()
 {
 TEST_DISABLE_MESG_FUNCS
-	u32 vent = gGPR[REG_a0]._u32_0;
-	u32 queue = gGPR[REG_a1]._u32_0;
-	u32 msg   = gGPR[REG_a2]._u32_0;
+	auto vent {gGPR[REG_a0]._u32_0};
+	auto queue {gGPR[REG_a1]._u32_0};
+	auto msg   {gGPR[REG_a2]._u32_0};
 	/*if (vent < 23)
 	{
 		DBGConsole_Msg(0, "osSetEventMesg(%s, 0x%08x, 0x%08x)",
@@ -19,8 +19,8 @@ TEST_DISABLE_MESG_FUNCS
 		DBGConsole_Msg(0, "osSetEventMesg(%d, 0x%08x, 0x%08x)",
 			vent, queue, msg);
 	}*/
-	const u32 p = VAR_ADDRESS(osEventMesgArray) + (vent * 8);
-	u8 * pEventBase	  = (u8 *)ReadAddress(p);
+	const auto p {VAR_ADDRESS(osEventMesgArray) + (vent * 8)};
+	auto *pEventBase	{(u8 *)ReadAddress(p)};
 
 	QuickWrite32Bits(pEventBase, 0x0, queue);
 	QuickWrite32Bits(pEventBase, 0x4, msg);
@@ -35,9 +35,9 @@ u32 Patch_osSetEventMesg_Zelda()
 {
 TEST_DISABLE_MESG_FUNCS
 
-	u32 vent = gGPR[REG_a0]._u32_0;
-	u32 queue = gGPR[REG_a1]._u32_0;
-	u32 msg   = gGPR[REG_a2]._u32_0;
+	auto vent {gGPR[REG_a0]._u32_0};
+	auto queue {gGPR[REG_a1]._u32_0};
+	auto msg   {gGPR[REG_a2]._u32_0};
 	/*if (vent < 23)
 	{
 		DBGConsole_Msg(0, "osSetEventMesg(%s, 0x%08x, 0x%08x)",
@@ -48,8 +48,8 @@ TEST_DISABLE_MESG_FUNCS
 		DBGConsole_Msg(0, "osSetEventMesg(%d, 0x%08x, 0x%08x)",
 			vent, queue, msg);
 	}*/
-	const u32 p = VAR_ADDRESS(osEventMesgArray) + (vent * 8);
-	u8 * pEventBase	  = (u8 *)ReadAddress(p);
+	const auto p {VAR_ADDRESS(osEventMesgArray) + (vent * 8)};
+	auto *pEventBase	 {(u8 *)ReadAddress(p)};
 
 	QuickWrite32Bits(pEventBase, 0x0, queue);
 	QuickWrite32Bits(pEventBase, 0x4, msg);
@@ -65,9 +65,9 @@ u32 Patch_osCreateMesgQueue_Mario()
 TEST_DISABLE_MESG_FUNCS
 
 #ifdef DAED_OS_MESSAGE_QUEUES
-	u32 queue    = gGPR[REG_a0]._u32_0;
-	u32 MsgBuf   = gGPR[REG_a1]._u32_0;
-	u32 MsgCount = gGPR[REG_a2]._u32_0;
+	auto queue    {gGPR[REG_a0]._u32_0};
+	auto MsgBuf   {gGPR[REG_a1]._u32_0};
+	auto MsgCount {gGPR[REG_a2]._u32_0};
 
 	OS_HLE_osCreateMesgQueue(queue, MsgBuf, MsgCount);
 
@@ -86,9 +86,9 @@ u32 Patch_osCreateMesgQueue_Rugrats()
 TEST_DISABLE_MESG_FUNCS
 
 #ifdef DAED_OS_MESSAGE_QUEUES
-	u32 queue    = gGPR[REG_a0]._u32_0;
-	u32 MsgBuf   = gGPR[REG_a1]._u32_0;
-	u32 MsgCount = gGPR[REG_a2]._u32_0;
+	auto queue    {gGPR[REG_a0]._u32_0};
+	auto MsgBuf   {gGPR[REG_a1]._u32_0};
+	auto MsgCount {gGPR[REG_a2]._u32_0};
 
 	OS_HLE_osCreateMesgQueue(queue, MsgBuf, MsgCount);
 
@@ -105,14 +105,14 @@ u32 Patch_osRecvMesg()
 {
 TEST_DISABLE_MESG_FUNCS
 
-	u32 queue     = gGPR[REG_a0]._u32_0;
-	u32 msg       = gGPR[REG_a1]._u32_0;
-	u32 BlockFlag = gGPR[REG_a2]._u32_0;
+	auto queue     {gGPR[REG_a0]._u32_0};
+	auto msg       {gGPR[REG_a1]._u32_0};
+	auto BlockFlag {gGPR[REG_a2]._u32_0};
 
-	u8 * pBase	  = (u8 *)ReadAddress(queue);
+	auto *pBase	  {(u8 *)ReadAddress(queue)};
 
-	u32 ValidCount= QuickRead32Bits(pBase, 0x8);
-	u32 MsgCount  = QuickRead32Bits(pBase, 0x10);
+	auto ValidCount {QuickRead32Bits(pBase, 0x8)};
+	auto MsgCount  {QuickRead32Bits(pBase, 0x10)};
 
 	/*if (queue == 0x80007d40)
 	{
@@ -141,14 +141,14 @@ TEST_DISABLE_MESG_FUNCS
 
 	//DBGConsole_Msg(0, "  Processing Pending");
 
-	u32 first = QuickRead32Bits(pBase, 0x0c);
+	auto first {QuickRead32Bits(pBase, 0x0c)};
 
 	//Store message in pointer
 	if (msg != 0)
 	{
 		//DBGConsole_Msg(0, "  Retrieving message");
 
-		u32 MsgBase = QuickRead32Bits(pBase, 0x14);
+		auto MsgBase {QuickRead32Bits(pBase, 0x14)};
 
 		// Offset to first valid message
 		MsgBase += first * 4;
@@ -186,8 +186,8 @@ TEST_DISABLE_MESG_FUNCS
 	QuickWrite32Bits(pBase, 0x8, ValidCount);
 
 	// Start thread pending on the fullqueue
-	u32 FullQueueThread = QuickRead32Bits(pBase, 0x04);
-	u32 NextThread = Read32Bits(FullQueueThread + 0x00);
+	auto FullQueueThread {QuickRead32Bits(pBase, 0x04)};
+	auto NextThread {Read32Bits(FullQueueThread + 0x00)};
 
 
 	// If the first thread is not the idle thread, start it
@@ -225,14 +225,14 @@ TEST_DISABLE_MESG_FUNCS
 		return PATCH_RET_NOT_PROCESSED0(osSendMesg);
 	}*/
 
-	u32 queue     = gGPR[REG_a0]._u32_0;
-	u32 msg       = gGPR[REG_a1]._u32_0;
-	u32 BlockFlag = gGPR[REG_a2]._u32_0;
+	auto queue     {gGPR[REG_a0]._u32_0};
+	auto msg       {gGPR[REG_a1]._u32_0};
+	auto BlockFlag {gGPR[REG_a2]._u32_0};
 
-	u8 * pBase	  = (u8 *)ReadAddress(queue);
+	auto *pBase	  {(u8 *)ReadAddress(queue)};
 
-	u32 ValidCount= QuickRead32Bits(pBase, 0x8);
-	u32 MsgCount  = QuickRead32Bits(pBase, 0x10);
+	auto ValidCount {QuickRead32Bits(pBase, 0x8)};
+	auto MsgCount  {QuickRead32Bits(pBase, 0x10)};
 
 	/*if (queue == 0x80007d40)
 	{
@@ -259,7 +259,7 @@ TEST_DISABLE_MESG_FUNCS
 		}
 	}
 
-	u32 first = QuickRead32Bits(pBase, 0x0c);
+	auto first {QuickRead32Bits(pBase, 0x0c)};
 
 	//DBGConsole_Msg(0, "  Processing Pending");
 	#ifdef DAEDALUS_ENABLE_ASSERTS
@@ -279,9 +279,9 @@ TEST_DISABLE_MESG_FUNCS
 	}
 	else*/
 	//{
-	u32 slot = (first + ValidCount) % MsgCount;
+	auto slot {(first + ValidCount) % MsgCount};
 
-	u32 MsgBase = QuickRead32Bits(pBase, 0x14);
+	auto MsgBase {QuickRead32Bits(pBase, 0x14)};
 
 	// Offset to first valid message
 	MsgBase += slot * 4;
@@ -296,8 +296,8 @@ TEST_DISABLE_MESG_FUNCS
 	QuickWrite32Bits(pBase, 0x8, ValidCount);
 
 	// Start thread pending on the fullqueue
-	u32 EmptyQueueThread = QuickRead32Bits(pBase, 0x00);
-	u32 NextThread = Read32Bits(EmptyQueueThread + 0x00);
+	auto EmptyQueueThread {QuickRead32Bits(pBase, 0x00)};
+	auto NextThread {Read32Bits(EmptyQueueThread + 0x00)};
 
 
 	// If the first thread is not the idle thread, start it

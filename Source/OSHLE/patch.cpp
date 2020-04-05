@@ -88,7 +88,7 @@ static const char * const gEventStrings[23] =
 };
 #endif // DUMPOSFUNCTIONS
 
-u32 gNumOfOSFunctions;
+u32 gNumOfOSFunctions {0};
 
 #define TEST_DISABLE_FUNCS //return PATCH_RET_NOT_PROCESSED;
 
@@ -99,7 +99,7 @@ u32 gNumOfOSFunctions;
 #define PATCH_RET_ERET RET_JR_ERET()
 
 // Increase this number every time we changed the symbol table
-static const u32 MAGIC_HEADER = 0x80000151;
+static const auto MAGIC_HEADER {0x80000151};
 
 static bool gPatchesApplied = false;
 
@@ -116,8 +116,8 @@ static bool Patch_GetCache();
 static void Patch_FlushCache();
 
 static void Patch_ApplyPatch(u32 i);
-static u32  nPatchSymbols;
-static u32  nPatchVariables;
+static u32  nPatchSymbols {0};
+static auto  nPatchVariables {0};
 
 void Patch_Reset()
 {
@@ -128,7 +128,7 @@ void Patch_Reset()
 
 void Patch_ResetSymbolTable()
 {
-	u32 i = 0;
+	auto i {0};
 	// Loops through all symbols, until name is nullptr
 	for (i = 0; g_PatchSymbols[i] != nullptr; i++)
 	{
@@ -180,7 +180,7 @@ void Patch_PatchAll()
 	IO::Path::Append(path, "n64.cfg");
 	fp = fopen(path, "w");
 #endif
-	for (u32 i = 0; i < nPatchSymbols; i++)
+	for (auto i {0}; i < nPatchSymbols; i++)
 	{
 		if (g_PatchSymbols[i]->Found)
 		{
@@ -207,7 +207,7 @@ void Patch_PatchAll()
 void Patch_ApplyPatch(u32 i)
 {
 #ifdef DAEDALUS_ENABLE_DYNAREC
-	u32 pc = g_PatchSymbols[i]->Location;
+	auto pc {g_PatchSymbols[i]->Location};
 
 	CFragment *frag = new CFragment(gFragmentCache.GetCodeBufferManager(),
 									PHYS_TO_K0(pc),
@@ -223,7 +223,7 @@ void Patch_ApplyPatch(u32 i)
 u32 Patch_GetSymbolAddress(const char * name)
 {
 	// Search new list
-	for (u32 p = 0; p < nPatchSymbols; p++)
+	for (auto p {0}; p < nPatchSymbols; p++)
 	{
 		// Skip symbol if already found, or if it is a variable
 		if (!g_PatchSymbols[p]->Found)
@@ -244,14 +244,14 @@ u32 Patch_GetSymbolAddress(const char * name)
 
 const char * Patch_GetJumpAddressName(u32 jump)
 {
-	u32 * pdwOpBase;
-	u32 * pdwPatchBase;
+	auto *pdwOpBase {nullptr};
+	auto *pdwPatchBase {nullptr};
 
 	if (!Memory_GetInternalReadAddress(jump, (void **)&pdwOpBase))
 		return "??";
 
 	// Search new list
-	for (u32 p = 0; p < nPatchSymbols; p++)
+	for (auto p {0}; p < nPatchSymbols; p++)
 	{
 		// Skip symbol if already found, or if it is a variable
 		if (!g_PatchSymbols[p]->Found)
@@ -277,17 +277,9 @@ const char * Patch_GetJumpAddressName(u32 jump)
 
 void Patch_DumpOsThreadInfo()
 {
-	u32 dwThread;
-	u32 dwCurrentThread;
+	auto dwThread {0} , dwCurrentThread {0};
 
-	u32 dwPri;
-	u32 dwQueue;
-	u16 wState;
-	u16 wFlags;
-	u32 dwID;
-	u32 dwFP;
-
-	u32 dwFirstThread;
+	auto dwPri {0} dwQueue {0}, wState {0}, wFlags {0}, dwID {0}, dwFP {0}, dwFirstThread {0};
 
 	dwCurrentThread = Read32Bits(VAR_ADDRESS(osActiveThread));
 
@@ -330,17 +322,11 @@ void Patch_DumpOsThreadInfo()
 void Patch_DumpOsQueueInfo()
 {
 #ifdef DAED_OS_MESSAGE_QUEUES
-	u32 dwQueue;
+	auto dwQueue {0};
 
 
 	// List queue info:
-	u32 i;
-	u32 dwEmptyQ;
-	u32 dwFullQ;
-	u32 dwValidCount;
-	u32 dwFirst;
-	u32 dwMsgCount;
-	u32 dwMsg;
+	auto i {0}, dwEmptyQ {0}, dwFullQ {0}, dwValidCount {0}, dwFirst {0}, dwMsgCount{0}, dwMsg {0};
 
 
 	DBGConsole_Msg(0, "There are %d Queues", g_MessageQueues.size());
@@ -394,7 +380,7 @@ void Patch_DumpOsQueueInfo()
 		// Try and find in the event mesg array
 		if (strlen(type_buffer) == 0 && VAR_FOUND(osEventMesgArray))
 		{
-			for (u32 j = 0; j <	23; j++)
+			for (auto j {0}; j <	23; j++)
 			{
 				if (dwQueue == Read32Bits(VAR_ADDRESS(osEventMesgArray) + (j * 8) + 0x0))
 				{
@@ -412,8 +398,7 @@ void Patch_DumpOsQueueInfo()
 
 void Patch_DumpOsEventInfo()
 {
-	u32 dwQueue;
-	u32 dwMsg;
+	auto dwQueue {0}, dwMsg {0};
 
 	if (!VAR_FOUND(osEventMesgArray))
 	{
@@ -423,7 +408,7 @@ void Patch_DumpOsEventInfo()
 
 	DBGConsole_Msg(0, "");
 	DBGConsole_Msg(0, "Events:                      Queue      Message");
-	for (u32 i = 0; i <	23; i++)
+	for (auto i {0}; i <	23; i++)
 	{
 		dwQueue = Read32Bits(VAR_ADDRESS(osEventMesgArray) + (i * 8) + 0x0);
 		dwMsg   = Read32Bits(VAR_ADDRESS(osEventMesgArray) + (i * 8) + 0x4);
@@ -438,7 +423,7 @@ void Patch_DumpOsEventInfo()
 
 bool Patch_Hacks( PatchSymbol * ps )
 {
-	bool	Found( false );
+	bool	Found {false };
 
 	// Hacks to disable certain os funcs in games that causes issues
 	// This alot cheaper than adding a check on the func itself, this is only checked once -Salvy
@@ -489,9 +474,7 @@ bool Patch_Hacks( PatchSymbol * ps )
 //ToDo: Add Status bar for loading OSHLE Patch Symbols.
 void Patch_RecurseAndFind()
 {
-	s32 nFound;
-	u32 first;
-	u32 last;
+	auto nFound {0}, first {0}, last {0};
 #ifdef DAEDALUS_DEBUG_CONSOLE
 	DBGConsole_Msg(0, "Searching for os functions. This may take several seconds...");
 #endif
@@ -509,7 +492,7 @@ void Patch_RecurseAndFind()
 #endif
 
 	// Loops through all symbols, until name is nullptr
-	for (u32 i = 0; i < nPatchSymbols && !gCPUState.IsJobSet( CPU_STOP_RUNNING ); i++)
+	for (auto i {0}; i < nPatchSymbols && !gCPUState.IsJobSet( CPU_STOP_RUNNING ); i++)
 	{
 
 #ifdef DAEDALUS_DEBUG_CONSOLE
@@ -558,7 +541,7 @@ void Patch_RecurseAndFind()
 	last = 0;
 
 	nFound = 0;
-	for (u32 i = 0; i < nPatchSymbols; i++)
+	for (auto i {0}; i < nPatchSymbols; i++)
 	{
 		if (!g_PatchSymbols[i]->Found)
 		{
@@ -568,8 +551,8 @@ void Patch_RecurseAndFind()
 		{
 
 			// Find duplicates! (to avoid showing the same clash twice, only scan up to the first symbol)
-			bool found_duplicate( false );
-			for (u32 j = 0; j < i; j++)
+			bool found_duplicate {false};
+			for (auto j {0}; j < i; j++)
 			{
 				if (g_PatchSymbols[i]->Found &&
 					g_PatchSymbols[j]->Found &&
@@ -601,7 +584,7 @@ void Patch_RecurseAndFind()
 
 			if (!found_duplicate)
 			{
-				u32 location = g_PatchSymbols[i]->Location;
+				auto location {g_PatchSymbols[i]->Location};
 				if (location < first) first = location;
 				if (location > last)  last = location;
 
@@ -627,7 +610,7 @@ void Patch_RecurseAndFind()
 	}
 
 	nFound = 0;
-	for (u32 i = 0; i < nPatchVariables; i++)
+	for (auto i {0}; i < nPatchVariables; i++)
 	{
 		if (!g_PatchVariables[i]->Found)
 		{
@@ -637,7 +620,7 @@ void Patch_RecurseAndFind()
 		{
 
 			// Find duplicates! (to avoid showing the same clash twice, only scan up to the first symbol)
-			for (u32 j = 0; j < i; j++)
+			for (auto j {0}; j < i; j++)
 			{
 				if (g_PatchVariables[i]->Found &&
 					g_PatchVariables[j]->Found &&
@@ -681,15 +664,15 @@ void Patch_RecurseAndFind()
 bool Patch_LocateFunction(PatchSymbol * ps)
 {
 	OpCode op;
-	const u32 * code_base( g_pu32RamBase );
+	const auto *code_base( g_pu32RamBase );
 
-	for (u32 s = 0; s < ps->Signatures[s].NumOps; s++)
+	for (auto s {0}; s < ps->Signatures[s].NumOps; s++)
 	{
 		PatchSignature * psig;
 		psig = &ps->Signatures[s];
 
 		// Sweep through OS range
-		for (u32 i = 0; i < (gRamSize>>2); i++)
+		for (auto i {0}; i < (gRamSize>>2); i++)
 		{
 			op._u32 = code_base[i];
 			op = GetCorrectOp( op );
@@ -729,7 +712,7 @@ bool Patch_VerifyLocation(PatchSymbol * ps, u32 index)
 		return false;
 
 
-	for (u32 s = 0; s < ps->Signatures[s].NumOps; s++)
+	for (auto s {0}; s < ps->Signatures[s].NumOps; s++)
 	{
 		if (Patch_VerifyLocation_CheckSignature(ps, &ps->Signatures[s], index))
 		{
@@ -747,17 +730,15 @@ bool Patch_VerifyLocation_CheckSignature(PatchSymbol * ps,
 										 u32 index)
 {
 	OpCode op;
-	PatchCrossRef * pcr = psig->CrossRefs;
-	bool cross_ref_var_set( false );
-	u32 crc;
-	u32 partial_crc;
+	PatchCrossRef *pcr {psig->CrossRefs};
+	bool cross_ref_var_set {false};
 
 	if ( ( index + psig->NumOps ) * 4 > gRamSize )
 	{
 		return false;
 	}
 
-	const u32 * code_base( g_pu32RamBase );
+	const auto *code_base {g_pu32RamBase};
 
 	PatchCrossRef dummy_cr = {static_cast<u32>(~0), PX_JUMP, nullptr };
 
@@ -765,11 +746,11 @@ bool Patch_VerifyLocation_CheckSignature(PatchSymbol * ps,
 		pcr = &dummy_cr;
 
 #ifdef DAEDALUS_DEBUG_CONSOLE
-	u32 last = pcr->Offset;
+	auto last {pcr->Offset};
 #endif
-	crc = 0;
-	partial_crc = 0;
-	for (u32 m = 0; m < psig->NumOps; m++)
+	auto crc {0};
+	auto partial_crc {0};
+	for (auto m {0}; m < psig->NumOps; m++)
 	{
 		// Get the actual opcode at this address, not patched/compiled code
 		op._u32 = code_base[index+m];
@@ -784,7 +765,7 @@ bool Patch_VerifyLocation_CheckSignature(PatchSymbol * ps,
 			{
 			case PX_JUMP:
 				{
-					u32 TargetIndex = JumpTarget( op, (index+m)<<2 )>>2;
+					auto TargetIndex {JumpTarget( op, (index+m)<<2 )>>2};
 
 					// If the opcode at this address is not a Jump/Jal then
 					// this can't match
@@ -956,10 +937,10 @@ static void Patch_FlushCache()
 
 	if (fp != nullptr)
 	{
-		u32 data = MAGIC_HEADER;
+		auto data {MAGIC_HEADER};
 		fwrite(&data, 1, sizeof(data), fp);
 
-		for (u32 i = 0; i < nPatchSymbols; i++)
+		for (auto i {0}; i < nPatchSymbols; i++)
 		{
 			if (g_PatchSymbols[i]->Found )
 			{
@@ -982,7 +963,7 @@ static void Patch_FlushCache()
 
 		}
 
-		for (u32 i = 0; i < nPatchVariables; i++)
+		for (auto i {0}; i < nPatchVariables; i++)
 		{
 			if (g_PatchVariables[i]->Found )
 			{
@@ -1013,7 +994,7 @@ static bool Patch_GetCache()
 		#ifdef DAEDALUS_DEBUG_CONSOLE
 		DBGConsole_Msg(0, "Read from OSHLE cache: %s", name);
 		#endif
-		u32 data;
+		auto data {0};
 
 		fread(&data, 1, sizeof(data), fp);
 		if (data != MAGIC_HEADER)
@@ -1022,7 +1003,7 @@ static bool Patch_GetCache()
 			return false;
 		}
 
-		for (u32 i = 0; i < nPatchSymbols; i++)
+		for (auto i {0}; i < nPatchSymbols; i++)
 		{
 			fread(&data, 1, sizeof(data), fp);
 			if (data != 0)
@@ -1036,7 +1017,7 @@ static bool Patch_GetCache()
 				g_PatchSymbols[i]->Found = false;
 		}
 
-		for (u32 i = 0; i < nPatchVariables; i++)
+		for (auto i {0}; i < nPatchVariables; i++)
 		{
 			fread(&data, 1, sizeof(data), fp);
 			if (data != 0)

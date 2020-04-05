@@ -48,9 +48,9 @@ TEST_DISABLE_VI_FUNCS
 
 	//DBGConsole_Msg(0, "osViSwapBuffer(0x%08x)", (u32)gGPR[REG_a0]);
 
-	u32 pointer = Read32Bits(VAR_ADDRESS(osViSetModeGubbins));
+	auto pointer {Read32Bits(VAR_ADDRESS(osViSetModeGubbins))};
 
-	u8 * p_base = (u8 *)ReadAddress(pointer);
+	auto *p_base {(u8 *)ReadAddress(pointer)};
 	QuickWrite32Bits(p_base, 0x4, gGPR[REG_a0]._u32_0);
 	QuickWrite16Bits(p_base, 0x0, QuickRead16Bits(p_base, 0x0) | 0x0010 );
 

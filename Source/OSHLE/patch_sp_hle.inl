@@ -5,7 +5,7 @@
 //*****************************************************************************
 inline bool IsSpDeviceBusy()
 {
-	u32 status = Memory_SP_GetRegister( SP_STATUS_REG );
+	auto status {Memory_SP_GetRegister( SP_STATUS_REG )};
 
 	if (status & (SP_STATUS_IO_FULL | SP_STATUS_DMA_FULL | SP_STATUS_DMA_BUSY))
 		return true;
@@ -26,10 +26,10 @@ inline u32 SpGetStatus()
 u32 Patch___osSpRawStartDma()
 {
 TEST_DISABLE_SP_FUNCS
-	u32 RWflag = gGPR[REG_a0]._u32_0;
-	u32 SPAddr = gGPR[REG_a1]._u32_0;
-	u32 VAddr  = gGPR[REG_a2]._u32_0;
-	u32 len    = gGPR[REG_a3]._u32_0;
+	auto RWflag {gGPR[REG_a0]._u32_0};
+	auto SPAddr {gGPR[REG_a1]._u32_0};
+	auto VAddr  {gGPR[REG_a2]._u32_0};
+	auto len    {gGPR[REG_a3]._u32_0};
 
 	/*
 	DBGConsole_Msg(0, "osSpRawStartDma(%d, 0x%08x, 0x%08x (0x%08x), %d)",
@@ -48,7 +48,7 @@ TEST_DISABLE_SP_FUNCS
 		return PATCH_RET_JR_RA;
 	}
 	*/
-	u32 PAddr = ConvertToPhysics(VAddr);
+	auto PAddr {ConvertToPhysics(VAddr)};
 
 	//FIXME
 	#ifdef DAEDALUS_ENABLE_ASSERTS
@@ -136,7 +136,7 @@ TEST_DISABLE_SP_FUNCS
 u32 Patch___osSpSetStatus_Mario()
 {
 TEST_DISABLE_SP_FUNCS
-	u32 status = gGPR[REG_a0]._u32_0;
+	auto status {gGPR[REG_a0]._u32_0};
 
 	MemoryUpdateSPStatus( status );
 	return PATCH_RET_JR_RA;
@@ -148,7 +148,7 @@ TEST_DISABLE_SP_FUNCS
 u32 Patch___osSpSetStatus_Rugrats()
 {
 TEST_DISABLE_SP_FUNCS
-	u32 status = gGPR[REG_a0]._u32_0;
+	auto status {gGPR[REG_a0]._u32_0};
 
 	MemoryUpdateSPStatus( status );
 	return PATCH_RET_JR_RA;
@@ -160,11 +160,11 @@ TEST_DISABLE_SP_FUNCS
 u32 Patch___osSpSetPc()
 {
 TEST_DISABLE_SP_FUNCS
-	u32 pc = gGPR[REG_a0]._u32_0;
+	auto pc {gGPR[REG_a0]._u32_0};
 
 	//DBGConsole_Msg(0, "__osSpSetPc(0x%08x)", pc);
 
-	u32 status = SpGetStatus();
+	auto status {SpGetStatus()};
 
 	if (status & SP_STATUS_HALT)
 	{
@@ -188,7 +188,7 @@ TEST_DISABLE_SP_FUNCS
 u32 Patch_osSpTaskLoad()
 {
 TEST_DISABLE_SP_FUNCS
-	u32 task = gGPR[REG_a0]._u32_0;
+	auto task {gGPR[REG_a0]._u32_0};
 	/*u32 status = SpGetStatus();
 
 	if ((status & SP_STATUS_HALT) == 0 ||
@@ -202,9 +202,9 @@ TEST_DISABLE_SP_FUNCS
 	DAEDALUS_ASSERT( (SpGetStatus() & SP_STATUS_HALT), "Sp Device is not HALTED, Need to handle!");
 	DAEDALUS_ASSERT( !IsSpDeviceBusy(), "Sp Device is BUSY, Need to handle!");
 	#endif
-	u32 temp = VAR_ADDRESS(osSpTaskLoadTempTask);
-	OSTask * pSrcTask = (OSTask *)ReadAddress(task);
-	OSTask * pDstTask = (OSTask *)ReadAddress(temp);
+	auto temp  {VAR_ADDRESS(osSpTaskLoadTempTask)};
+	OSTask *pSrcTask {(OSTask *)ReadAddress(task)};
+	OSTask *pDstTask {(OSTask *)ReadAddress(temp)};
 
 	// Translate virtual addresses to physical...
 	fast_memcpy(pDstTask, pSrcTask, sizeof(OSTask));
@@ -349,7 +349,7 @@ u32 Patch_osSpTaskYielded()
 {
 TEST_DISABLE_SP_FUNCS
 
-	OSTask * pSrcTask = (OSTask *)ReadAddress(gGPR[REG_a0]._u32_0);
+	OSTask *pSrcTask {(OSTask *)ReadAddress(gGPR[REG_a0]._u32_0)};
 
 	gGPR[REG_v0]._s64 = (s64)(pSrcTask->t.flags & OS_TASK_YIELDED);
 

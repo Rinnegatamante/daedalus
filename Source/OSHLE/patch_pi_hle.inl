@@ -38,7 +38,7 @@ TEST_DISABLE_PI_FUNCS
 u32 Patch___osPiGetAccess()
 {
 TEST_DISABLE_PI_FUNCS
-	u32 created = Read32Bits(VAR_ADDRESS(osPiAccessQueueCreated));
+	auto created {Read32Bits(VAR_ADDRESS(osPiAccessQueueCreated))};
 
 	if (created == 0)
 	{
@@ -70,7 +70,7 @@ TEST_DISABLE_PI_FUNCS
 //*****************************************************************************
 inline bool IsPiDeviceBusy()
 {
-	u32 status = Memory_PI_GetRegister( PI_STATUS_REG );
+	auto status {Memory_PI_GetRegister( PI_STATUS_REG )};
 
 	if (status & (PI_STATUS_DMA_BUSY | PI_STATUS_IO_BUSY))
 		return true;
@@ -84,10 +84,10 @@ inline bool IsPiDeviceBusy()
 u32 Patch_osPiRawStartDma()
 {
 TEST_DISABLE_PI_FUNCS
-	u32 RWflag = gGPR[REG_a0]._u32_0;
-	u32 PiAddr = gGPR[REG_a1]._u32_0;
-	u32 VAddr  = gGPR[REG_a2]._u32_0;
-	u32 len    = gGPR[REG_a3]._u32_0;
+	auto RWflag {gGPR[REG_a0]._u32_0};
+	auto PiAddr {gGPR[REG_a1]._u32_0};
+	auto VAddr  {gGPR[REG_a2]._u32_0};
+	auto len    {gGPR[REG_a3]._u32_0};
 
 #ifdef DAEDALUS_ENABLE_ASSERTS
 	DAEDALUS_ASSERT( !IsPiDeviceBusy(), "Pi Device is BUSY, Need to handle!");
@@ -100,7 +100,7 @@ TEST_DISABLE_PI_FUNCS
 	}
 	*/
 
-	u32 PAddr = ConvertToPhysics(VAddr);
+	auto PAddr {ConvertToPhysics(VAddr)};
 
 	Memory_PI_SetRegister(PI_CART_ADDR_REG, (PiAddr & 0x0fffffff) | 0x10000000);
 	Memory_PI_SetRegister(PI_DRAM_ADDR_REG, PAddr);

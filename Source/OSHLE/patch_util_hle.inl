@@ -7,9 +7,9 @@ TEST_DISABLE_UTIL_FUNCS
 #ifdef DAEDALUS_DEBUG_CONSOLE
 	DBGConsole_Msg(0, "osAtomicDec");
 #endif
-	u8 *p = (u8*)ReadAddress(gGPR[REG_a0]._u32_0);
-	u32 value = QuickRead32Bits(p, 0x0);
-	u32 result= 0;
+	auto *p {(u8*)ReadAddress(gGPR[REG_a0]._u32_0)};
+	auto value {QuickRead32Bits(p, 0x0)};
+	auto result {0};
 
 	if (value)
 	{
@@ -29,9 +29,9 @@ TEST_DISABLE_UTIL_FUNCS
 u32 Patch_memcpy()
 {
 TEST_DISABLE_UTIL_FUNCS
-	u32 dst = gGPR[REG_a0]._u32_0;
-	u32 src = gGPR[REG_a1]._u32_0;
-	u32 len = gGPR[REG_a2]._u32_0;
+	auto dst {gGPR[REG_a0]._u32_0};
+	auto src {gGPR[REG_a1]._u32_0};
+	auto len {gGPR[REG_a2]._u32_0};
 
 	// Set return val here (return dest)
 	gGPR[REG_v0]._s64 = (s64)gGPR[REG_a0]._u32_0;
@@ -44,8 +44,8 @@ TEST_DISABLE_UTIL_FUNCS
 	fast_memcpy_swizzle( (void *)ReadAddress(dst), (void *)ReadAddress(src), len);
 #else
 	//DBGConsole_Msg(0, "memcpy(0x%08x, 0x%08x, %d)", dst, src, len);
-	u8 *pdst = (u8*)ReadAddress(dst);
-	u8 *psrc = (u8*)ReadAddress(src);
+	auto *pdst {(u8*)ReadAddress(dst)};
+	auto *psrc {(u8*)ReadAddress(src)};
 	while(len--)
 	{
 		*(u8*)((u32)pdst++ ^ U8_TWIDDLE) = *(u8*)((u32)psrc++ ^ U8_TWIDDLE);
@@ -62,9 +62,9 @@ TEST_DISABLE_UTIL_FUNCS
 u32 Patch_strlen()
 {
 TEST_DISABLE_UTIL_FUNCS
-	u32 string = gGPR[REG_a0]._u32_0;
-	const u8 *psrc = (const u8*)ReadAddress(string);
-	const u8 *start = psrc;
+	auto string {gGPR[REG_a0]._u32_0};
+	const auto *psrc {(const u8*)ReadAddress(string)};
+	const auto *start {psrc};
 
 	while (*((u8*)((u32)psrc++^U8_TWIDDLE)) );
 
@@ -80,16 +80,16 @@ TEST_DISABLE_UTIL_FUNCS
 u32 Patch_strchr()
 {
 TEST_DISABLE_UTIL_FUNCS
-	u32 string = gGPR[REG_a0]._u32_0;
-	u8 MatchChar = (u8)(gGPR[REG_a1]._u32_0 & 0xFF);
-	u32 MatchAddr = 0;
+	auto string {gGPR[REG_a0]._u32_0};
+	auto MatchChar {(u8)(gGPR[REG_a1]._u32_0 & 0xFF)};
+	auto MatchAddr {0};
 
-	u8 *start = (u8*)ReadAddress(string);
-	u8 *psrc = start;
+	auto *start {(u8*)ReadAddress(string)};
+	auto *psrc {start};
 
 	for (;; psrc++)
 	{
-		const u8 SrcChar = *((u8*)((u32)psrc^U8_TWIDDLE));
+		const auto SrcChar {*((u8*)((u32)psrc^U8_TWIDDLE))};
 
 		if( SrcChar == MatchChar )
 		{
@@ -111,16 +111,16 @@ TEST_DISABLE_UTIL_FUNCS
 // Have yet to see a game that uses this
 u32 Patch_strcmp()
 {
-	u32 i;
-	u32 sA = gGPR[REG_a0]._u32_0;
-	u32 sB = gGPR[REG_a1]._u32_0;
-	u32 len = gGPR[REG_a2]._u32_0;
-	u8 A, B;
+	auto i {0};
+	auto sA {gGPR[REG_a0]._u32_0};
+	auto sB {gGPR[REG_a1]._u32_0};
+	auto len {gGPR[REG_a2]._u32_0};
+	auto A {0}, B {0};
 
 	#ifdef DAEDALUS_DEBUG_CONSOLE
 	DBGConsole_Msg(0, "strcmp(%s,%s,%d)", sA, sB, len);
 	#endif
-	
+
 	for (i = 0; (A = Read8Bits(sA+i)) != 0 && i < len; i++)
 	{
 		B = Read8Bits(sB + i);
@@ -144,9 +144,9 @@ u32 Patch_strcmp()
 u32 Patch_bcopy()
 {
 TEST_DISABLE_UTIL_FUNCS
-	u32 src = gGPR[REG_a0]._u32_0;
-	u32 dst = gGPR[REG_a1]._u32_0;
-	u32 len = gGPR[REG_a2]._u32_0;
+	auto src {gGPR[REG_a0]._u32_0};
+	auto dst {gGPR[REG_a1]._u32_0};
+	auto len {gGPR[REG_a2]._u32_0};
 
 	// Set return val here (return dest)
 	gGPR[REG_v0]._s64 = (s64)gGPR[REG_a1]._u32_0;
@@ -159,8 +159,8 @@ TEST_DISABLE_UTIL_FUNCS
 
 
 	//DBGConsole_Msg(0, "bcopy(0x%08x,0x%08x,%d)", src, dst, len);
-	u8 *pdst = (u8*)ReadAddress(dst);
-	u8 *psrc = (u8*)ReadAddress(src);
+	auto *pdst {(u8*)ReadAddress(dst)};
+	auto *psrc {(u8*)ReadAddress(src)};
 
 	if (dst > src && dst < src + len)
 	{
@@ -195,10 +195,11 @@ TEST_DISABLE_UTIL_FUNCS
 // By Jun Su
 u32 Patch_bzero()
 {
-	u32 dst = gGPR[REG_a0]._u32_0;
-	u32 len = gGPR[REG_a1]._u32_0;
+	auto dst {gGPR[REG_a0]._u32_0};
+	auto len {gGPR[REG_a1]._u32_0};
 
-	u8* dst8 = (u8*)ReadAddress(dst);
+	auto *dst8 {(u8*)ReadAddress(dst)};
+
 
 #if (DAEDALUS_ENDIAN_MODE == DAEDALUS_ENDIAN_BIG)
 	memset( dst8, 0, len);
@@ -210,9 +211,9 @@ u32 Patch_bzero()
 		len--;
 	}
 
-	u32 *dst32=(u32*)dst8;
-	u32 len32 = len >> 2;
-	u32 len128= 0;
+	auto *dst32 {(u32*)dst8};
+	auto len32 {len >> 2};
+	auto len128 {0};
 	len &= 0x3;
 
 	while (len32&0x3)
