@@ -123,8 +123,8 @@ inline void vfpu_matrix_Ortho(u8 *m, float left, float right, float bottom, floa
 u32 Patch_guMtxIdentF()
 {
 TEST_DISABLE_GU_FUNCS
-	const u32 address {gGPR[REG_a0]._u32_0};
-	u8 *pMtxBase {(u8 *)ReadAddress(address)};
+	const auto address {gGPR[REG_a0]._u32_0};
+	auto *pMtxBase {(u8 *)ReadAddress(address)};
 
 #ifdef DAEDALUS_PSP_USE_VFPU
 	vfpu_matrix_IdentF(pMtxBase);
@@ -160,8 +160,8 @@ TEST_DISABLE_GU_FUNCS
 u32 Patch_guMtxIdent()
 {
 TEST_DISABLE_GU_FUNCS
-	const u32 address {gGPR[REG_a0]._u32_0};
-	u8 *pMtxBase {(u8 *)ReadAddress(address)};
+	const auto address {gGPR[REG_a0]._u32_0};
+	auto *pMtxBase {(u8 *)ReadAddress(address)};
 
 	// This is a lot faster than the real method, which calls
 	// glMtxIdentF followed by guMtxF2L
@@ -194,8 +194,8 @@ TEST_DISABLE_GU_FUNCS
 u32 Patch_guTranslateF()
 {
 TEST_DISABLE_GU_FUNCS
-	const u32 address {gGPR[REG_a0]._u32_0};
-	u8 *pMtxBase {(u8 *)ReadAddress(address)};
+	const auto address {gGPR[REG_a0]._u32_0};
+	auto *pMtxBase {(u8 *)ReadAddress(address)};
 
 #ifdef DAEDALUS_PSP_USE_VFPU
 	const f32 fx {gGPR[REG_a1]._f32_0};
@@ -235,24 +235,24 @@ u32 Patch_guTranslate()
 TEST_DISABLE_GU_FUNCS
 	const f32 fScale {65536.0f};
 
-	const u32 address {gGPR[REG_a0]._u32_0};
-	u8 *pMtxBase {(u8 *)ReadAddress(address)};
+	const auto address {gGPR[REG_a0]._u32_0};
+	auto *pMtxBase {(u8 *)ReadAddress(address)};
 
 	const f32 fx {gGPR[REG_a1]._f32_0};
 	const f32 fy {gGPR[REG_a2]._f32_0};
 	const f32 fz {gGPR[REG_a3]._f32_0};
 
-	u32 x {(u32)(fx * fScale)};
-	u32 y {(u32)(fy * fScale)};
-	u32 z {(u32)(fz * fScale)};
+	auto x {(u32)(fx * fScale)};
+	auto y {(u32)(fy * fScale)};
+	auto z {(u32)(fz * fScale)};
 
-	u32 one {(u32)(1.0f * fScale)};
+	auto one {(u32)(1.0f * fScale)};
 
-	u32 xyhibits {(x & 0xFFFF0000) | (y >> 16)};
-	u32 xylobits {(x << 16) | (y & 0x0000FFFF)};
+	auto xyhibits {(x & 0xFFFF0000) | (y >> 16)};
+	auto xylobits {(x << 16) | (y & 0x0000FFFF)};
 
-	u32 z1hibits {(z & 0xFFFF0000) | (one >> 16)};
-	u32 z1lobits {(z << 16) | (one & 0x0000FFFF)};
+	auto z1hibits {(z & 0xFFFF0000) | (one >> 16)};
+	auto z1lobits {(z << 16) | (one & 0x0000FFFF)};
 
 	QuickWrite32Bits(pMtxBase, 0x00, 0x00010000);
 	QuickWrite32Bits(pMtxBase, 0x04, 0x00000000);
@@ -280,13 +280,13 @@ TEST_DISABLE_GU_FUNCS
 u32 Patch_guScaleF()
 {
 TEST_DISABLE_GU_FUNCS
-	const u32 address {gGPR[REG_a0]._u32_0};
-	u8 *pMtxBase {(u8 *)ReadAddress(address)};
+	const auto address {gGPR[REG_a0]._u32_0};
+	auto *pMtxBase {(u8 *)ReadAddress(address)};
 
 #ifdef DAEDALUS_PSP_USE_VFPU //Corn
-	const f32 fx = gGPR[REG_a1]._f32_0;
-	const f32 fy = gGPR[REG_a2]._f32_0;
-	const f32 fz = gGPR[REG_a3]._f32_0;
+	const f32 fx {gGPR[REG_a1]._f32_0};
+	const f32 fy {gGPR[REG_a2]._f32_0};
+	const f32 fz {gGPR[REG_a3]._f32_0};
 
 	vfpu_matrix_ScaleF(pMtxBase, fx, fy, fz);
 
@@ -320,27 +320,27 @@ u32 Patch_guScale()
 TEST_DISABLE_GU_FUNCS
 	const f32 fScale = 65536.0f;
 
-	const u32 address = gGPR[REG_a0]._u32_0;
-	u8 *pMtxBase {(u8 *)ReadAddress(address)};
+	const auto address = gGPR[REG_a0]._u32_0;
+	auto *pMtxBase {(u8 *)ReadAddress(address)};
 
 	const f32 fx {gGPR[REG_a1]._f32_0};
 	const f32 fy {gGPR[REG_a2]._f32_0};
 	const f32 fz {gGPR[REG_a3]._f32_0};
 
-	u32 x {(u32)(fx * fScale)};
-	u32 y {(u32)(fy * fScale)};
-	u32 z {(u32)(fz * fScale)};
+	auto x {(u32)(fx * fScale)};
+	auto y {(u32)(fy * fScale)};
+	auto z {(u32)(fz * fScale)};
 
-	u32 zer {(u32)(0.0f)};
+	auto zer {(u32)(0.0f)};
 
-	u32 xzlobits {(x << 16) | (zer & 0x0000FFFF)};
-	u32 xzhibits {(x & 0xFFFF0000) | (zer >> 16)};
+	auto xzlobits {(x << 16) | (zer & 0x0000FFFF)};
+	auto xzhibits {(x & 0xFFFF0000) | (zer >> 16)};
 
-	u32 zyhibits {(zer & 0xFFFF0000) | (y >> 16)};
-	u32 zylobits {(zer << 16) | (y & 0x0000FFFF)};
+	auto zyhibits {(zer & 0xFFFF0000) | (y >> 16)};
+	auto zylobits {(zer << 16) | (y & 0x0000FFFF)};
 
-	u32 zzhibits {(z & 0xFFFF0000) | (zer >> 16)};
-	u32 zzlobits {(z << 16) | (zer & 0x0000FFFF)};
+	auto zzhibits {(z & 0xFFFF0000) | (zer >> 16)};
+	auto zzlobits {(z << 16) | (zer & 0x0000FFFF)};
 
 	QuickWrite32Bits(pMtxBase, 0x00, xzhibits);
 	QuickWrite32Bits(pMtxBase, 0x04, 0x00000000);
@@ -371,11 +371,11 @@ TEST_DISABLE_GU_FUNCS
 
 	const f32 fScale = 65536.0f;
 
-	u8 *pMtxFBase {(u8 *)ReadAddress(gGPR[REG_a0]._u32_0)};
-	u8 *pMtxBase  {(u8 *)ReadAddress(gGPR[REG_a1]._u32_0)};
+	auto *pMtxFBase {(u8 *)ReadAddress(gGPR[REG_a0]._u32_0)};
+	auto*pMtxBase  {(u8 *)ReadAddress(gGPR[REG_a1]._u32_0)};
 
-	u8 *pMtxLBaseHiBits {(u8 *)(pMtxBase + 0x00)};
-	u8 *pMtxLBaseLoBits {(u8 *)(pMtxBase + 0x20)};
+	auto *pMtxLBaseHiBits {(u8 *)(pMtxBase + 0x00)};
+	auto *pMtxLBaseLoBits {(u8 *)(pMtxBase + 0x20)};
 
 	REG32 a, b;
 	u32 tmp_a, tmp_b;
@@ -420,9 +420,9 @@ TEST_DISABLE_GU_FUNCS
 u32 Patch_guNormalize_Mario()
 {
 TEST_DISABLE_GU_FUNCS
-	u8 *pXBase  {(u8 *)ReadAddress(gGPR[REG_a0]._u32_0)};
-	u8 *pYBase  {(u8 *)ReadAddress(gGPR[REG_a1]._u32_0)};
-	u8 *pZBase  {(u8 *)ReadAddress(gGPR[REG_a2]._u32_0)};
+	auto *pXBase  {(u8 *)ReadAddress(gGPR[REG_a0]._u32_0)};
+	auto *pYBase  {(u8 *)ReadAddress(gGPR[REG_a1]._u32_0)};
+	auto *pZBase  {(u8 *)ReadAddress(gGPR[REG_a2]._u32_0)};
 
 	REG32 x, y, z;
 	x._u32 = QuickRead32Bits(pXBase, 0x0);
@@ -432,7 +432,7 @@ TEST_DISABLE_GU_FUNCS
 #ifdef DAEDALUS_PSP_USE_VFPU //Corn
 	vfpu_norm_3Dvec(&x._f32, &y._f32, &z._f32);
 #else
-	f32 fLenRecip = 1.0f / sqrtf((x._f32 * x._f32) + (y._f32 * y._f32) + (z._f32 * z._f32));
+	f32 fLenRecip {1.0f / sqrtf((x._f32 * x._f32) + (y._f32 * y._f32) + (z._f32 * z._f32))};
 
 	x._f32 *= fLenRecip;
  	y._f32 *= fLenRecip;
@@ -554,8 +554,8 @@ TEST_DISABLE_GU_FUNCS
 	u32 s_TempMatrix[16];
 	REG32 l, r, b, t, n, f, s;
 
-	u8 *pMtxBase   {(u8 *)ReadAddress(gGPR[REG_a0]._u32_0)};	// Fixed point Base address
-	u8 *pStackBase {g_pu8RamBase_8000 + gGPR[REG_sp]._u32_0};	//Base stack address, this is safe since stack is always in physical memory
+	auto *pMtxBase   {(u8 *)ReadAddress(gGPR[REG_a0]._u32_0)};	// Fixed point Base address
+ 	auto *pStackBase {g_pu8RamBase_8000 + gGPR[REG_sp]._u32_0};	//Base stack address, this is safe since stack is always in physical memory
 	l._u32 = gGPR[REG_a1]._u32_0;	//Left
 	r._u32 = gGPR[REG_a2]._u32_0;	//Right
 	b._u32 = gGPR[REG_a3]._u32_0;	//Bottom
@@ -567,8 +567,8 @@ TEST_DISABLE_GU_FUNCS
 	vfpu_matrix_Ortho((u8 *)s_TempMatrix, l._f32, r._f32, b._f32, t._f32, n._f32, f._f32, s._f32);
 
 //Convert to proper N64 fixed point matrix
-	u8 *pMtxLBaseHiBits {(u8 *)(pMtxBase + 0x00)};
-	u8 *pMtxLBaseLoBits {(u8 *)(pMtxBase + 0x20)};
+	auto *pMtxLBaseHiBits {(u8 *)(pMtxBase + 0x00)};
+	auto *pMtxLBaseLoBits {(u8 *)(pMtxBase + 0x20)};
 
 	u32 tmp_a, tmp_b;
 	u32 hibits,lobits;
@@ -611,8 +611,8 @@ TEST_DISABLE_GU_FUNCS
 	f32 s,c;
 	REG32 a, r, x, y, z;
 
-	u8 *pMtxBase {(u8 *)ReadAddress(gGPR[REG_a0]._u32_0)};		//Matrix base address
-	u8 *pStackBase {g_pu8RamBase_8000 + gGPR[REG_sp]._u32_0};	//Base stack address, this is safe since stack is always in physical memory
+	auto  *pMtxBase {(u8 *)ReadAddress(gGPR[REG_a0]._u32_0)};		//Matrix base address
+	auto *pStackBase {g_pu8RamBase_8000 + gGPR[REG_sp]._u32_0};	//Base stack address, this is safe since stack is always in physical memory
 
 	a._u32 = gGPR[REG_a1]._u32_0;	//Angle in degrees + -> CCW
 	x._u32 = gGPR[REG_a2]._u32_0;	//X
@@ -644,7 +644,6 @@ TEST_DISABLE_GU_FUNCS
 
 	r._f32 = y._f32 * z._f32 * (1.0f - c) + x._f32 * s;
 	QuickWrite32Bits(pMtxBase, 0x18, r._u32);
-
 	QuickWrite32Bits(pMtxBase, 0x1c, 0x00000000);
 
 //Row #3
