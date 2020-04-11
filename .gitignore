@@ -13,9 +13,6 @@ Source/SysPSP/KernelButtonsPrx/imposectrl.S
 Source/SysPSP/MediaEnginePRX/MediaEngine.S
 DaedalusX64/
 daedbuild/
-Dumps/
-Roms
-SaveGames/
 out/
 preferences.ini
 rom.db

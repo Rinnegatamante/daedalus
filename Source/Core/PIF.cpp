@@ -303,8 +303,8 @@ bool IController::OnRomOpen()
 		mEepromContType = 0x00;
 	}
 
-
-	for ( u32 channel {}; channel < NUM_CONTROLLERS; channel++ )
+u32 channel {0};
+	for (channel = 0; channel < NUM_CONTROLLERS; channel++ )
 	{
 		mMemPack[channel] = (u8*)g_pMemoryBuffers[MEM_MEMPACK] + channel * 0x400 * 32;
 	}

@@ -73,6 +73,19 @@ void Dump_GetDumpDirectory(char * rootdir, const char * subdir)
 
 }
 
+void Dump_GetCacheDirectory(char * rootdir, const char * rom_filename, const char * extension)
+{
+	// If the Save path has not yet been set up, prompt user
+
+		IO::Directory::EnsureExists(g_DaedalusConfig.mCacheDir);
+
+		// Form the filename from the file spec (i.e. strip path and replace the extension)
+		IO::Filename file_name;
+		IO::Path::Assign(file_name, IO::Path::FindFileName(rom_filename));
+		IO::Path::SetExtension(file_name, extension);
+
+		IO::Path::Combine(rootdir, g_DaedalusConfig.mCacheDir, file_name);
+}
 
 // E.g. Dump_GetSaveDirectory([out], "c:\roms\test.rom", ".sra")
 // would first try to find the save in g_DaedalusConfig.mSaveDir. If this is not
@@ -343,4 +356,3 @@ void Dump_Strings( const char * p_file_name )
 	fclose(fp);
 }
 #endif
-

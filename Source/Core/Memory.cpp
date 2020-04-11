@@ -151,7 +151,7 @@ bool Memory_Init()
 	//g_pMemoryBuffers[MEM_CARTROM  ] = (u8*)VirtualAlloc( (void*)(base+0x10000000),	cart_size,	MEM_COMMIT, PAGE_READWRITE);
 	g_pMemoryBuffers[ MEM_PIF_RAM   ] = (u8*)VirtualAlloc( (void*)(base+0x1FC00000),	0x40,		MEM_COMMIT, PAGE_READWRITE );
 	//cartDom4                        = (u8*)VirtualAlloc( (void*)(base+0x1FD00000),	0x10000,	MEM_COMMIT, PAGE_READWRITE );
-	g_pMemoryBuffers[ MEM_MEMPACK   ] = (u8*)VirtualAlloc( nullptr,						0x20000,	MEM_COMMIT, PAGE_READWRITE );
+	g_pMemoryBuffers[ MEM_MEMPACK   ] = (u8*)VirtualAlloc( NULL,						0x20000,	MEM_COMMIT, PAGE_READWRITE );
 	g_pMemoryBuffers[ MEM_UNUSED    ] = new u8[ MemoryRegionSizes[MEM_UNUSED] ];
 
 #else

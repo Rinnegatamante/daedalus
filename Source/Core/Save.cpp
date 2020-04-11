@@ -78,14 +78,14 @@ bool Save_Reset()
 			DBGConsole_Msg(0, "Loading save from [C%s]", gSaveFileName);
 			#endif
 
-			u8 buffer[2048] {};
+			u8 buffer[2048] ;
 			u8 * dst = (u8*)g_pMemoryBuffers[MEM_SAVE];
 
-			for (u32 d {}; d < gSaveSize; d += sizeof(buffer))
+			for (u32 d {0}; d < gSaveSize; d += sizeof(buffer))
 			{
 				fread(buffer, sizeof(buffer), 1, fp);
 
-				for (u32 i {}; i < sizeof(buffer); i++)
+				for (u32 i {0}; i < sizeof(buffer); i++)
 				{
 					dst[d+i] = buffer[i^U8_TWIDDLE];
 				}
@@ -100,29 +100,24 @@ bool Save_Reset()
 		#endif
 	}
 
-	// init mempack
+	if (g_ROM.settings.SaveType = SAVE_TYPE_UNKNOWN)
 	{
 		Dump_GetSaveDirectory(gMempackFileName, g_ROM.mFileName, ".mpk");
 		FILE * fp = fopen(gMempackFileName, "rb");
-		if (fp != nullptr)
+		if (fp != NULL)
 		{
-			#ifdef DAEDALUS_DEBUG_CONSOLE
 			DBGConsole_Msg(0, "Loading MemPack from [C%s]", gMempackFileName);
-			#endif
 			fread(g_pMemoryBuffers[MEM_MEMPACK], MemoryRegionSizes[MEM_MEMPACK], 1, fp);
 			fclose(fp);
 			gMempackDirty = false;
 		}
 		else
 		{
-			#ifdef DAEDALUS_DEBUG_CONSOLE
 			DBGConsole_Msg(0, "MemPack File [C%s] cannot be found.", gMempackFileName);
-			#endif
 			InitMempackContent();
 			gMempackDirty = true;
 		}
 	}
-
 
 	return true;
 }

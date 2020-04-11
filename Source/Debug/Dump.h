@@ -28,6 +28,8 @@ struct OpCode;
 
 void Dump_GetDumpDirectory(char * rootdir, const char * subdir);
 void Dump_GetSaveDirectory(char * rootdir, const char * rom_filename, const char * extension);
+void Dump_GetCacheDirectory(char *rootdir, const char * rom_filename, const char * extension);
+
 
 #ifndef DAEDALUS_SILENT
 
