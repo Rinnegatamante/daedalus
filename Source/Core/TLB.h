@@ -22,27 +22,26 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "Utility/Alignment.h"
 #include "Utility/DaedalusTypes.h"
 
-struct TLBEntry
-{
+struct TLBEntry {
 public:
-	u32 pagemask, hi, pfne, pfno;
-	u32 mask, g;
+  u32 pagemask, hi, pfne, pfno;
+  u32 mask, g;
 
 private:
-	// For speed/convenience
-	u32		mask2;			// Mask, Mask/2
-	u32		vpnmask, vpn2mask;	// Vpn Mask, VPN/2 Mask
-	u32		pfnohi, pfnehi;		// Even/Odd highbits
-	u32		checkbit;
+  // For speed/convenience
+  u32 mask2;             // Mask, Mask/2
+  u32 vpnmask, vpn2mask; // Vpn Mask, VPN/2 Mask
+  u32 pfnohi, pfnehi;    // Even/Odd highbits
+  u32 checkbit;
 
-	u32		addrcheck;			// vpn2 & vpnmask
+  u32 addrcheck; // vpn2 & vpnmask
 
-	static bool FindTLBEntry( u32 address, u32 * p_idx );
+  static bool FindTLBEntry(u32 address, u32 *p_idx);
 
 public:
-	void UpdateValue(u32 _pagemask, u32 _hi, u32 _pfne, u32 _pfno);
-	void Reset();
-	static u32 Translate(u32 address, bool& missing);
+  void UpdateValue(u32 _pagemask, u32 _hi, u32 _pfne, u32 _pfno);
+  void Reset();
+  static u32 Translate(u32 address, bool &missing);
 };
 
 ALIGNED_EXTERN(TLBEntry, g_TLBs[32], CACHE_ALIGN);

@@ -32,44 +32,42 @@ class c32;
 // other threads from changing/releasing any of the pointers while it is
 // running.
 
-class CGraphicsContext : public CSingleton< CGraphicsContext >
-{
+class CGraphicsContext : public CSingleton<CGraphicsContext> {
 public:
-	~CGraphicsContext() override = default;
+  ~CGraphicsContext() override = default;
 
-	enum ETargetSurface
-	{
-		TS_BACKBUFFER,
-		TS_FRONTBUFFER,
-	};
+  enum ETargetSurface {
+    TS_BACKBUFFER,
+    TS_FRONTBUFFER,
+  };
 
-	virtual bool Initialise() = 0;
+  virtual bool Initialise() = 0;
 
-	virtual bool IsInitialised() const = 0;
+  virtual bool IsInitialised() const = 0;
 
 #ifdef DAEDALUS_PSP
-	virtual void SwitchToChosenDisplay() = 0;
-	virtual void SwitchToLcdDisplay() = 0;
-	virtual void StoreSaveScreenData() = 0;
+  virtual void SwitchToChosenDisplay() = 0;
+  virtual void SwitchToLcdDisplay() = 0;
+  virtual void StoreSaveScreenData() = 0;
 #endif
 
-	virtual void ClearAllSurfaces() = 0;
-	virtual void ClearToBlack() = 0;
-	virtual void ClearZBuffer() = 0;
-	virtual void ClearColBuffer(const c32 & colour) = 0;
-	virtual void ClearColBufferAndDepth(const c32 & colour) = 0;
+  virtual void ClearAllSurfaces() = 0;
+  virtual void ClearToBlack() = 0;
+  virtual void ClearZBuffer() = 0;
+  virtual void ClearColBuffer(const c32 &colour) = 0;
+  virtual void ClearColBufferAndDepth(const c32 &colour) = 0;
 
-	virtual	void BeginFrame() = 0;
-	virtual void EndFrame() = 0;
-	virtual void UpdateFrame( bool wait_for_vbl ) = 0;
+  virtual void BeginFrame() = 0;
+  virtual void EndFrame() = 0;
+  virtual void UpdateFrame(bool wait_for_vbl) = 0;
 
-	virtual void GetScreenSize(u32 * width, u32 * height) const = 0;
-	virtual void ViewportType(u32 * width, u32 * height) const = 0;
+  virtual void GetScreenSize(u32 *width, u32 *height) const = 0;
+  virtual void ViewportType(u32 *width, u32 *height) const = 0;
 
-	virtual void SetDebugScreenTarget( ETargetSurface buffer ) = 0;
+  virtual void SetDebugScreenTarget(ETargetSurface buffer) = 0;
 
-	virtual void DumpNextScreen() = 0;
-	virtual void DumpScreenShot() = 0;
+  virtual void DumpNextScreen() = 0;
+  virtual void DumpScreenShot() = 0;
 };
 
 #endif // GRAPHICS_GRAPHICSCONTEXT_H_

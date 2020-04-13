@@ -28,132 +28,117 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 struct SRenderState;
 
-enum EBlendConstant
-{
-	BC_SHADE,
-	BC_PRIMITIVE,
-	BC_ENVIRONMENT,
-	BC_PRIMITIVE_ALPHA,
-	BC_ENVIRONMENT_ALPHA,
-	BC_1,
-	BC_0,
+enum EBlendConstant {
+  BC_SHADE,
+  BC_PRIMITIVE,
+  BC_ENVIRONMENT,
+  BC_PRIMITIVE_ALPHA,
+  BC_ENVIRONMENT_ALPHA,
+  BC_1,
+  BC_0,
 };
 
-class CBlendConstantExpression
-{
+class CBlendConstantExpression {
 public:
-	virtual ~CBlendConstantExpression();
+  virtual ~CBlendConstantExpression();
 
-	virtual c32					Evaluate( c32 shade, c32 primitive, c32 environment ) const = 0;
-	virtual c32					EvaluateConstant( c32 primitive, c32 environment ) const = 0;
-	virtual bool				TryEvaluateConstant( const SRenderState & state, c32 * out ) const = 0;
+  virtual c32 Evaluate(c32 shade, c32 primitive, c32 environment) const = 0;
+  virtual c32 EvaluateConstant(c32 primitive, c32 environment) const = 0;
+  virtual bool TryEvaluateConstant(const SRenderState &state,
+                                   c32 *out) const = 0;
 
-	virtual bool				IsShade() const { return false; }
+  virtual bool IsShade() const { return false; }
 
-	virtual void				ApplyExpressionRGB( const SRenderState & state ) const = 0;
-	virtual void				ApplyExpressionAlpha( const SRenderState & state ) const = 0;
+  virtual void ApplyExpressionRGB(const SRenderState &state) const = 0;
+  virtual void ApplyExpressionAlpha(const SRenderState &state) const = 0;
 
-	virtual std::string			ToString() const = 0;
+  virtual std::string ToString() const = 0;
 };
 
-class CBlendConstantExpressionValue : public CBlendConstantExpression
-{
+class CBlendConstantExpressionValue : public CBlendConstantExpression {
 public:
-	CBlendConstantExpressionValue( EBlendConstant constant )
-	:	mConstant( constant )
-	{
-	}
+  CBlendConstantExpressionValue(EBlendConstant constant)
+      : mConstant(constant) {}
 
-	~CBlendConstantExpressionValue() override;
+  ~CBlendConstantExpressionValue() override;
 
-	c32					Evaluate( c32 shade, c32 primitive, c32 environment ) const override;
-	c32 				EvaluateConstant( c32 primitive, c32 environment ) const override;
-	bool 				TryEvaluateConstant( const SRenderState & state, c32 * out ) const override;
+  c32 Evaluate(c32 shade, c32 primitive, c32 environment) const override;
+  c32 EvaluateConstant(c32 primitive, c32 environment) const override;
+  bool TryEvaluateConstant(const SRenderState &state, c32 *out) const override;
 
-	bool 				IsShade() const override;
+  bool IsShade() const override;
 
-	void 				ApplyExpressionRGB( const SRenderState & state ) const override;
-	void 				ApplyExpressionAlpha( const SRenderState & state ) const override;
+  void ApplyExpressionRGB(const SRenderState &state) const override;
+  void ApplyExpressionAlpha(const SRenderState &state) const override;
 
-	std::string 		ToString() const override;
+  std::string ToString() const override;
 
 private:
-	EBlendConstant				mConstant;
+  EBlendConstant mConstant;
 };
 
-template< typename ColOp >
-class CBlendConstantExpression2 : public CBlendConstantExpression
-{
+template <typename ColOp>
+class CBlendConstantExpression2 : public CBlendConstantExpression {
 public:
-	CBlendConstantExpression2( const CBlendConstantExpression * a, const CBlendConstantExpression * b )
-		:	mA( a )
-		,	mB( b )
-	{
-	}
+  CBlendConstantExpression2(const CBlendConstantExpression *a,
+                            const CBlendConstantExpression *b)
+      : mA(a), mB(b) {}
 
-	~CBlendConstantExpression2() override;
+  ~CBlendConstantExpression2() override;
 
-	c32 				Evaluate( c32 shade, c32 primitive, c32 environment ) const override;
-	c32					EvaluateConstant( c32 primitive, c32 environment ) const override;
-	bool 				TryEvaluateConstant( const SRenderState & state, c32 * out ) const override;
+  c32 Evaluate(c32 shade, c32 primitive, c32 environment) const override;
+  c32 EvaluateConstant(c32 primitive, c32 environment) const override;
+  bool TryEvaluateConstant(const SRenderState &state, c32 *out) const override;
 
-	void 				ApplyExpressionRGB( const SRenderState & state ) const override;
-	void 				ApplyExpressionAlpha( const SRenderState & state ) const override;
+  void ApplyExpressionRGB(const SRenderState &state) const override;
+  void ApplyExpressionAlpha(const SRenderState &state) const override;
 
-	std::string 		ToString() const override;
+  std::string ToString() const override;
 
 private:
-	const CBlendConstantExpression *	mA;
-	const CBlendConstantExpression *	mB;
+  const CBlendConstantExpression *mA;
+  const CBlendConstantExpression *mB;
 };
 
-struct AddOp
-{
-	static inline c32 Process( c32 a, c32 b )	{ return a.Add( b ); }
-	static inline const char * OpString()		{ return " + "; }
+struct AddOp {
+  static inline c32 Process(c32 a, c32 b) { return a.Add(b); }
+  static inline const char *OpString() { return " + "; }
 };
-struct SubOp
-{
-	static inline c32 Process( c32 a, c32 b )	{ return a.Sub( b ); }
-	static inline const char * OpString()		{ return " - "; }
+struct SubOp {
+  static inline c32 Process(c32 a, c32 b) { return a.Sub(b); }
+  static inline const char *OpString() { return " - "; }
 };
-struct MulOp
-{
-	static inline c32 Process( c32 a, c32 b )	{ return a.Modulate( b ); }
-	static inline const char * OpString()		{ return " * "; }
+struct MulOp {
+  static inline c32 Process(c32 a, c32 b) { return a.Modulate(b); }
+  static inline const char *OpString() { return " * "; }
 };
 
-typedef CBlendConstantExpression2< AddOp >	CBlendConstantExpressionAdd;
-typedef CBlendConstantExpression2< SubOp >	CBlendConstantExpressionSub;
-typedef CBlendConstantExpression2< MulOp >	CBlendConstantExpressionMul;
+typedef CBlendConstantExpression2<AddOp> CBlendConstantExpressionAdd;
+typedef CBlendConstantExpression2<SubOp> CBlendConstantExpressionSub;
+typedef CBlendConstantExpression2<MulOp> CBlendConstantExpressionMul;
 
-
-
-class CBlendConstantExpressionBlend : public CBlendConstantExpression
-{
+class CBlendConstantExpressionBlend : public CBlendConstantExpression {
 public:
-	CBlendConstantExpressionBlend( const CBlendConstantExpression * a, const CBlendConstantExpression * b, const CBlendConstantExpression * f )
-		:	mA( a )
-		,	mB( b )
-		,	mF( f )
-	{
-	}
+  CBlendConstantExpressionBlend(const CBlendConstantExpression *a,
+                                const CBlendConstantExpression *b,
+                                const CBlendConstantExpression *f)
+      : mA(a), mB(b), mF(f) {}
 
-	~CBlendConstantExpressionBlend() override;
+  ~CBlendConstantExpressionBlend() override;
 
-	c32 				Evaluate( c32 shade, c32 primitive, c32 environment ) const override;
-	c32 				EvaluateConstant( c32 primitive, c32 environment ) const override;
-	bool 				TryEvaluateConstant( const SRenderState & state, c32 * out ) const override;
+  c32 Evaluate(c32 shade, c32 primitive, c32 environment) const override;
+  c32 EvaluateConstant(c32 primitive, c32 environment) const override;
+  bool TryEvaluateConstant(const SRenderState &state, c32 *out) const override;
 
-	void 				ApplyExpressionRGB( const SRenderState & state ) const override;
-	void 				ApplyExpressionAlpha( const SRenderState & state ) const override;
+  void ApplyExpressionRGB(const SRenderState &state) const override;
+  void ApplyExpressionAlpha(const SRenderState &state) const override;
 
-	std::string 		ToString() const override;
+  std::string ToString() const override;
 
 private:
-	const CBlendConstantExpression *			mA;
-	const CBlendConstantExpression *			mB;
-	const CBlendConstantExpression *			mF;
+  const CBlendConstantExpression *mA;
+  const CBlendConstantExpression *mB;
+  const CBlendConstantExpression *mF;
 };
 
 #endif // SYSPSP_HLEGRAPHICS_COMBINER_BLENDCONSTANT_H_

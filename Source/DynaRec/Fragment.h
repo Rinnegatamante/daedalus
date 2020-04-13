@@ -20,8 +20,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef DYNAREC_FRAGMENT_H_
 #define DYNAREC_FRAGMENT_H_
 
-#include "Trace.h"
 #include "RegisterSpan.h"
+#include "Trace.h"
 
 #include "Core/R4300Instruction.h"
 
@@ -30,15 +30,16 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <vector>
 
 //*************************************************************************************
-//	Enable this to allow simulation of the buffer rather than direct execution
+//	Enable this to allow simulation of the buffer rather than direct
+//execution
 //*************************************************************************************
 //#define FRAGMENT_SIMULATE_EXECUTION
 
 //
 //	This determines whether we retain the trace and the branch details
 //
-#if defined( FRAGMENT_SIMULATE_EXECUTION ) || defined( DAEDALUS_DEBUG_DYNAREC )
-	#define FRAGMENT_RETAIN_ADDITIONAL_INFO
+#if defined(FRAGMENT_SIMULATE_EXECUTION) || defined(DAEDALUS_DEBUG_DYNAREC)
+#define FRAGMENT_RETAIN_ADDITIONAL_INFO
 #endif
 
 //*************************************************************************************
@@ -49,91 +50,98 @@ class CCodeGenerator;
 class CCodeBufferManager;
 class CIndirectExitMap;
 
-struct SFragmentPatchDetails
-{
-	u32				Address;
-	CJumpLocation	Jump;
+struct SFragmentPatchDetails {
+  u32 Address;
+  CJumpLocation Jump;
 };
-typedef std::vector<SFragmentPatchDetails>	FragmentPatchList;
+typedef std::vector<SFragmentPatchDetails> FragmentPatchList;
 
 //*************************************************************************************
 //
 //*************************************************************************************
-class CFragment
-{
-	typedef std::vector<STraceEntry>		TraceBuffer;
-	typedef std::vector<SBranchDetails>		BranchBuffer;
-public:
-		CFragment( CCodeBufferManager * p_manager, u32 entry_address, u32 exit_address,
-			const TraceBuffer & trace, SRegisterUsageInfo &	register_usage, const BranchBuffer & branch_details, bool need_indirect_exit_map );
-#ifdef DAEDALUS_ENABLE_OS_HOOKS
-		CFragment(CCodeBufferManager * p_manager, u32 entry_address, u32 input_length, void* function_Ptr);
-		void		Assemble( CCodeBufferManager * p_manager, CCodeLabel native_function);
-#endif
-		~CFragment();
+class CFragment {
+  typedef std::vector<STraceEntry> TraceBuffer;
+  typedef std::vector<SBranchDetails> BranchBuffer;
 
-		void		Execute();
+public:
+  CFragment(CCodeBufferManager *p_manager, u32 entry_address, u32 exit_address,
+            const TraceBuffer &trace, SRegisterUsageInfo &register_usage,
+            const BranchBuffer &branch_details, bool need_indirect_exit_map);
+#ifdef DAEDALUS_ENABLE_OS_HOOKS
+  CFragment(CCodeBufferManager *p_manager, u32 entry_address, u32 input_length,
+            void *function_Ptr);
+  void Assemble(CCodeBufferManager *p_manager, CCodeLabel native_function);
+#endif
+  ~CFragment();
+
+  void Execute();
 
 #ifdef DAEDALUS_DEBUG_DYNAREC
-		void		DumpFragmentInfoHtml( FILE * fh, u64 total_cycles ) const;
+  void DumpFragmentInfoHtml(FILE *fh, u64 total_cycles) const;
 #endif
 
-		u32			GetEntryAddress() const						{ return mEntryAddress; }
-		CCodeLabel	GetEntryTarget() const						{ return mEntryPoint; }
+  u32 GetEntryAddress() const { return mEntryAddress; }
+  CCodeLabel GetEntryTarget() const { return mEntryPoint; }
 
-		u32			GetMemoryUsage() const;
-		u32			GetInputLength() const						{ return mInputLength; }
-		u32			GetOutputLength() const						{ return mOutputLength; }
+  u32 GetMemoryUsage() const;
+  u32 GetInputLength() const { return mInputLength; }
+  u32 GetOutputLength() const { return mOutputLength; }
 
-		void		SetCache( const CFragmentCache * p_cache );
+  void SetCache(const CFragmentCache *p_cache);
 
-		const FragmentPatchList &	GetPatchList() const		{ return mPatchList; }
-		void		DiscardPatchList()							{ mPatchList.clear(); }
+  const FragmentPatchList &GetPatchList() const { return mPatchList; }
+  void DiscardPatchList() { mPatchList.clear(); }
 
 #ifdef FRAGMENT_RETAIN_ADDITIONAL_INFO
-		u32			GetHitCount() const							{ return mHitCount; }
-		u32			GetCyclesExecuted() const					{ return mHitCount * mOutputLength / 4; }
+  u32 GetHitCount() const { return mHitCount; }
+  u32 GetCyclesExecuted() const { return mHitCount * mOutputLength / 4; }
 
-		u32			GetExitAddress() const						{ return mExitAddress; }
+  u32 GetExitAddress() const { return mExitAddress; }
 #endif
 
 private:
-		void		Analyse( const std::vector< STraceEntry > & trace, SRegisterUsageInfo & register_usage );
-		void		Assemble( CCodeBufferManager * p_manager, u32 exit_address, const std::vector< STraceEntry > & trace, const std::vector<SBranchDetails> & branch_details, const SRegisterUsageInfo & register_usage );
+  void Analyse(const std::vector<STraceEntry> &trace,
+               SRegisterUsageInfo &register_usage);
+  void Assemble(CCodeBufferManager *p_manager, u32 exit_address,
+                const std::vector<STraceEntry> &trace,
+                const std::vector<SBranchDetails> &branch_details,
+                const SRegisterUsageInfo &register_usage);
 
-		void		AddPatch( u32 address, CJumpLocation jump_location );
+  void AddPatch(u32 address, CJumpLocation jump_location);
 
 #ifdef FRAGMENT_SIMULATE_EXECUTION
-		CFragment *	Simulate();
+  CFragment *Simulate();
 #endif
 
 private:
-		u32								mEntryAddress;
+  u32 mEntryAddress;
 
-		std::vector< SFragmentPatchDetails >	mPatchList;
+  std::vector<SFragmentPatchDetails> mPatchList;
 
-		CCodeLabel						mEntryPoint;
-		u32								mInputLength;
-		u32								mOutputLength;		// Essentially the same as mFragmentFunctionLength, but takes into account additional debugging instructions etc
-		u32								mFragmentFunctionLength;
+  CCodeLabel mEntryPoint;
+  u32 mInputLength;
+  u32 mOutputLength; // Essentially the same as mFragmentFunctionLength, but
+                     // takes into account additional debugging instructions etc
+  u32 mFragmentFunctionLength;
 
-		CIndirectExitMap *				mpIndirectExitMap;
+  CIndirectExitMap *mpIndirectExitMap;
 
 #ifdef FRAGMENT_RETAIN_ADDITIONAL_INFO
-		u32								mHitCount;
-		TraceBuffer						mTraceBuffer;
-		BranchBuffer					mBranchBuffer;
+  u32 mHitCount;
+  TraceBuffer mTraceBuffer;
+  BranchBuffer mBranchBuffer;
 
-		std::vector< const u8 * >		mInstructionStartLocations;	// For each entry in the trace, this holds the first instruction in the output buffer
+  std::vector<const u8 *>
+      mInstructionStartLocations; // For each entry in the trace, this holds the
+                                  // first instruction in the output buffer
 
-		SRegisterUsageInfo				mRegisterUsage;
+  SRegisterUsageInfo mRegisterUsage;
 
-		u32								mExitAddress;
+  u32 mExitAddress;
 #endif
 #ifdef FRAGMENT_SIMULATE_EXECUTION
-		const CFragmentCache *			mpCache;
+  const CFragmentCache *mpCache;
 #endif
-
 };
 
 #endif // DYNAREC_FRAGMENT_H_

@@ -17,7 +17,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 */
 
-
 #ifndef SYSPSP_UI_UISCREEN_H_
 #define SYSPSP_UI_UISCREEN_H_
 
@@ -28,21 +27,20 @@ class c32;
 class CUIContext;
 class CUIComponent;
 
-class CUIScreen
-{
-	public:
-		CUIScreen( CUIContext * p_context );
-		virtual ~CUIScreen();
+class CUIScreen {
+public:
+  CUIScreen(CUIContext *p_context);
+  virtual ~CUIScreen();
 
-		virtual void				Update( float elapsed_time, const v2 & stick, u32 old_buttons, u32 new_buttons ) = 0;
-		virtual void				Render() = 0;
-		virtual bool				IsFinished() const = 0;
+  virtual void Update(float elapsed_time, const v2 &stick, u32 old_buttons,
+                      u32 new_buttons) = 0;
+  virtual void Render() = 0;
+  virtual bool IsFinished() const = 0;
 
-		void						Run();
+  void Run();
 
-	protected:
-		CUIContext *				mpContext;
-
+protected:
+  CUIContext *mpContext;
 };
 
 #endif // SYSPSP_UI_UISCREEN_H_

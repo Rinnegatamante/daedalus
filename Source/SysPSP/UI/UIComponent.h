@@ -17,7 +17,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 */
 
-
 #ifndef SYSPSP_UI_UICOMPONENT_H_
 #define SYSPSP_UI_UICOMPONENT_H_
 
@@ -26,18 +25,18 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 class v2;
 class CUIContext;
 
-class CUIComponent
-{
-	public:
-		CUIComponent( CUIContext * p_context );
-		virtual ~CUIComponent();
+class CUIComponent {
+public:
+  CUIComponent(CUIContext *p_context);
+  virtual ~CUIComponent();
 
-		virtual void				Update( float elapsed_time, const v2 & stick, u32 old_buttons, u32 new_buttons ) = 0;
-		virtual void				Render() = 0;
-		virtual bool				IsFinished() const			{ return true; }
+  virtual void Update(float elapsed_time, const v2 &stick, u32 old_buttons,
+                      u32 new_buttons) = 0;
+  virtual void Render() = 0;
+  virtual bool IsFinished() const { return true; }
 
-	protected:
-		CUIContext *				mpContext;
+protected:
+  CUIContext *mpContext;
 };
 
 //
@@ -46,23 +45,26 @@ class CUIComponent
 #include "UIScreen.h"
 #include <string>
 
-class CUIComponentScreen : public CUIScreen
-{
-	private:
-		CUIComponentScreen( CUIContext * p_context, CUIComponent * component, const char * title );
-	public:
-		~CUIComponentScreen() override;
+class CUIComponentScreen : public CUIScreen {
+private:
+  CUIComponentScreen(CUIContext *p_context, CUIComponent *component,
+                     const char *title);
 
-		static CUIComponentScreen *	Create( CUIContext * p_context, CUIComponent * component, const char * title );
+public:
+  ~CUIComponentScreen() override;
 
-		// CUIScreen
-		void				Update( float elapsed_time, const v2 & stick, u32 old_buttons, u32 new_buttons ) override;
-		void				Render() override;
-		bool				IsFinished() const override;
+  static CUIComponentScreen *Create(CUIContext *p_context,
+                                    CUIComponent *component, const char *title);
 
-	private:
-		CUIComponent *				mComponent;
-		std::string					mTitle;
+  // CUIScreen
+  void Update(float elapsed_time, const v2 &stick, u32 old_buttons,
+              u32 new_buttons) override;
+  void Render() override;
+  bool IsFinished() const override;
+
+private:
+  CUIComponent *mComponent;
+  std::string mTitle;
 };
 
 #endif // SYSPSP_UI_UICOMPONENT_H_

@@ -25,28 +25,27 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 // there was no "n" field. I didn't realise that the n/length fields shared the
 // lower 16 bits (in a 7:9 split).
 // u32 length    = (command.inst.cmd0)&0xFFFF;
-// u32 num_verts = (length + 1) / 0x210;					// 528
-// u32 v0_idx    = ((command.inst.cmd0>>16)&0xFF)/VertexStride;	// /5
+// u32 num_verts = (length + 1) / 0x210;					//
+// 528 u32 v0_idx    = ((command.inst.cmd0>>16)&0xFF)/VertexStride;	// /5
 //*****************************************************************************
-void DLParser_GBI0_Vtx_WRUS( MicroCodeCommand command )
-{
-	u32 addr = RDPSegAddr(command.inst.cmd1);
-	u32 v0  = ((command.inst.cmd0 >>16 ) & 0xff) / 5;
-	u32 n   =  (command.inst.cmd0 >>9  ) & 0x7f;
-	u32 len =  (command.inst.cmd0      ) & 0x1ff;
-			#ifdef DAEDALUS_DEBUG_DISPLAYLIST
-	DL_PF( "    Address[0x%08x] v0[%d] Num[%d] Len[0x%04x]", addr, v0, n, len );
+void DLParser_GBI0_Vtx_WRUS(MicroCodeCommand command) {
+  u32 addr = RDPSegAddr(command.inst.cmd1);
+  u32 v0 = ((command.inst.cmd0 >> 16) & 0xff) / 5;
+  u32 n = (command.inst.cmd0 >> 9) & 0x7f;
+  u32 len = (command.inst.cmd0) & 0x1ff;
+#ifdef DAEDALUS_DEBUG_DISPLAYLIST
+  DL_PF("    Address[0x%08x] v0[%d] Num[%d] Len[0x%04x]", addr, v0, n, len);
 #endif
 #ifdef DAEDALUS_ENABLE_ASSERTS
-	DAEDALUS_ASSERT( (v0 + n) < 32, "Warning, attempting to load into invalid vertex positions");
+  DAEDALUS_ASSERT((v0 + n) < 32,
+                  "Warning, attempting to load into invalid vertex positions");
 #endif
-	gRenderer->SetNewVertexInfo( addr, v0, n );
+  gRenderer->SetNewVertexInfo(addr, v0, n);
 
 #ifdef DAEDALUS_DEBUG_DISPLAYLIST
-	gNumVertices += n;
-	DLParser_DumpVtxInfo( addr, v0, n );
+  gNumVertices += n;
+  DLParser_DumpVtxInfo(addr, v0, n);
 #endif
-
 }
 
 #endif // HLEGRAPHICS_UCODES_UCODE_WRUS_H_

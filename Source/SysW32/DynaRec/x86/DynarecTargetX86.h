@@ -24,18 +24,17 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 // Intel register codes. Odd ordering is for intel bytecode
 enum EIntelReg {
-	INVALID_CODE = 0xFFFFFFFF,
-	EAX_CODE = 0,
-	ECX_CODE = 1,
-	EDX_CODE = 2,
-	EBX_CODE = 3,
-	ESP_CODE = 4,
-	EBP_CODE = 5,
-	ESI_CODE = 6,
-	EDI_CODE = 7,
+  INVALID_CODE = 0xFFFFFFFF,
+  EAX_CODE = 0,
+  ECX_CODE = 1,
+  EDX_CODE = 2,
+  EBX_CODE = 3,
+  ESP_CODE = 4,
+  EBP_CODE = 5,
+  ESI_CODE = 6,
+  EDI_CODE = 7,
 
-	NUM_X86_REGISTERS = 8,
+  NUM_X86_REGISTERS = 8,
 };
-
 
 #endif // SYSW32_DYNAREC_X86_DYNARECTARGETX86_H_

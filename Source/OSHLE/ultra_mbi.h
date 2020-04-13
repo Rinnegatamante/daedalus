@@ -20,16 +20,15 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef OSHLE_ULTRA_MBI_H_
 #define OSHLE_ULTRA_MBI_H_
 
-#define	M_GFXTASK	1
-#define	M_AUDTASK	2
-#define	M_VIDTASK	3
-#define M_JPGTASK	4
-#define M_FBTASK	7
+#define M_GFXTASK 1
+#define M_AUDTASK 2
+#define M_VIDTASK 3
+#define M_JPGTASK 4
+#define M_FBTASK 7
 
-#define	NUM_SEGMENTS			(16)
-#define	SEGMENT_OFFSET(a)		((unsigned int)(a) & 0x00ffffff)
-#define	SEGMENT_NUMBER(a)		((unsigned int)(a) >> 24)
-#define	SEGMENT_ADDR(num, off)	(((num) << 24) + (off))
-
+#define NUM_SEGMENTS (16)
+#define SEGMENT_OFFSET(a) ((unsigned int)(a)&0x00ffffff)
+#define SEGMENT_NUMBER(a) ((unsigned int)(a) >> 24)
+#define SEGMENT_ADDR(num, off) (((num) << 24) + (off))
 
 #endif // OSHLE_ULTRA_MBI_H_

@@ -24,10 +24,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 namespace NTiming {
 
-bool		GetPreciseFrequency( u64 * p_freq );
-bool		GetPreciseTime( u64 * p_time );
-u64			ToMilliseconds( u64 ticks );
+bool GetPreciseFrequency(u64 *p_freq);
+bool GetPreciseTime(u64 *p_time);
+u64 ToMilliseconds(u64 ticks);
 
-}
+} // namespace NTiming
 
 #endif // UTILITY_TIMING_H_

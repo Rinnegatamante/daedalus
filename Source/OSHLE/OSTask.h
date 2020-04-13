@@ -3,17 +3,12 @@
 
 #include "ultra_sptask.h"
 
-class COSTask
-{
+class COSTask {
 public:
-	COSTask(OSTask * pTask)
-	{
-		m_pTask = pTask;
-	}
+  COSTask(OSTask *pTask) { m_pTask = pTask; }
 
 protected:
-	OSTask * m_pTask;
-
+  OSTask *m_pTask;
 };
 
 #endif // OSHLE_OSTASK_H_

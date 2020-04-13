@@ -22,53 +22,50 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "Utility/DaedalusTypes.h"
 
-class COutputStream
-{
+class COutputStream {
 public:
-	virtual ~COutputStream() = default;
+  virtual ~COutputStream() = default;
 
-	virtual	COutputStream & operator<<( const char * p_str ) = 0;
-	virtual	COutputStream & operator<<( char val ) = 0;
-	virtual	COutputStream & operator<<( s32 val ) = 0;
-	virtual	COutputStream & operator<<( u32 val ) = 0;
+  virtual COutputStream &operator<<(const char *p_str) = 0;
+  virtual COutputStream &operator<<(char val) = 0;
+  virtual COutputStream &operator<<(s32 val) = 0;
+  virtual COutputStream &operator<<(u32 val) = 0;
 };
 
-class CNullOutputStream : public COutputStream
-{
+class CNullOutputStream : public COutputStream {
 public:
-	~CNullOutputStream() override = default;
+  ~CNullOutputStream() override = default;
 
-		COutputStream & operator<<( const char * p_str ) override { return *this; }
-		COutputStream & operator<<( char val ) override { return *this; }
-		COutputStream & operator<<( s32 val ) override { return *this; }
-		COutputStream & operator<<( u32 val ) override { return *this; }
+  COutputStream &operator<<(const char *p_str) override { return *this; }
+  COutputStream &operator<<(char val) override { return *this; }
+  COutputStream &operator<<(s32 val) override { return *this; }
+  COutputStream &operator<<(u32 val) override { return *this; }
 
-	const char *		c_str() const { return ""; }
+  const char *c_str() const { return ""; }
 };
 
-class COutputStringStream : public COutputStream
-{
+class COutputStringStream : public COutputStream {
 public:
-	COutputStringStream();
-	~COutputStringStream() override;
+  COutputStringStream();
+  ~COutputStringStream() override;
 
-	void				Clear();
+  void Clear();
 
-	COutputStream & operator<<( const char * p_str ) override;
-	COutputStream & operator<<( char val ) override;
-	COutputStream & operator<<( s32 val ) override;
-	COutputStream & operator<<( u32 val ) override;
+  COutputStream &operator<<(const char *p_str) override;
+  COutputStream &operator<<(char val) override;
+  COutputStream &operator<<(s32 val) override;
+  COutputStream &operator<<(u32 val) override;
 
-	const char *		c_str() const;
+  const char *c_str() const;
+
 private:
-	class COutputStringStreamImpl *		mpImpl;
+  class COutputStringStreamImpl *mpImpl;
 };
 
-inline COutputStream & operator<<( COutputStream & str, CNullOutputStream & rhs )
-{
-	return str;
+inline COutputStream &operator<<(COutputStream &str, CNullOutputStream &rhs) {
+  return str;
 }
 
-COutputStream & operator<<( COutputStream & str, COutputStringStream & rhs );
+COutputStream &operator<<(COutputStream &str, COutputStringStream &rhs);
 
 #endif // UTILITY_STREAM_H_

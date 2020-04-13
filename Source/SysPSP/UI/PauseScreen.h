@@ -17,20 +17,18 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 */
 
-
 #ifndef SYSPSP_UI_PAUSESCREEN_H_
 #define SYSPSP_UI_PAUSESCREEN_H_
 
 class CUIContext;
 
-class CPauseScreen
-{
-	public:
-		virtual ~CPauseScreen();
+class CPauseScreen {
+public:
+  virtual ~CPauseScreen();
 
-		static CPauseScreen *	Create( CUIContext * p_context );
+  static CPauseScreen *Create(CUIContext *p_context);
 
-		virtual void				Run() = 0;
+  virtual void Run() = 0;
 };
 
 #endif // SYSPSP_UI_PAUSESCREEN_H_

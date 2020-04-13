@@ -24,20 +24,18 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 class CCodeGenerator;
 
-class CCodeBufferManager
-{
+class CCodeBufferManager {
 public:
-	virtual							~CCodeBufferManager() = default;
-	virtual	bool					Initialise() = 0;
-	virtual void					Reset() = 0;
-	virtual	void					Finalise() = 0;
+  virtual ~CCodeBufferManager() = default;
+  virtual bool Initialise() = 0;
+  virtual void Reset() = 0;
+  virtual void Finalise() = 0;
 
-	virtual	CCodeGenerator *		StartNewBlock() = 0;
-	virtual	u32						FinaliseCurrentBlock() = 0;
+  virtual CCodeGenerator *StartNewBlock() = 0;
+  virtual u32 FinaliseCurrentBlock() = 0;
 
 public:
-	static	CCodeBufferManager *	Create();
+  static CCodeBufferManager *Create();
 };
-
 
 #endif // DYNAREC_CODEBUFFERMANAGER_H_

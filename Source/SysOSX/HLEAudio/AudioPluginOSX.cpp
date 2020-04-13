@@ -24,8 +24,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //	Drop me a line if you get chance :)
 //
 
-#include "stdafx.h"
 #include "Plugins/AudioPlugin.h"
+#include "stdafx.h"
 
 #include <stdio.h>
 
@@ -44,16 +44,24 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 EAudioPluginMode gAudioPluginEnabled = APM_DISABLED;
 
-#define DEBUG_AUDIO  0
+#define DEBUG_AUDIO 0
 
 #if DEBUG_AUDIO
-#define DPF_AUDIO(...)	do { printf(__VA_ARGS__); } while(0)
+#define DPF_AUDIO(...)                                                         \
+  do {                                                                         \
+    printf(__VA_ARGS__);                                                       \
+  } while (0)
 #else
-#define DPF_AUDIO(...)	do { (void)sizeof(__VA_ARGS__); } while(0)
+#define DPF_AUDIO(...)                                                         \
+  do {                                                                         \
+    (void)sizeof(__VA_ARGS__);                                                 \
+  } while (0)
 #endif
 
 static const u32 kOutputFrequency = 44100;
-static const u32 kAudioBufferSize = 1024 * 1024;	// Circular buffer length. Converts N64 samples out our output rate.
+static const u32 kAudioBufferSize =
+    1024 *
+    1024; // Circular buffer length. Converts N64 samples out our output rate.
 static const u32 kNumChannels = 2;
 
 // How much input we try to keep buffered in the synchronisation code.
@@ -67,270 +75,247 @@ static const u32 kMaxBufferLengthMs = 30;
 static const u32 kNumBuffers = 3;
 static const u32 kAudioQueueBufferLength = 1 * 1024;
 
-class AudioPluginOSX : public CAudioPlugin
-{
+class AudioPluginOSX : public CAudioPlugin {
 public:
-	AudioPluginOSX();
-	virtual ~AudioPluginOSX();
+  AudioPluginOSX();
+  virtual ~AudioPluginOSX();
 
-	virtual bool			StartEmulation();
-	virtual void			StopEmulation();
+  virtual bool StartEmulation();
+  virtual void StopEmulation();
 
-	virtual void			DacrateChanged(int system_type);
-	virtual void			LenChanged();
-	virtual u32				ReadLength()			{ return 0; }
-	virtual EProcessResult	ProcessAList();
+  virtual void DacrateChanged(int system_type);
+  virtual void LenChanged();
+  virtual u32 ReadLength() { return 0; }
+  virtual EProcessResult ProcessAList();
 
-	void					AddBuffer(void * ptr, u32 length);	// Uploads a new buffer and returns status
+  void AddBuffer(void *ptr,
+                 u32 length); // Uploads a new buffer and returns status
 
-	void					StopAudio();						// Stops the Audio PlayBack (as if paused)
-	void					StartAudio();						// Starts the Audio PlayBack (as if unpaused)
+  void StopAudio();  // Stops the Audio PlayBack (as if paused)
+  void StartAudio(); // Starts the Audio PlayBack (as if unpaused)
 
-	static void				AudioSyncFunction(void * arg);
-	static void 			AudioCallback(void * arg, AudioQueueRef queue, AudioQueueBufferRef buffer);
-	static u32 				AudioThread(void * arg);
+  static void AudioSyncFunction(void *arg);
+  static void AudioCallback(void *arg, AudioQueueRef queue,
+                            AudioQueueBufferRef buffer);
+  static u32 AudioThread(void *arg);
 
 private:
-	CAudioBuffer			mAudioBuffer;
-	u32						mFrequency;
-	ThreadHandle 			mAudioThread;
-	volatile bool			mKeepRunning;	// Should the audio thread keep running?
+  CAudioBuffer mAudioBuffer;
+  u32 mFrequency;
+  ThreadHandle mAudioThread;
+  volatile bool mKeepRunning; // Should the audio thread keep running?
 
-	volatile u32 			mBufferLenMs;
+  volatile u32 mBufferLenMs;
 };
 
 AudioPluginOSX::AudioPluginOSX()
-:	mAudioBuffer( kAudioBufferSize )
-,	mFrequency( 44100 )
-,	mAudioThread( kInvalidThreadHandle )
-,	mKeepRunning( false )
-,	mBufferLenMs( 0 )
-{
+    : mAudioBuffer(kAudioBufferSize), mFrequency(44100),
+      mAudioThread(kInvalidThreadHandle), mKeepRunning(false), mBufferLenMs(0) {
 }
 
-AudioPluginOSX::~AudioPluginOSX()
-{
-	StopAudio();
+AudioPluginOSX::~AudioPluginOSX() { StopAudio(); }
+
+bool AudioPluginOSX::StartEmulation() { return true; }
+
+void AudioPluginOSX::StopEmulation() {
+  Audio_Reset();
+  StopAudio();
 }
 
-bool AudioPluginOSX::StartEmulation()
-{
-	return true;
+void AudioPluginOSX::DacrateChanged(int system_type) {
+  u32 clock = (system_type == ST_NTSC) ? VI_NTSC_CLOCK : VI_PAL_CLOCK;
+  u32 dacrate = Memory_AI_GetRegister(AI_DACRATE_REG);
+  u32 frequency = clock / (dacrate + 1);
+
+  DBGConsole_Msg(0, "Audio frequency: %d", frequency);
+  mFrequency = frequency;
 }
 
-void AudioPluginOSX::StopEmulation()
-{
-	Audio_Reset();
-	StopAudio();
+void AudioPluginOSX::LenChanged() {
+  kOutputFre if (gAudioPluginEnabled > APM_DISABLED) {
+    u32 address = Memory_AI_GetRegister(AI_DRAM_ADDR_REG) & 0xFFFFFF;
+    u32 length = Memory_AI_GetRegister(AI_LEN_REG);
+
+    AddBuffer(g_pu8RamBase + address, length);
+  }
+  else {
+    StopAudio();
+  }
 }
 
-void AudioPluginOSX::DacrateChanged(int system_type)
-{
-	u32 clock      = (system_type == ST_NTSC) ? VI_NTSC_CLOCK : VI_PAL_CLOCK;
-	u32 dacrate   = Memory_AI_GetRegister(AI_DACRATE_REG);
-	u32	frequency = clock / (dacrate + 1);
+EProcessResult AudioPluginOSX::ProcessAList() {
+  Memory_SP_SetRegisterBits(SP_STATUS_REG, SP_STATUS_HALT);
 
-	DBGConsole_Msg(0, "Audio frequency: %d", frequency);
-	mFrequency = frequency;
+  EProcessResult result = PR_NOT_STARTED;
+
+  switch (gAudioPluginEnabled) {
+  case APM_DISABLED:
+    result = PR_COMPLETED;
+    break;
+  case APM_ENABLED_ASYNC:
+    DAEDALUS_ERROR("Async audio is unimplemented");
+    Audio_Ucode();
+    result = PR_COMPLETED;
+    break;
+  case APM_ENABLED_SYNC:
+    Audio_Ucode();
+    result = PR_COMPLETED;
+    break;
+  }
+
+  return result;
 }
 
-void AudioPluginOSX::LenChanged()
-{kOutputFre
-	if (gAudioPluginEnabled > APM_DISABLED)
-	{
-		u32	address = Memory_AI_GetRegister(AI_DRAM_ADDR_REG) & 0xFFFFFF;
-		u32	length  = Memory_AI_GetRegister(AI_LEN_REG);
+void AudioPluginOSX::AddBuffer(void *ptr, u32 length) {
+  if (length == 0)
+    return;
 
-		AddBuffer( g_pu8RamBase + address, length );
-	}
-	else
-	{
-		StopAudio();
-	}
+  if (mAudioThread == kInvalidThreadHandle)
+    StartAudio();
+
+  u32 num_samples = length / sizeof(Sample);
+
+  mAudioBuffer.AddSamples(reinterpret_cast<const Sample *>(ptr), num_samples,
+                          mFrequency, kOutputFrequency);
+
+  u32 remaining_samples = mAudioBuffer.GetNumBufferedSamples();
+  mBufferLenMs = (1000 * remaining_samples) / kOutputFrequency;
+  float ms = (float)num_samples * 1000.f / (float)mFrequency;
+  DPF_AUDIO("Queuing %d samples @%dHz - %.2fms - bufferlen now %d\n",
+            num_samples, mFrequency, ms, mBufferLenMs);
 }
 
-EProcessResult AudioPluginOSX::ProcessAList()
-{
-	Memory_SP_SetRegisterBits(SP_STATUS_REG, SP_STATUS_HALT);
+void AudioPluginOSX::AudioCallback(void *arg, AudioQueueRef queue,
+                                   AudioQueueBufferRef buffer) {
 
-	EProcessResult result = PR_NOT_STARTED;
+  AudioPluginOSX *plugin = static_cast<AudioPluginOSX *>(arg);
 
-	switch (gAudioPluginEnabled)
-	{
-		case APM_DISABLED:
-			result = PR_COMPLETED;
-			break;
-		case APM_ENABLED_ASYNC:
-			DAEDALUS_ERROR("Async audio is unimplemented");
-			Audio_Ucode();
-			result = PR_COMPLETED;
-			break;
-		case APM_ENABLED_SYNC:
-			Audio_Ucode();
-			result = PR_COMPLETED;
-			break;
-	}
+  u32 num_samples = buffer->mAudioDataBytesCapacity / sizeof(Sample);
+  u32 samples_written = plugin->mAudioBuffer.Drain(
+      static_cast<Sample *>(buffer->mAudioData), num_samples);
 
-	return result;
+  u32 remaining_samples = plugin->mAudioBuffer.GetNumBufferedSamples();
+  plugin->mBufferLenMs = (1000 * remaining_samples) / kOutputFrequency;
+
+  float ms = (float)samples_written * 1000.f / (float)kOutputFrequency;
+  DPF_AUDIO("Playing %d samples @%dHz - %.2fms - bufferlen now %d\n",
+            samples_written, kOutputFrequency, ms, plugin->mBufferLenMs);
+
+  if (samples_written == 0) {
+    // Would be nice to sleep here until we have something to play,
+    // but AudioQueue doesn't seem to like that.
+    // Leave the buffer untouched, and requeue for now.
+    DPF_AUDIO("********************* Audio buffer is empty "
+              "***********************\n");
+  } else {
+    buffer->mAudioDataByteSize = samples_written * sizeof(Sample);
+  }
+
+  AudioQueueEnqueueBuffer(queue, buffer, 0, NULL);
+
+  if (!plugin->mKeepRunning) {
+    CFRunLoopStop(CFRunLoopGetCurrent());
+  }
 }
 
-void AudioPluginOSX::AddBuffer(void * ptr, u32 length)
-{
-	if (length == 0)
-		return;
+u32 AudioPluginOSX::AudioThread(void *arg) {
+  AudioPluginOSX *plugin = static_cast<AudioPluginOSX *>(arg);
 
-	if (mAudioThread == kInvalidThreadHandle)
-		StartAudio();
+  AudioStreamBasicDescription format;
 
-	u32 num_samples = length / sizeof( Sample );
+  format.mSampleRate = kOutputFrequency;
+  format.mFormatID = kAudioFormatLinearPCM;
+  format.mFormatFlags =
+      kLinearPCMFormatFlagIsSignedInteger | kAudioFormatFlagIsPacked;
+  format.mBitsPerChannel = 8 * sizeof(s16);
+  format.mChannelsPerFrame = kNumChannels;
+  format.mBytesPerFrame = sizeof(s16) * kNumChannels;
+  format.mFramesPerPacket = 1;
+  format.mBytesPerPacket = format.mBytesPerFrame * format.mFramesPerPacket;
+  format.mReserved = 0;
 
-	mAudioBuffer.AddSamples( reinterpret_cast<const Sample *>(ptr), num_samples, mFrequency, kOutputFrequency );
+  AudioQueueRef queue;
+  AudioQueueBufferRef buffers[kNumBuffers];
+  AudioQueueNewOutput(&format, &AudioCallback, plugin, CFRunLoopGetCurrent(),
+                      kCFRunLoopCommonModes, 0, &queue);
 
-	u32 remaining_samples = mAudioBuffer.GetNumBufferedSamples();
-	mBufferLenMs = (1000 * remaining_samples) / kOutputFrequency;
-	float ms = (float)num_samples * 1000.f / (float)mFrequency;
-	DPF_AUDIO("Queuing %d samples @%dHz - %.2fms - bufferlen now %d\n",
-		num_samples, mFrequency, ms, mBufferLenMs);
+  for (u32 i = 0; i < kNumBuffers; ++i) {
+    AudioQueueAllocateBuffer(queue, kAudioQueueBufferLength, &buffers[i]);
+
+    buffers[i]->mAudioDataByteSize = kAudioQueueBufferLength;
+
+    AudioCallback(plugin, queue, buffers[i]);
+  }
+
+  AudioQueueStart(queue, NULL);
+
+  CFRunLoopRun();
+
+  AudioQueueStop(queue, false);
+  AudioQueueDispose(queue, false);
+
+  for (u32 i = 0; i < kNumBuffers; ++i) {
+    AudioQueueFreeBuffer(queue, buffers[i]);
+    buffers[i] = NULL;
+  }
+
+  return 0;
 }
 
-void AudioPluginOSX::AudioCallback(void * arg, AudioQueueRef queue, AudioQueueBufferRef buffer)
-{
-
-	AudioPluginOSX * plugin = static_cast<AudioPluginOSX *>(arg);
-
-	u32 num_samples     = buffer->mAudioDataBytesCapacity / sizeof(Sample);
-	u32 samples_written = plugin->mAudioBuffer.Drain(static_cast<Sample *>(buffer->mAudioData), num_samples);
-
-	u32 remaining_samples = plugin->mAudioBuffer.GetNumBufferedSamples();
-	plugin->mBufferLenMs = (1000 * remaining_samples) / kOutputFrequency;
-
-	float ms = (float)samples_written * 1000.f / (float)kOutputFrequency;
-	DPF_AUDIO("Playing %d samples @%dHz - %.2fms - bufferlen now %d\n",
-			samples_written, kOutputFrequency, ms, plugin->mBufferLenMs);
-
-	if (samples_written == 0)
-	{
-		// Would be nice to sleep here until we have something to play,
-		// but AudioQueue doesn't seem to like that.
-		// Leave the buffer untouched, and requeue for now.
-		DPF_AUDIO("********************* Audio buffer is empty ***********************\n");
-	}
-	else
-	{
-		buffer->mAudioDataByteSize = samples_written * sizeof(Sample);
-	}
-
-	AudioQueueEnqueueBuffer(queue, buffer, 0, NULL);
-
-	if (!plugin->mKeepRunning)
-	{
-		CFRunLoopStop(CFRunLoopGetCurrent());
-	}
-
-}
-
-u32 AudioPluginOSX::AudioThread(void * arg)
-{
-	AudioPluginOSX * plugin = static_cast<AudioPluginOSX *>(arg);
-
-	AudioStreamBasicDescription format;
-
-	format.mSampleRate       = kOutputFrequency;
-	format.mFormatID         = kAudioFormatLinearPCM;
-	format.mFormatFlags      = kLinearPCMFormatFlagIsSignedInteger | kAudioFormatFlagIsPacked;
-	format.mBitsPerChannel   = 8 * sizeof(s16);
-	format.mChannelsPerFrame = kNumChannels;
-	format.mBytesPerFrame    = sizeof(s16) * kNumChannels;
-	format.mFramesPerPacket  = 1;
-	format.mBytesPerPacket   = format.mBytesPerFrame * format.mFramesPerPacket;
-	format.mReserved         = 0;
-
-	AudioQueueRef			queue;
-	AudioQueueBufferRef		buffers[kNumBuffers];
-	AudioQueueNewOutput(&format, &AudioCallback, plugin, CFRunLoopGetCurrent(), kCFRunLoopCommonModes, 0, &queue);
-
-	for (u32 i = 0; i < kNumBuffers; ++i)
-	{
-		AudioQueueAllocateBuffer(queue, kAudioQueueBufferLength, &buffers[i]);
-
-		buffers[i]->mAudioDataByteSize = kAudioQueueBufferLength;
-
-		AudioCallback(plugin, queue, buffers[i]);
-	}
-
-	AudioQueueStart(queue, NULL);
-
-	CFRunLoopRun();
-
-	AudioQueueStop(queue, false);
-	AudioQueueDispose(queue, false);
-
-	for (u32 i = 0; i < kNumBuffers; ++i)
-	{
-		AudioQueueFreeBuffer(queue, buffers[i]);
-		buffers[i] = NULL;
-	}
-
-	return 0;
-}
-
-void AudioPluginOSX::AudioSyncFunction(void * arg)
-{
-	AudioPluginOSX * plugin = static_cast<AudioPluginOSX *>(arg);
+void AudioPluginOSX::AudioSyncFunction(void *arg) {
+  AudioPluginOSX *plugin = static_cast<AudioPluginOSX *>(arg);
 #if DEBUG_AUDIO
-	static u64 last_time = 0;
-	u64 now;
-	NTiming::GetPreciseTime(&now);
-	if (last_time == 0) last_time = now;
-	DPF_AUDIO("VBL: %dms elapsed. Audio buffer len %dms\n", (s32)NTiming::ToMilliseconds(now-last_time), plugin->mBufferLenMs);
-	last_time = now;
+  static u64 last_time = 0;
+  u64 now;
+  NTiming::GetPreciseTime(&now);
+  if (last_time == 0)
+    last_time = now;
+  DPF_AUDIO("VBL: %dms elapsed. Audio buffer len %dms\n",
+            (s32)NTiming::ToMilliseconds(now - last_time),
+            plugin->mBufferLenMs);
+  last_time = now;
 #endif
 
-	u32 buffer_len = plugin->mBufferLenMs;	// NB: copy this volatile to a local var so that we have a consistent view for the remainder of this function.
-	if (buffer_len > kMaxBufferLengthMs)
-	{
-		ThreadSleepMs(buffer_len - kMaxBufferLengthMs);
-	}
+  u32 buffer_len =
+      plugin->mBufferLenMs; // NB: copy this volatile to a local var so that we
+                            // have a consistent view for the remainder of this
+                            // function.
+  if (buffer_len > kMaxBufferLengthMs) {
+    ThreadSleepMs(buffer_len - kMaxBufferLengthMs);
+  }
 }
 
-void AudioPluginOSX::StartAudio()
-{
-	if (mAudioThread != kInvalidThreadHandle)
-		return;
+void AudioPluginOSX::StartAudio() {
+  if (mAudioThread != kInvalidThreadHandle)
+    return;
 
-	// Install the sync function.
-	FramerateLimiter_SetAuxillarySyncFunction(&AudioSyncFunction, this);
+  // Install the sync function.
+  FramerateLimiter_SetAuxillarySyncFunction(&AudioSyncFunction, this);
 
-	mKeepRunning = true;
+  mKeepRunning = true;
 
-	mAudioThread = CreateThread("Audio", &AudioThread, this);
-	if (mAudioThread == kInvalidThreadHandle)
-	{
-		DBGConsole_Msg(0, "Failed to start the audio thread!");
-		mKeepRunning = false;
-		FramerateLimiter_SetAuxillarySyncFunction(NULL, NULL);
-	}
+  mAudioThread = CreateThread("Audio", &AudioThread, this);
+  if (mAudioThread == kInvalidThreadHandle) {
+    DBGConsole_Msg(0, "Failed to start the audio thread!");
+    mKeepRunning = false;
+    FramerateLimiter_SetAuxillarySyncFunction(NULL, NULL);
+  }
 }
 
-void AudioPluginOSX::StopAudio()
-{
-	if (mAudioThread == kInvalidThreadHandle)
-		return;
+void AudioPluginOSX::StopAudio() {
+  if (mAudioThread == kInvalidThreadHandle)
+    return;
 
-	// Tell the thread to stop running.
-	mKeepRunning = false;
+  // Tell the thread to stop running.
+  mKeepRunning = false;
 
-	if (mAudioThread != kInvalidThreadHandle)
-	{
-		JoinThread(mAudioThread, -1);
-		mAudioThread = kInvalidThreadHandle;
-	}
+  if (mAudioThread != kInvalidThreadHandle) {
+    JoinThread(mAudioThread, -1);
+    mAudioThread = kInvalidThreadHandle;
+  }
 
-	// Remove the sync function.
-	FramerateLimiter_SetAuxillarySyncFunction(NULL, NULL);
+  // Remove the sync function.
+  FramerateLimiter_SetAuxillarySyncFunction(NULL, NULL);
 }
 
-CAudioPlugin * CreateAudioPlugin()
-{
-	return new AudioPluginOSX();
-}
+CAudioPlugin *CreateAudioPlugin() { return new AudioPluginOSX(); }

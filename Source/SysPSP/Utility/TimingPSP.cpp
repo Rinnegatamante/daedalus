@@ -17,37 +17,33 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 */
 
-#include "stdafx.h"
 #include "Utility/Timing.h"
+#include "stdafx.h"
 
 #include <time.h> // psprtc.h is broken, needs this.
 
-#include <psptypes.h>
 #include <psprtc.h>
+#include <psptypes.h>
 
 namespace NTiming {
 
-bool GetPreciseFrequency( u64 * p_freq )
-{
-	*p_freq = ::sceRtcGetTickResolution();
-	return true;
+bool GetPreciseFrequency(u64 *p_freq) {
+  *p_freq = ::sceRtcGetTickResolution();
+  return true;
 }
 
-bool GetPreciseTime( u64 * p_time )
-{
-	if(::sceRtcGetCurrentTick( p_time ) == 0)
-	{
-		return true;
-	}
+bool GetPreciseTime(u64 *p_time) {
+  if (::sceRtcGetCurrentTick(p_time) == 0) {
+    return true;
+  }
 
-	*p_time = 0;
-	return false;
+  *p_time = 0;
+  return false;
 }
 
-u64 ToMilliseconds( u64 ticks )
-{
-	static u64 tick_resolution = sceRtcGetTickResolution();
-	return (ticks*1000LL) / tick_resolution;
+u64 ToMilliseconds(u64 ticks) {
+  static u64 tick_resolution = sceRtcGetTickResolution();
+  return (ticks * 1000LL) / tick_resolution;
 }
 
-} // NTiming
+} // namespace NTiming

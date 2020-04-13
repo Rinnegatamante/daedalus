@@ -25,22 +25,24 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 class CFragment;
 class CFragmentCache;
 
-class CIndirectExitMap
-{
-	public:
-		CIndirectExitMap();
-		~CIndirectExitMap();
+class CIndirectExitMap {
+public:
+  CIndirectExitMap();
+  ~CIndirectExitMap();
 
-		CFragment *				LookupIndirectExit( u32 exit_address );
-		void					SetCache( const CFragmentCache * p_cache )				{ mpCache = p_cache; }
+  CFragment *LookupIndirectExit(u32 exit_address);
+  void SetCache(const CFragmentCache *p_cache) { mpCache = p_cache; }
 
-	private:
-		const CFragmentCache *	mpCache;
+private:
+  const CFragmentCache *mpCache;
 };
 
 //
 //	C-stub to allow easy access from dynarec code
 //
-extern "C" { const void *	R4300_CALL_TYPE IndirectExitMap_Lookup( CIndirectExitMap * p_map, u32 exit_address ); }
+extern "C" {
+const void *R4300_CALL_TYPE IndirectExitMap_Lookup(CIndirectExitMap *p_map,
+                                                   u32 exit_address);
+}
 
 #endif // DYNAREC_INDIRECTEXITMAP_H_

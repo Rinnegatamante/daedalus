@@ -24,61 +24,63 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "Utility/DaedalusTypes.h"
 
-
-typedef u32 ( DAEDALUS_THREAD_CALL_TYPE * DaedThread )( void * arg );
+typedef u32(DAEDALUS_THREAD_CALL_TYPE *DaedThread)(void *arg);
 
 typedef intptr_t ThreadHandle;
-extern const ThreadHandle	kInvalidThreadHandle;
+extern const ThreadHandle kInvalidThreadHandle;
 
-enum EThreadPriority
-{
-	TP_LOW = 0,
-	TP_NORMAL,
-	TP_HIGH,
-	TP_TIME_CRITICAL,
-	TP_NUM_PRIORITIES,
+enum EThreadPriority {
+  TP_LOW = 0,
+  TP_NORMAL,
+  TP_HIGH,
+  TP_TIME_CRITICAL,
+  TP_NUM_PRIORITIES,
 };
 
 //
-//	Returns a thread handle - you must check it for error status (== kInvalidThreadHandle)
+//	Returns a thread handle - you must check it for error status (==
+//kInvalidThreadHandle)
 //
-ThreadHandle	CreateThread( const char * name, DaedThread function, void * argument );
+ThreadHandle CreateThread(const char *name, DaedThread function,
+                          void *argument);
 
 //
 //	Adjusts a thread's priority
 //
-void	SetThreadPriority( ThreadHandle handle, EThreadPriority pri );
+void SetThreadPriority(ThreadHandle handle, EThreadPriority pri);
 
 //
-//	Releases a handle to a thread. This doesn't stop the thread - it just frees resources
+//	Releases a handle to a thread. This doesn't stop the thread - it just
+//frees resources
 //
-void	ReleaseThreadHandle( ThreadHandle handle );
+void ReleaseThreadHandle(ThreadHandle handle);
 
 //
 //	Terminates a running thread
 //
-void	TerminateThread( ThreadHandle handle );
+void TerminateThread(ThreadHandle handle);
 
 //
 //	Wait the specified time for the thread to finish.
 //	Returns true if the thread has terminated, false if it is still running
-//	If timeout < 0 this function will block until the thread has finished, otherwise it is a time in MS to wait for
+//	If timeout < 0 this function will block until the thread has finished,
+//otherwise it is a time in MS to wait for
 //
-bool	JoinThread( ThreadHandle handle, s32 timeout );
+bool JoinThread(ThreadHandle handle, s32 timeout);
 
 //
 //	Sleep for the specified number of milliseconds
 //
-void	ThreadSleepMs( u32 ms );
+void ThreadSleepMs(u32 ms);
 
 //
 //	Sleep for the specified number of ticks
 //
-void	ThreadSleepTicks( u32 ticks );
+void ThreadSleepTicks(u32 ticks);
 
 //
 //	Yield for a short time
 //
-void	ThreadYield();
+void ThreadYield();
 
 #endif // UTILITY_THREAD_H_

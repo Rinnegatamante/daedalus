@@ -25,29 +25,28 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //*****************************************************************************
 // Enum
 //*****************************************************************************
-enum GBIVersion
-{
-	GBI_0 = 0,
-	GBI_1,
-	GBI_2,
-	GBI_1_S2DEX,
-	GBI_2_S2DEX,
-	GBI_WR,
-	GBI_DKR,
-	GBI_LL,
-	GBI_SE,
-	GBI_GE,
-	GBI_CONKER,
-	GBI_PD
+enum GBIVersion {
+  GBI_0 = 0,
+  GBI_1,
+  GBI_2,
+  GBI_1_S2DEX,
+  GBI_2_S2DEX,
+  GBI_WR,
+  GBI_DKR,
+  GBI_LL,
+  GBI_SE,
+  GBI_GE,
+  GBI_CONKER,
+  GBI_PD
 };
 //*****************************************************************************
 // Function
 //*****************************************************************************
-typedef void (*CustomMicrocodeCallback)( u32 ucode, u32 offset );
+typedef void (*CustomMicrocodeCallback)(u32 ucode, u32 offset);
 
-u32	 GBIMicrocode_DetectVersion( u32 code_base, u32 code_size,
-								 u32 data_base, u32 data_size,
-								 CustomMicrocodeCallback custom_callback );
+u32 GBIMicrocode_DetectVersion(u32 code_base, u32 code_size, u32 data_base,
+                               u32 data_size,
+                               CustomMicrocodeCallback custom_callback);
 void GBIMicrocode_Reset();
 
 #endif // HLEGRAPHICS_MICROCODE_H_

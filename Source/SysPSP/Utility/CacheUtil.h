@@ -25,45 +25,41 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 // Taken from MediaEnginePRX, assume they're orignally from
 // http://forums.ps2dev.org/viewtopic.php?p=58333#58333
-// Primarily for use in code which will be run on the ME, were we can't access kernel functions
+// Primarily for use in code which will be run on the ME, were we can't access
+// kernel functions
 
 #include <malloc.h>
 
 #ifdef DAEDALUS_PSP
-inline void *malloc_64(int size)
-{
-	int mod_64 {size & 0x3f};
-	if (mod_64 != 0) size += 64 - mod_64;
-	return((void *)memalign(64, size));
+inline void *malloc_64(int size) {
+  int mod_64{size & 0x3f};
+  if (mod_64 != 0)
+    size += 64 - mod_64;
+  return ((void *)memalign(64, size));
 }
 
-
-inline void dcache_wbinv_all()
-{
-   for(u32 i {0}; i < 8192; i += 64)
-__builtin_allegrex_cache(0x14, i);
+inline void dcache_wbinv_all() {
+  for (u32 i{0}; i < 8192; i += 64)
+    __builtin_allegrex_cache(0x14, i);
 }
 
-inline void dcache_wbinv_range(const void *addr, int size)
-{
-   int i {0}, j = (int)addr;
-   for(i = j; i < size+j; i += 64)
-      __builtin_allegrex_cache(0x1b, i);
+inline void dcache_wbinv_range(const void *addr, int size) {
+  int i{0}, j = (int)addr;
+  for (i = j; i < size + j; i += 64)
+    __builtin_allegrex_cache(0x1b, i);
 }
 
-inline void dcache_wbinv_range_unaligned(const void *lower, const void *upper)
-{
-	lower = RoundPointerDown( lower, 64 );
-	upper = RoundPointerUp( upper, 64 );
+inline void dcache_wbinv_range_unaligned(const void *lower, const void *upper) {
+  lower = RoundPointerDown(lower, 64);
+  upper = RoundPointerUp(upper, 64);
 
-	dcache_wbinv_range( lower, (int)upper - (int)lower );
+  dcache_wbinv_range(lower, (int)upper - (int)lower);
 }
 
-inline void dcache_inv_range(void *addr, int size)
-{
-   int i {0}, j = (int)addr;
-   for(i = j; i < size+j; i += 64)
-      __builtin_allegrex_cache(0x1b, i);
+inline void dcache_inv_range(void *addr, int size) {
+  int i{0}, j = (int)addr;
+  for (i = j; i < size + j; i += 64)
+    __builtin_allegrex_cache(0x1b, i);
 }
 #endif
 

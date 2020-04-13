@@ -17,40 +17,36 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 */
 
-#include "stdafx.h"
 #include "ModulePSP.h"
+#include "stdafx.h"
 
 #include <stdio.h>
 
 #include <pspsdk.h>
 
-namespace CModule
-{
-	void Unload( int id )
-	{
-		int ret {0}, status {0};
-		sceKernelStopModule(id, 0, nullptr, &status, nullptr);	// Stop module first before unloading it
+namespace CModule {
+void Unload(int id) {
+  int ret{0}, status{0};
+  sceKernelStopModule(id, 0, nullptr, &status,
+                      nullptr); // Stop module first before unloading it
 
-		ret = sceKernelUnloadModule(id);
+  ret = sceKernelUnloadModule(id);
 
-		if(ret < 0)
-		{
-			printf("Couldn't unload module! : 0x%08X\n",ret);
-		}
-	}
-
-	int Load( const char *path )
-	{
-		int ret = pspSdkLoadStartModule(path, PSP_MEMORY_PARTITION_KERNEL);
-
-		if( ret < 0 )
-		{
-			printf( "Failed to load %s: %d\n",path, ret );
-			return ret; //-1
-		}
-
-		printf( "Successfully loaded %s: %08X\n", path, ret );
-
-		return ret;
-	}
+  if (ret < 0) {
+    printf("Couldn't unload module! : 0x%08X\n", ret);
+  }
 }
+
+int Load(const char *path) {
+  int ret = pspSdkLoadStartModule(path, PSP_MEMORY_PARTITION_KERNEL);
+
+  if (ret < 0) {
+    printf("Failed to load %s: %d\n", path, ret);
+    return ret; //-1
+  }
+
+  printf("Successfully loaded %s: %08X\n", path, ret);
+
+  return ret;
+}
+} // namespace CModule

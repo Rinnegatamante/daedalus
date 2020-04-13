@@ -17,105 +17,93 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 */
 
-#include "stdafx.h"
 #include "SplashScreen.h"
+#include "stdafx.h"
 
 #include "Graphics/GraphicsContext.h"
 
-#include "UIContext.h"
-#include "UIScreen.h"
 #include "Graphics/ColourValue.h"
 #include "Graphics/NativeTexture.h"
+#include "UIContext.h"
+#include "UIScreen.h"
 
 #include "SysPSP/Graphics/DrawText.h"
 
-#include "Math/Math.h"	// VFPU Math
+#include "Math/Math.h" // VFPU Math
 
-#include "Utility/Preferences.h"
-#include "SysPSP/Utility/PathsPSP.h"
 #include "PSPMenu.h"
+#include "SysPSP/Utility/PathsPSP.h"
+#include "Utility/Preferences.h"
 #include <pspctrl.h>
 #include <pspgu.h>
 
-
 extern bool g32bitColorMode;
 
+class ISplashScreen : public CSplashScreen, public CUIScreen {
+public:
+  ISplashScreen(CUIContext *p_context);
+  ~ISplashScreen() override;
 
-class ISplashScreen : public CSplashScreen, public CUIScreen
-{
-	public:
+  // CSplashScreen
+  void Run() override;
 
-		ISplashScreen( CUIContext * p_context );
-		~ISplashScreen() override;
+  // CUIScreen
+  void Update(float elapsed_time, const v2 &stick, u32 old_buttons,
+              u32 new_buttons) override;
+  void Render() override;
+  bool IsFinished() const override { return mIsFinished; }
 
-		// CSplashScreen
-		void				Run() override;
-
-		// CUIScreen
-		void				Update( float elapsed_time, const v2 & stick, u32 old_buttons, u32 new_buttons ) override;
-		void				Render() override;
-		bool				IsFinished() const override									{ return mIsFinished; }
-
-	private:
-		bool						mIsFinished;
-		float						mElapsedTime;
-		CRefPtr<CNativeTexture>		mpTexture;
+private:
+  bool mIsFinished;
+  float mElapsedTime;
+  CRefPtr<CNativeTexture> mpTexture;
 };
-
 
 CSplashScreen::~CSplashScreen() = default;
 
-
-CSplashScreen *	CSplashScreen::Create( CUIContext * p_context )
-{
-	return new ISplashScreen( p_context );
+CSplashScreen *CSplashScreen::Create(CUIContext *p_context) {
+  return new ISplashScreen(p_context);
 }
 
-
-ISplashScreen::ISplashScreen( CUIContext * p_context )
-:	CUIScreen( p_context )
-,	mIsFinished( false )
-,	mElapsedTime( 0.0f )
-,	mpTexture( CNativeTexture::CreateFromPng( LOGO_FILENAME, TexFmt_8888 ) )
-{}
-
+ISplashScreen::ISplashScreen(CUIContext *p_context)
+    : CUIScreen(p_context), mIsFinished(false), mElapsedTime(0.0f),
+      mpTexture(CNativeTexture::CreateFromPng(LOGO_FILENAME, TexFmt_8888)) {}
 
 ISplashScreen::~ISplashScreen() = default;
 
+void ISplashScreen::Update(float elapsed_time, const v2 &stick, u32 old_buttons,
+                           u32 new_buttons) {
+  // If any button was unpressed and is now pressed, exit
+  if ((~old_buttons) & new_buttons) {
+    mIsFinished = true;
+  }
 
-void	ISplashScreen::Update( float elapsed_time, const v2 & stick, u32 old_buttons, u32 new_buttons )
-{
-	// If any button was unpressed and is now pressed, exit
-	if((~old_buttons) & new_buttons)
-	{
-		mIsFinished = true;
-	}
-
-	mElapsedTime += elapsed_time;
-	if( mElapsedTime > MAX_TIME )
-	{
-		mIsFinished = true;
-	}
+  mElapsedTime += elapsed_time;
+  if (mElapsedTime > MAX_TIME) {
+    mIsFinished = true;
+  }
 }
 
-void	ISplashScreen::Render()
-{
-	f32	alpha( 255.0f * sinf( mElapsedTime * PI / MAX_TIME ) );
-	u8		a;
-	if( alpha >= 255.0f ) a = 255;
-	else if (alpha < 0.f) a = 0;
-	else	a = u8( alpha );
+void ISplashScreen::Render() {
+  f32 alpha(255.0f * sinf(mElapsedTime * PI / MAX_TIME));
+  u8 a;
+  if (alpha >= 255.0f)
+    a = 255;
+  else if (alpha < 0.f)
+    a = 0;
+  else
+    a = u8(alpha);
 
-	c32		colour( 255, 255, 255, a );
+  c32 colour(255, 255, 255, a);
 
-	mpContext->ClearBackground();
-	mpContext->RenderTexture( mpTexture, (480 - 328)/2, (272-90)/2, colour );
+  mpContext->ClearBackground();
+  mpContext->RenderTexture(mpTexture, (480 - 328) / 2, (272 - 90) / 2, colour);
 
-	mpContext->SetFontStyle( CUIContext::FS_HEADING );
-	mpContext->DrawTextAlign(0,SCREEN_WIDTH,AT_CENTRE,SCREEN_HEIGHT-50,g32bitColorMode? "32Bit Color Selected" : "16Bit Color Selected",DrawTextUtilities::TextWhite);
+  mpContext->SetFontStyle(CUIContext::FS_HEADING);
+  mpContext->DrawTextAlign(0, SCREEN_WIDTH, AT_CENTRE, SCREEN_HEIGHT - 50,
+                           g32bitColorMode ? "32Bit Color Selected"
+                                           : "16Bit Color Selected",
+                           DrawTextUtilities::TextWhite);
 }
 
-void	ISplashScreen::Run()
-{
-	CUIScreen::Run();
-}
+void ISplashScreen::Run() { CUIScreen::Run(); }

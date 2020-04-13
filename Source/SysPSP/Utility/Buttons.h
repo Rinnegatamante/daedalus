@@ -27,15 +27,18 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //*************************************************************************************
 /*struct PSPButtons
 {
-	//u32		type;			// input type of our buttons, X,O,[] etc, kernel inputs supported too.
-	//u32		style;			// input style for either kernel or non-kernel button
-	bool	kmode;			// returns true if kernelbuttons.prx loaded correctly
+        //u32		type;			// input type of our buttons,
+X,O,[] etc, kernel inputs supported too.
+        //u32		style;			// input style for either kernel
+or non-kernel button
+        bool	kmode;			// returns true if kernelbuttons.prx
+loaded correctly
 };
 */
 
 // Extern
 //
-//extern PSPButtons gButtons;
+// extern PSPButtons gButtons;
 //*************************************************************************************
 //
 //*************************************************************************************
@@ -46,6 +49,6 @@ bool InitHomeButton();
 
 // Function to read our buttons
 
-//void DaedalusReadButtons(u32 buttons);
+// void DaedalusReadButtons(u32 buttons);
 
 #endif // SYSPSP_UTILITY_BUTTONS_H_

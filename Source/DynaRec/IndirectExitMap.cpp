@@ -17,59 +17,47 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 */
 
-#include "stdafx.h"
 #include "IndirectExitMap.h"
+#include "stdafx.h"
 
 #include "DynaRecProfile.h"
-#include "FragmentCache.h"
 #include "Fragment.h"
+#include "FragmentCache.h"
 
 #include "Debug/DBGConsole.h"
 
+//
+
+CIndirectExitMap::CIndirectExitMap() : mpCache(nullptr) {}
 
 //
 
-CIndirectExitMap::CIndirectExitMap()
-:	mpCache( nullptr )
-{
+CIndirectExitMap::~CIndirectExitMap() = default;
+
+//
+
+CFragment *CIndirectExitMap::LookupIndirectExit(u32 exit_address) {
+#ifdef DAEDALUS_DEBUG_CONSOLE
+  DAEDALUS_ASSERT(mpCache != nullptr, "Why do we have no cache?");
+#endif
+  CFragment *p(mpCache->LookupFragmentQ(exit_address));
+
+  DYNAREC_PROFILE_LOGLOOKUP(exit_address, p);
+
+  return p;
 }
 
-
 //
 
-CIndirectExitMap::~CIndirectExitMap()
-= default;
+extern "C" {
 
+const void *R4300_CALL_TYPE IndirectExitMap_Lookup(CIndirectExitMap *p_map,
+                                                   u32 exit_address) {
+  CFragment *p_fragment(p_map->LookupIndirectExit(exit_address));
+  if (p_fragment != nullptr) {
+    return p_fragment->GetEntryTarget().GetTarget();
+  }
 
-//
-
-CFragment *	CIndirectExitMap::LookupIndirectExit( u32 exit_address )
-{
-	#ifdef DAEDALUS_DEBUG_CONSOLE
-	DAEDALUS_ASSERT( mpCache != nullptr, "Why do we have no cache?" );
-	#endif
-	CFragment * p( mpCache->LookupFragmentQ( exit_address ) );
-
-	DYNAREC_PROFILE_LOGLOOKUP( exit_address, p );
-
-	return p;
+  return nullptr;
 }
-
-
-//
-
-extern "C"
-{
-
-const void *	R4300_CALL_TYPE IndirectExitMap_Lookup( CIndirectExitMap * p_map, u32 exit_address )
-{
-	CFragment *	p_fragment( p_map->LookupIndirectExit( exit_address ) );
-	if( p_fragment != nullptr )
-	{
-		return p_fragment->GetEntryTarget().GetTarget();
-	}
-
-	return nullptr;
-}
-
 }

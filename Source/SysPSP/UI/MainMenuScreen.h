@@ -17,20 +17,18 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 */
 
-
 #ifndef SYSPSP_UI_MAINMENUSCREEN_H_
 #define SYSPSP_UI_MAINMENUSCREEN_H_
 
 class CUIContext;
 
-class CMainMenuScreen
-{
-	public:
-		virtual ~CMainMenuScreen();
+class CMainMenuScreen {
+public:
+  virtual ~CMainMenuScreen();
 
-		static CMainMenuScreen *	Create( CUIContext * p_context );
+  static CMainMenuScreen *Create(CUIContext *p_context);
 
-		virtual void				Run() = 0;
+  virtual void Run() = 0;
 };
 
 #endif // SYSPSP_UI_MAINMENUSCREEN_H_

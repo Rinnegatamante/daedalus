@@ -25,28 +25,27 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //*****************************************************************************
 //
 //*****************************************************************************
-enum ECombinerInput
-{
-	CI_COMBINED,
-	CI_TEXEL0,
-	CI_TEXEL1,
-	CI_PRIMITIVE,
-	CI_SHADE,
-	CI_ENV,
-	CI_COMBINED_ALPHA,
-	CI_TEXEL0_ALPHA,
-	CI_TEXEL1_ALPHA,
-	CI_PRIMITIVE_ALPHA,
-	CI_SHADE_ALPHA,
-	CI_ENV_ALPHA,
-	CI_LOD_FRACTION,
-	CI_PRIM_LOD_FRACTION,
-	CI_K5,
-	CI_1,
-	CI_0,
-	CI_UNKNOWN,
+enum ECombinerInput {
+  CI_COMBINED,
+  CI_TEXEL0,
+  CI_TEXEL1,
+  CI_PRIMITIVE,
+  CI_SHADE,
+  CI_ENV,
+  CI_COMBINED_ALPHA,
+  CI_TEXEL0_ALPHA,
+  CI_TEXEL1_ALPHA,
+  CI_PRIMITIVE_ALPHA,
+  CI_SHADE_ALPHA,
+  CI_ENV_ALPHA,
+  CI_LOD_FRACTION,
+  CI_PRIM_LOD_FRACTION,
+  CI_K5,
+  CI_1,
+  CI_0,
+  CI_UNKNOWN,
 };
 
-const char * GetCombinerInputName( ECombinerInput input );
+const char *GetCombinerInputName(ECombinerInput input);
 
 #endif // SYSPSP_HLEGRAPHICS_COMBINER_COMBINERINPUT_H_

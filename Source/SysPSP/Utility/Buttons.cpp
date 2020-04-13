@@ -17,9 +17,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 */
 
-
-#include "stdafx.h"
 #include "Buttons.h"
+#include "stdafx.h"
 
 #include "SysPSP/Utility/ModulePSP.h"
 
@@ -28,46 +27,44 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //
 /****** Wrapper for Home Button functions ******/
 //
-extern "C"
-{
-	/* Impose Home button */
-	void SetImposeHomeButton();
+extern "C" {
+/* Impose Home button */
+void SetImposeHomeButton();
 }
-
 
 //*****************************************************************************
 //	Init our buttons, various stats etc
 //*****************************************************************************
-bool InitHomeButton()
-{
-	// Start our stack for either kernel or usermode buttons
-	//
-	int impose {CModule::Load("imposectrl.prx")};
+bool InitHomeButton() {
+  // Start our stack for either kernel or usermode buttons
+  //
+  int impose{CModule::Load("imposectrl.prx")};
 
-	//
-	// if imposectrl.prx loaded correctly, let's do some magic to take (forcely) control of HOME button
-	//
-	if(impose >= 0)
-	{
-		//
-		// Unset home button and imposed to allow use it as normal button
-		//
-		SetImposeHomeButton();
+  //
+  // if imposectrl.prx loaded correctly, let's do some magic to take (forcely)
+  // control of HOME button
+  //
+  if (impose >= 0) {
+    //
+    // Unset home button and imposed to allow use it as normal button
+    //
+    SetImposeHomeButton();
 
-		//
-		// Stop and unload imposectrl.prx since we only needed it once to impose HOME button
-		//
-		CModule::Unload( impose );
+    //
+    // Stop and unload imposectrl.prx since we only needed it once to impose
+    // HOME button
+    //
+    CModule::Unload(impose);
 
-		return true;
-	}
+    return true;
+  }
 
-	//
-	// Errg for some reasons we couldn't load imposectrl.prx, OFW?
-	// Anyways it'll sort of works in >=6XX
-	// BTW We didn't load anything.. so no point to unload anything at this point
-	//
-	return false;	// In < 5XX Daedalus will be crippled.. warn user what up..
+  //
+  // Errg for some reasons we couldn't load imposectrl.prx, OFW?
+  // Anyways it'll sort of works in >=6XX
+  // BTW We didn't load anything.. so no point to unload anything at this point
+  //
+  return false; // In < 5XX Daedalus will be crippled.. warn user what up..
 }
 
 //*****************************************************************************
@@ -76,6 +73,6 @@ bool InitHomeButton()
 /*
 void DaedalusReadButtons(u32 buttons)
 {
-	gButtons.type = buttons;
+        gButtons.type = buttons;
 }
 */

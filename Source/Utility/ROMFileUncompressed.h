@@ -26,23 +26,23 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "ROMFile.h"
 
-class ROMFileUncompressed : public ROMFile
-{
+class ROMFileUncompressed : public ROMFile {
 public:
-	ROMFileUncompressed( const char * filename );
-	~ROMFileUncompressed() override;
+  ROMFileUncompressed(const char *filename);
+  ~ROMFileUncompressed() override;
 
-	bool		Open( COutputStream & messages ) override;
+  bool Open(COutputStream &messages) override;
 
-	bool		IsCompressed() const override			{ return false; }
-	u32			GetRomSize() const override				{ return mRomSize; }
-	bool		LoadRawData( u32 bytes_to_read, u8 *p_bytes, COutputStream & messages ) override;
+  bool IsCompressed() const override { return false; }
+  u32 GetRomSize() const override { return mRomSize; }
+  bool LoadRawData(u32 bytes_to_read, u8 *p_bytes,
+                   COutputStream &messages) override;
 
-	bool		ReadChunk( u32 offset, u8 * p_dst, u32 length ) override;
+  bool ReadChunk(u32 offset, u8 *p_dst, u32 length) override;
 
 private:
-	FILE *				mFH;
-	u32					mRomSize;
+  FILE *mFH;
+  u32 mRomSize;
 };
 
 #endif // UTILITY_ROMFILEUNCOMPRESSED_H_

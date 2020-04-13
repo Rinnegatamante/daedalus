@@ -17,7 +17,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 */
 
-
 #ifndef SYSPSP_UI_UICOMMAND_H_
 #define SYSPSP_UI_UICOMMAND_H_
 
@@ -30,62 +29,48 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //*************************************************************************************
 //
 //*************************************************************************************
-class CUICommand : public CUIElement
-{
+class CUICommand : public CUIElement {
 public:
-	CUICommand( const char * name, const char * description )
-		:	mName( name )
-		,	mDescription( description )
-	{
+  CUICommand(const char *name, const char *description)
+      : mName(name), mDescription(description) {}
+  ~CUICommand() override = default;
 
-	}
-	~CUICommand() override = default;
+  void OnSelected() override = 0;
 
-		void			OnSelected() override = 0;
+  u32 GetHeight(CUIContext *context) const override;
+  void Draw(CUIContext *context, s32 min_x, s32 max_x, EAlignType halign, s32 y,
+            bool selected) const override;
 
-	u32				GetHeight( CUIContext * context ) const override;
-	void			Draw( CUIContext * context, s32 min_x, s32 max_x, EAlignType halign, s32 y, bool selected ) const override;
-
-	virtual const char *	GetName() const			{ return mName.c_str(); }
-	const char *	GetDescription() const override	{ return mDescription.c_str(); }
+  virtual const char *GetName() const { return mName.c_str(); }
+  const char *GetDescription() const override { return mDescription.c_str(); }
 
 private:
-	std::string				mName;
-	std::string				mDescription;
+  std::string mName;
+  std::string mDescription;
 };
 
-class CUICommandImpl : public CUICommand
-{
+class CUICommandImpl : public CUICommand {
 public:
-	CUICommandImpl( CFunctor * on_selected, const char * name, const char * description )
-		:	CUICommand( name, description )
-		,	mOnSelected( on_selected )
-	{
-	}
-	~CUICommandImpl() override
-	{
-		delete mOnSelected;
-	}
+  CUICommandImpl(CFunctor *on_selected, const char *name,
+                 const char *description)
+      : CUICommand(name, description), mOnSelected(on_selected) {}
+  ~CUICommandImpl() override { delete mOnSelected; }
 
-		void			OnSelected() override			{ (*mOnSelected)(); }
+  void OnSelected() override { (*mOnSelected)(); }
 
 private:
-	CFunctor *	mOnSelected;
+  CFunctor *mOnSelected;
 };
 
 // For e.g. unselectable items
-class CUICommandDummy : public CUICommand
-{
+class CUICommandDummy : public CUICommand {
 public:
-	CUICommandDummy( const char * name, const char * description )
-		:	CUICommand( name, description )
-	{
-	}
-	~CUICommandDummy() override
-	= default;
+  CUICommandDummy(const char *name, const char *description)
+      : CUICommand(name, description) {}
+  ~CUICommandDummy() override = default;
 
-	bool			IsSelectable() const override	{ return false; }
-		void			OnSelected() override			{ }
+  bool IsSelectable() const override { return false; }
+  void OnSelected() override {}
 };
 
 #endif // SYSPSP_UI_UICOMMAND_H_

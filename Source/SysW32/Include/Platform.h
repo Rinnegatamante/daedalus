@@ -34,7 +34,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #define _DO_NOT_DECLARE_INTERLOCKED_INTRINSICS_IN_MEMORY
 #define __has_feature(x) 0
 
-
 #define DAEDALUS_ENABLE_DYNAREC
 #undef DAEDALUS_BREAKPOINTS_ENABLED
 #define DAEDALUS_ENABLE_OS_HOOKS
@@ -44,23 +43,21 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #define DAEDALUS_ENDIAN_MODE DAEDALUS_ENDIAN_LITTLE
 
-
 // Calling convention for the R4300 instruction handlers.
 // These are called from dynarec so we need to ensure they're __fastcall,
 // even if the project is not compiled with that option in the project settings.
-#define R4300_CALL_TYPE						__fastcall
+#define R4300_CALL_TYPE __fastcall
 
 // Thread functions need to be __stdcall to work with the W32 api
-#define DAEDALUS_THREAD_CALL_TYPE			__stdcall
+#define DAEDALUS_THREAD_CALL_TYPE __stdcall
 
 // Vararg functions need to be __cdecl
-#define DAEDALUS_VARARG_CALL_TYPE			__cdecl
+#define DAEDALUS_VARARG_CALL_TYPE __cdecl
 
 // Zlib is compiled as __cdecl
-#define	DAEDALUS_ZLIB_CALL_TYPE				__cdecl
+#define DAEDALUS_ZLIB_CALL_TYPE __cdecl
 
 // Breakpoint
-#define DAEDALUS_HALT					__asm { int 3 }
-
+#define DAEDALUS_HALT __asm { int 3}
 
 #endif // SYSW32_INCLUDE_PLATFORM_H_

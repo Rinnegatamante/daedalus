@@ -25,46 +25,45 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "Utility/Timer.h"
 
-class CBatchTestEventHandler
-{
+class CBatchTestEventHandler {
 public:
-	CBatchTestEventHandler();
+  CBatchTestEventHandler();
 
-	enum ETerminationReason
-	{
-		TR_UNKNOWN						= -1,
-		TR_REACHED_DL_COUNT				= 0,
-		TR_TIME_LIMIT_REACHED			= 0x80000000,
-		TR_TOO_MANY_VBLS_WITH_NO_DL,
-	};
+  enum ETerminationReason {
+    TR_UNKNOWN = -1,
+    TR_REACHED_DL_COUNT = 0,
+    TR_TIME_LIMIT_REACHED = 0x80000000,
+    TR_TOO_MANY_VBLS_WITH_NO_DL,
+  };
 
-	void				Reset();
+  void Reset();
 
-	void				Terminate( ETerminationReason reason );
+  void Terminate(ETerminationReason reason);
 
-	void				OnDisplayListComplete();
-	void				OnVerticalBlank();
-	void				OnDebugMessage( const char * msg );
+  void OnDisplayListComplete();
+  void OnVerticalBlank();
+  void OnDebugMessage(const char *msg);
 
-	EAssertResult		OnAssert( const char * expression, const char * file, unsigned int line, const char * formatted_msg );
+  EAssertResult OnAssert(const char *expression, const char *file,
+                         unsigned int line, const char *formatted_msg);
 
-	ETerminationReason	GetTerminationReason() const { return mTerminationReason; }
+  ETerminationReason GetTerminationReason() const { return mTerminationReason; }
 
-	void				PrintSummary( FILE * fh );
+  void PrintSummary(FILE *fh);
 
-	static const char * GetTerminationReasonString( ETerminationReason reason );
+  static const char *GetTerminationReasonString(ETerminationReason reason);
 
 private:
-	CTimer				mTimer;
-	u32					mNumDisplayListsCompleted;
-	u32					mNumVerticalBlanksSinceDisplayList;
-	ETerminationReason	mTerminationReason;
+  CTimer mTimer;
+  u32 mNumDisplayListsCompleted;
+  u32 mNumVerticalBlanksSinceDisplayList;
+  ETerminationReason mTerminationReason;
 
-	std::vector<u32>	mAsserts;
+  std::vector<u32> mAsserts;
 };
 
-CBatchTestEventHandler * BatchTest_GetHandler();
+CBatchTestEventHandler *BatchTest_GetHandler();
 
-void BatchTestMain( int argc, char* argv[] );
+void BatchTestMain(int argc, char *argv[]);
 
 #endif

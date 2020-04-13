@@ -24,53 +24,49 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "Utility/DaedalusTypes.h"
 
-
-enum ETaskMode
-{
-	TM_SYNC,		// Synchronous
-	TM_ASYNC_SC,	// Asynchronous on SC
-	TM_ASYNC_ME,	// Asynchronous on ME
+enum ETaskMode {
+  TM_SYNC,     // Synchronous
+  TM_ASYNC_SC, // Asynchronous on SC
+  TM_ASYNC_ME, // Asynchronous on ME
 };
 
 class SJob;
-typedef int (*JobFunction)( SJob * job );
+typedef int (*JobFunction)(SJob *job);
 
-class SJob
-{
+class SJob {
 public:
-	JobFunction			InitJob;
-	JobFunction			DoJob;
-	JobFunction			FiniJob;
+  JobFunction InitJob;
+  JobFunction DoJob;
+  JobFunction FiniJob;
 };
 
-class CJobManager
-{
+class CJobManager {
 public:
-	CJobManager( u32 job_buffer_size, ETaskMode task_mode );
-	~CJobManager();
+  CJobManager(u32 job_buffer_size, ETaskMode task_mode);
+  ~CJobManager();
 
-	void			Start();
-	void			Stop();
+  void Start();
+  void Stop();
 
-	ETaskMode		GetTaskMode() const		{ return mTaskMode; }
+  ETaskMode GetTaskMode() const { return mTaskMode; }
 
-	bool			AddJob( SJob * job, u32 job_size );
-
-private:
-	static u32		JobMain( void * arg );
-
-	void			Run();
+  bool AddJob(SJob *job, u32 job_size);
 
 private:
-	void *			mJobBuffer;
-	u32				mJobBufferSize {};
+  static u32 JobMain(void *arg);
 
-	ETaskMode		mTaskMode;
-	s32				mThread {};
-	s32				mWorkReady {};
-	s32				mWorkEmpty {};
+  void Run();
 
-	volatile bool	mWantQuit;
+private:
+  void *mJobBuffer;
+  u32 mJobBufferSize{};
+
+  ETaskMode mTaskMode;
+  s32 mThread{};
+  s32 mWorkReady{};
+  s32 mWorkEmpty{};
+
+  volatile bool mWantQuit;
 };
 
 extern CJobManager gJobManager;

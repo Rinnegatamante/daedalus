@@ -23,21 +23,20 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "Graphics/ColourValue.h"
 #include "SysPSP/HLEGraphics/ColourAdjuster.h"
 
-struct SBlendModeDetails
-{
-	c32					EnvColour;
-	c32					PrimColour;
+struct SBlendModeDetails {
+  c32 EnvColour;
+  c32 PrimColour;
 
-	bool				InstallTexture;
-	CColourAdjuster		ColourAdjuster;
+  bool InstallTexture;
+  CColourAdjuster ColourAdjuster;
 };
 
-#define BLEND_MODE_ARGS		SBlendModeDetails & details
+#define BLEND_MODE_ARGS SBlendModeDetails &details
 
-typedef void (*OverrideBlendModeFn)( BLEND_MODE_ARGS );
+typedef void (*OverrideBlendModeFn)(BLEND_MODE_ARGS);
 
-bool					IsInexactDefault( OverrideBlendModeFn Fn );
-OverrideBlendModeFn		LookupOverrideBlendModeInexact( u64 mux );
-OverrideBlendModeFn		LookupOverrideBlendModeForced( u64 mux );
+bool IsInexactDefault(OverrideBlendModeFn Fn);
+OverrideBlendModeFn LookupOverrideBlendModeInexact(u64 mux);
+OverrideBlendModeFn LookupOverrideBlendModeForced(u64 mux);
 
 #endif // SYSPSP_HLEGRAPHICS_BLENDMODES_H_

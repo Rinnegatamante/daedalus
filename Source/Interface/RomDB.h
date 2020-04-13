@@ -27,23 +27,27 @@
 
 #include "Core/ROM.h"
 
-class	RomID;
+class RomID;
 
-class	CRomDB :  public CSingleton< CRomDB >
-{
-	public:
-		~CRomDB() override;
+class CRomDB : public CSingleton<CRomDB> {
+public:
+  ~CRomDB() override;
 
-		virtual bool			OpenDB( const char * filename ) = 0;												// Open the specified rom db, or creates a new one if it does not currently exist
-		virtual void			Reset() = 0;																		// Resets the contents of the database
-		virtual bool			Commit() = 0;																		// Commits any changes made to the database to disk
+  virtual bool
+  OpenDB(const char *filename) = 0; // Open the specified rom db, or creates a
+                                    // new one if it does not currently exist
+  virtual void Reset() = 0;         // Resets the contents of the database
+  virtual bool Commit() = 0; // Commits any changes made to the database to disk
 
-		virtual void			AddRomDirectory(const char * directory) = 0;
+  virtual void AddRomDirectory(const char *directory) = 0;
 
-		virtual bool			QueryByFilename( const char * filename, RomID * id, u32 * rom_size, ECicType * cic_type ) = 0;		// Query a rom from the database
-		virtual bool			QueryByID( const RomID & id, u32 * rom_size, ECicType * cic_type ) const = 0;						// Query a rom from the database
-		virtual const char *	QueryFilenameFromID( const RomID & id ) const = 0;
+  virtual bool
+  QueryByFilename(const char *filename, RomID *id, u32 *rom_size,
+                  ECicType *cic_type) = 0; // Query a rom from the database
+  virtual bool
+  QueryByID(const RomID &id, u32 *rom_size,
+            ECicType *cic_type) const = 0; // Query a rom from the database
+  virtual const char *QueryFilenameFromID(const RomID &id) const = 0;
 };
-
 
 #endif // INTERFACE_ROMDB_H_

@@ -24,27 +24,25 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "Core/RSP_HLE.h"
 
-class CAudioPlugin
-{
+class CAudioPlugin {
 public:
-	virtual ~CAudioPlugin() = default;
+  virtual ~CAudioPlugin() = default;
 
-	virtual bool		StartEmulation() = 0;
-	virtual void		StopEmulation() = 0;
+  virtual bool StartEmulation() = 0;
+  virtual void StopEmulation() = 0;
 
-	enum ESystemType
-	{
-		ST_NTSC,
-		ST_PAL,
-		ST_MPAL,
-	};
+  enum ESystemType {
+    ST_NTSC,
+    ST_PAL,
+    ST_MPAL,
+  };
 
-	virtual void			DacrateChanged( int SystemType ) = 0;
-	virtual void			LenChanged() = 0;
-	virtual u32				ReadLength() = 0;
-	virtual EProcessResult	ProcessAList() = 0;
+  virtual void DacrateChanged(int SystemType) = 0;
+  virtual void LenChanged() = 0;
+  virtual u32 ReadLength() = 0;
+  virtual EProcessResult ProcessAList() = 0;
 #ifdef DAEDALUS_W32
-	virtual void			Update( bool wait ) = 0;
+  virtual void Update(bool wait) = 0;
 #endif
 };
 
@@ -52,7 +50,7 @@ public:
 //	This needs to be defined for all targets.
 //	The implementation can return NULL if audio is not supported
 //
-CAudioPlugin *			CreateAudioPlugin();
-extern CAudioPlugin *	gAudioPlugin;
+CAudioPlugin *CreateAudioPlugin();
+extern CAudioPlugin *gAudioPlugin;
 
 #endif // PLUGINS_AUDIOPLUGIN_H_

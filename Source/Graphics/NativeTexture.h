@@ -17,7 +17,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 */
 
-
 #ifndef GRAPHICS_NATIVETEXTURE_H_
 #define GRAPHICS_NATIVETEXTURE_H_
 
@@ -33,63 +32,65 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 class c32;
 
-class CNativeTexture : public CRefCounted
-{
-	friend class CRefPtr<CNativeTexture>::_NoAddRefRelease<CNativeTexture>;
+class CNativeTexture : public CRefCounted {
+  friend class CRefPtr<CNativeTexture>::_NoAddRefRelease<CNativeTexture>;
 
-		CNativeTexture( u32 w, u32 h, ETextureFormat texture_format );
-		~CNativeTexture() override;
+  CNativeTexture(u32 w, u32 h, ETextureFormat texture_format);
+  ~CNativeTexture() override;
 
-	public:
-		static	CRefPtr<CNativeTexture>		Create( u32 width, u32 height, ETextureFormat texture_format );
-		static	CRefPtr<CNativeTexture>		CreateFromPng( const char * p_filename, ETextureFormat texture_format );
+public:
+  static CRefPtr<CNativeTexture> Create(u32 width, u32 height,
+                                        ETextureFormat texture_format);
+  static CRefPtr<CNativeTexture> CreateFromPng(const char *p_filename,
+                                               ETextureFormat texture_format);
 
-		void							InstallTexture() const;
+  void InstallTexture() const;
 
-		void							SetData( void * data, void * palette );
+  void SetData(void *data, void *palette);
 
-		inline u32						GetBlockWidth() const			{ return mTextureBlockWidth; }
-		inline u32						GetWidth() const				{ return mWidth; }
-		inline u32						GetHeight() const				{ return mHeight; }
-		inline u32						GetCorrectedWidth() const		{ return mCorrectedWidth; }
-		inline u32						GetCorrectedHeight() const		{ return mCorrectedHeight; }
-		u32								GetStride() const;
-		inline ETextureFormat			GetFormat() const				{ return mTextureFormat; }
+  inline u32 GetBlockWidth() const { return mTextureBlockWidth; }
+  inline u32 GetWidth() const { return mWidth; }
+  inline u32 GetHeight() const { return mHeight; }
+  inline u32 GetCorrectedWidth() const { return mCorrectedWidth; }
+  inline u32 GetCorrectedHeight() const { return mCorrectedHeight; }
+  u32 GetStride() const;
+  inline ETextureFormat GetFormat() const { return mTextureFormat; }
 
-		inline const void *				GetPalette() const				{ return mpPalette; }
-		inline const void *				GetData() const					{ return mpData; }
-		inline void *					GetData()						{ return mpData; }
+  inline const void *GetPalette() const { return mpPalette; }
+  inline const void *GetData() const { return mpData; }
+  inline void *GetData() { return mpData; }
 
 #ifdef DAEDALUS_PSP
-		inline f32						GetScaleX() const				{ return mScale.x; }
-		inline f32						GetScaleY() const				{ return mScale.y; }
+  inline f32 GetScaleX() const { return mScale.x; }
+  inline f32 GetScaleY() const { return mScale.y; }
 #endif
 
-		u32								GetBytesRequired() const;
-		bool							HasData() const;				// If we run out of texture memory, this will return true
+  u32 GetBytesRequired() const;
+  bool
+  HasData() const; // If we run out of texture memory, this will return true
 
-	private:
-		ETextureFormat		mTextureFormat;
-		u32					mWidth;
-		u32					mHeight;
-		u32					mCorrectedWidth;
-		u32					mCorrectedHeight;
-		u32					mTextureBlockWidth;		// Multiple of 16 bytes
+private:
+  ETextureFormat mTextureFormat;
+  u32 mWidth;
+  u32 mHeight;
+  u32 mCorrectedWidth;
+  u32 mCorrectedHeight;
+  u32 mTextureBlockWidth; // Multiple of 16 bytes
 
-		void *				mpData;
-		void *				mpPalette;
+  void *mpData{};
+  void *mpPalette;
 
 #ifdef DAEDALUS_GL
-		GLuint				mTextureId;
+  GLuint mTextureId;
 #endif
 
 #ifdef DAEDALUS_PSP
-		v2					mScale;
-		bool				mIsDataVidMem;
-		bool				mIsPaletteVidMem;
-		bool				mIsSwizzled;
+  v2 mScale{};
+  bool mIsDataVidMem{};
+  bool mIsPaletteVidMem;
+  bool mIsSwizzled;
 #ifdef DAEDALUS_ENABLE_ASSERTS
-		bool				mPaletteSet;
+  bool mPaletteSet;
 #endif
 #endif // DAEDALUS_PSP
 };

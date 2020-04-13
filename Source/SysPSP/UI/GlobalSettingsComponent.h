@@ -17,19 +17,17 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 */
 
-
 #ifndef SYSPSP_UI_GLOBALSETTINGSCOMPONENT_H_
 #define SYSPSP_UI_GLOBALSETTINGSCOMPONENT_H_
 
 #include "UIComponent.h"
 
-class CGlobalSettingsComponent : public CUIComponent
-{
-	public:
-		CGlobalSettingsComponent( CUIContext * p_context );
-		~CGlobalSettingsComponent() override;
+class CGlobalSettingsComponent : public CUIComponent {
+public:
+  CGlobalSettingsComponent(CUIContext *p_context);
+  ~CGlobalSettingsComponent() override;
 
-		static CGlobalSettingsComponent *	Create( CUIContext * p_context );
+  static CGlobalSettingsComponent *Create(CUIContext *p_context);
 };
 
 #endif // SYSPSP_UI_GLOBALSETTINGSCOMPONENT_H_

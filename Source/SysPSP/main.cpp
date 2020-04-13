@@ -20,23 +20,22 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "stdafx.h"
 
 #include <pspdebug.h>
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 
+#include <kubridge.h>
 #include <pspctrl.h>
-#include <psprtc.h>
-#include <psppower.h>
-#include <pspsdk.h>
 #include <pspdisplay.h>
 #include <pspgu.h>
 #include <pspkernel.h>
-#include <kubridge.h>
+#include <psppower.h>
+#include <psprtc.h>
+#include <pspsdk.h>
 #include <pspsysmem.h>
 
 #include "Config/ConfigOptions.h"
+#include "Core/CPU.h"
 #include "Core/Cheats.h"
-#include "Core/CPU.h"
-#include "Core/CPU.h"
 #include "Core/Memory.h"
 #include "Core/PIF.h"
 #include "Core/RomSettings.h"
@@ -62,8 +61,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "Utility/Preferences.h"
 #include "Utility/Profiler.h"
 #include "Utility/Thread.h"
-#include "Utility/Translate.h"
 #include "Utility/Timer.h"
+#include "Utility/Translate.h"
 
 /* Define to enable Exit Callback */
 // Do not enable this, callbacks don't get along with our exit dialog :p
@@ -75,19 +74,17 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #undef DAEDALUS_CALLBACKS
 #endif
 
+extern "C" {
+/* Disable FPU exceptions */
+void _DisableFPUExceptions();
 
-extern "C"
-{
-	/* Disable FPU exceptions */
-	void _DisableFPUExceptions();
-
-	/* Video Manager functions */
-	int pspDveMgrCheckVideoOut();
-	int pspDveMgrSetVideoOut(int, int, int, int, int, int, int);
+/* Video Manager functions */
+int pspDveMgrCheckVideoOut();
+int pspDveMgrSetVideoOut(int, int, int, int, int, int, int);
 
 #ifdef DAEDALUS_PSP_GPROF
-	/* Profile with psp-gprof */
-	void gprof_cleanup();
+/* Profile with psp-gprof */
+void gprof_cleanup();
 #endif
 }
 
@@ -100,191 +97,197 @@ extern int HAVE_DVE;
 extern int PSP_TV_CABLE;
 extern int PSP_TV_LACED;
 
-
 bool g32bitColorMode = false;
 bool PSP_IS_SLIM = false;
 
-PSP_MODULE_INFO( DaedalusX64 1.1.8, 0, 1, 1 );
-PSP_MAIN_THREAD_ATTR( PSP_THREAD_ATTR_USER | PSP_THREAD_ATTR_VFPU );
+PSP_MODULE_INFO(DaedalusX64 1.1.8, 0, 1, 1);
+PSP_MAIN_THREAD_ATTR(PSP_THREAD_ATTR_USER | PSP_THREAD_ATTR_VFPU);
 PSP_HEAP_SIZE_KB(-256);
 
-
-static void DaedalusFWCheck()
-{
+static void DaedalusFWCheck() {
 // ##define PSP_FIRMWARE Borrowed from Davee
-#define PSP_FIRMWARE(f) (((((f) >> 8) & 0xF) << 24) | ((((f) >> 4) & 0xF) << 16) | (((f) & 0xF) << 8) | 0x10)
+#define PSP_FIRMWARE(f)                                                        \
+  (((((f) >> 8) & 0xF) << 24) | ((((f) >> 4) & 0xF) << 16) |                   \
+   (((f)&0xF) << 8) | 0x10)
 
-	u32 ver = sceKernelDevkitVersion();
+  u32 ver = sceKernelDevkitVersion();
 
-	if( (ver < PSP_FIRMWARE(0x401)) )
-	{
-		pspDebugScreenInit();
-		pspDebugScreenSetTextColor(0xffffff);
-		pspDebugScreenSetBackColor(0x000000);
-		pspDebugScreenSetXY(0, 0);
-		pspDebugScreenClear();
-		pspDebugScreenPrintf( "\n" );
-		pspDebugScreenPrintf( "--------------------------------------------------------------------\n" );
-		pspDebugScreenPrintf( "\n" );
-		pspDebugScreenPrintf( "	Unsupported Firmware Detected : 0x%08X\n", ver );
-		pspDebugScreenPrintf( "\n" );
-		pspDebugScreenPrintf( "	Daedalus requires at least Firmware 4.01 M33\n" );
-		pspDebugScreenPrintf( "\n" );
-		pspDebugScreenPrintf( "--------------------------------------------------------------------\n" );
-		sceKernelDelayThread(1000000);
-		pspDebugScreenPrintf( "\n" );
-		pspDebugScreenPrintf( "\n" );
-		pspDebugScreenPrintf( "\n" );
-		pspDebugScreenPrintf("\nPress O to Exit or [] to Ignore");
-		for (;;)
-		{
-			SceCtrlData pad;
-			sceCtrlPeekBufferPositive(&pad, 1);
-			if (pad.Buttons & PSP_CTRL_CIRCLE)
-				break;
-			if (pad.Buttons & PSP_CTRL_SQUARE)
-				return;
-		}
-		sceKernelExitGame();
-	}
-
+  if ((ver < PSP_FIRMWARE(0x401))) {
+    pspDebugScreenInit();
+    pspDebugScreenSetTextColor(0xffffff);
+    pspDebugScreenSetBackColor(0x000000);
+    pspDebugScreenSetXY(0, 0);
+    pspDebugScreenClear();
+    pspDebugScreenPrintf("\n");
+    pspDebugScreenPrintf("-----------------------------------------------------"
+                         "---------------\n");
+    pspDebugScreenPrintf("\n");
+    pspDebugScreenPrintf("	Unsupported Firmware Detected : 0x%08X\n", ver);
+    pspDebugScreenPrintf("\n");
+    pspDebugScreenPrintf("	Daedalus requires at least Firmware 4.01 "
+                         "M33\n");
+    pspDebugScreenPrintf("\n");
+    pspDebugScreenPrintf("-----------------------------------------------------"
+                         "---------------\n");
+    sceKernelDelayThread(1000000);
+    pspDebugScreenPrintf("\n");
+    pspDebugScreenPrintf("\n");
+    pspDebugScreenPrintf("\n");
+    pspDebugScreenPrintf("\nPress O to Exit or [] to Ignore");
+    for (;;) {
+      SceCtrlData pad;
+      sceCtrlPeekBufferPositive(&pad, 1);
+      if (pad.Buttons & PSP_CTRL_CIRCLE)
+        break;
+      if (pad.Buttons & PSP_CTRL_SQUARE)
+        return;
+    }
+    sceKernelExitGame();
+  }
 }
-
 
 extern bool InitialiseJobManager();
 //*************************************************************************************
 //
 //*************************************************************************************
-static bool	Initialize()
-{
-	strcpy(gDaedalusExePath, DAEDALUS_PSP_PATH( "" ));
+static bool Initialize() {
+  strcpy(gDaedalusExePath, DAEDALUS_PSP_PATH(""));
 
-	scePowerSetClockFrequency(333, 333, 166);
-	InitHomeButton();
+  scePowerSetClockFrequency(333, 333, 166);
+  InitHomeButton();
 
-	// If (o) is pressed during boot the Emulator will use 32bit
-	// else use default 16bit color mode
-	SceCtrlData pad;
-	sceCtrlPeekBufferPositive(&pad, 1);
-	if( pad.Buttons & PSP_CTRL_CIRCLE ) g32bitColorMode = true;
-	else g32bitColorMode = false;
+  // If (o) is pressed during boot the Emulator will use 32bit
+  // else use default 16bit color mode
+  SceCtrlData pad;
+  sceCtrlPeekBufferPositive(&pad, 1);
+  if (pad.Buttons & PSP_CTRL_CIRCLE)
+    g32bitColorMode = true;
+  else
+    g32bitColorMode = false;
 
-// Check for firmware lower than 4.01
-	DaedalusFWCheck();
+  // Check for firmware lower than 4.01
+  DaedalusFWCheck();
 
-	// Initiate MediaEngine
-	//Note: Media Engine is not available for Vita
-	bool bMeStarted = InitialiseJobManager();
+  // Initiate MediaEngine
+  // Note: Media Engine is not available for Vita
+  bool bMeStarted = InitialiseJobManager();
 
-// Disable for profiling
-//	srand(time(0));
+  // Disable for profiling
+  //	srand(time(0));
 
-	//Set the debug output to default
-	if( g32bitColorMode ) pspDebugScreenInit();
-	else pspDebugScreenInitEx( NULL , GU_PSM_5650, 1); //Sets debug output to 16bit mode
+  // Set the debug output to default
+  if (g32bitColorMode)
+    pspDebugScreenInit();
+  else
+    pspDebugScreenInitEx(NULL, GU_PSM_5650,
+                         1); // Sets debug output to 16bit mode
 
 // This Breaks gdb, better disable it in debug build
 //
 #ifdef DAEDALUS_DEBUG_CONSOLE
-extern void initExceptionHandler();
-	initExceptionHandler();
+  extern void initExceptionHandler();
+  initExceptionHandler();
 #endif
 
-	_DisableFPUExceptions();
-	VolatileMemInit();
+  _DisableFPUExceptions();
+  VolatileMemInit();
 
 #ifdef DAEDALUS_CALLBACKS
-	//Set up callback for our thread
-	SetupCallbacks();
+  // Set up callback for our thread
+  SetupCallbacks();
 #endif
 
-		// Detect PSP greater than PSP 1000
-	if ( kuKernelGetModel() > 0 )
-	{
-		// Can't use extra memory if ME isn't available
-		if( bMeStarted )
-			PSP_IS_SLIM = true;
+  // Detect PSP greater than PSP 1000
+  if (kuKernelGetModel() > 0) {
+    // Can't use extra memory if ME isn't available
+    if (bMeStarted)
+      PSP_IS_SLIM = true;
 
-	int vitaprx = sceIoOpen("flash0:/kd/registry.prx", PSP_O_RDONLY | PSP_O_WRONLY, 0777);
-	if(vitaprx >= 0){
-	sceIoClose(vitaprx);
+    int vitaprx =
+        sceIoOpen("flash0:/kd/registry.prx", PSP_O_RDONLY | PSP_O_WRONLY, 0777);
+    if (vitaprx >= 0) {
+      sceIoClose(vitaprx);
 
-	}
-	else {
-		HAVE_DVE = CModule::Load("dvemgr.prx");
-		if (HAVE_DVE >= 0)
-			PSP_TV_CABLE = pspDveMgrCheckVideoOut();
-		if (PSP_TV_CABLE == 1)
-			PSP_TV_LACED = 1; // composite cable => interlaced
-		else if( PSP_TV_CABLE == 0 )
-			CModule::Unload( HAVE_DVE );	// Stop and unload dvemgr.prx since if no video cable is connected
-		}
+    } else {
+      HAVE_DVE = CModule::Load("dvemgr.prx");
+      if (HAVE_DVE >= 0)
+        PSP_TV_CABLE = pspDveMgrCheckVideoOut();
+      if (PSP_TV_CABLE == 1)
+        PSP_TV_LACED = 1; // composite cable => interlaced
+      else if (PSP_TV_CABLE == 0)
+        CModule::Unload(HAVE_DVE); // Stop and unload dvemgr.prx since if no
+                                   // video cable is connected
+    }
+  }
+
+  HAVE_DVE = (HAVE_DVE < 0) ? 0 : 1; // 0 == no dvemgr, 1 == dvemgr
+
+  sceCtrlSetSamplingCycle(0);
+  sceCtrlSetSamplingMode(PSP_CTRL_MODE_ANALOG);
+
+  // Init the savegame directory -- We probably should create this on the fly if
+  // not as it causes issues.
+  strcpy(g_DaedalusConfig.mSaveDir, DAEDALUS_PSP_PATH("SaveGames/"));
+
+  if (!System_Init())
+    return false;
+
+  return true;
 }
-
-	HAVE_DVE = (HAVE_DVE < 0) ? 0 : 1; // 0 == no dvemgr, 1 == dvemgr
-
-    sceCtrlSetSamplingCycle(0);
-    sceCtrlSetSamplingMode(PSP_CTRL_MODE_ANALOG);
-
-	// Init the savegame directory -- We probably should create this on the fly if not as it causes issues.
-	strcpy( g_DaedalusConfig.mSaveDir, DAEDALUS_PSP_PATH( "SaveGames/" ) );
-
-	if (!System_Init())
-		return false;
-
-	return true;
-}
-
 
 #ifdef DAEDALUS_PROFILE_EXECUTION
 //*************************************************************************************
 //
 //*************************************************************************************
-static void	DumpDynarecStats( float elapsed_time )
-{
-	// Temp dynarec stats
-	extern u64 gTotalInstructionsEmulated;
-	extern u64 gTotalInstructionsExecuted;
-	extern u32 gTotalRegistersCached;
-	extern u32 gTotalRegistersUncached;
-	extern u32 gFragmentLookupSuccess;
-	extern u32 gFragmentLookupFailure;
+static void DumpDynarecStats(float elapsed_time) {
+  // Temp dynarec stats
+  extern u64 gTotalInstructionsEmulated;
+  extern u64 gTotalInstructionsExecuted;
+  extern u32 gTotalRegistersCached;
+  extern u32 gTotalRegistersUncached;
+  extern u32 gFragmentLookupSuccess;
+  extern u32 gFragmentLookupFailure;
 
-	u32		dynarec_ratio( 0 );
+  u32 dynarec_ratio(0);
 
-	if(gTotalInstructionsExecuted + gTotalInstructionsEmulated > 0)
-	{
-		float fRatio = float(gTotalInstructionsExecuted * 100.0f / float(gTotalInstructionsEmulated+gTotalInstructionsExecuted));
+  if (gTotalInstructionsExecuted + gTotalInstructionsEmulated > 0) {
+    float fRatio =
+        float(gTotalInstructionsExecuted * 100.0f /
+              float(gTotalInstructionsEmulated + gTotalInstructionsExecuted));
 
-		dynarec_ratio = u32( fRatio );
+    dynarec_ratio = u32(fRatio);
 
-		//gTotalInstructionsExecuted = 0;
-		//gTotalInstructionsEmulated = 0;
-	}
+    // gTotalInstructionsExecuted = 0;
+    // gTotalInstructionsEmulated = 0;
+  }
 
-	u32		cached_regs_ratio( 0 );
-	if(gTotalRegistersCached + gTotalRegistersUncached > 0)
-	{
-		float fRatio = float(gTotalRegistersCached * 100.0f / float(gTotalRegistersCached+gTotalRegistersUncached));
+  u32 cached_regs_ratio(0);
+  if (gTotalRegistersCached + gTotalRegistersUncached > 0) {
+    float fRatio =
+        float(gTotalRegistersCached * 100.0f /
+              float(gTotalRegistersCached + gTotalRegistersUncached));
 
-		cached_regs_ratio = u32( fRatio );
-	}
+    cached_regs_ratio = u32(fRatio);
+  }
 
-	const char * const TERMINAL_SAVE_CURSOR			= "\033[s";
-	const char * const TERMINAL_RESTORE_CURSOR		= "\033[u";
-//	const char * const TERMINAL_TOP_LEFT			= "\033[2A\033[2K";
-	const char * const TERMINAL_TOP_LEFT			= "\033[H\033[2K";
+  const char *const TERMINAL_SAVE_CURSOR = "\033[s";
+  const char *const TERMINAL_RESTORE_CURSOR = "\033[u";
+  //	const char * const TERMINAL_TOP_LEFT			=
+  //"\033[2A\033[2K";
+  const char *const TERMINAL_TOP_LEFT = "\033[H\033[2K";
 
-	printf( TERMINAL_SAVE_CURSOR );
-	printf( TERMINAL_TOP_LEFT );
+  printf(TERMINAL_SAVE_CURSOR);
+  printf(TERMINAL_TOP_LEFT);
 
-	printf( "Frame: %dms, DynaRec %d%%, Regs cached %d%%, Lookup success %d/%d", u32(elapsed_time * 1000.0f), dynarec_ratio, cached_regs_ratio, gFragmentLookupSuccess, gFragmentLookupFailure );
+  printf("Frame: %dms, DynaRec %d%%, Regs cached %d%%, Lookup success %d/%d",
+         u32(elapsed_time * 1000.0f), dynarec_ratio, cached_regs_ratio,
+         gFragmentLookupSuccess, gFragmentLookupFailure);
 
-	printf( TERMINAL_RESTORE_CURSOR );
-	fflush( stdout );
+  printf(TERMINAL_RESTORE_CURSOR);
+  fflush(stdout);
 
-	gFragmentLookupSuccess = 0;
-	gFragmentLookupFailure = 0;
+  gFragmentLookupSuccess = 0;
+  gFragmentLookupFailure = 0;
 }
 #endif
 
@@ -296,155 +299,139 @@ static void	DumpDynarecStats( float elapsed_time )
 //
 //*************************************************************************************
 #ifdef DAEDALUS_PROFILE_EXECUTION
-static CTimer		gTimer;
+static CTimer gTimer;
 #endif
 
-void HandleEndOfFrame()
-{
+void HandleEndOfFrame() {
 #ifdef DAEDALUS_DEBUG_DISPLAYLIST
-	if(DLDebugger_IsDebugging())
-		return;
-			DPF( DEBUG_FRAME, "********************************************" );
+  if (DLDebugger_IsDebugging())
+    return;
+  DPF(DEBUG_FRAME, "********************************************");
 #endif
 
-
-
-	//
-	//	Figure out how long the last frame took
-	//
+  //
+  //	Figure out how long the last frame took
+  //
 #ifdef DAEDALUS_PROFILE_EXECUTION
-	DumpDynarecStats( elapsed_time );
+  DumpDynarecStats(elapsed_time);
 #endif
-	//
-	//	Enter the debug menu as soon as select is newly pressed
-	//
-	static u32 oldButtons = 0;
-	SceCtrlData pad;
-			bool		activate_pause_menu {false};
-	sceCtrlPeekBufferPositive(&pad, 1);
+  //
+  //	Enter the debug menu as soon as select is newly pressed
+  //
+  static u32 oldButtons = 0;
+  SceCtrlData pad;
+  bool activate_pause_menu{false};
+  sceCtrlPeekBufferPositive(&pad, 1);
 
-	// If kernelbuttons.prx couldn't be loaded, allow select button to be used instead
-	//
-	if(oldButtons != pad.Buttons)
-	{
-		if( gCheatsEnabled && (pad.Buttons & PSP_CTRL_SELECT) )
-		{
-			CheatCodes_Activate( GS_BUTTON );
-		}
+  // If kernelbuttons.prx couldn't be loaded, allow select button to be used
+  // instead
+  //
+  if (oldButtons != pad.Buttons) {
+    if (gCheatsEnabled && (pad.Buttons & PSP_CTRL_SELECT)) {
+      CheatCodes_Activate(GS_BUTTON);
+    }
 
-		if(pad.Buttons & PSP_CTRL_HOME)
-				activate_pause_menu = true;
-	}
+    if (pad.Buttons & PSP_CTRL_HOME)
+      activate_pause_menu = true;
+  }
 
-	if(activate_pause_menu)
-	{
+  if (activate_pause_menu) {
 
-		CGraphicsContext::Get()->SwitchToLcdDisplay();
-		CGraphicsContext::Get()->ClearAllSurfaces();
+    CGraphicsContext::Get()->SwitchToLcdDisplay();
+    CGraphicsContext::Get()->ClearAllSurfaces();
 
-		CDrawText::Initialise();
+    CDrawText::Initialise();
 
-		CUIContext *	p_context( CUIContext::Create() );
+    CUIContext *p_context(CUIContext::Create());
 
-		if(p_context != NULL)
-		{
-			// Already set in ClearBackground() @ UIContext.h
-			//p_context->SetBackgroundColour( c32( 94, 188, 94 ) );		// Nice green :)
+    if (p_context != NULL) {
+      // Already set in ClearBackground() @ UIContext.h
+      // p_context->SetBackgroundColour( c32( 94, 188, 94 ) );		// Nice
+      // green :)
 
-			CPauseScreen *	pause( CPauseScreen::Create( p_context ) );
-			pause->Run();
-			delete pause;
-			delete p_context;
-		}
+      CPauseScreen *pause(CPauseScreen::Create(p_context));
+      pause->Run();
+      delete pause;
+      delete p_context;
+    }
 
-		CDrawText::Destroy();
+    CDrawText::Destroy();
 
-		//
-		// Commit the preferences database before starting to run
-		//
-		CPreferences::Get()->Commit();
-	}
-	//
-	//	Reset the elapsed time to avoid glitches when we restart
-	//
+    //
+    // Commit the preferences database before starting to run
+    //
+    CPreferences::Get()->Commit();
+  }
+  //
+  //	Reset the elapsed time to avoid glitches when we restart
+  //
 #ifdef DAEDALUS_PROFILE_EXECUTION
-	gTimer.Reset();
+  gTimer.Reset();
 #endif
-
 }
 
-static void DisplayRomsAndChoose(bool show_splash)
-{
-	// switch back to the LCD display
-	CGraphicsContext::Get()->SwitchToLcdDisplay();
+static void DisplayRomsAndChoose(bool show_splash) {
+  // switch back to the LCD display
+  CGraphicsContext::Get()->SwitchToLcdDisplay();
 
-	CDrawText::Initialise();
+  CDrawText::Initialise();
 
-	CUIContext *	p_context( CUIContext::Create() );
+  CUIContext *p_context(CUIContext::Create());
 
-	if(p_context != NULL)
-	{
+  if (p_context != NULL) {
 
-		if( show_splash )
-		{
-			CSplashScreen *		p_splash( CSplashScreen::Create( p_context ) );
-			p_splash->Run();
-			delete p_splash;
-		}
+    if (show_splash) {
+      CSplashScreen *p_splash(CSplashScreen::Create(p_context));
+      p_splash->Run();
+      delete p_splash;
+    }
 
-		CMainMenuScreen *	p_main_menu( CMainMenuScreen::Create( p_context ) );
-		p_main_menu->Run();
-		delete p_main_menu;
-	}
+    CMainMenuScreen *p_main_menu(CMainMenuScreen::Create(p_context));
+    p_main_menu->Run();
+    delete p_main_menu;
+  }
 
-	delete p_context;
+  delete p_context;
 
-	CDrawText::Destroy();
+  CDrawText::Destroy();
 }
 
-
-
-int main(int argc, char* argv[])
-{
-	if( Initialize() )
-	{
+int main(int argc, char *argv[]) {
+  if (Initialize()) {
 #ifdef DAEDALUS_BATCH_TEST_ENABLED
-		if( argc > 1 )
-		{
-			BatchTestMain( argc, argv );
-		}
+    if (argc > 1) {
+      BatchTestMain(argc, argv);
+    }
 #else
-		//Makes it possible to load a ROM directly without using the GUI
-		//There are no checks for wrong file name so be careful!!!
-		//Ex. from PSPLink -> ./Daedalus.prx "Roms/StarFox 64.v64" //Corn
-		if( argc > 1 )
-		{
-			printf("Loading %s\n", argv[1] );
-			System_Open( argv[1] );
-			CPU_Run();
-			System_Close();
-			System_Finalize();
-			sceKernelExitGame();
-			return 0;
-		}
+    // Makes it possible to load a ROM directly without using the GUI
+    // There are no checks for wrong file name so be careful!!!
+    // Ex. from PSPLink -> ./Daedalus.prx "Roms/StarFox 64.v64" //Corn
+    if (argc > 1) {
+      printf("Loading %s\n", argv[1]);
+      System_Open(argv[1]);
+      CPU_Run();
+      System_Close();
+      System_Finalize();
+      sceKernelExitGame();
+      return 0;
+    }
 #endif
-		//Translate_Init();
-		bool show_splash = true;
-		for(;;)
-		{
-			DisplayRomsAndChoose( show_splash );
-			show_splash = false;
+    // Translate_Init();
+    bool show_splash = true;
+    for (;;) {
+      DisplayRomsAndChoose(show_splash);
+      show_splash = false;
 
-			CRomDB::Get()->Commit();
-			CPreferences::Get()->Commit();
+      CRomDB::Get()->Commit();
+      CPreferences::Get()->Commit();
 
-			CPU_Run();
-			System_Close();
-		}
+      CPU_Run();
+      System_Close();
+    }
 
-		System_Finalize();
-	}
+    System_Finalize();
+  }
 
-	sceKernelExitGame();
-	return 0;
+  sceKernelExitGame();
+  return 0;
 }

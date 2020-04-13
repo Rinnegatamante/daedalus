@@ -22,76 +22,69 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #pragma once
 
-class CFunctor
-{
+class CFunctor {
 public:
-	virtual ~CFunctor() = default;
-	virtual void operator()() = 0;
+  virtual ~CFunctor() = default;
+  virtual void operator()() = 0;
 };
 
-template< typename T >
-class CFunctor1
-{
+template <typename T> class CFunctor1 {
 public:
-	virtual ~CFunctor1() = default;
-	virtual void operator()( T v ) = 0;
+  virtual ~CFunctor1() = default;
+  virtual void operator()(T v) = 0;
 };
 
 //
 //	Invoke static functions with varying numbers of arguments
 //
-class CStaticFunctor : public CFunctor
-{
+class CStaticFunctor : public CFunctor {
 public:
-	CStaticFunctor( void (*function)() ) : mpFunction( function )					{}
-	void operator()() override			{ (*mpFunction)(); }
+  CStaticFunctor(void (*function)()) : mpFunction(function) {}
+  void operator()() override { (*mpFunction)(); }
 
 private:
-	void (*mpFunction)();
+  void (*mpFunction)();
 };
 
 //
 //	Invoke member functions with varying number of arguments
 //
-template< class B >
-class CMemberFunctor : public CFunctor
-{
+template <class B> class CMemberFunctor : public CFunctor {
 public:
-	CMemberFunctor( B * object, void (B::*function)() ) : mpObject( object ), mpFunction( function )	{}
-	void operator()() override			{ (*mpObject.*mpFunction)(); }
+  CMemberFunctor(B *object, void (B::*function)())
+      : mpObject(object), mpFunction(function) {}
+  void operator()() override { (*mpObject.*mpFunction)(); }
 
 private:
-	B *		mpObject;
-	void (B::*mpFunction)();
+  B *mpObject;
+  void (B::*mpFunction)();
 };
 
-template< class B, typename T >
-class CMemberFunctor1 : public CFunctor1< T >
-{
+template <class B, typename T> class CMemberFunctor1 : public CFunctor1<T> {
 public:
-	CMemberFunctor1( B * object, void (B::*function)( T ) ) : mpObject( object ), mpFunction( function )	{}
-	void operator()( T v ) override		{ (*mpObject.*mpFunction)( v ); }
+  CMemberFunctor1(B *object, void (B::*function)(T))
+      : mpObject(object), mpFunction(function) {}
+  void operator()(T v) override { (*mpObject.*mpFunction)(v); }
 
 private:
-	B *		mpObject;
-	void (B::*mpFunction)( T );
+  B *mpObject;
+  void (B::*mpFunction)(T);
 };
 
 //
 // Invoke a Functor1 with a fixed argument
 //
-template< typename T >
-class CCurriedFunctor : public CFunctor
-{
+template <typename T> class CCurriedFunctor : public CFunctor {
 public:
-	CCurriedFunctor( CFunctor1< T > * functor, T value ) : mpFunctor( functor ), Value( value ) {}
-	~CCurriedFunctor() override					{ delete mpFunctor; }
+  CCurriedFunctor(CFunctor1<T> *functor, T value)
+      : mpFunctor(functor), Value(value) {}
+  ~CCurriedFunctor() override { delete mpFunctor; }
 
-	void operator()() override			{ (*mpFunctor)( Value ); }
+  void operator()() override { (*mpFunctor)(Value); }
 
 private:
-	CFunctor1< T > *		mpFunctor;
-	T						Value;
+  CFunctor1<T> *mpFunctor;
+  T Value;
 };
 
 #endif // UTILITY_FUNCTOR_H_

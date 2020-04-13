@@ -17,8 +17,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 */
 
-#include "stdafx.h"
 #include "Stream.h"
+#include "stdafx.h"
 
 #include <stdio.h>
 
@@ -27,89 +27,74 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //*****************************************************************************
 //
 //*****************************************************************************
-class COutputStringStreamImpl
-{
+class COutputStringStreamImpl {
 public:
-	std::string			mString;
+  std::string mString;
 };
 
 //*****************************************************************************
 //
 //*****************************************************************************
 COutputStringStream::COutputStringStream()
-:	mpImpl( new COutputStringStreamImpl )
-{
+    : mpImpl(new COutputStringStreamImpl) {}
+
+//*****************************************************************************
+//
+//*****************************************************************************
+COutputStringStream::~COutputStringStream() { delete mpImpl; }
+
+//*****************************************************************************
+//
+//*****************************************************************************
+void COutputStringStream::Clear() { mpImpl->mString.clear(); }
+
+//*****************************************************************************
+//
+//*****************************************************************************
+COutputStream &COutputStringStream::operator<<(const char *p_str) {
+  mpImpl->mString += p_str;
+  return *this;
 }
 
 //*****************************************************************************
 //
 //*****************************************************************************
-COutputStringStream::~COutputStringStream()
-{
-	delete mpImpl;
+COutputStream &COutputStringStream::operator<<(char val) {
+  mpImpl->mString += val;
+  return *this;
 }
 
 //*****************************************************************************
 //
 //*****************************************************************************
-void	COutputStringStream::Clear()
-{
-	mpImpl->mString.clear();
+COutputStream &COutputStringStream::operator<<(s32 val) {
+  char buffer[32 + 1];
+  sprintf(buffer, "%d", val);
+  mpImpl->mString += buffer;
+  return *this;
 }
 
 //*****************************************************************************
 //
 //*****************************************************************************
-COutputStream & COutputStringStream::operator<<( const char * p_str )
-{
-	mpImpl->mString += p_str;
-	return *this;
+COutputStream &COutputStringStream::operator<<(u32 val) {
+  char buffer[32 + 1];
+  sprintf(buffer, "%d", val);
+  mpImpl->mString += buffer;
+  return *this;
 }
 
 //*****************************************************************************
 //
 //*****************************************************************************
-COutputStream & COutputStringStream::operator<<( char val )
-{
-	mpImpl->mString += val;
-	return *this;
+const char *COutputStringStream::c_str() const {
+  return mpImpl->mString.c_str();
 }
 
 //*****************************************************************************
 //
 //*****************************************************************************
-COutputStream & COutputStringStream::operator<<( s32 val )
-{
-	char	buffer[ 32+1 ];
-	sprintf( buffer, "%d", val );
-	mpImpl->mString += buffer;
-	return *this;
-}
-
-//*****************************************************************************
-//
-//*****************************************************************************
-COutputStream & COutputStringStream::operator<<( u32 val )
-{
-	char	buffer[ 32+1 ];
-	sprintf( buffer, "%d", val );
-	mpImpl->mString += buffer;
-	return *this;
-}
-
-//*****************************************************************************
-//
-//*****************************************************************************
-const char *	COutputStringStream::c_str() const
-{
-	return mpImpl->mString.c_str();
-}
-
-//*****************************************************************************
-//
-//*****************************************************************************
-COutputStream & operator<<( COutputStream & str, COutputStringStream & rhs )
-{
-	str << rhs.c_str();
-	return str;
+COutputStream &operator<<(COutputStream &str, COutputStringStream &rhs) {
+  str << rhs.c_str();
+  return str;
 }

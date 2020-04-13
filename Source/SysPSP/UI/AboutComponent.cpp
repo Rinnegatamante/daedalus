@@ -17,8 +17,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 */
 
-#include "stdafx.h"
 #include "AboutComponent.h"
+#include "stdafx.h"
 
 #include "UIContext.h"
 #include "UIScreen.h"
@@ -27,113 +27,114 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "Graphics/NativeTexture.h"
 #include "Math/MathUtil.h"
 #include "Math/Vector2.h"
+#include "PSPMenu.h"
 #include "SysPSP/Graphics/DrawText.h"
 #include "SysPSP/Utility/PathsPSP.h"
 #include "Utility/Macros.h"
 #include "Utility/String.h"
 #include "Utility/Translate.h"
-#include "PSPMenu.h"
 
 #include <kubridge.h>
 #include <pspctrl.h>
 #include <pspgu.h>
 
-class IAboutComponent : public CAboutComponent
-{
-	public:
+class IAboutComponent : public CAboutComponent {
+public:
+  IAboutComponent(CUIContext *p_context);
+  ~IAboutComponent() override;
 
-		IAboutComponent( CUIContext * p_context );
-		~IAboutComponent() override;
+  // CUIComponent
+  void Update(f32 elapsed_time, const v2 &stick, u32 old_buttons,
+              u32 new_buttons) override;
+  void Render() override;
 
-		// CUIComponent
-		void				Update( f32 elapsed_time, const v2 & stick, u32 old_buttons, u32 new_buttons ) override;
-		void				Render() override;
-
-	private:
-		CRefPtr<CNativeTexture>		mpTexture;
+private:
+  CRefPtr<CNativeTexture> mpTexture;
 };
 
-
-CAboutComponent::CAboutComponent( CUIContext * p_context )
-:	CUIComponent( p_context )
- {}
-
+CAboutComponent::CAboutComponent(CUIContext *p_context)
+    : CUIComponent(p_context) {}
 
 CAboutComponent::~CAboutComponent() = default;
 
-
-CAboutComponent *	CAboutComponent::Create( CUIContext * p_context )
-{
-	return new IAboutComponent( p_context );
+CAboutComponent *CAboutComponent::Create(CUIContext *p_context) {
+  return new IAboutComponent(p_context);
 }
 
-IAboutComponent::IAboutComponent( CUIContext * p_context )
-:	CAboutComponent( p_context )
-,	mpTexture( CNativeTexture::CreateFromPng( LOGO_FILENAME, TexFmt_8888 ) )
-{}
-
+IAboutComponent::IAboutComponent(CUIContext *p_context)
+    : CAboutComponent(p_context),
+      mpTexture(CNativeTexture::CreateFromPng(LOGO_FILENAME, TexFmt_8888)) {}
 
 IAboutComponent::~IAboutComponent() = default;
 
-void	IAboutComponent::Update( float elapsed_time, const v2 & stick, u32 old_buttons, u32 new_buttons ) {}
+void IAboutComponent::Update(float elapsed_time, const v2 &stick,
+                             u32 old_buttons, u32 new_buttons) {}
 
+void IAboutComponent::Render() {
+#define IsPSPModelValid(ver)                                                   \
+  ((ver) >= PSP_MODEL_STANDARD && (ver) < MAX_PSP_MODEL)
 
-void	IAboutComponent::Render()
-{
-#define IsPSPModelValid( ver )		( (ver) >= PSP_MODEL_STANDARD && (ver) < MAX_PSP_MODEL )
+  s16 text_top(38);
 
-		s16 text_top( 38 );
+  if (mpTexture != NULL) {
+    s16 w(mpTexture->GetWidth());
+    s16 h(mpTexture->GetHeight());
 
-	if(mpTexture != NULL)
-	{
-		s16		w( mpTexture->GetWidth() );
-		s16		h( mpTexture->GetHeight() );
+    f32 desired_height = 60.0f;
+    f32 scale(desired_height / f32(h));
 
-		f32		desired_height = 60.0f;
-		f32		scale( desired_height / f32( h ) );
+    v2 wh(f32(w) * scale, f32(h) * scale);
+    v2 tl(f32((SCREEN_WIDTH - wh.x) / 2), f32(text_top));
 
-		v2		wh( f32( w ) * scale, f32( h ) * scale );
-		v2		tl( f32( (SCREEN_WIDTH - wh.x)/2 ), f32( text_top ) );
+    mpContext->RenderTexture(mpTexture, tl, wh, c32::White);
 
-		mpContext->RenderTexture( mpTexture, tl, wh, c32::White );
+    text_top += u32(wh.y + 10.0f);
+  }
 
-		text_top += u32( wh.y + 10.0f );
-	}
+  s16 y;
+  const s16 line_height(mpContext->GetFontHeight() + 2);
 
-	s16			y;
-	const s16	line_height( mpContext->GetFontHeight() + 2 );
+  y = text_top;
 
-	y = text_top;
+  CFixedString<128> version(Translate_String(DAEDALUS_VERSION_TEXT));
+  version += DAEDALUS_CONFIG_VERSION;
 
-	CFixedString<128>	version( Translate_String(DAEDALUS_VERSION_TEXT) );
-	version += DAEDALUS_CONFIG_VERSION;
+  CFixedString<128> date(Translate_String(DATE_TEXT));
+  date += __DATE__;
+  date += " (";
+  int vitaprx =
+      sceIoOpen("flash0:/kd/registry.prx", PSP_O_RDONLY | PSP_O_WRONLY, 0777);
+  if (vitaprx >= 0) {
+    sceIoClose(vitaprx);
+    date += "PS VITA (PSP2)";
+  } else {
+    date += IsPSPModelValid(kuKernelGetModel()) ? pspModel[kuKernelGetModel()]
+                                                : "UNKNOWN PSP";
+  }
+  date += ")";
 
-	CFixedString<128>	date( Translate_String(DATE_TEXT) );
-	date += __DATE__;
-	date += " (";
-	int vitaprx = sceIoOpen("flash0:/kd/registry.prx", PSP_O_RDONLY | PSP_O_WRONLY, 0777);
-	if(vitaprx >= 0){
-	sceIoClose(vitaprx);
-	date += "PS VITA (PSP2)";
-	}
-	else {
-	date += IsPSPModelValid( kuKernelGetModel() ) ? pspModel[ kuKernelGetModel() ] : "UNKNOWN PSP";
-	}
-	date += ")";
+  mpContext->DrawTextAlign(LIST_TEXT_LEFT, LIST_TEXT_WIDTH, AT_CENTRE, y,
+                           version, DrawTextUtilities::TextWhite);
+  y += line_height;
+  mpContext->DrawTextAlign(LIST_TEXT_LEFT, LIST_TEXT_WIDTH, AT_CENTRE, y, date,
+                           DrawTextUtilities::TextWhite);
+  y += line_height;
 
-	mpContext->DrawTextAlign( LIST_TEXT_LEFT, LIST_TEXT_WIDTH, AT_CENTRE, y, version, DrawTextUtilities::TextWhite ); y += line_height;
-	mpContext->DrawTextAlign( LIST_TEXT_LEFT, LIST_TEXT_WIDTH, AT_CENTRE, y, date, DrawTextUtilities::TextWhite ); y += line_height;
+  // Spacer
+  y += line_height;
 
+  for (auto str : INFO_TEXT) {
+    mpContext->DrawTextAlign(LIST_TEXT_LEFT, LIST_TEXT_WIDTH, AT_CENTRE, y, str,
+                             DrawTextUtilities::TextWhite);
+    y += line_height;
+  }
 
-	// Spacer
-	y += line_height;
-
-	for(auto str : INFO_TEXT)
-	{
-			mpContext->DrawTextAlign( LIST_TEXT_LEFT, LIST_TEXT_WIDTH, AT_CENTRE, y, str, DrawTextUtilities::TextWhite );
-		y += line_height;
-	}
-
-	mpContext->DrawTextAlign( LIST_TEXT_LEFT, LIST_TEXT_WIDTH, AT_CENTRE, y, URL_TEXT_1, DrawTextUtilities::TextRed, c32( 255,255,255,160 ) );	y += line_height;
-	mpContext->DrawTextAlign( LIST_TEXT_LEFT, LIST_TEXT_WIDTH, AT_CENTRE, y, URL_TEXT_2, DrawTextUtilities::TextRed, c32( 255,255,255,255 ) );	y += line_height;
+  mpContext->DrawTextAlign(LIST_TEXT_LEFT, LIST_TEXT_WIDTH, AT_CENTRE, y,
+                           URL_TEXT_1, DrawTextUtilities::TextRed,
+                           c32(255, 255, 255, 160));
+  y += line_height;
+  mpContext->DrawTextAlign(LIST_TEXT_LEFT, LIST_TEXT_WIDTH, AT_CENTRE, y,
+                           URL_TEXT_2, DrawTextUtilities::TextRed,
+                           c32(255, 255, 255, 255));
+  y += line_height;
 }

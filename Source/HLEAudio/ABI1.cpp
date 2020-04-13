@@ -26,15 +26,14 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "stdafx.h"
 
-#include "audiohle.h"
 #include "AudioHLEProcessor.h"
+#include "audiohle.h"
 
 #include "Math/MathUtil.h"
 
-AudioHLEInstruction ABI1[0x20] =
-{
-    SPNOOP , ADPCM , CLEARBUFF,	ENVMIXER  , LOADBUFF, RESAMPLE  , SAVEBUFF, UNKNOWN,
-	SETBUFF, SETVOL, DMEMMOVE , LOADADPCM , MIXER   , INTERLEAVE, UNKNOWN , SETLOOP,
-    SPNOOP , SPNOOP, SPNOOP   , SPNOOP    , SPNOOP  , SPNOOP    , SPNOOP  , SPNOOP,
-    SPNOOP , SPNOOP, SPNOOP   , SPNOOP    , SPNOOP  , SPNOOP    , SPNOOP  , SPNOOP
-};
+AudioHLEInstruction ABI1[0x20] = {
+    SPNOOP,  ADPCM,   CLEARBUFF, ENVMIXER, LOADBUFF,  RESAMPLE, SAVEBUFF,
+    UNKNOWN, SETBUFF, SETVOL,    DMEMMOVE, LOADADPCM, MIXER,    INTERLEAVE,
+    UNKNOWN, SETLOOP, SPNOOP,    SPNOOP,   SPNOOP,    SPNOOP,   SPNOOP,
+    SPNOOP,  SPNOOP,  SPNOOP,    SPNOOP,   SPNOOP,    SPNOOP,   SPNOOP,
+    SPNOOP,  SPNOOP,  SPNOOP,    SPNOOP};

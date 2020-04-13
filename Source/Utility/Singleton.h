@@ -41,50 +41,41 @@
 //
 //
 
-template < class T > class CSingleton
-{
-	public:
-		//CSingleton();
-		virtual ~CSingleton() = default;
+template <class T> class CSingleton {
+public:
+  // CSingleton();
+  virtual ~CSingleton() = default;
 
-		inline static T * Get()
-		{
-			#ifdef DAEDALUS_ENABLE_ASSERTS
-			DAEDALUS_ASSERT(mpInstance != NULL, "%s", __PRETTY_FUNCTION__ );
-			#endif
-			return mpInstance;
-		}
+  inline static T *Get() {
+#ifdef DAEDALUS_ENABLE_ASSERTS
+    DAEDALUS_ASSERT(mpInstance != NULL, "%s", __PRETTY_FUNCTION__);
+#endif
+    return mpInstance;
+  }
 
+  static bool Create();
 
-		static bool Create();
+  static void Destroy() {
+#ifdef DAEDALUS_ENABLE_ASSERTS
+    DAEDALUS_ASSERT_Q(mpInstance != NULL);
+#endif
+    delete mpInstance;
+    mpInstance = NULL;
+  }
 
+  inline static bool IsAvailable() { return (mpInstance != NULL); }
 
-		static void Destroy()
-		{
-			#ifdef DAEDALUS_ENABLE_ASSERTS
-			DAEDALUS_ASSERT_Q(mpInstance != NULL);
-			#endif
-			delete mpInstance;
-			mpInstance = NULL;
-		}
+  static void Attach(T *p) {
+#ifdef DAEDALUS_ENABLE_ASSERTS
+    DAEDALUS_ASSERT_Q(mpInstance == NULL);
+#endif
+    mpInstance = p;
+  }
 
-		inline static bool IsAvailable()
-		{
-			return (mpInstance != NULL);
-		}
-
-		static void Attach( T * p )
-		{
-			#ifdef DAEDALUS_ENABLE_ASSERTS
-			DAEDALUS_ASSERT_Q(mpInstance == NULL);
-			#endif
-			mpInstance = p;
-		}
-
-	protected:
-		static T * mpInstance;
+protected:
+  static T *mpInstance;
 };
 
-template < class T > T * CSingleton< T >::mpInstance = NULL;
+template <class T> T *CSingleton<T>::mpInstance = NULL;
 
 #endif // UTILITY_SINGLETON_H_

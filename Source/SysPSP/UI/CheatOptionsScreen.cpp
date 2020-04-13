@@ -17,16 +17,16 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 */
 
-#include "stdafx.h"
 #include "CheatOptionsScreen.h"
+#include "stdafx.h"
 
 #include <pspctrl.h>
 
+#include "UICommand.h"
 #include "UIContext.h"
 #include "UIScreen.h"
 #include "UISetting.h"
 #include "UISpacer.h"
-#include "UICommand.h"
 
 #include "Config/ConfigOptions.h"
 #include "Core/Cheats.h"
@@ -34,277 +34,242 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "Core/RomSettings.h"
 #include "Graphics/ColourValue.h"
 #include "Input/InputManager.h"
+#include "PSPMenu.h"
 #include "SysPSP/Graphics/DrawText.h"
 #include "Utility/IO.h"
 #include "Utility/Preferences.h"
 #include "Utility/Stream.h"
-#include "PSPMenu.h"
 
+class ICheatOptionsScreen : public CCheatOptionsScreen, public CUIScreen {
+public:
+  ICheatOptionsScreen(CUIContext *p_context, const RomID &rom_id);
+  ~ICheatOptionsScreen() override;
 
-class ICheatOptionsScreen : public CCheatOptionsScreen, public CUIScreen
-{
-	public:
+  // CCheatOptionsScreen
+  void Run() override;
 
-		ICheatOptionsScreen( CUIContext * p_context, const RomID & rom_id );
-		~ICheatOptionsScreen() override;
+  // CUIScreen
+  void Update(float elapsed_time, const v2 &stick, u32 old_buttons,
+              u32 new_buttons) override;
+  void Render() override;
+  bool IsFinished() const override { return mIsFinished; }
 
-		// CCheatOptionsScreen
-		void				Run() override;
-
-		// CUIScreen
-		void				Update( float elapsed_time, const v2 & stick, u32 old_buttons, u32 new_buttons ) override;
-		void				Render() override;
-		bool				IsFinished() const override									{ return mIsFinished; }
-
-	private:
-		void				OnConfirm();
-		void				OnCancel();
-		RomID						mRomID;
-		std::string					mRomName;
-		SRomPreferences				mRomPreferences;
-		bool						mIsFinished;
-		CUIElementBag				mElements;
+private:
+  void OnConfirm();
+  void OnCancel();
+  RomID mRomID;
+  std::string mRomName;
+  SRomPreferences mRomPreferences;
+  bool mIsFinished;
+  CUIElementBag mElements;
 };
 
 //
 
-class CCheatType : public CUISetting
-{
+class CCheatType : public CUISetting {
 public:
-	CCheatType( u32 i,const char * name, bool * cheat_enabled, const char * description )
-		:	CUISetting( name, description )
-		,	mIndex( i )
-		,	mCheatEnabled( cheat_enabled )
-	{
-	}
-	// Make read only the cheat list if enable cheat code option is disable
-	bool			IsReadOnly() const override
-	{
-		if(!*mCheatEnabled)
-		{
-			//Disable all active cheat codes
-			CheatCodes_Disable( mIndex );
-			return true;
-		}
-		return false;
-	}
+  CCheatType(u32 i, const char *name, bool *cheat_enabled,
+             const char *description)
+      : CUISetting(name, description), mIndex(i), mCheatEnabled(cheat_enabled) {
+  }
+  // Make read only the cheat list if enable cheat code option is disable
+  bool IsReadOnly() const override {
+    if (!*mCheatEnabled) {
+      // Disable all active cheat codes
+      CheatCodes_Disable(mIndex);
+      return true;
+    }
+    return false;
+  }
 
-	bool			IsSelectable()	const override	{ return !IsReadOnly(); }
+  bool IsSelectable() const override { return !IsReadOnly(); }
 
-		void			OnSelected() override
-	{
+  void OnSelected() override {
 
-		if(!codegrouplist[mIndex].active)
-		{
-			codegrouplist[mIndex].active = true;
-		}
-		else
-		{
-			CheatCodes_Disable( mIndex);
-		}
-
-	}
-	const char *	GetSettingName() const override
-	{
-		return codegrouplist[mIndex].active ? "Enabled" : "Disabled";
-	}
+    if (!codegrouplist[mIndex].active) {
+      codegrouplist[mIndex].active = true;
+    } else {
+      CheatCodes_Disable(mIndex);
+    }
+  }
+  const char *GetSettingName() const override {
+    return codegrouplist[mIndex].active ? "Enabled" : "Disabled";
+  }
 
 private:
-	u32						mIndex;
-	bool *					mCheatEnabled;
+  u32 mIndex;
+  bool *mCheatEnabled;
 };
 
+class CCheatNotFound : public CUISetting {
+public:
+  CCheatNotFound(const char *name) : CUISetting(name, "") {}
+  // Always show as read only when no cheats are found
+  bool IsReadOnly() const override { return true; }
+  bool IsSelectable() const override { return false; }
+  void OnSelected() override {}
 
-class CCheatNotFound : public CUISetting
-	{
-	public:
-		CCheatNotFound(  const char * name )
-			:	CUISetting( name, "" )
-		{
-		}
-		// Always show as read only when no cheats are found
-		bool			IsReadOnly()	const override	{ return true; }
-		bool			IsSelectable()	const override	{ return false; }
-			void			OnSelected() override			{ }
+  // virtual	void			OnSelected(){}
 
-		//virtual	void			OnSelected(){}
-
-		const char *	GetSettingName() const override	{ return "Disabled";	}
-	};
-
+  const char *GetSettingName() const override { return "Disabled"; }
+};
 
 CCheatOptionsScreen::~CCheatOptionsScreen() = default;
 
-CCheatOptionsScreen *	CCheatOptionsScreen::Create( CUIContext * p_context, const RomID & rom_id )
-{
-	return new ICheatOptionsScreen( p_context, rom_id );
+CCheatOptionsScreen *CCheatOptionsScreen::Create(CUIContext *p_context,
+                                                 const RomID &rom_id) {
+  return new ICheatOptionsScreen(p_context, rom_id);
 }
 
+ICheatOptionsScreen::ICheatOptionsScreen(CUIContext *p_context,
+                                         const RomID &rom_id)
+    : CUIScreen(p_context), mRomID(rom_id), mRomName("?"), mIsFinished(false) {
+  CPreferences::Get()->GetRomPreferences(mRomID, &mRomPreferences);
 
-ICheatOptionsScreen::ICheatOptionsScreen( CUIContext * p_context, const RomID & rom_id )
-:	CUIScreen( p_context )
-,	mRomID( rom_id )
-,	mRomName( "?" )
-,	mIsFinished( false )
-{
-	CPreferences::Get()->GetRomPreferences( mRomID, &mRomPreferences );
+  RomSettings settings;
+  if (CRomSettingsDB::Get()->GetSettings(rom_id, &settings)) {
+    mRomName = settings.GameName;
+  }
 
-	RomSettings			settings;
-	if ( CRomSettingsDB::Get()->GetSettings( rom_id, &settings ) )
-	{
- 		mRomName = settings.GameName;
-	}
+  // HACK: if cheatcode feature is forced in roms.ini, force preference too
+  // This is done mainly to reflect that cheat option is being forced
+  // We should handle this in preferences.cpp, since is kind of confusing for
+  // the user that forced options in roms.ini don't reflect it in preferences
+  // menu
+  if (settings.CheatsEnabled)
+    mRomPreferences.CheatsEnabled = true;
 
-	// HACK: if cheatcode feature is forced in roms.ini, force preference too
-	// This is done mainly to reflect that cheat option is being forced
-	// We should handle this in preferences.cpp, since is kind of confusing for the user that forced options in roms.ini don't reflect it in preferences menu
-	if(settings.CheatsEnabled)
-		mRomPreferences.CheatsEnabled = true;
+  // Read hack code for this rom
+  // We always parse the cheat file when the cheat menu is accessed, to always
+  // have cheats ready to be used by the user without hassle Also we do this to
+  // make sure we clear any non-associated cheats, we only parse once per ROM
+  // access too :)
+  //
+  CheatCodes_Read(mRomName.c_str(), "Daedalus.cht", mRomID.CountryID);
 
-	// Read hack code for this rom
-	// We always parse the cheat file when the cheat menu is accessed, to always have cheats ready to be used by the user without hassle
-	// Also we do this to make sure we clear any non-associated cheats, we only parse once per ROM access too :)
-	//
-	CheatCodes_Read( mRomName.c_str(), "Daedalus.cht", mRomID.CountryID );
+  mElements.Add(
+      new CBoolSetting(&mRomPreferences.CheatsEnabled, "Enable Cheat Codes",
+                       "Whether to use cheat codes for this ROM", "Yes", "No"));
 
-	mElements.Add( new CBoolSetting( &mRomPreferences.CheatsEnabled, "Enable Cheat Codes", "Whether to use cheat codes for this ROM", "Yes", "No" ) );
+  // ToDo: add a dialog if cheatcodes were truncated, aka
+  // MAX_CHEATCODE_PER_GROUP is reached
+  for (u32 i = 0; i < MAX_CHEATCODE_PER_LOAD; i++) {
+    // Only display the cheat list when the cheatfile been loaded correctly and
+    // there were cheats found
+    if (codegroupcount > 0 && codegroupcount > i) {
+      // Generate list of available cheatcodes
+      mElements.Add(new CCheatType(i, codegrouplist[i].name,
+                                   &mRomPreferences.CheatsEnabled,
+                                   codegrouplist[i].note));
+    } else {
+      // mElements.Add( new CCheatNotFound("No cheat codes found for this
+      // entry", "Make sure codes are formatted correctly for this entry.
+      // Daedalus supports a max of eight cheats per game." ) );
+      mElements.Add(new CCheatNotFound("No cheat codes found for this entry"));
+    }
+  }
 
-	// ToDo: add a dialog if cheatcodes were truncated, aka MAX_CHEATCODE_PER_GROUP is reached
-	for(u32 i = 0; i < MAX_CHEATCODE_PER_LOAD; i++)
-	{
-		// Only display the cheat list when the cheatfile been loaded correctly and there were cheats found
-		if(codegroupcount > 0 && codegroupcount > i)
-		{
-			// Generate list of available cheatcodes
-			mElements.Add( new CCheatType( i, codegrouplist[i].name, &mRomPreferences.CheatsEnabled, codegrouplist[i].note ) );
-		}
-		else
-		{
-			//mElements.Add( new CCheatNotFound("No cheat codes found for this entry", "Make sure codes are formatted correctly for this entry. Daedalus supports a max of eight cheats per game." ) );
-			mElements.Add( new CCheatNotFound("No cheat codes found for this entry" ) );
-		}
-	}
-
-
-	mElements.Add( new CUICommandImpl( new CMemberFunctor< ICheatOptionsScreen >( this, &ICheatOptionsScreen::OnConfirm ), "Save & Return", "Confirm changes to settings and return." ) );
-	mElements.Add( new CUICommandImpl( new CMemberFunctor< ICheatOptionsScreen >( this, &ICheatOptionsScreen::OnCancel ), "Cancel", "Cancel changes to settings and return." ) );
-
+  mElements.Add(new CUICommandImpl(new CMemberFunctor<ICheatOptionsScreen>(
+                                       this, &ICheatOptionsScreen::OnConfirm),
+                                   "Save & Return",
+                                   "Confirm changes to settings and return."));
+  mElements.Add(new CUICommandImpl(new CMemberFunctor<ICheatOptionsScreen>(
+                                       this, &ICheatOptionsScreen::OnCancel),
+                                   "Cancel",
+                                   "Cancel changes to settings and return."));
 }
-
 
 //
 
-ICheatOptionsScreen::~ICheatOptionsScreen()
-= default;
-
+ICheatOptionsScreen::~ICheatOptionsScreen() = default;
 
 //
 
-void	ICheatOptionsScreen::Update( float elapsed_time, const v2 & stick, u32 old_buttons, u32 new_buttons )
-{
-	if(old_buttons != new_buttons)
-	{
-		if( new_buttons & PSP_CTRL_UP )
-		{
-			mElements.SelectPrevious();
-		}
-		if( new_buttons & PSP_CTRL_DOWN )
-		{
-			mElements.SelectNext();
-		}
+void ICheatOptionsScreen::Update(float elapsed_time, const v2 &stick,
+                                 u32 old_buttons, u32 new_buttons) {
+  if (old_buttons != new_buttons) {
+    if (new_buttons & PSP_CTRL_UP) {
+      mElements.SelectPrevious();
+    }
+    if (new_buttons & PSP_CTRL_DOWN) {
+      mElements.SelectNext();
+    }
 
-		CUIElement *	element( mElements.GetSelectedElement() );
-		if( element != NULL )
-		{
-			if( new_buttons & PSP_CTRL_LEFT )
-			{
-				element->OnPrevious();
-			}
-			if( new_buttons & PSP_CTRL_RIGHT )
-			{
-				element->OnNext();
-			}
-			if( new_buttons & (PSP_CTRL_CROSS/*|PSP_CTRL_START*/) )
-			{
-				element->OnSelected();
-			}
-		}
-	}
+    CUIElement *element(mElements.GetSelectedElement());
+    if (element != NULL) {
+      if (new_buttons & PSP_CTRL_LEFT) {
+        element->OnPrevious();
+      }
+      if (new_buttons & PSP_CTRL_RIGHT) {
+        element->OnNext();
+      }
+      if (new_buttons & (PSP_CTRL_CROSS /*|PSP_CTRL_START*/)) {
+        element->OnSelected();
+      }
+    }
+  }
 }
-
 
 //
 
-void	ICheatOptionsScreen::Render()
-{
-	mpContext->ClearBackground();
+void ICheatOptionsScreen::Render() {
+  mpContext->ClearBackground();
 
+  s16 y;
 
- s16		y;
+  const char *const title_text = "Cheat Options";
+  mpContext->SetFontStyle(CUIContext::FS_HEADING);
+  u32 heading_height(mpContext->GetFontHeight());
+  y = MENU_TOP + heading_height;
+  mpContext->DrawTextAlign(LIST_TEXT_LEFT, LIST_TEXT_WIDTH, AT_CENTRE, y,
+                           title_text, mpContext->GetDefaultTextColour());
+  y += heading_height;
+  mpContext->SetFontStyle(CUIContext::FS_REGULAR);
 
-	const char * const title_text = "Cheat Options";
-	mpContext->SetFontStyle( CUIContext::FS_HEADING );
-	u32		heading_height( mpContext->GetFontHeight() );
-	y = MENU_TOP + heading_height;
-	mpContext->DrawTextAlign( LIST_TEXT_LEFT, LIST_TEXT_WIDTH, AT_CENTRE, y, title_text, mpContext->GetDefaultTextColour() ); y += heading_height;
-	mpContext->SetFontStyle( CUIContext::FS_REGULAR );
+  y += 2;
 
-	y += 2;
+  y += 4;
 
+  // Very basic scroller for cheats, note ROM tittle is disabled since it
+  // overlaps when scrolling - FIX ME
+  //
+  if (mElements.GetSelectedIndex() > 1)
+    mElements.Draw(mpContext, LIST_TEXT_LEFT, LIST_TEXT_WIDTH, AT_CENTRE,
+                   BELOW_MENU_MIN - mElements.GetSelectedIndex() * 11);
+  else
+    mElements.Draw(mpContext, LIST_TEXT_LEFT, LIST_TEXT_WIDTH, AT_CENTRE,
+                   BELOW_MENU_MIN - mElements.GetSelectedIndex());
 
-	y += 4;
+  // mElements.Draw( mpContext, TEXT_AREA_LEFT, TEXT_AREA_RIGHT, AT_CENTRE, y );
 
-	// Very basic scroller for cheats, note ROM tittle is disabled since it overlaps when scrolling - FIX ME
-	//
-	if( mElements.GetSelectedIndex() > 1 )
-		mElements.Draw( mpContext, LIST_TEXT_LEFT, LIST_TEXT_WIDTH, AT_CENTRE, BELOW_MENU_MIN - mElements.GetSelectedIndex()*11 );
-	else
-		mElements.Draw( mpContext, LIST_TEXT_LEFT, LIST_TEXT_WIDTH, AT_CENTRE, BELOW_MENU_MIN - mElements.GetSelectedIndex());
+  CUIElement *element(mElements.GetSelectedElement());
+  if (element != NULL) {
+    const char *p_description(element->GetDescription());
 
-	//mElements.Draw( mpContext, TEXT_AREA_LEFT, TEXT_AREA_RIGHT, AT_CENTRE, y );
-
-	CUIElement *	element( mElements.GetSelectedElement() );
-	if( element != NULL )
-	{
-		const char *		p_description( element->GetDescription() );
-
-		mpContext->DrawTextArea( DESCRIPTION_AREA_LEFT,
-								 DESCRIPTION_AREA_TOP,
-								 DESCRIPTION_AREA_RIGHT - DESCRIPTION_AREA_LEFT,
-								 DESCRIPTION_AREA_BOTTOM - DESCRIPTION_AREA_TOP,
-								 p_description,
-								 DrawTextUtilities::TextWhite,
-								 VA_BOTTOM );
-	}
+    mpContext->DrawTextArea(DESCRIPTION_AREA_LEFT, DESCRIPTION_AREA_TOP,
+                            DESCRIPTION_AREA_RIGHT - DESCRIPTION_AREA_LEFT,
+                            DESCRIPTION_AREA_BOTTOM - DESCRIPTION_AREA_TOP,
+                            p_description, DrawTextUtilities::TextWhite,
+                            VA_BOTTOM);
+  }
 }
-
 
 //
 
-void	ICheatOptionsScreen::Run()
-{
-	CUIScreen::Run();
-}
-
-
+void ICheatOptionsScreen::Run() { CUIScreen::Run(); }
 
 //
 
-void	ICheatOptionsScreen::OnConfirm()
-{
-	CPreferences::Get()->SetRomPreferences( mRomID, mRomPreferences );
+void ICheatOptionsScreen::OnConfirm() {
+  CPreferences::Get()->SetRomPreferences(mRomID, mRomPreferences);
 
-	CPreferences::Get()->Commit();
+  CPreferences::Get()->Commit();
 
-	mRomPreferences.Apply();
+  mRomPreferences.Apply();
 
-	mIsFinished = true;
+  mIsFinished = true;
 }
-
 
 //
 
-void	ICheatOptionsScreen::OnCancel()
-{
-	mIsFinished = true;
-}
+void ICheatOptionsScreen::OnCancel() { mIsFinished = true; }

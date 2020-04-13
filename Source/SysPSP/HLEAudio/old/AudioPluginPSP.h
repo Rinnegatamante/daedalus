@@ -24,29 +24,26 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 class AudioOutput;
 
-class CAudioPluginPsp : public CAudioPlugin
-{
+class CAudioPluginPsp : public CAudioPlugin {
 private:
-	CAudioPluginPsp();
+  CAudioPluginPsp();
+
 public:
-	static CAudioPluginPsp *		Create();
+  static CAudioPluginPsp *Create();
 
+  virtual ~CAudioPluginPsp();
+  virtual bool StartEmulation();
+  virtual void StopEmulation();
 
-	virtual ~CAudioPluginPsp();
-	virtual bool			StartEmulation();
-	virtual void			StopEmulation();
+  virtual void DacrateChanged(int SystemType);
+  virtual void LenChanged();
+  virtual u32 ReadLength();
+  virtual EProcessResult ProcessAList();
 
-	virtual void			DacrateChanged( int SystemType );
-	virtual void			LenChanged();
-	virtual u32				ReadLength();
-	virtual EProcessResult	ProcessAList();
-
-//			void			SetAdaptFrequecy( bool adapt );
+  //			void			SetAdaptFrequecy( bool adapt );
 
 private:
-	AudioOutput *			mAudioOutput;
+  AudioOutput *mAudioOutput;
 };
 
-
 #endif // SYSPSP_HLEAUDIO_AUDIOPLUGINPSP_H_
-

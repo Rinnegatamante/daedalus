@@ -24,9 +24,10 @@
 #define SYSW32_INTERFACE_CHECKBOX_H_
 
 // Windowsx.h type defines - hope these don't conflict with anything!
-#define CheckBox_GetCheck(hwnd)			SendMessage(hwnd, BM_GETCHECK, 0,0)
-#define CheckBox_SetCheck(hwnd, state)	SendMessage(hwnd, BM_SETCHECK, (WPARAM)state,0)
+#define CheckBox_GetCheck(hwnd) SendMessage(hwnd, BM_GETCHECK, 0, 0)
+#define CheckBox_SetCheck(hwnd, state)                                         \
+  SendMessage(hwnd, BM_SETCHECK, (WPARAM)state, 0)
 
-#define CheckBox_IsChecked( hwnd )		(CheckBox_GetCheck( (hwnd) ) == BST_CHECKED)
+#define CheckBox_IsChecked(hwnd) (CheckBox_GetCheck((hwnd)) == BST_CHECKED)
 
 #endif // SYSW32_INTERFACE_CHECKBOX_H_

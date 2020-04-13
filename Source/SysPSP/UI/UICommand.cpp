@@ -17,33 +17,27 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 */
 
-#include "stdafx.h"
 #include "UICommand.h"
 #include "UIContext.h"
+#include "stdafx.h"
 
 #include "SysPSP/Graphics/DrawText.h"
 
-
-u32		CUICommand::GetHeight( CUIContext * context ) const
-{
-	return context->GetFontHeight() + 2;
+u32 CUICommand::GetHeight(CUIContext *context) const {
+  return context->GetFontHeight() + 2;
 }
 
-void	CUICommand::Draw( CUIContext * context, s32 min_x, s32 max_x, EAlignType halign, s32 y, bool selected ) const
-{
-	c32	colour;
-	if( !IsSelectable())
-	{
-		colour = DrawTextUtilities::TextWhiteDisabled;
-	}
-	else if( selected )
-	{
-		colour = context->GetSelectedTextColour();
-	}
-	else
-	{
-		colour = context->GetDefaultTextColour();
-	}
+void CUICommand::Draw(CUIContext *context, s32 min_x, s32 max_x,
+                      EAlignType halign, s32 y, bool selected) const {
+  c32 colour{};
+  if (!IsSelectable()) {
+    colour = DrawTextUtilities::TextWhiteDisabled;
+  } else if (selected) {
+    colour = context->GetSelectedTextColour();
+  } else {
+    colour = context->GetDefaultTextColour();
+  }
 
-	context->DrawTextAlign( min_x, max_x, halign, y + context->GetFontHeight(), mName.c_str(), colour );
+  context->DrawTextAlign(min_x, max_x, halign, y + context->GetFontHeight(),
+                         mName.c_str(), colour);
 }

@@ -3,27 +3,25 @@
 
 #include <stdio.h>
 
-class DataSink
-{
+class DataSink {
 public:
-	virtual ~DataSink();
-	virtual size_t Write(const void * p, size_t len) = 0;
-	virtual void Flush() = 0;
+  virtual ~DataSink();
+  virtual size_t Write(const void *p, size_t len) = 0;
+  virtual void Flush() = 0;
 };
 
-class FileSink : public DataSink
-{
+class FileSink : public DataSink {
 public:
-	FileSink();
-	~FileSink() override;
+  FileSink();
+  ~FileSink() override;
 
-	bool Open(const char * filename, const char * mode);
+  bool Open(const char *filename, const char *mode);
 
-	size_t Write(const void * p, size_t len) override;
-	void Flush() override;
+  size_t Write(const void *p, size_t len) override;
+  void Flush() override;
 
 private:
-	FILE * 		Handle;
+  FILE *Handle;
 };
 
 #endif // UTILITY_DATASINK_H_

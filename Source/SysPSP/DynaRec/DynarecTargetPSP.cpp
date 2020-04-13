@@ -17,12 +17,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 */
 
-#include "stdafx.h"
 #include "DynarecTargetPSP.h"
+#include "stdafx.h"
 
-namespace
-{
-//const bool	gIsTemporary[] =
+namespace {
+// const bool	gIsTemporary[] =
 //{
 //	true,	//PspReg_R0 = 0,
 //	true,	//PspReg_AT,
@@ -59,7 +58,7 @@ namespace
 //};
 }
 
-//bool	PspReg_IsTemporary( EPspReg psp_reg )
+// bool	PspReg_IsTemporary( EPspReg psp_reg )
 //{
 //	return gIsTemporary[ psp_reg ];
 //}

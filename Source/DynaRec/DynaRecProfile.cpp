@@ -17,97 +17,79 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 */
 
-#include "stdafx.h"
 #include "DynaRecProfile.h"
+#include "stdafx.h"
 
 #include "Debug/DebugLog.h"
 
 #include "Core/ROM.h"
 
+#include <algorithm>
 #include <map>
 #include <vector>
-#include <algorithm>
 
 #ifdef DAEDALUS_ENABLE_DYNAREC_PROFILE
 
-namespace DynarecProfile
-{
+namespace DynarecProfile {
 
 //*************************************************************************************
 //
 //*************************************************************************************
-static std::map<u32,u32>		gFrameLookups;
-static u32						gLastFrame;
+static std::map<u32, u32> gFrameLookups;
+static u32 gLastFrame;
 
-extern std::map< u32, u32 >		gHotTraceCountMap;
+extern std::map<u32, u32> gHotTraceCountMap;
 
+namespace {
+struct SFragmentCount {
+  SFragmentCount(u32 count, u32 address) : Count(count), Address(address) {}
 
-namespace
-{
-	struct SFragmentCount
-	{
-		SFragmentCount( u32 count, u32 address )
-			:	Count( count )
-			,	Address( address )
-		{
-		}
+  u32 Count;
+  u32 Address;
+};
 
-		u32			Count;
-		u32			Address;
-	};
+struct SortDecreasingSize {
+  bool operator()(const SFragmentCount &a, const SFragmentCount &b) const {
+    return a.Count > b.Count;
+  }
+};
+} // namespace
 
-	struct SortDecreasingSize
-	{
-		bool	operator()( const SFragmentCount & a, const SFragmentCount & b ) const
-		{
-			return a.Count > b.Count;
-		}
-	};
+void CheckForNewFrame() {
+  if (gLastFrame != g_dwNumFrames) {
+    std::vector<SFragmentCount> LookupList;
+    for (std::map<u32, u32>::const_iterator it = gFrameLookups.begin();
+         it != gFrameLookups.end(); ++it) {
+      LookupList.push_back(SFragmentCount(it->second, it->first));
+    }
+
+    std::sort(LookupList.begin(), LookupList.end(), SortDecreasingSize());
+
+    for (int i{}; i < LookupList.size(); ++i) {
+      DAED_LOG(DEBUG_DYNAREC_PROF, "%08x: %d lookups", LookupList[i].Address,
+               LookupList[i].Count);
+    }
+    gFrameLookups.clear();
+    gLastFrame = g_dwNumFrames;
+  }
 }
 
-void	CheckForNewFrame()
-{
-	if( gLastFrame != g_dwNumFrames )
-	{
-		std::vector< SFragmentCount >		LookupList;
-		for(std::map<u32, u32>::const_iterator it = gFrameLookups.begin(); it != gFrameLookups.end(); ++it)
-		{
-			LookupList.push_back( SFragmentCount( it->second, it->first ) );
-		}
+void LogLookup(u32 address, CFragment *fragment) {
+  CheckForNewFrame();
 
-		std::sort( LookupList.begin(), LookupList.end(), SortDecreasingSize() );
-
-
-
-		for(int i {}; i < LookupList.size(); ++i)
-		{
-				DAED_LOG( DEBUG_DYNAREC_PROF, "%08x: %d lookups", LookupList[ i ].Address, LookupList[ i ].Count );
-		}
-		gFrameLookups.clear();
-		gLastFrame = g_dwNumFrames;
-	}
-
+  DAED_LOG(DEBUG_DYNAREC_CACHE, "LookupFragment( %08x ) -> %s", address,
+           fragment ? "found" : "-----");
+  gFrameLookups[address]++;
 }
 
-void	LogLookup( u32 address, CFragment * fragment )
-{
-	CheckForNewFrame();
+void LogEnterExit(u32 enter_address, u32 exit_address, u32 instruction_count) {
+  CheckForNewFrame();
 
-	DAED_LOG( DEBUG_DYNAREC_CACHE, "LookupFragment( %08x ) -> %s", address, fragment ? "found" : "-----" );
-	gFrameLookups[ address ]++;
-
+  DAED_LOG(DEBUG_DYNAREC_CACHE,
+           "Enter/Exit: %08x -> %08x (executed %d instructions)", enter_address,
+           exit_address, instruction_count);
 }
 
-
-void	LogEnterExit( u32 enter_address, u32 exit_address, u32 instruction_count )
-{
-	CheckForNewFrame();
-
-	DAED_LOG( DEBUG_DYNAREC_CACHE, "Enter/Exit: %08x -> %08x (executed %d instructions)", enter_address, exit_address, instruction_count );
-}
-
-
-
-}
+} // namespace DynarecProfile
 
 #endif

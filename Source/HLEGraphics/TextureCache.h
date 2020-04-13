@@ -22,67 +22,64 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "CachedTexture.h"
 
-#include "Utility/Singleton.h"
-#include "Utility/RefCounted.h"
 #include "Utility/Mutex.h"
+#include "Utility/RefCounted.h"
+#include "Utility/Singleton.h"
 
 #include <vector>
 
 struct TextureInfo;
 
-
-class CTextureCache : public CSingleton< CTextureCache >
-{
+class CTextureCache : public CSingleton<CTextureCache> {
 public:
-	CTextureCache();
-	~CTextureCache() override;
+  CTextureCache();
+  ~CTextureCache() override;
 
-	CRefPtr<CNativeTexture>	GetOrCreateTexture(const TextureInfo & ti);
+  CRefPtr<CNativeTexture> GetOrCreateTexture(const TextureInfo &ti);
 
-	void		PurgeOldTextures();
-	void		DropTextures();
-
+  void PurgeOldTextures();
+  void DropTextures();
 
 #ifdef DAEDALUS_DEBUG_DISPLAYLIST
-	Mutex * 	GetDebugMutex()		{ return &mDebugMutex; }
-	struct STextureInfoSnapshot
-	{
-		STextureInfoSnapshot( const TextureInfo & info, CNativeTexture * texture )
-		: Info( info ), Texture( texture )
-		{
-		}
+  Mutex *GetDebugMutex() { return &mDebugMutex; }
+  struct STextureInfoSnapshot {
+    STextureInfoSnapshot(const TextureInfo &info, CNativeTexture *texture)
+        : Info(info), Texture(texture) {}
 
-		TextureInfo					Info;
-		CRefPtr<CNativeTexture>		Texture;
-	};
+    TextureInfo Info;
+    CRefPtr<CNativeTexture> Texture;
+  };
 
-	// You must have a valid lock to call Snapshot.
-	void		Snapshot(const MutexLock & lock, std::vector< STextureInfoSnapshot > & snapshot) const;
+  // You must have a valid lock to call Snapshot.
+  void Snapshot(const MutexLock &lock,
+                std::vector<STextureInfoSnapshot> &snapshot) const;
 #else
-	// Don't bother locking if we're not debugging.
-	Mutex * 	GetDebugMutex()		{ return nullptr; }
+  // Don't bother locking if we're not debugging.
+  Mutex *GetDebugMutex() { return nullptr; }
 #endif
 
 private:
-	CachedTexture * GetOrCreateCachedTexture(const TextureInfo & ti);
+  CachedTexture *GetOrCreateCachedTexture(const TextureInfo &ti);
 
-	//
-	//	We implement a 2-way skewed associative cache.
-	//	Each TextureInfo is hashed using two different methods, to reduce the chance of collisions
-	//
-	static const u32 HASH_TABLE_BITS {9};
-	static const u32 HASH_TABLE_SIZE {1<<HASH_TABLE_BITS};
+  //
+  //	We implement a 2-way skewed associative cache.
+  //	Each TextureInfo is hashed using two different methods, to reduce the
+  //chance of collisions
+  //
+  static const u32 HASH_TABLE_BITS{9};
+  static const u32 HASH_TABLE_SIZE{1 << HASH_TABLE_BITS};
 
-	inline static u32 MakeHashIdxA( const TextureInfo & ti );
-	inline static u32 MakeHashIdxB( const TextureInfo & ti );
+  inline static u32 MakeHashIdxA(const TextureInfo &ti);
+  inline static u32 MakeHashIdxB(const TextureInfo &ti);
 
-	// FIXME(strmnnrmn): we should have a struct of TextureInfo+CachedTexture instead -
-	// doing binary search on this array needs a memory indirect for every probe.
-	typedef std::vector< CachedTexture * >	TextureVec;
-	TextureVec			mTextures;
-	CachedTexture *		mpCacheHashTable[HASH_TABLE_SIZE];
+  // FIXME(strmnnrmn): we should have a struct of TextureInfo+CachedTexture
+  // instead - doing binary search on this array needs a memory indirect for
+  // every probe.
+  typedef std::vector<CachedTexture *> TextureVec;
+  TextureVec mTextures;
+  CachedTexture *mpCacheHashTable[HASH_TABLE_SIZE]{};
 #ifdef DAEDALUS_DEBUG_DISPLAYLIST
-	Mutex				mDebugMutex;
+  Mutex mDebugMutex;
 #endif
 };
 

@@ -17,7 +17,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 */
 
-
 #ifndef UTILITY_REFCOUNTED_H_
 #define UTILITY_REFCOUNTED_H_
 
@@ -25,106 +24,90 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "Utility/DaedalusTypes.h"
 
-class CRefCounted
-{
-	public:
-		CRefCounted()
-			:	mRefCount( 0 )
-		{
-		}
+class CRefCounted {
+public:
+  CRefCounted() : mRefCount(0) {}
 
-	protected:
-		virtual ~CRefCounted()
-		{
-			#ifdef DAEDALUS_ENABLE_ASSERTS
-			DAEDALUS_ASSERT( mRefCount == 0, "Prematurely deleting refcounted object?" );
-			#endif
-		}
+protected:
+  virtual ~CRefCounted() {
+#ifdef DAEDALUS_ENABLE_ASSERTS
+    DAEDALUS_ASSERT(mRefCount == 0, "Prematurely deleting refcounted object?");
+#endif
+  }
 
-	public:
-		void	AddRef()
-		{
-			mRefCount++;
-		}
-		u32		Release()
-		{
-			#ifdef DAEDALUS_ENABLE_ASSERTS
-			DAEDALUS_ASSERT( mRefCount > 0, "RefCount underflow!" );
-			#endif
-			mRefCount--;
-			u32	ref_count( mRefCount );
+public:
+  void AddRef() { mRefCount++; }
+  u32 Release() {
+#ifdef DAEDALUS_ENABLE_ASSERTS
+    DAEDALUS_ASSERT(mRefCount > 0, "RefCount underflow!");
+#endif
+    mRefCount--;
+    u32 ref_count(mRefCount);
 
-			if(ref_count == 0)
-			{
-				delete this;
-			}
+    if (ref_count == 0) {
+      delete this;
+    }
 
-			return ref_count;
-		}
+    return ref_count;
+  }
 
-	private:
-		u32			mRefCount;
+private:
+  u32 mRefCount;
 };
 
-template< typename T >
-class CRefPtr
-{
+template <typename T> class CRefPtr {
 public:
-	CRefPtr() : mPtr( NULL ) {}
-	CRefPtr( T * ptr ) : mPtr( ptr )				  { if( mPtr != NULL ) mPtr->AddRef(); }
-	CRefPtr( const CRefPtr & rhs ) : mPtr( rhs.mPtr ) { if( mPtr != NULL ) mPtr->AddRef(); }
+  CRefPtr() : mPtr(NULL) {}
+  CRefPtr(T *ptr) : mPtr(ptr) {
+    if (mPtr != NULL)
+      mPtr->AddRef();
+  }
+  CRefPtr(const CRefPtr &rhs) : mPtr(rhs.mPtr) {
+    if (mPtr != NULL)
+      mPtr->AddRef();
+  }
 
-	T* operator=( const CRefPtr & rhs )
-	{
-		if( &rhs != this )
-		{
-			Assign( rhs.mPtr );
-		}
-		return mPtr;
-	}
+  T *operator=(const CRefPtr &rhs) {
+    if (&rhs != this) {
+      Assign(rhs.mPtr);
+    }
+    return mPtr;
+  }
 
-	T*  operator=( T * ptr )
-	{
-		Assign( ptr );
-		return mPtr;
-	}
+  T *operator=(T *ptr) {
+    Assign(ptr);
+    return mPtr;
+  }
 
-	~CRefPtr()
-	{
-		if( mPtr )
-		{
-			mPtr->Release();
-		}
-	}
+  ~CRefPtr() {
+    if (mPtr) {
+      mPtr->Release();
+    }
+  }
 
-	operator T *() const
-	{
-		return mPtr;
-	}
+  operator T *() const { return mPtr; }
 
-	// CComPtr trick
-	template <class U>
-	class _NoAddRefRelease : public U
-	{
-		private:
-			void	AddRef();
-			u32		Release();
-	};
-	_NoAddRefRelease<T> * operator->() const
-	{
-		return (_NoAddRefRelease<T>*)mPtr;
-	}
+  // CComPtr trick
+  template <class U> class _NoAddRefRelease : public U {
+  private:
+    void AddRef();
+    u32 Release();
+  };
+  _NoAddRefRelease<T> *operator->() const {
+    return (_NoAddRefRelease<T> *)mPtr;
+  }
 
 private:
-	void	Assign( T * ptr )
-	{
-		if( ptr != NULL ) 		ptr->AddRef();
-		if( mPtr )				mPtr->Release();
-		mPtr = ptr;
-	}
+  void Assign(T *ptr) {
+    if (ptr != NULL)
+      ptr->AddRef();
+    if (mPtr)
+      mPtr->Release();
+    mPtr = ptr;
+  }
 
 private:
-	T *			mPtr;
+  T *mPtr;
 };
 
 #endif // UTILITY_REFCOUNTED_H_

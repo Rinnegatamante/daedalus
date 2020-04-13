@@ -22,8 +22,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef SYSPSP_HLEGRAPHICS_COMBINER_COMBINERTREE_H_
 #define SYSPSP_HLEGRAPHICS_COMBINER_COMBINERTREE_H_
 
-#include "Utility/DaedalusTypes.h"
 #include "CombinerInput.h"
+#include "Utility/DaedalusTypes.h"
 
 class CAlphaRenderSettings;
 class CBlendStates;
@@ -33,39 +33,44 @@ class COutputStream;
 //*****************************************************************************
 //
 //*****************************************************************************
-class CCombinerTree
-{
+class CCombinerTree {
 public:
-	CCombinerTree( u64 mux, bool two_cycles );
-	~CCombinerTree();
+  CCombinerTree(u64 mux, bool two_cycles);
+  ~CCombinerTree();
 
-	COutputStream &				Stream( COutputStream & stream ) const;
+  COutputStream &Stream(COutputStream &stream) const;
 
-	const CBlendStates *		GetBlendStates() const				{ return mBlendStates; }
-
-private:
-	CBlendStates *				GenerateBlendStates( const CCombinerOperand * colour_operand, const CCombinerOperand * alpha_operand ) const;
-
-	CAlphaRenderSettings *		GenerateAlphaRenderSettings(  const CCombinerOperand * operand ) const;
-	void						GenerateRenderSettings( CBlendStates * states, const CCombinerOperand * operand ) const;
-
-
-	static CCombinerOperand *	Simplify( CCombinerOperand * operand );
-
-
-	static CCombinerOperand *	BuildCycle1( ECombinerInput a, ECombinerInput b, ECombinerInput c, ECombinerInput d );
-	static CCombinerOperand *	BuildCycle2( ECombinerInput a, ECombinerInput b, ECombinerInput c, ECombinerInput d, const CCombinerOperand * cycle_1_output );
-
-	static CCombinerOperand *	Build( CCombinerOperand * a, CCombinerOperand * b, CCombinerOperand * c, CCombinerOperand * d );
+  const CBlendStates *GetBlendStates() const { return mBlendStates; }
 
 private:
-	u64							mMux;
-	CCombinerOperand *			mCycle1;
-	CCombinerOperand *			mCycle1A;
-	CCombinerOperand *			mCycle2;
-	CCombinerOperand *			mCycle2A;
+  CBlendStates *
+  GenerateBlendStates(const CCombinerOperand *colour_operand,
+                      const CCombinerOperand *alpha_operand) const;
 
-	CBlendStates *				mBlendStates;
+  CAlphaRenderSettings *
+  GenerateAlphaRenderSettings(const CCombinerOperand *operand) const;
+  void GenerateRenderSettings(CBlendStates *states,
+                              const CCombinerOperand *operand) const;
+
+  static CCombinerOperand *Simplify(CCombinerOperand *operand);
+
+  static CCombinerOperand *BuildCycle1(ECombinerInput a, ECombinerInput b,
+                                       ECombinerInput c, ECombinerInput d);
+  static CCombinerOperand *BuildCycle2(ECombinerInput a, ECombinerInput b,
+                                       ECombinerInput c, ECombinerInput d,
+                                       const CCombinerOperand *cycle_1_output);
+
+  static CCombinerOperand *Build(CCombinerOperand *a, CCombinerOperand *b,
+                                 CCombinerOperand *c, CCombinerOperand *d);
+
+private:
+  u64 mMux;
+  CCombinerOperand *mCycle1;
+  CCombinerOperand *mCycle1A;
+  CCombinerOperand *mCycle2;
+  CCombinerOperand *mCycle2A;
+
+  CBlendStates *mBlendStates;
 };
 
 #endif // SYSPSP_HLEGRAPHICS_COMBINER_COMBINERTREE_H_

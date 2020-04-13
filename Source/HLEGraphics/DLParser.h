@@ -17,7 +17,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 */
 
-
 #ifndef HLEGRAPHICS_DLPARSER_H_
 #define HLEGRAPHICS_DLPARSER_H_
 
@@ -30,7 +29,8 @@ class DLDebugOutput;
 bool DLParser_Initialise();
 void DLParser_Finalise();
 
-const u32 kUnlimitedInstructionCount = u32( ~0 );
-u32 DLParser_Process(u32 instruction_limit = kUnlimitedInstructionCount, DLDebugOutput * debug_output = nullptr);
+const u32 kUnlimitedInstructionCount = u32(~0);
+u32 DLParser_Process(u32 instruction_limit = kUnlimitedInstructionCount,
+                     DLDebugOutput *debug_output = nullptr);
 
 #endif // HLEGRAPHICS_DLPARSER_H_

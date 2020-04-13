@@ -1,5 +1,5 @@
-#include "stdafx.h"
 #include "UI.h"
+#include "stdafx.h"
 
 #include <stdio.h>
 
@@ -11,43 +11,37 @@
 #include "Utility/IO.h"
 #include "Utility/Thread.h"
 
-//static bool toggle_fullscreen = false;
+// static bool toggle_fullscreen = false;
 
-static void HandleKeys(GLFWwindow * window, int key, int scancode, int action, int mods)
-{
-	if (action == GLFW_PRESS)
-	{
-		if (key >= '0' && key <= '9')
-		{
-			int idx = key - '0';
+static void HandleKeys(GLFWwindow *window, int key, int scancode, int action,
+                       int mods) {
+  if (action == GLFW_PRESS) {
+    if (key >= '0' && key <= '9') {
+      int idx = key - '0';
 
-			bool ctrl_down = (mods & GLFW_MOD_CONTROL) != 0;
+      bool ctrl_down = (mods & GLFW_MOD_CONTROL) != 0;
 
-			char filename_ss[64];
-			sprintf( filename_ss, "saveslot%u.ss", idx );
+      char filename_ss[64];
+      sprintf(filename_ss, "saveslot%u.ss", idx);
 
-			IO::Filename path_sub;
-			sprintf( path_sub, "SaveStates\\%s", g_ROM.settings.GameName.c_str());
+      IO::Filename path_sub;
+      sprintf(path_sub, "SaveStates\\%s", g_ROM.settings.GameName.c_str());
 
-			IO::Filename path_ss;
-			IO::Path::Combine( path_ss, gDaedalusExePath, path_sub );
-			IO::Directory::EnsureExists( path_ss );		// Ensure this dir exists
+      IO::Filename path_ss;
+      IO::Path::Combine(path_ss, gDaedalusExePath, path_sub);
+      IO::Directory::EnsureExists(path_ss); // Ensure this dir exists
 
-			IO::Filename filename;
-			IO::Path::Combine(filename, path_ss, filename_ss);
+      IO::Filename filename;
+      IO::Path::Combine(filename, path_ss, filename_ss);
 
-			if (ctrl_down)
-			{
-				CPU_RequestSaveState(filename);
-			}
-			else
-			{
-				if (IO::File::Exists(filename))
-				{
-					CPU_RequestLoadState(filename);
-				}
-			}
-		}
+      if (ctrl_down) {
+        CPU_RequestSaveState(filename);
+      } else {
+        if (IO::File::Exists(filename)) {
+          CPU_RequestLoadState(filename);
+        }
+      }
+    }
 // Proper full screen toggle still not fully implemented in GLF3
 // BUT is in the roadmap for future 3XX release
 #if 0
@@ -78,11 +72,11 @@ static void HandleKeys(GLFWwindow * window, int key, int scancode, int action, i
 			glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 			glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
 
-		#ifdef DAEDALUS_OSX
+#ifdef DAEDALUS_OSX
 			// OSX 10.7+ only supports 3.2 with core profile/forward compat.
 			glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 			glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-		#endif
+#endif
 
 			glfwWindowHint(GLFW_DEPTH_BITS, 24);
 			//glfwWindowHint(GLFW_STENCIL_BITS, 0);
@@ -102,29 +96,24 @@ static void HandleKeys(GLFWwindow * window, int key, int scancode, int action, i
 			}
 		}
 #endif
-		if (key == GLFW_KEY_ESCAPE)
-		{
-			glfwSetWindowShouldClose(window, GL_TRUE);
-		}
-	}
+    if (key == GLFW_KEY_ESCAPE) {
+      glfwSetWindowShouldClose(window, GL_TRUE);
+    }
+  }
 }
 
-static void PollKeyboard(void * arg)
-{
-	glfwPollEvents();
-	if (glfwWindowShouldClose(gWindow))
-		CPU_Halt("Window Closed");
+static void PollKeyboard(void *arg) {
+  glfwPollEvents();
+  if (glfwWindowShouldClose(gWindow))
+    CPU_Halt("Window Closed");
 }
 
-bool UI_Init()
-{
-	DAEDALUS_ASSERT(gWindow != NULL, "The GLFW window should already have been initialised");
-	glfwSetKeyCallback(gWindow, &HandleKeys);
-	CPU_RegisterVblCallback(&PollKeyboard, NULL);
-	return true;
+bool UI_Init() {
+  DAEDALUS_ASSERT(gWindow != NULL,
+                  "The GLFW window should already have been initialised");
+  glfwSetKeyCallback(gWindow, &HandleKeys);
+  CPU_RegisterVblCallback(&PollKeyboard, NULL);
+  return true;
 }
 
-void UI_Finalise()
-{
-	CPU_UnregisterVblCallback(&PollKeyboard, NULL);
-}
+void UI_Finalise() { CPU_UnregisterVblCallback(&PollKeyboard, NULL); }

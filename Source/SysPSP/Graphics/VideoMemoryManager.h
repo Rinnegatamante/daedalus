@@ -17,24 +17,21 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 */
 
-
 #ifndef SYSPSP_GRAPHICS_VIDEOMEMORYMANAGER_H_
 #define SYSPSP_GRAPHICS_VIDEOMEMORYMANAGER_H_
 
 #include "Utility/DaedalusTypes.h"
 #include "Utility/Singleton.h"
 
-class CVideoMemoryManager : public CSingleton< CVideoMemoryManager >
-{
+class CVideoMemoryManager : public CSingleton<CVideoMemoryManager> {
 public:
-	~CVideoMemoryManager() override;
+  ~CVideoMemoryManager() override;
 
-	virtual bool			Alloc( u32 size, void ** data, bool * isvidmem ) = 0;
-	virtual void			Free( void * ptr ) = 0;
+  virtual bool Alloc(u32 size, void **data, bool *isvidmem) = 0;
+  virtual void Free(void *ptr) = 0;
 #ifdef DAEDALUS_DEBUG_MEMORY
-	virtual void			DisplayDebugInfo() = 0;
+  virtual void DisplayDebugInfo() = 0;
 #endif
 };
-
 
 #endif // SYSPSP_GRAPHICS_VIDEOMEMORYMANAGER_H_

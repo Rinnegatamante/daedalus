@@ -36,65 +36,60 @@ class CPageDialog;
 //*****************************************************************************
 // Class Definitions
 //*****************************************************************************
-class CConfigDialog : public CDialogImpl< CConfigDialog >
-{
-	public:
-		CConfigDialog() :
-			m_pPageDialog( NULL )
-		{
-		}
+class CConfigDialog : public CDialogImpl<CConfigDialog> {
+public:
+  CConfigDialog() : m_pPageDialog(NULL) {}
 
-		BEGIN_MSG_MAP( CConfigDialog )
-			MESSAGE_HANDLER( WM_INITDIALOG, OnInitDialog )
-			COMMAND_HANDLER( IDC_PAGE_LIST, LBN_SELCHANGE, OnPageListSelChange )
-			COMMAND_ID_HANDLER( IDOK, OnOk )
-			COMMAND_ID_HANDLER( IDCANCEL, OnCancel )
-		END_MSG_MAP( )
+  BEGIN_MSG_MAP(CConfigDialog)
+  MESSAGE_HANDLER(WM_INITDIALOG, OnInitDialog)
+  COMMAND_HANDLER(IDC_PAGE_LIST, LBN_SELCHANGE, OnPageListSelChange)
+  COMMAND_ID_HANDLER(IDOK, OnOk)
+  COMMAND_ID_HANDLER(IDCANCEL, OnCancel)
+  END_MSG_MAP()
 
-		enum { IDD = IDD_CONFIG };
+  enum { IDD = IDD_CONFIG };
 
-		enum PageType
-		{
-			PAGE_SETTINGS = 0,
-			PAGE_DIRECTORIES,
-			PAGE_PLUGINS,
-			PAGE_DEBUG,
+  enum PageType {
+    PAGE_SETTINGS = 0,
+    PAGE_DIRECTORIES,
+    PAGE_PLUGINS,
+    PAGE_DEBUG,
 
-			NUM_PAGE_TYPES
-		};
+    NUM_PAGE_TYPES
+  };
 
-	private:
-		LRESULT OnInitDialog(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+private:
+  LRESULT OnInitDialog(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHandled);
 
-		LRESULT OnOk( WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled );
-		LRESULT OnCancel( WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled );
+  LRESULT OnOk(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL &bHandled);
+  LRESULT OnCancel(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL &bHandled);
 
-		LRESULT OnPageListSelChange( WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled );
+  LRESULT OnPageListSelChange(WORD wNotifyCode, WORD wID, HWND hWndCtl,
+                              BOOL &bHandled);
 
+  void FillPageList();
 
-		void FillPageList( );
+  void ShowPage(PageType page);
+  void KillPage();
 
-		void ShowPage( PageType page );
-		void KillPage( );
+  CPageDialog *CreatePage(HWND hWndParent, LONG x, LONG y, PageType page_type);
 
-		CPageDialog * CreatePage( HWND hWndParent, LONG x, LONG y, PageType page_type );
+  static const CHAR *GetPageName(PageType page_type) {
+    switch (page_type) {
+    case PAGE_SETTINGS:
+      return "Settings";
+    case PAGE_DIRECTORIES:
+      return "Directories";
+    case PAGE_PLUGINS:
+      return "Plugins";
+    case PAGE_DEBUG:
+      return "Debug";
+    }
+    return "";
+  }
 
-		static const CHAR * GetPageName( PageType page_type )
-		{
-			switch ( page_type )
-			{
-				case PAGE_SETTINGS:		return "Settings";
-				case PAGE_DIRECTORIES:	return "Directories";
-				case PAGE_PLUGINS:		return "Plugins";
-				case PAGE_DEBUG:		return "Debug";
-			}
-			return "";
-		}
-
-	private:
-		CPageDialog	*	m_pPageDialog;
+private:
+  CPageDialog *m_pPageDialog;
 };
-
-
 
 #endif // SYSW32_INTERFACE_CONFIGDIALOG_H_

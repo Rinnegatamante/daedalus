@@ -20,18 +20,15 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef SYSPSP_UI_UIALIGNMENT_H_
 #define SYSPSP_UI_UIALIGNMENT_H_
 
-enum EAlignType
-{
-	AT_LEFT,
-	AT_RIGHT,
-	AT_CENTRE,
+enum EAlignType {
+  AT_LEFT,
+  AT_RIGHT,
+  AT_CENTRE,
 };
 
-enum EVerticalAlign
-{
-	VA_TOP,
-	VA_BOTTOM,
+enum EVerticalAlign {
+  VA_TOP,
+  VA_BOTTOM,
 };
-
 
 #endif // SYSPSP_UI_UIALIGNMENT_H_

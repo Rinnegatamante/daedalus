@@ -17,503 +17,420 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 */
 
-#include "stdafx.h"
 #include "CombinerExpression.h"
+#include "stdafx.h"
 
 #include "Utility/Stream.h"
 
 //*****************************************************************************
 //
 //*****************************************************************************
-static const char * const gCombinerInputNames[] =
-{
-	"Combined",		// CI_COMBINED,
-	"Texel0",		// CI_TEXEL0,
-	"Texel1",		// CI_TEXEL1,
-	"Prim",			// CI_PRIMITIVE,
-	"Shade",		// CI_SHADE,
-	"Env",			// CI_ENV,
-	"CombinedA",	// CI_COMBINED_ALPHA,
-	"Texel0A",		// CI_TEXEL0_ALPHA,
-	"Texel1A",		// CI_TEXEL1_ALPHA,
-	"PrimA",		// CI_PRIMITIVE_ALPHA,
-	"ShadeA",		// CI_SHADE_ALPHA,
-	"EnvA",			// CI_ENV_ALPHA,
-	"LodFrac",		// CI_LOD_FRACTION,
-	"PrimLodFrac",	// CI_PRIM_LOD_FRACTION,
-	"K5",			// CI_K5,
-	"1",			// CI_1,
-	"0",			// CI_0,
-	"?",			// CI_UNKNOWN,
+static const char *const gCombinerInputNames[] = {
+    "Combined",    // CI_COMBINED,
+    "Texel0",      // CI_TEXEL0,
+    "Texel1",      // CI_TEXEL1,
+    "Prim",        // CI_PRIMITIVE,
+    "Shade",       // CI_SHADE,
+    "Env",         // CI_ENV,
+    "CombinedA",   // CI_COMBINED_ALPHA,
+    "Texel0A",     // CI_TEXEL0_ALPHA,
+    "Texel1A",     // CI_TEXEL1_ALPHA,
+    "PrimA",       // CI_PRIMITIVE_ALPHA,
+    "ShadeA",      // CI_SHADE_ALPHA,
+    "EnvA",        // CI_ENV_ALPHA,
+    "LodFrac",     // CI_LOD_FRACTION,
+    "PrimLodFrac", // CI_PRIM_LOD_FRACTION,
+    "K5",          // CI_K5,
+    "1",           // CI_1,
+    "0",           // CI_0,
+    "?",           // CI_UNKNOWN,
 };
 
-const char * GetCombinerInputName( ECombinerInput input )
-{
-	return gCombinerInputNames[ input ];
-}
-
-
-//*****************************************************************************
-//
-//*****************************************************************************
-int CCombinerInput::Compare( const CCombinerOperand & other ) const
-{
-	int		type_diff( GetType() - other.GetType() );
-	if( type_diff != 0 )
-		return type_diff;
-
-	const auto & rhs( static_cast< const CCombinerInput & >( other ) );
-
-	return int( mInput ) - int( rhs.mInput );
+const char *GetCombinerInputName(ECombinerInput input) {
+  return gCombinerInputNames[input];
 }
 
 //*****************************************************************************
 //
 //*****************************************************************************
-COutputStream &	CCombinerInput::Stream( COutputStream & stream ) const
-{
-	return stream << GetCombinerInputName( mInput );
-}
+int CCombinerInput::Compare(const CCombinerOperand &other) const {
+  int type_diff(GetType() - other.GetType());
+  if (type_diff != 0)
+    return type_diff;
 
+  const auto &rhs(dynamic_cast<const CCombinerInput &>(other));
 
-//*****************************************************************************
-//
-//*****************************************************************************
-int CCombinerBlend::Compare( const CCombinerOperand & other ) const
-{
-	int		type_diff( GetType() - other.GetType() );
-	if( type_diff != 0 )
-		return type_diff;
-
-	const auto & rhs( static_cast< const CCombinerBlend & >( other ) );
-
-	int	input_diff;
-
-	input_diff = mInputA->Compare( *rhs.mInputA );
-	if( input_diff != 0 )
-		return input_diff;
-
-	input_diff = mInputB->Compare( *rhs.mInputB );
-	if( input_diff != 0 )
-		return input_diff;
-
-	input_diff = mInputF->Compare( *rhs.mInputF );
-	if( input_diff != 0 )
-		return input_diff;
-
-	// Equal
-	return 0;
+  return int(mInput) - int(rhs.mInput);
 }
 
 //*****************************************************************************
 //
 //*****************************************************************************
-COutputStream &	CCombinerBlend::Stream( COutputStream & stream ) const
-{
-	stream << "blend(";
-	mInputA->Stream( stream );
-	stream << ",";
-	mInputB->Stream( stream );
-	stream << ",";
-	mInputF->Stream( stream );
-	stream << ")";
-	return stream;
+COutputStream &CCombinerInput::Stream(COutputStream &stream) const {
+  return stream << GetCombinerInputName(mInput);
 }
 
 //*****************************************************************************
 //
 //*****************************************************************************
-CCombinerSum::CCombinerSum()
-:	CCombinerOperand( CT_SUM )
-{
+int CCombinerBlend::Compare(const CCombinerOperand &other) const {
+  int type_diff(GetType() - other.GetType());
+  if (type_diff != 0)
+    return type_diff;
 
+  const auto &rhs(dynamic_cast<const CCombinerBlend &>(other));
+
+  int input_diff;
+
+  input_diff = mInputA->Compare(*rhs.mInputA);
+  if (input_diff != 0)
+    return input_diff;
+
+  input_diff = mInputB->Compare(*rhs.mInputB);
+  if (input_diff != 0)
+    return input_diff;
+
+  input_diff = mInputF->Compare(*rhs.mInputF);
+  if (input_diff != 0)
+    return input_diff;
+
+  // Equal
+  return 0;
 }
 
 //*****************************************************************************
 //
 //*****************************************************************************
-CCombinerSum::CCombinerSum( CCombinerOperand * operand )
-:	CCombinerOperand( CT_SUM )
-{
-	if( operand != NULL )
-	{
-		Add( operand );
-	}
+COutputStream &CCombinerBlend::Stream(COutputStream &stream) const {
+  stream << "blend(";
+  mInputA->Stream(stream);
+  stream << ",";
+  mInputB->Stream(stream);
+  stream << ",";
+  mInputF->Stream(stream);
+  stream << ")";
+  return stream;
 }
 
 //*****************************************************************************
 //
 //*****************************************************************************
-CCombinerSum::CCombinerSum( const CCombinerSum & rhs )
-:	CCombinerOperand( CT_SUM )
-{
-	for(auto mOperand : rhs.mOperands)
-	{
-		mOperands.emplace_back( mOperand.Operand->Clone(), mOperand.Negate );
-	}
+CCombinerSum::CCombinerSum() : CCombinerOperand(CT_SUM) {}
+
+//*****************************************************************************
+//
+//*****************************************************************************
+CCombinerSum::CCombinerSum(CCombinerOperand *operand)
+    : CCombinerOperand(CT_SUM) {
+  if (operand != NULL) {
+    Add(operand);
+  }
 }
 
 //*****************************************************************************
 //
 //*****************************************************************************
-CCombinerSum::~CCombinerSum()
-{
-	for(auto & mOperand : mOperands)
-	{
-		delete mOperand.Operand;
-	}
-	mOperands.clear();
+CCombinerSum::CCombinerSum(const CCombinerSum &rhs) : CCombinerOperand(CT_SUM) {
+  for (auto mOperand : rhs.mOperands) {
+    mOperands.emplace_back(mOperand.Operand->Clone(), mOperand.Negate);
+  }
 }
 
 //*****************************************************************************
 //
 //*****************************************************************************
-int CCombinerSum::Compare( const CCombinerOperand & other ) const
-{
-	int		type_diff( GetType() - other.GetType() );
-	if( type_diff != 0 )
-		return type_diff;
-
-	const auto & rhs( static_cast< const CCombinerSum & >( other ) );
-	int size_diff( mOperands.size() - rhs.mOperands.size() );
-	if( size_diff != 0 )
-		return size_diff;
-
-	for( u32 i = 0; i < mOperands.size(); ++i )
-	{
-		// Compare signs first
-		if( mOperands[ i ].Negate && !rhs.mOperands[ i ].Negate )
-			return -1;
-		else if ( !mOperands[ i ].Negate && rhs.mOperands[ i ].Negate )
-			return 1;
-
-		int diff( mOperands[ i ].Operand->Compare( *rhs.mOperands[ i ].Operand ) );
-		if( diff != 0 )
-		{
-			return diff;
-		}
-	}
-
-	// Equal
-	return 0;
+CCombinerSum::~CCombinerSum() {
+  for (auto &mOperand : mOperands) {
+    delete mOperand.Operand;
+  }
+  mOperands.clear();
 }
 
 //*****************************************************************************
 //
 //*****************************************************************************
-void CCombinerSum::Add( CCombinerOperand * operand )
-{
-	if( operand->IsInput( CI_0 ) )
-	{
-		// Ignore
-		delete operand;
-	}
-	else if( operand->IsSum() )
-	{
-		// Recursively add all children
-		auto *	sum( static_cast< CCombinerSum * >( operand ) );
-		for(auto & mOperand : sum->mOperands)
-		{
-			if( mOperand.Negate )
-			{
-				Sub( mOperand.Operand->SimplifyAndReduce() );
-			}
-			else
-			{
-				Add( mOperand.Operand->SimplifyAndReduce() );
-			}
-		}
+int CCombinerSum::Compare(const CCombinerOperand &other) const {
+  int type_diff(GetType() - other.GetType());
+  if (type_diff != 0)
+    return type_diff;
 
-		delete operand;
-	}
-	else
-	{
-		mOperands.emplace_back( operand, false );
-	}
+  const auto &rhs(dynamic_cast<const CCombinerSum &>(other));
+  int size_diff(mOperands.size() - rhs.mOperands.size());
+  if (size_diff != 0)
+    return size_diff;
+
+  for (u32 i = 0; i < mOperands.size(); ++i) {
+    // Compare signs first
+    if (mOperands[i].Negate && !rhs.mOperands[i].Negate)
+      return -1;
+    else if (!mOperands[i].Negate && rhs.mOperands[i].Negate)
+      return 1;
+
+    int diff(mOperands[i].Operand->Compare(*rhs.mOperands[i].Operand));
+    if (diff != 0) {
+      return diff;
+    }
+  }
+
+  // Equal
+  return 0;
 }
 
 //*****************************************************************************
 //
 //*****************************************************************************
-void CCombinerSum::Sub( CCombinerOperand * operand )
-{
-	if( operand->IsInput( CI_0 ) )
-	{
-		// Ignore
-		delete operand;
-	}
-	else if( operand->IsSum() )
-	{
-		// Recursively add all children
-		auto *	sum( static_cast< CCombinerSum * >( operand ) );
-		for(auto & mOperand : sum->mOperands)
-		{
-			if( mOperand.Negate )
-			{
-				Add( mOperand.Operand->SimplifyAndReduce() );			// Note we Add, not Sub
-			}
-			else
-			{
-				Sub( mOperand.Operand->SimplifyAndReduce() );			// Note we Sub, not Add
-			}
-		}
+void CCombinerSum::Add(CCombinerOperand *operand) {
+  if (operand->IsInput(CI_0)) {
+    // Ignore
+    delete operand;
+  } else if (operand->IsSum()) {
+    // Recursively add all children
+    auto *sum(dynamic_cast<CCombinerSum *>(operand));
+    for (auto &mOperand : sum->mOperands) {
+      if (mOperand.Negate) {
+        Sub(mOperand.Operand->SimplifyAndReduce());
+      } else {
+        Add(mOperand.Operand->SimplifyAndReduce());
+      }
+    }
 
-		delete operand;
-	}
-	else
-	{
-		mOperands.emplace_back( operand, true );
-	}
+    delete operand;
+  } else {
+    mOperands.emplace_back(operand, false);
+  }
+}
+
+//*****************************************************************************
+//
+//*****************************************************************************
+void CCombinerSum::Sub(CCombinerOperand *operand) {
+  if (operand->IsInput(CI_0)) {
+    // Ignore
+    delete operand;
+  } else if (operand->IsSum()) {
+    // Recursively add all children
+    auto *sum(dynamic_cast<CCombinerSum *>(operand));
+    for (auto &mOperand : sum->mOperands) {
+      if (mOperand.Negate) {
+        Add(mOperand.Operand->SimplifyAndReduce()); // Note we Add, not Sub
+      } else {
+        Sub(mOperand.Operand->SimplifyAndReduce()); // Note we Sub, not Add
+      }
+    }
+
+    delete operand;
+  } else {
+    mOperands.emplace_back(operand, true);
+  }
 }
 
 //*****************************************************************************
 //
 //*****************************************************************************
 // Try to reduce this operand to a blend. If it fails, returns NULL
-CCombinerOperand *	CCombinerSum::ReduceToBlend() const
-{
-	// We're looking for expressions of the form (A + (f * (B - A)))
-	if( mOperands.size() == 2 )
-	{
-		if( !mOperands[ 0 ].Negate &&
-			!mOperands[ 1 ].Negate && mOperands[ 1 ].Operand->IsProduct() )
-		{
-			const CCombinerOperand *	input_a( mOperands[ 0 ].Operand );
-			const auto *	product( static_cast< const CCombinerProduct * >( mOperands[ 1 ].Operand ) );
+CCombinerOperand *CCombinerSum::ReduceToBlend() const {
+  // We're looking for expressions of the form (A + (f * (B - A)))
+  if (mOperands.size() == 2) {
+    if (!mOperands[0].Negate && !mOperands[1].Negate &&
+        mOperands[1].Operand->IsProduct()) {
+      const CCombinerOperand *input_a(mOperands[0].Operand);
+      const auto *product(
+          dynamic_cast<const CCombinerProduct *>(mOperands[1].Operand));
 
-			if( product->GetNumOperands() == 2 )
-			{
-				const CCombinerOperand *	factor( product->GetOperand( 0 ) );		// f
-				const CCombinerOperand *	diff( product->GetOperand( 1 ) );		// B-A
+      if (product->GetNumOperands() == 2) {
+        const CCombinerOperand *factor(product->GetOperand(0)); // f
+        const CCombinerOperand *diff(product->GetOperand(1));   // B-A
 
-				if( diff->IsSum() )
-				{
-					const auto *	diff_sum( static_cast< const CCombinerSum * >( diff ) );
+        if (diff->IsSum()) {
+          const auto *diff_sum(dynamic_cast<const CCombinerSum *>(diff));
 
-					if( diff_sum->mOperands.size() == 2 )
-					{
-						if( !diff_sum->mOperands[ 0 ].Negate &&
-							diff_sum->mOperands[ 1 ].Negate && diff_sum->mOperands[ 1 ].Operand->IsEqual( *input_a ) )		// Make sure this term is the same as the first A we saw
-						{
-							const CCombinerOperand *	input_b( diff_sum->mOperands[ 0 ].Operand );
+          if (diff_sum->mOperands.size() == 2) {
+            if (!diff_sum->mOperands[0].Negate &&
+                diff_sum->mOperands[1].Negate &&
+                diff_sum->mOperands[1].Operand->IsEqual(
+                    *input_a)) // Make sure this term is the same as the first A
+                               // we saw
+            {
+              const CCombinerOperand *input_b(diff_sum->mOperands[0].Operand);
 
-							return new CCombinerBlend( input_a->SimplifyAndReduce(), input_b->SimplifyAndReduce(), factor->SimplifyAndReduce() );
+              return new CCombinerBlend(input_a->SimplifyAndReduce(),
+                                        input_b->SimplifyAndReduce(),
+                                        factor->SimplifyAndReduce());
+            }
+          }
+        }
+      }
+    }
+  }
 
-						}
-					}
-				}
-			}
-		}
-	}
-
-	return NULL;
+  return NULL;
 }
 
 //*****************************************************************************
 //
 //*****************************************************************************
-CCombinerOperand * CCombinerSum::SimplifyAndReduce() const
-{
-	// If we consist of a single element, hoist that up
-	if( mOperands.size() == 1 && mOperands[ 0 ].Negate == false )		// XXXX
-	{
-		return mOperands[ 0 ].Operand->SimplifyAndReduce();
-	}
+CCombinerOperand *CCombinerSum::SimplifyAndReduce() const {
+  // If we consist of a single element, hoist that up
+  if (mOperands.size() == 1 && mOperands[0].Negate == false) // XXXX
+  {
+    return mOperands[0].Operand->SimplifyAndReduce();
+  }
 
-	CCombinerOperand *	blend( ReduceToBlend() );
-	if( blend != NULL )
-	{
-		return blend;
-	}
+  CCombinerOperand *blend(ReduceToBlend());
+  if (blend != NULL) {
+    return blend;
+  }
 
-	auto *	new_add( new CCombinerSum );
+  auto *new_add(new CCombinerSum);
 
-	for(auto mOperand : mOperands)
-	{
-		if( mOperand.Negate )
-			new_add->Sub( mOperand.Operand->SimplifyAndReduce() );
-		else
-			new_add->Add( mOperand.Operand->SimplifyAndReduce() );
-	}
+  for (auto mOperand : mOperands) {
+    if (mOperand.Negate)
+      new_add->Sub(mOperand.Operand->SimplifyAndReduce());
+    else
+      new_add->Add(mOperand.Operand->SimplifyAndReduce());
+  }
 
-	new_add->SortOperands();
+  new_add->SortOperands();
 
-	return new_add;
+  return new_add;
 }
 
 //*****************************************************************************
 //
 //*****************************************************************************
-COutputStream &	CCombinerSum::Stream( COutputStream & stream ) const
-{
-	stream << "( ";
-	for( u32 i = 0; i < mOperands.size(); ++i )
-	{
-		if( i != 0 )
-		{
-			stream << (mOperands[ i ].Negate ? " - " : " + ");
-		}
-		else
-		{
-			if( mOperands[ i ].Negate )
-				stream << "-";
-		}
-		mOperands[ i ].Operand->Stream( stream );
-	}
-	stream << " )";
-	return stream;
-}
-
-
-//*****************************************************************************
-//
-//*****************************************************************************
-CCombinerProduct::CCombinerProduct()
-:	CCombinerOperand( CT_PRODUCT )
-{
-
+COutputStream &CCombinerSum::Stream(COutputStream &stream) const {
+  stream << "( ";
+  for (u32 i = 0; i < mOperands.size(); ++i) {
+    if (i != 0) {
+      stream << (mOperands[i].Negate ? " - " : " + ");
+    } else {
+      if (mOperands[i].Negate)
+        stream << "-";
+    }
+    mOperands[i].Operand->Stream(stream);
+  }
+  stream << " )";
+  return stream;
 }
 
 //*****************************************************************************
 //
 //*****************************************************************************
-CCombinerProduct::CCombinerProduct( CCombinerOperand * operand )
-:	CCombinerOperand( CT_PRODUCT )
-{
-	if( operand != NULL )
-	{
-		Mul( operand );
-	}
+CCombinerProduct::CCombinerProduct() : CCombinerOperand(CT_PRODUCT) {}
+
+//*****************************************************************************
+//
+//*****************************************************************************
+CCombinerProduct::CCombinerProduct(CCombinerOperand *operand)
+    : CCombinerOperand(CT_PRODUCT) {
+  if (operand != NULL) {
+    Mul(operand);
+  }
 }
 
 //*****************************************************************************
 //
 //*****************************************************************************
-CCombinerProduct::CCombinerProduct( const CCombinerProduct & rhs )
-:	CCombinerOperand( CT_PRODUCT )
-{
-	for(auto mOperand : rhs.mOperands)
-	{
-		mOperands.emplace_back(mOperand.Operand->Clone() );
-	}
+CCombinerProduct::CCombinerProduct(const CCombinerProduct &rhs)
+    : CCombinerOperand(CT_PRODUCT) {
+  for (auto mOperand : rhs.mOperands) {
+    mOperands.emplace_back(mOperand.Operand->Clone());
+  }
 }
 
 //*****************************************************************************
 //
 //*****************************************************************************
-CCombinerProduct::~CCombinerProduct()
-{
-	Clear();
+CCombinerProduct::~CCombinerProduct() { Clear(); }
+
+//*****************************************************************************
+//
+//*****************************************************************************
+void CCombinerProduct::Clear() {
+  for (auto &mOperand : mOperands) {
+    delete mOperand.Operand;
+  }
+  mOperands.clear();
 }
 
 //*****************************************************************************
 //
 //*****************************************************************************
-void CCombinerProduct::Clear()
-{
-	for(auto & mOperand : mOperands)
-	{
-		delete mOperand.Operand;
-	}
-	mOperands.clear();
+int CCombinerProduct::Compare(const CCombinerOperand &other) const {
+  int type_diff(GetType() - other.GetType());
+  if (type_diff != 0)
+    return type_diff;
+
+  const auto &rhs(dynamic_cast<const CCombinerProduct &>(other));
+  int size_diff(mOperands.size() - rhs.mOperands.size());
+  if (size_diff != 0)
+    return size_diff;
+
+  for (u32 i = 0; i < mOperands.size(); ++i) {
+    int diff(mOperands[i].Operand->Compare(*rhs.mOperands[i].Operand));
+    if (diff != 0) {
+      return diff;
+    }
+  }
+
+  // Equal
+  return 0;
 }
 
 //*****************************************************************************
 //
 //*****************************************************************************
-int CCombinerProduct::Compare( const CCombinerOperand & other ) const
-{
-	int		type_diff( GetType() - other.GetType() );
-	if( type_diff != 0 )
-		return type_diff;
+void CCombinerProduct::Mul(CCombinerOperand *operand) {
+  if (operand->IsInput(CI_0)) {
+    Clear();
+    mOperands.emplace_back(operand);
+  } else if (operand->IsInput(CI_1)) {
+    // Ignore
+    delete operand;
+  } else if (operand->IsProduct()) {
+    // Recursively add all children
+    auto *product(dynamic_cast<CCombinerProduct *>(operand));
+    for (auto &mOperand : product->mOperands) {
+      Mul(mOperand.Operand->SimplifyAndReduce());
+    }
 
-	const auto & rhs( static_cast< const CCombinerProduct & >( other ) );
-	int size_diff( mOperands.size() - rhs.mOperands.size() );
-	if( size_diff != 0 )
-		return size_diff;
-
-	for( u32 i = 0; i < mOperands.size(); ++i )
-	{
-		int diff( mOperands[ i ].Operand->Compare( *rhs.mOperands[ i ].Operand ) );
-		if( diff != 0 )
-		{
-			return diff;
-		}
-	}
-
-	// Equal
-	return 0;
+    delete operand;
+  } else {
+    mOperands.emplace_back(operand);
+  }
 }
 
 //*****************************************************************************
 //
 //*****************************************************************************
-void CCombinerProduct::Mul( CCombinerOperand * operand )
-{
-	if( operand->IsInput( CI_0 ) )
-	{
-		Clear();
-		mOperands.emplace_back( operand );
-	}
-	else if( operand->IsInput( CI_1 ) )
-	{
-		// Ignore
-		delete operand;
-	}
-	else if( operand->IsProduct() )
-	{
-		// Recursively add all children
-		auto *	product( static_cast< CCombinerProduct * >( operand ) );
-		for(auto & mOperand : product->mOperands)
-		{
-			Mul( mOperand.Operand->SimplifyAndReduce() );
-		}
+CCombinerOperand *CCombinerProduct::SimplifyAndReduce() const {
+  // If we consist of a single element, hoist that up
+  if (mOperands.size() == 1) {
+    return mOperands[0].Operand->SimplifyAndReduce();
+  }
 
-		delete operand;
-	}
-	else
-	{
-		mOperands.emplace_back( operand );
-	}
+  auto *new_mul(new CCombinerProduct);
+
+  for (auto mOperand : mOperands) {
+    new_mul->Mul(mOperand.Operand->SimplifyAndReduce());
+  }
+
+  new_mul->SortOperands();
+
+  return new_mul;
 }
 
 //*****************************************************************************
 //
 //*****************************************************************************
-CCombinerOperand * CCombinerProduct::SimplifyAndReduce() const
-{
-	// If we consist of a single element, hoist that up
-	if( mOperands.size() == 1 )
-	{
-		return mOperands[ 0 ].Operand->SimplifyAndReduce();
-	}
-
-	auto *	new_mul( new CCombinerProduct );
-
-	for(auto mOperand : mOperands)
-	{
-		new_mul->Mul( mOperand.Operand->SimplifyAndReduce() );
-	}
-
-	new_mul->SortOperands();
-
-	return new_mul;
-}
-
-//*****************************************************************************
-//
-//*****************************************************************************
-COutputStream &		CCombinerProduct::Stream( COutputStream & stream ) const
-{
-	stream << "( ";
-	for( u32 i = 0; i < mOperands.size(); ++i )
-	{
-		if( i != 0 )
-		{
-			stream << " * ";
-		}
-		mOperands[ i ].Operand->Stream( stream );
-	}
-	stream << " )";
-	return stream;
+COutputStream &CCombinerProduct::Stream(COutputStream &stream) const {
+  stream << "( ";
+  for (u32 i = 0; i < mOperands.size(); ++i) {
+    if (i != 0) {
+      stream << " * ";
+    }
+    mOperands[i].Operand->Stream(stream);
+  }
+  stream << " )";
+  return stream;
 }

@@ -17,45 +17,40 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 */
 
-#include "stdafx.h"
 #include "UISetting.h"
 #include "UIContext.h"
+#include "stdafx.h"
 
 #include "SysPSP/Graphics/DrawText.h"
 
+CUISetting::CUISetting(const char *name, const char *description)
+    : mName(name), mDescription(description) {}
 
-CUISetting::CUISetting( const char * name, const char * description )
-	:	mName( name )
-	,	mDescription( description )
-{}
-
-u32		CUISetting::GetHeight( CUIContext * context ) const
-{
-	return context->GetFontHeight() + 2;
+u32 CUISetting::GetHeight(CUIContext *context) const {
+  return context->GetFontHeight() + 2;
 }
 
-void	CUISetting::Draw( CUIContext * context, s32 min_x, s32 max_x, EAlignType halign, s32 y, bool selected ) const
-{
-	bool		read_only( IsReadOnly() );
+void CUISetting::Draw(CUIContext *context, s32 min_x, s32 max_x,
+                      EAlignType halign, s32 y, bool selected) const {
+  bool read_only(IsReadOnly());
 
-	c32	colour;
-	if( selected )
-	{
-		colour = read_only ? DrawTextUtilities::TextRedDisabled : context->GetSelectedTextColour();
-	}
-	else
-	{
-		colour = read_only ? DrawTextUtilities::TextWhiteDisabled : context->GetDefaultTextColour();
-	}
+  c32 colour{};
+  if (selected) {
+    colour = read_only ? DrawTextUtilities::TextRedDisabled
+                       : context->GetSelectedTextColour();
+  } else {
+    colour = read_only ? DrawTextUtilities::TextWhiteDisabled
+                       : context->GetDefaultTextColour();
+  }
 
-	// This ignores halign. Always draw name on left and setting on the right
+  // This ignores halign. Always draw name on left and setting on the right
 
-	y += context->GetFontHeight();
+  y += context->GetFontHeight();
 
-	// Draw the name on the left
-	context->DrawText( min_x, y, mName, colour );
+  // Draw the name on the left
+  context->DrawText(min_x, y, mName, colour);
 
-	// And the current setting on the right
-	const char * setting_name( GetSettingName() );
-	context->DrawTextAlign( min_x, max_x, AT_RIGHT, y, setting_name, colour );
+  // And the current setting on the right
+  const char *setting_name(GetSettingName());
+  context->DrawTextAlign(min_x, max_x, AT_RIGHT, y, setting_name, colour);
 }

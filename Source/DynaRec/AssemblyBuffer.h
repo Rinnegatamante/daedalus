@@ -26,66 +26,60 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "AssemblyUtils.h"
 
-class CAssemblyBuffer
-{
-	public:
-		CAssemblyBuffer()
-		:	mpCodeBuffer(nullptr)
-		,	mpWritePointer(nullptr)
-		,	mCurrentPos( 0 )
-		{
-		}
+class CAssemblyBuffer {
+public:
+  CAssemblyBuffer()
+      : mpCodeBuffer(nullptr), mpWritePointer(nullptr), mCurrentPos(0) {}
 
-		inline void	PadTo16Bytes()
-		{
-			// FIXME: warning: operation on �((CAssemblyBuffer*)this)->CAssemblyBuffer::mCurrentPos� may be undefined [-Wsequence-point]
-			mCurrentPos = (--mCurrentPos & 0xfffffff0) + 0x10; // align to 16-byte boundary
-		}
+  inline void PadTo16Bytes() {
+    // FIXME: warning: operation on
+    // �((CAssemblyBuffer*)this)->CAssemblyBuffer::mCurrentPos� may be undefined
+    // [-Wsequence-point]
+    mCurrentPos =
+        (--mCurrentPos & 0xfffffff0) + 0x10; // align to 16-byte boundary
+  }
 
-		inline void EmitBYTE(u8 byte)
-		{
-			mpWritePointer[mCurrentPos] = byte;
-			mCurrentPos++;
-		}
+  inline void EmitBYTE(u8 byte) {
+    mpWritePointer[mCurrentPos] = byte;
+    mCurrentPos++;
+  }
 
-		inline void EmitWORD(u16 word)
-		{
-			*(u16 *)(&mpWritePointer[mCurrentPos]) = word;
-			mCurrentPos += 2;
-		}
+  inline void EmitWORD(u16 word) {
+    *(u16 *)(&mpWritePointer[mCurrentPos]) = word;
+    mCurrentPos += 2;
+  }
 
-		inline void EmitDWORD(u32 dword)
-		{
-			*(u32 *)(&mpWritePointer[mCurrentPos]) = dword;
-			mCurrentPos += 4;
-		}
+  inline void EmitDWORD(u32 dword) {
+    *(u32 *)(&mpWritePointer[mCurrentPos]) = dword;
+    mCurrentPos += 4;
+  }
 
-		void EmitData( const void * pdata, u32 count )
-		{
-			memcpy( &mpWritePointer[ mCurrentPos ], pdata, count );
-			mCurrentPos += count;
-		}
+  void EmitData(const void *pdata, u32 count) {
+    memcpy(&mpWritePointer[mCurrentPos], pdata, count);
+    mCurrentPos += count;
+  }
 
-		CCodeLabel			GetStartAddress() const										{ return CCodeLabel(&mpCodeBuffer[0]); }
-		CCodeLabel			GetLabel() const											{ return CCodeLabel(&mpCodeBuffer[mCurrentPos]); }
-		CJumpLocation		GetJumpLocation() const										{ return CJumpLocation(&mpCodeBuffer[mCurrentPos]); }
-		u32					GetSize() const												{ return mCurrentPos; }
+  CCodeLabel GetStartAddress() const { return CCodeLabel(&mpCodeBuffer[0]); }
+  CCodeLabel GetLabel() const { return CCodeLabel(&mpCodeBuffer[mCurrentPos]); }
+  CJumpLocation GetJumpLocation() const {
+    return CJumpLocation(&mpCodeBuffer[mCurrentPos]);
+  }
+  u32 GetSize() const { return mCurrentPos; }
 
-		void				SetBuffer( u8 * pbuffer )
-		{
-			mpCodeBuffer = pbuffer;
+  void SetBuffer(u8 *pbuffer) {
+    mpCodeBuffer = pbuffer;
 
-			// For the PSP we don't want to cache our writes, ToDo:why?
-			mpWritePointer = (u8*)MAKE_UNCACHED_PTR(mpCodeBuffer);
-			//ToDo: Test this
-			//mpWritePointer = mpCodeBuffer;
-			mCurrentPos = 0;
-		}
+    // For the PSP we don't want to cache our writes, ToDo:why?
+    mpWritePointer = (u8 *)MAKE_UNCACHED_PTR(mpCodeBuffer);
+    // ToDo: Test this
+    // mpWritePointer = mpCodeBuffer;
+    mCurrentPos = 0;
+  }
 
 protected:
-	u8 *					mpCodeBuffer;
-	u8 *					mpWritePointer;
-	u32						mCurrentPos;		// Current writing position in buffer
+  u8 *mpCodeBuffer;
+  u8 *mpWritePointer;
+  u32 mCurrentPos; // Current writing position in buffer
 };
 
 #endif // DYNAREC_ASSEMBLYBUFFER_H_

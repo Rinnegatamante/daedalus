@@ -23,7 +23,7 @@ void Dynamo_SelectCore();
 void Dynamo_Reset();
 
 #ifdef DAEDALUS_DEBUG_DYNAREC
-	void			CPU_DumpFragmentCache();
+void CPU_DumpFragmentCache();
 #endif
 void Dynarec_ClearedCPUStuffToDo();
 void Dynarec_SetCPUStuffToDo();

@@ -26,107 +26,80 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 struct OpCode;
 
-namespace StaticAnalysis
+namespace StaticAnalysis {
+/*enum MemAcess
 {
-	/*enum MemAcess
-	{
-		Segment_Unknown = 0,
-		Segment_8000 = 1,
-		Segment_A000 = 2
-	};*/
+        Segment_Unknown = 0,
+        Segment_8000 = 1,
+        Segment_A000 = 2
+};*/
 
-	struct RegSrcUse
-	{
-		explicit RegSrcUse( u32 r ) : Reg( r ) {}
+struct RegSrcUse {
+  explicit RegSrcUse(u32 r) : Reg(r) {}
 
-		u32		Reg;
-	};
+  u32 Reg;
+};
 
-	struct RegDstUse
-	{
-		explicit RegDstUse( u32 r ) : Reg( r ) {}
+struct RegDstUse {
+  explicit RegDstUse(u32 r) : Reg(r) {}
 
-		u32		Reg;
-	};
+  u32 Reg;
+};
 
-	struct RegBaseUse
-	{
-		explicit RegBaseUse( u32 r ) : Reg( r ) {}
+struct RegBaseUse {
+  explicit RegBaseUse(u32 r) : Reg(r) {}
 
-		u32		Reg;
-	};
-	struct RegisterUsage
-	{
-		u32			RegReads;
-		u32			RegWrites;
-		u32			RegBase;
-		ER4300BranchType BranchType;
-		bool		Access8000;
+  u32 Reg;
+};
+struct RegisterUsage {
+  u32 RegReads;
+  u32 RegWrites;
+  u32 RegBase;
+  ER4300BranchType BranchType;
+  bool Access8000;
 
-		RegisterUsage()
-			:	RegReads( 0 )
-			,	RegWrites( 0 )
-			,	RegBase( 0 )
-			,   BranchType( BT_NOT_BRANCH )
-			,   Access8000( false )
-		{
-		}
+  RegisterUsage()
+      : RegReads(0), RegWrites(0), RegBase(0), BranchType(BT_NOT_BRANCH),
+        Access8000(false) {}
 
-		// Ignore floating point for now
-		inline void		Record( RegDstUse d, RegSrcUse s, RegSrcUse t )
-		{
-			RegWrites = (1<<d.Reg);
-			RegReads = (1<<s.Reg) | (1<<t.Reg);
-		}
-		void		Record( RegDstUse d, RegSrcUse s )
-		{
-			RegWrites = (1<<d.Reg);
-			RegReads = (1<<s.Reg);
-		}
-		inline void		Record( RegSrcUse s, RegSrcUse t )
-		{
-			RegReads = (1<<s.Reg) | (1<<t.Reg);
-		}
-		inline void		Record( RegSrcUse s )
-		{
-			RegReads = (1<<s.Reg);
-		}
-		inline void		Record( RegDstUse d )
-		{
-			RegWrites = (1<<d.Reg);
-		}
-		inline void		Record( RegBaseUse b, RegDstUse d )
-		{
-			RegWrites = (1<<d.Reg);
-			RegBase = (1<<b.Reg);
-		}
-		inline void		Record( RegBaseUse b, RegSrcUse s )
-		{
-			RegReads = (1<<s.Reg);
-			RegBase = (1<<b.Reg);
-		}
+  // Ignore floating point for now
+  inline void Record(RegDstUse d, RegSrcUse s, RegSrcUse t) {
+    RegWrites = (1 << d.Reg);
+    RegReads = (1 << s.Reg) | (1 << t.Reg);
+  }
+  void Record(RegDstUse d, RegSrcUse s) {
+    RegWrites = (1 << d.Reg);
+    RegReads = (1 << s.Reg);
+  }
+  inline void Record(RegSrcUse s, RegSrcUse t) {
+    RegReads = (1 << s.Reg) | (1 << t.Reg);
+  }
+  inline void Record(RegSrcUse s) { RegReads = (1 << s.Reg); }
+  inline void Record(RegDstUse d) { RegWrites = (1 << d.Reg); }
+  inline void Record(RegBaseUse b, RegDstUse d) {
+    RegWrites = (1 << d.Reg);
+    RegBase = (1 << b.Reg);
+  }
+  inline void Record(RegBaseUse b, RegSrcUse s) {
+    RegReads = (1 << s.Reg);
+    RegBase = (1 << b.Reg);
+  }
 
-		inline void		Record( RegBaseUse b )
-		{
-			RegBase = (1<<b.Reg);
-		}
+  inline void Record(RegBaseUse b) { RegBase = (1 << b.Reg); }
 
-		inline void	BranchOP(ER4300BranchType type)
-		{
-			BranchType = type;
-		}
+  inline void BranchOP(ER4300BranchType type) { BranchType = type; }
 
-		inline void		Access(u32 address)
-		{
-			Access8000 = ((address >> 23) == 0x100);
-			#ifdef DAEDALUS_ENABLE_ASSERTS
-			DAEDALUS_ASSERT((address >= 0x80000000 && address < 0x80000000 + gRamSize) == Access8000, "Access8000 is inconsistent");
-			#endif
-		}
+  inline void Access(u32 address) {
+    Access8000 = ((address >> 23) == 0x100);
+#ifdef DAEDALUS_ENABLE_ASSERTS
+    DAEDALUS_ASSERT((address >= 0x80000000 &&
+                     address < 0x80000000 + gRamSize) == Access8000,
+                    "Access8000 is inconsistent");
+#endif
+  }
+};
 
-	};
-
-	void		Analyse( OpCode op_code, RegisterUsage & reg_usage );
-}
+void Analyse(OpCode op_code, RegisterUsage &reg_usage);
+} // namespace StaticAnalysis
 
 #endif // DYNAREC_STATICANALYSIS_H_

@@ -33,188 +33,192 @@ class CBlendConstantExpression;
 
 struct DaedalusVtx;
 
-struct SRenderState
-{
-	DaedalusVtx *			Vertices;
-	u32						NumVertices;
-	c32						PrimitiveColour;
-	c32						EnvironmentColour;
+struct SRenderState {
+  DaedalusVtx *Vertices;
+  u32 NumVertices;
+  c32 PrimitiveColour;
+  c32 EnvironmentColour;
 };
 
-enum EPspBlendMode
-{
-	PBM_MODULATE,
-	PBM_REPLACE,
-	PBM_BLEND,
+enum EPspBlendMode {
+  PBM_MODULATE,
+  PBM_REPLACE,
+  PBM_BLEND,
 };
 
-enum EPspBlendAlphaMode
-{
-	PBAM_RGBA,
-	PBAM_RGB,
+enum EPspBlendAlphaMode {
+  PBAM_RGBA,
+  PBAM_RGB,
 };
 
-
-struct SRenderStateOut
-{
-	const CBlendConstantExpression *		VertexExpressionRGB;
-	const CBlendConstantExpression *		VertexExpressionA;
-	EPspBlendMode							BlendMode;
-	EPspBlendAlphaMode						BlendAlphaMode;
-	c32										TextureFactor;		// For PBM_BLEND
-	bool									MakeTextureWhite;
+struct SRenderStateOut {
+  const CBlendConstantExpression *VertexExpressionRGB;
+  const CBlendConstantExpression *VertexExpressionA;
+  EPspBlendMode BlendMode;
+  EPspBlendAlphaMode BlendAlphaMode;
+  c32 TextureFactor; // For PBM_BLEND
+  bool MakeTextureWhite;
 };
 
-class CAlphaRenderSettings
-{
+class CAlphaRenderSettings {
 public:
-	CAlphaRenderSettings( const char * description );
-	~CAlphaRenderSettings();
+  CAlphaRenderSettings(const char *description);
+  ~CAlphaRenderSettings();
 
-	void			AddTermTexel0();
-	void			AddTermTexel1();
-	void			AddTermConstant( const CBlendConstantExpression * constant_expression );
+  void AddTermTexel0();
+  void AddTermTexel1();
+  void AddTermConstant(const CBlendConstantExpression *constant_expression);
 
-	void			Finalise();
+  void Finalise();
 
-	void			Apply( bool texture_installed, const SRenderState & state, SRenderStateOut & out ) const;
+  void Apply(bool texture_installed, const SRenderState &state,
+             SRenderStateOut &out) const;
 #ifdef DAEDALUS_DEBUG_DISPLAYLIST
-	void			Print( bool texture_installed ) const;
+  void Print(bool texture_installed) const;
 #endif
-	bool			UsesTexture0() const		{ return mUsesTexel0; }
-	bool			UsesTexture1() const		{ return mUsesTexel1; }
+  bool UsesTexture0() const { return mUsesTexel0; }
+  bool UsesTexture1() const { return mUsesTexel1; }
 
-	void			SetInexact()				{ mInexact = true; }
-	bool			IsInexact() const			{ return mInexact; }
+  void SetInexact() { mInexact = true; }
+  bool IsInexact() const { return mInexact; }
 
-	const char *	GetDescription() const							{ return mDescription.c_str(); }
+  const char *GetDescription() const { return mDescription.c_str(); }
 
 private:
-	std::string		mDescription;
-	bool			mInexact;
-	bool			mUsesTexel0;
-	bool			mUsesTexel1;
-	const CBlendConstantExpression *	mConstantExpression;
+  std::string mDescription;
+  bool mInexact;
+  bool mUsesTexel0;
+  bool mUsesTexel1;
+  const CBlendConstantExpression *mConstantExpression;
 };
 
-
-
-
-class CRenderSettings
-{
+class CRenderSettings {
 public:
-	CRenderSettings( const char * description ) : mDescription( description ) {}
-	virtual ~CRenderSettings() = default;
-	virtual bool			IsInexact() const = 0;
-	virtual bool			UsesTexture0() const = 0;
-	virtual bool			UsesTexture1() const = 0;
-	virtual void			Apply( bool texture_installed, const SRenderState & state, SRenderStateOut & out ) const = 0;
+  CRenderSettings(const char *description) : mDescription(description) {}
+  virtual ~CRenderSettings() = default;
+  virtual bool IsInexact() const = 0;
+  virtual bool UsesTexture0() const = 0;
+  virtual bool UsesTexture1() const = 0;
+  virtual void Apply(bool texture_installed, const SRenderState &state,
+                     SRenderStateOut &out) const = 0;
 #ifdef DAEDALUS_DEBUG_DISPLAYLIST
-	virtual void			Print( bool texture_installed ) const = 0;
+  virtual void Print(bool texture_installed) const = 0;
 #endif
-	const char *			GetDescription() const							{ return mDescription.c_str(); }
+  const char *GetDescription() const { return mDescription.c_str(); }
 
 private:
-	std::string				mDescription;
+  std::string mDescription;
 };
 
-
-class CRenderSettingsInvalid : public CRenderSettings
-{
+class CRenderSettingsInvalid : public CRenderSettings {
 public:
-	CRenderSettingsInvalid( const char * description ) : CRenderSettings( description ) {}
-	bool			IsInexact() const override								{ return true; }
-	bool			UsesTexture0() const override							{ return false; }
-	bool			UsesTexture1() const override							{ return false; }
-	void			Apply( bool texture_installed, const SRenderState & state, SRenderStateOut & out ) const override	{ }
+  CRenderSettingsInvalid(const char *description)
+      : CRenderSettings(description) {}
+  bool IsInexact() const override { return true; }
+  bool UsesTexture0() const override { return false; }
+  bool UsesTexture1() const override { return false; }
+  void Apply(bool texture_installed, const SRenderState &state,
+             SRenderStateOut &out) const override {}
 #ifdef DAEDALUS_DEBUG_DISPLAYLIST
-	virtual void			Print( bool texture_installed ) const			{ printf( "Invalid\n" ); }
+  virtual void Print(bool texture_installed) const { printf("Invalid\n"); }
 #endif
 };
 
-class CRenderSettingsModulate : public CRenderSettings
-{
+class CRenderSettingsModulate : public CRenderSettings {
 public:
-	CRenderSettingsModulate( const char * description );
-	~CRenderSettingsModulate() override;
+  CRenderSettingsModulate(const char *description);
+  ~CRenderSettingsModulate() override;
 
-	void					AddTermTexel0();
-	void					AddTermTexel1();
-	void					AddTermConstant( const CBlendConstantExpression * constant_expression );
+  void AddTermTexel0();
+  void AddTermTexel1();
+  void AddTermConstant(const CBlendConstantExpression *constant_expression);
 
-	void					Finalise();
+  void Finalise();
 
-	void					SetInexact()					{ mInexact = true; }
-	bool			IsInexact() const override				{ return mInexact; }
+  void SetInexact() { mInexact = true; }
+  bool IsInexact() const override { return mInexact; }
 
-	bool			UsesTexture0() const override			{ return mUsesTexel0; }
-	bool			UsesTexture1() const override			{ return mUsesTexel1; }
+  bool UsesTexture0() const override { return mUsesTexel0; }
+  bool UsesTexture1() const override { return mUsesTexel1; }
 
-	void			Apply( bool texture_installed, const SRenderState & state, SRenderStateOut & out ) const override;
+  void Apply(bool texture_installed, const SRenderState &state,
+             SRenderStateOut &out) const override;
 #ifdef DAEDALUS_DEBUG_DISPLAYLIST
-	virtual void			Print( bool texture_installed ) const;
+  virtual void Print(bool texture_installed) const;
 #endif
 
 private:
-	const CBlendConstantExpression *	mConstantExpression;
-	bool					mUsesTexel0;
-	bool					mUsesTexel1;
-	bool					mInexact;
+  const CBlendConstantExpression *mConstantExpression;
+  bool mUsesTexel0;
+  bool mUsesTexel1;
+  bool mInexact;
 };
 
-class CRenderSettingsBlend : public CRenderSettings
-{
+class CRenderSettingsBlend : public CRenderSettings {
 public:
-	CRenderSettingsBlend(  const char * description, const CBlendConstantExpression * a, const CBlendConstantExpression * b );
-	~CRenderSettingsBlend() override;
+  CRenderSettingsBlend(const char *description,
+                       const CBlendConstantExpression *a,
+                       const CBlendConstantExpression *b);
+  ~CRenderSettingsBlend() override;
 
-	void					SetInexact()					{ mInexact = true; }
-	bool			IsInexact() const override				{ return mInexact; }
+  void SetInexact() { mInexact = true; }
+  bool IsInexact() const override { return mInexact; }
 
-	bool			UsesTexture0() const override			{ return true; }
-	bool			UsesTexture1() const override			{ return false; }
+  bool UsesTexture0() const override { return true; }
+  bool UsesTexture1() const override { return false; }
 
-	void			Apply( bool texture_installed, const SRenderState & state, SRenderStateOut & out ) const override;
+  void Apply(bool texture_installed, const SRenderState &state,
+             SRenderStateOut &out) const override;
 #ifdef DAEDALUS_DEBUG_DISPLAYLIST
-	virtual void			Print( bool texture_installed ) const;
+  virtual void Print(bool texture_installed) const;
 #endif
 
 private:
-	const CBlendConstantExpression *	mConstantExpressionA;
-	const CBlendConstantExpression *	mConstantExpressionB;
-	bool					mInexact;
+  const CBlendConstantExpression *mConstantExpressionA;
+  const CBlendConstantExpression *mConstantExpressionB;
+  bool mInexact;
 };
 
-
-
-class CBlendStates
-{
+class CBlendStates {
 public:
-	CBlendStates();
-	~CBlendStates();
+  CBlendStates();
+  ~CBlendStates();
 
-	bool					IsInexact() const;
+  bool IsInexact() const;
 #ifdef DAEDALUS_DEBUG_DISPLAYLIST
-	void					Print() const;
+  void Print() const;
 #endif
 #ifdef DAEDALUS_ENABLE_ASSERTS
-	void					SetAlphaSettings( const CAlphaRenderSettings * alpha_settings )				{ DAEDALUS_ASSERT( mAlphaSettings == NULL, "Overwriting settings" ); mAlphaSettings = alpha_settings; }
+  void SetAlphaSettings(const CAlphaRenderSettings *alpha_settings) {
+    DAEDALUS_ASSERT(mAlphaSettings == NULL, "Overwriting settings");
+    mAlphaSettings = alpha_settings;
+  }
 #else
-void					SetAlphaSettings( const CAlphaRenderSettings * alpha_settings )				{ mAlphaSettings = alpha_settings; }
+  void SetAlphaSettings(const CAlphaRenderSettings *alpha_settings) {
+    mAlphaSettings = alpha_settings;
+  }
 #endif
-	void					AddColourSettings( const CRenderSettings * colour_settings )				{ mColourSettings.push_back( colour_settings ); }
+  void AddColourSettings(const CRenderSettings *colour_settings) {
+    mColourSettings.push_back(colour_settings);
+  }
 
-	u32								GetNumStates() const												{ return mColourSettings.size(); }
-	const CAlphaRenderSettings *	GetAlphaSettings() const											{ return mAlphaSettings; }
-	#ifdef DAEDALUS_ENABLE_ASSERTS
-	const CRenderSettings *			GetColourSettings( u32 i ) const									{ DAEDALUS_ASSERT( i < mColourSettings.size(), "Invalid idx" ); return mColourSettings[ i ]; }
+  u32 GetNumStates() const { return mColourSettings.size(); }
+  const CAlphaRenderSettings *GetAlphaSettings() const {
+    return mAlphaSettings;
+  }
+#ifdef DAEDALUS_ENABLE_ASSERTS
+  const CRenderSettings *GetColourSettings(u32 i) const {
+    DAEDALUS_ASSERT(i < mColourSettings.size(), "Invalid idx");
+    return mColourSettings[i];
+  }
 #else
-	const CRenderSettings *			GetColourSettings( u32 i ) const									{ return mColourSettings[ i ]; }
-	#endif
+  const CRenderSettings *GetColourSettings(u32 i) const {
+    return mColourSettings[i];
+  }
+#endif
 private:
-	const CAlphaRenderSettings *			mAlphaSettings;
-	std::vector<const CRenderSettings *>	mColourSettings;
-
+  const CAlphaRenderSettings *mAlphaSettings;
+  std::vector<const CRenderSettings *> mColourSettings;
 };
 
 #endif // SYSPSP_HLEGRAPHICS_COMBINER_RENDERSETTINGS_H_

@@ -23,29 +23,25 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "CPU.h"
 #include "OSHLE/ultra_R4300.h"
 
-
-void R4300_Exception_TLB( u32 virtual_address, u32 exception_code, u32 exception_vector );
+void R4300_Exception_TLB(u32 virtual_address, u32 exception_code,
+                         u32 exception_vector);
 void R4300_Exception_Break();
 void R4300_Exception_Syscall();
 void R4300_Exception_CopUnusuable();
 
 // Update the CAUSE_IP3 value after MI_INTR_MASK_REG or MI_INTR_REG changes
-inline void R4300_Interrupt_UpdateCause3()
-{
-	//
-	// If any interrupts pending when they are unmasked, the interrupt fires
-	//
-	if ((Memory_MI_GetRegister(MI_INTR_MASK_REG) &
-		 Memory_MI_GetRegister(MI_INTR_REG)) == 0)
-	{
-		// Clear the Cause register
-		gCPUState.CPUControl[C0_CAUSE]._u32 &= ~CAUSE_IP3;
-	}
-	else
-	{
-		gCPUState.CPUControl[C0_CAUSE]._u32 |= CAUSE_IP3;
-		gCPUState.AddJob( CPU_CHECK_INTERRUPTS );
-	}
+inline void R4300_Interrupt_UpdateCause3() {
+  //
+  // If any interrupts pending when they are unmasked, the interrupt fires
+  //
+  if ((Memory_MI_GetRegister(MI_INTR_MASK_REG) &
+       Memory_MI_GetRegister(MI_INTR_REG)) == 0) {
+    // Clear the Cause register
+    gCPUState.CPUControl[C0_CAUSE]._u32 &= ~CAUSE_IP3;
+  } else {
+    gCPUState.CPUControl[C0_CAUSE]._u32 |= CAUSE_IP3;
+    gCPUState.AddJob(CPU_CHECK_INTERRUPTS);
+  }
 }
 
 void R4300_Handle_Exception();
@@ -55,6 +51,5 @@ void R4300_Handle_Interrupt();
 extern u32 gNumExceptions;
 extern u32 gNumInterrupts;
 #endif
-
 
 #endif // CORE_INTERRUPT_H_

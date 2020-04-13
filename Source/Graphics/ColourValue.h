@@ -26,71 +26,72 @@ class v4;
 
 class c32 /*: public NativePf8888*/
 {
-	public:
-		c32() = default;
-		c32( u8 r, u8 g, u8 b ) : mColour( Make( r, g, b, 255 ) ) {}
-		c32( u8 r, u8 g, u8 b, u8 a ) : mColour( Make( r, g, b, a ) ) {}
-		explicit c32( u32 colour ) : mColour( colour ) {}
-		explicit c32( const v4 & colour );
+public:
+  c32() = default;
+  c32(u8 r, u8 g, u8 b) : mColour(Make(r, g, b, 255)) {}
+  c32(u8 r, u8 g, u8 b, u8 a) : mColour(Make(r, g, b, a)) {}
+  explicit c32(u32 colour) : mColour(colour) {}
+  explicit c32(const v4 &colour);
 
-				u32		GetColour() const			{ return mColour; }
-				v4		GetColourV4() const;
+  u32 GetColour() const { return mColour; }
+  v4 GetColourV4() const;
 
-				u8		GetR() const				{ return u8(mColour      ); }
-				u8		GetG() const				{ return u8(mColour >>  8); }
-				u8		GetB() const				{ return u8(mColour >> 16); }
-				u8		GetA() const				{ return u8(mColour >> 24); }
+  u8 GetR() const { return u8(mColour); }
+  u8 GetG() const { return u8(mColour >> 8); }
+  u8 GetB() const { return u8(mColour >> 16); }
+  u8 GetA() const { return u8(mColour >> 24); }
 
-				float	GetRf() const				{ return float(GetR()) / 255.f; }
-				float	GetGf() const				{ return float(GetG()) / 255.f; }
-				float	GetBf() const				{ return float(GetB()) / 255.f; }
-				float	GetAf() const				{ return float(GetA()) / 255.f; }
+  float GetRf() const { return float(GetR()) / 255.f; }
+  float GetGf() const { return float(GetG()) / 255.f; }
+  float GetBf() const { return float(GetB()) / 255.f; }
+  float GetAf() const { return float(GetA()) / 255.f; }
 
-				c32		Add( c32 colour ) const;
-				c32		AddRGB( c32 colour ) const;
-				c32		AddA( c32 colour ) const;
+  c32 Add(c32 colour) const;
+  c32 AddRGB(c32 colour) const;
+  c32 AddA(c32 colour) const;
 
-				c32		Sub( c32 colour ) const;
-				c32		SubRGB( c32 colour ) const;
-				c32		SubA( c32 colour ) const;
+  c32 Sub(c32 colour) const;
+  c32 SubRGB(c32 colour) const;
+  c32 SubA(c32 colour) const;
 
-				c32		Modulate( c32 colour ) const;
-				c32		ModulateRGB( c32 colour ) const;
-				c32		ModulateA( c32 colour ) const;
+  c32 Modulate(c32 colour) const;
+  c32 ModulateRGB(c32 colour) const;
+  c32 ModulateA(c32 colour) const;
 
-				c32		Interpolate( c32 colour, float factor ) const;
-				c32		Interpolate( c32 colour, c32 factor ) const;
+  c32 Interpolate(c32 colour, float factor) const;
+  c32 Interpolate(c32 colour, c32 factor) const;
 
-				c32		ReplicateAlpha() const;
+  c32 ReplicateAlpha() const;
 
-				void	SetBits( c32 colour, u32 mask )		{ mColour = (mColour &(~mask)) | (colour.mColour & mask); }
+  void SetBits(c32 colour, u32 mask) {
+    mColour = (mColour & (~mask)) | (colour.mColour & mask);
+  }
 
-		static	u32		Make( u8 r, u8 g, u8 b, u8 a )
-		{
-			return (u32(a) << 24) | (u32(b)<<16) | (u32(g)<<8) | u32(r);
-		}
+  static u32 Make(u8 r, u8 g, u8 b, u8 a) {
+    return (u32(a) << 24) | (u32(b) << 16) | (u32(g) << 8) | u32(r);
+  }
 
-	public:
-		static const u32 MASK_A = 0xff000000;
-		static const u32 MASK_RGB = 0x00ffffff;
-		static const u32 MASK_RGBA = 0xffffffff;
+public:
+  static const u32 MASK_A = 0xff000000;
+  static const u32 MASK_RGB = 0x00ffffff;
+  static const u32 MASK_RGBA = 0xffffffff;
 
-	public:
-		static const c32	Black;
-		static const c32	White;
-		static const c32	Red;
-		static const c32	Green;
-		static const c32	Blue;
-		static const c32	Gold;
-		static const c32	Magenta;
-		static const c32	Turquoise;
-		static const c32	Orange;
-		static const c32	Purple;
-		static const c32	Grey;
-	private:
-		u32		mColour;
+public:
+  static const c32 Black;
+  static const c32 White;
+  static const c32 Red;
+  static const c32 Green;
+  static const c32 Blue;
+  static const c32 Gold;
+  static const c32 Magenta;
+  static const c32 Turquoise;
+  static const c32 Orange;
+  static const c32 Purple;
+  static const c32 Grey;
+
+private:
+  u32 mColour;
 };
-DAEDALUS_STATIC_ASSERT( sizeof( c32 ) == 4 );
-
+DAEDALUS_STATIC_ASSERT(sizeof(c32) == 4);
 
 #endif // GRAPHICS_COLOURVALUE_H_

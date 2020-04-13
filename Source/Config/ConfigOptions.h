@@ -26,40 +26,38 @@
 #include "Utility/IO.h"
 
 // Config stuff
-struct DaedalusConfig
-{
-	// FIXME(strmnnrmn): We never seem to assign to mRomsDir?!
-	IO::Filename		mRomsDir;
-	IO::Filename		mSaveDir;
+struct DaedalusConfig {
+  // FIXME(strmnnrmn): We never seem to assign to mRomsDir?!
+  IO::Filename mRomsDir;
+  IO::Filename mSaveDir;
 };
 
-extern DaedalusConfig	g_DaedalusConfig;
+extern DaedalusConfig g_DaedalusConfig;
 
 // Per-ROM config
-extern bool gDynarecEnabled;			// Use dynamic recompilation
-extern bool gDynarecLoopOptimisation;	// Enable the dynarec loop optmisation
-extern bool gDynarecDoublesOptimisation;	// Enable the dynarec loop optmisation
-extern bool gOSHooksEnabled;			// Apply os-hooks
-extern u32	gSpeedSyncEnabled;
+extern bool gDynarecEnabled;             // Use dynamic recompilation
+extern bool gDynarecLoopOptimisation;    // Enable the dynarec loop optmisation
+extern bool gDynarecDoublesOptimisation; // Enable the dynarec loop optmisation
+extern bool gOSHooksEnabled;             // Apply os-hooks
+extern u32 gSpeedSyncEnabled;
 extern bool gDoubleDisplayEnabled;
 extern bool gAudioRateMatch;
 extern bool gVideoRateMatch;
 extern bool gFogEnabled;
 extern bool gMemoryAccessOptimisation;
 extern bool gCheatsEnabled;
-//ToDo: Needs moving to Graphics plugin config
-extern bool	gCleanSceneEnabled;
-extern bool	gClearDepthFrameBuffer;
-extern u32	gCheckTextureHashFrequency;
-//ToDo: Needs moving to Input plugin config
-extern u32	gControllerIndex;
+// ToDo: Needs moving to Graphics plugin config
+extern bool gCleanSceneEnabled;
+extern bool gClearDepthFrameBuffer;
+extern u32 gCheckTextureHashFrequency;
+// ToDo: Needs moving to Input plugin config
+extern u32 gControllerIndex;
 
-//ToDo: Need moving to Audio plugin config
-enum EAudioPluginMode
-{
-	APM_DISABLED,
-	APM_ENABLED_ASYNC,
-	APM_ENABLED_SYNC,
+// ToDo: Need moving to Audio plugin config
+enum EAudioPluginMode {
+  APM_DISABLED,
+  APM_ENABLED_ASYNC,
+  APM_ENABLED_SYNC,
 };
 
 extern EAudioPluginMode gAudioPluginEnabled;

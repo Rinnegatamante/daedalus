@@ -18,8 +18,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 // Will remove eventually
 
-#include "stdafx.h"
 #include "Utility/Hash.h"
+#include "stdafx.h"
 
 //-----------------------------------------------------------------------------
 // MurmurHash2, by Austin Appleby
@@ -28,60 +28,61 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 // 2. sizeof(int) == 4
 // And it has a few limitations -
 // 1. It will not work incrementally.
-// Note - This next one is only the case for murmur2_hash and not murmur2neutral_hash
+// Note - This next one is only the case for murmur2_hash and not
+// murmur2neutral_hash
 // 2. It will not produce the same results on little-endian and big-endian
 //    machines.
 //-----------------------------------------------------------------------------
 
-unsigned int murmur2_hash ( const void * key, int len, unsigned int seed )
-{
-	// 'm' and 'r' are mixing constants generated offline.
-	// They're not really 'magic', they just happen to work well.
+unsigned int murmur2_hash(const void *key, int len, unsigned int seed) {
+  // 'm' and 'r' are mixing constants generated offline.
+  // They're not really 'magic', they just happen to work well.
 
-	const unsigned int m = 0x5bd1e995;
-	const int r = 24;
+  const unsigned int m = 0x5bd1e995;
+  const int r = 24;
 
-	// Initialize the hash to a 'random' value
+  // Initialize the hash to a 'random' value
 
-	unsigned int h = seed ^ len;
+  unsigned int h = seed ^ len;
 
-	// Mix 4 bytes at a time into the hash
+  // Mix 4 bytes at a time into the hash
 
-	const auto * data = (const unsigned char *)key;
+  const auto *data = (const unsigned char *)key;
 
-	while(len >= 4)
-	{
-		unsigned int k = *(unsigned int *)data;
+  while (len >= 4) {
+    unsigned int k = *(unsigned int *)data;
 
-		k *= m;
-		k ^= k >> r;
-		k *= m;
+    k *= m;
+    k ^= k >> r;
+    k *= m;
 
-		h *= m;
-		h ^= k;
+    h *= m;
+    h ^= k;
 
-		data += 4;
-		len -= 4;
-	}
+    data += 4;
+    len -= 4;
+  }
 
-	// Handle the last few bytes of the input array
+  // Handle the last few bytes of the input array
 
-	switch(len)
-	{
-	case 3: h ^= data[2] << 16;
-	case 2: h ^= data[1] << 8;
-	case 1: h ^= data[0];
-	        h *= m;
-	};
+  switch (len) {
+  case 3:
+    h ^= data[2] << 16;
+  case 2:
+    h ^= data[1] << 8;
+  case 1:
+    h ^= data[0];
+    h *= m;
+  };
 
-	// Do a few final mixes of the hash to ensure the last few
-	// bytes are well-incorporated.
+  // Do a few final mixes of the hash to ensure the last few
+  // bytes are well-incorporated.
 
-	h ^= h >> 13;
-	h *= m;
-	h ^= h >> 15;
+  h ^= h >> 13;
+  h *= m;
+  h ^= h >> 15;
 
-	return h;
+  return h;
 }
 
 //-----------------------------------------------------------------------------
@@ -89,46 +90,46 @@ unsigned int murmur2_hash ( const void * key, int len, unsigned int seed )
 // Same as MurmurHash2, but endian- and alignment-neutral.
 // Half the speed though, alas.
 
-unsigned int murmur2_neutral_hash ( const void * key, int len, unsigned int seed )
-{
-	const unsigned int m = 0x5bd1e995;
-	const int r = 24;
+unsigned int murmur2_neutral_hash(const void *key, int len, unsigned int seed) {
+  const unsigned int m = 0x5bd1e995;
+  const int r = 24;
 
-	unsigned int h = seed ^ len;
+  unsigned int h = seed ^ len;
 
-	const auto * data = (const unsigned char *)key;
+  const auto *data = (const unsigned char *)key;
 
-	while(len >= 4)
-	{
-		unsigned int k;
+  while (len >= 4) {
+    unsigned int k;
 
-		k  = data[0];
-		k |= data[1] << 8;
-		k |= data[2] << 16;
-		k |= data[3] << 24;
+    k = data[0];
+    k |= data[1] << 8;
+    k |= data[2] << 16;
+    k |= data[3] << 24;
 
-		k *= m;
-		k ^= k >> r;
-		k *= m;
+    k *= m;
+    k ^= k >> r;
+    k *= m;
 
-		h *= m;
-		h ^= k;
+    h *= m;
+    h ^= k;
 
-		data += 4;
-		len -= 4;
-	}
+    data += 4;
+    len -= 4;
+  }
 
-	switch(len)
-	{
-	case 3: h ^= data[2] << 16;
-	case 2: h ^= data[1] << 8;
-	case 1: h ^= data[0];
-	        h *= m;
-	};
+  switch (len) {
+  case 3:
+    h ^= data[2] << 16;
+  case 2:
+    h ^= data[1] << 8;
+  case 1:
+    h ^= data[0];
+    h *= m;
+  };
 
-	h ^= h >> 13;
-	h *= m;
-	h ^= h >> 15;
+  h ^= h >> 13;
+  h *= m;
+  h ^= h >> 15;
 
-	return h;
+  return h;
 }

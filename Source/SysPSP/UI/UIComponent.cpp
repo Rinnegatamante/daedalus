@@ -17,52 +17,41 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 */
 
-#include "stdafx.h"
 #include "UIComponent.h"
 #include "UIContext.h"
+#include "stdafx.h"
 
-#include "SysPSP/Graphics/DrawText.h"
 #include "PSPMenu.h"
+#include "SysPSP/Graphics/DrawText.h"
 
-CUIComponent::CUIComponent( CUIContext * p_context )
-:	mpContext( p_context )
-{}
+CUIComponent::CUIComponent(CUIContext *p_context) : mpContext(p_context) {}
 
 CUIComponent::~CUIComponent() = default;
 
-CUIComponentScreen::CUIComponentScreen( CUIContext * p_context, CUIComponent * component, const char * title )
-:	CUIScreen( p_context )
-,	mComponent( component )
-,	mTitle( title )
-{
+CUIComponentScreen::CUIComponentScreen(CUIContext *p_context,
+                                       CUIComponent *component,
+                                       const char *title)
+    : CUIScreen(p_context), mComponent(component), mTitle(title) {}
+
+CUIComponentScreen::~CUIComponentScreen() { delete mComponent; }
+
+CUIComponentScreen *CUIComponentScreen::Create(CUIContext *p_context,
+                                               CUIComponent *component,
+                                               const char *title) {
+  return new CUIComponentScreen(p_context, component, title);
 }
 
-
-CUIComponentScreen::~CUIComponentScreen()
-{
-	delete mComponent;
+void CUIComponentScreen::Update(float elapsed_time, const v2 &stick,
+                                u32 old_buttons, u32 new_buttons) {
+  mComponent->Update(elapsed_time, stick, old_buttons, new_buttons);
 }
 
-CUIComponentScreen *	CUIComponentScreen::Create( CUIContext * p_context, CUIComponent * component, const char * title )
-{
-	return new CUIComponentScreen( p_context, component, title );
+void CUIComponentScreen::Render() {
+  mpContext->ClearBackground();
+  mpContext->DrawTextAlign(0, mpContext->GetScreenWidth(), AT_CENTRE,
+                           TITLE_HEADER, mTitle.c_str(),
+                           mpContext->GetDefaultTextColour());
+  mComponent->Render();
 }
 
-
-void	CUIComponentScreen::Update( float elapsed_time, const v2 & stick, u32 old_buttons, u32 new_buttons )
-{
-	mComponent->Update( elapsed_time, stick, old_buttons, new_buttons );
-}
-
-
-void	CUIComponentScreen::Render()
-{
-	mpContext->ClearBackground();
-	mpContext->DrawTextAlign( 0, mpContext->GetScreenWidth(), AT_CENTRE, TITLE_HEADER, mTitle.c_str(), mpContext->GetDefaultTextColour() );
-	mComponent->Render();
-}
-
-bool	CUIComponentScreen::IsFinished() const
-{
-	return mComponent->IsFinished();
-}
+bool CUIComponentScreen::IsFinished() const { return mComponent->IsFinished(); }

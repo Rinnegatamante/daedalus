@@ -18,71 +18,71 @@
 
 */
 
-
 #ifndef SYSW32_INTERFACE_SETTINGSPAGE_H_
 #define SYSW32_INTERFACE_SETTINGSPAGE_H_
 
 #include "Config/ConfigOptions.h"
 #include "SysW32/Interface/CheckBox.h"
 
-class CSettingsPage : public CPageDialog, public CDialogImpl< CSettingsPage >
-{
-	protected:
-		friend class CConfigDialog;			// Only CConfigDialog can create!
+class CSettingsPage : public CPageDialog, public CDialogImpl<CSettingsPage> {
+protected:
+  friend class CConfigDialog; // Only CConfigDialog can create!
 
-		CSettingsPage( ) {}
+  CSettingsPage() {}
 
-	public:
-		virtual ~CSettingsPage() {}
+public:
+  virtual ~CSettingsPage() {}
 
+  BEGIN_MSG_MAP(CSettingsPage)
+  MESSAGE_HANDLER(WM_INITDIALOG, OnInitDialog)
+  MESSAGE_HANDLER(WM_DESTROY, OnDestroy)
+  END_MSG_MAP()
 
-		BEGIN_MSG_MAP( CSettingsPage )
-			MESSAGE_HANDLER( WM_INITDIALOG, OnInitDialog )
-			MESSAGE_HANDLER( WM_DESTROY, OnDestroy )
-		END_MSG_MAP()
+  enum { IDD = IDD_PAGE_SETTINGS };
 
-		enum { IDD = IDD_PAGE_SETTINGS };
+  void CreatePage(HWND hWndParent, RECT &rect) {
+    Create(hWndParent /*, rect*/);
+    SetWindowPos(NULL, rect.left, rect.top, 0, 0,
+                 SWP_NOSIZE | SWP_NOZORDER | SWP_SHOWWINDOW);
+    // ShowWindow( SW_SHOWNORMAL );
+    UpdateWindow();
+    InvalidateRect(NULL, TRUE);
+  }
 
-		void CreatePage( HWND hWndParent, RECT & rect )
-		{
-			Create( hWndParent/*, rect*/ );
-			SetWindowPos( NULL, rect.left, rect.top, 0, 0, SWP_NOSIZE|SWP_NOZORDER|SWP_SHOWWINDOW);
-			//ShowWindow( SW_SHOWNORMAL );
-			UpdateWindow(  );
-			InvalidateRect( NULL, TRUE );
-		}
+  void DestroyPage() {
+    if (IsWindow()) {
+      // Ok this window before destroying?
+      SendMessage(WM_COMMAND, MAKELONG(IDOK, 0), 0);
+      DestroyWindow();
+    }
+    delete this;
+  }
 
-		void DestroyPage()
-		{
-			if ( IsWindow() )
-			{
-				// Ok this window before destroying?
-				SendMessage( WM_COMMAND, MAKELONG(IDOK,0), 0);
-				DestroyWindow();
-			}
-			delete this;
-		}
+  CConfigDialog::PageType GetPageType() const {
+    return CConfigDialog::PAGE_SETTINGS;
+  }
 
+  LRESULT OnInitDialog(UINT uMsg, WPARAM wParam, LPARAM lParam,
+                       BOOL &bHandled) {
+    CheckBox_SetCheck(GetDlgItem(IDC_RUN_ROMS_AUTO_CHECK),
+                      g_CurrentConfig.RunAutomatically ? BST_CHECKED
+                                                       : BST_UNCHECKED);
+    CheckBox_SetCheck(GetDlgItem(IDC_RECURSIVE_SCAN_CHECK),
+                      g_CurrentConfig.RecurseRomDirectory ? BST_CHECKED
+                                                          : BST_UNCHECKED);
 
-		CConfigDialog::PageType GetPageType() const { return CConfigDialog::PAGE_SETTINGS; }
+    return TRUE;
+  }
 
-		LRESULT OnInitDialog(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
-		{
-			CheckBox_SetCheck( GetDlgItem( IDC_RUN_ROMS_AUTO_CHECK ),  g_CurrentConfig.RunAutomatically   ? BST_CHECKED : BST_UNCHECKED );
-			CheckBox_SetCheck( GetDlgItem( IDC_RECURSIVE_SCAN_CHECK ), g_CurrentConfig.RecurseRomDirectory ? BST_CHECKED : BST_UNCHECKED );
+  LRESULT OnDestroy(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHandled) {
+    // Set parameters (or set on change??)
+    g_CurrentConfig.RunAutomatically =
+        CheckBox_GetCheck(GetDlgItem(IDC_RUN_ROMS_AUTO_CHECK)) == BST_CHECKED;
+    g_CurrentConfig.RecurseRomDirectory =
+        CheckBox_GetCheck(GetDlgItem(IDC_RECURSIVE_SCAN_CHECK)) == BST_CHECKED;
 
-			return TRUE;
-		}
-
-		LRESULT OnDestroy(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
-		{
-			// Set parameters (or set on change??)
-			g_CurrentConfig.RunAutomatically = CheckBox_GetCheck( GetDlgItem( IDC_RUN_ROMS_AUTO_CHECK ) ) == BST_CHECKED;
-			g_CurrentConfig.RecurseRomDirectory = CheckBox_GetCheck( GetDlgItem( IDC_RECURSIVE_SCAN_CHECK ) ) == BST_CHECKED;
-
-			return TRUE;
-		}
-
+    return TRUE;
+  }
 };
 
 #endif // SYSW32_INTERFACE_SETTINGSPAGE_H_

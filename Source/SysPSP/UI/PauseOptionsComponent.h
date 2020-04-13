@@ -17,7 +17,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 */
 
-
 #ifndef SYSPSP_UI_PAUSEOPTIONSCOMPONENT_H_
 #define SYSPSP_UI_PAUSEOPTIONSCOMPONENT_H_
 
@@ -25,13 +24,13 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 class CFunctor;
 
-class CPauseOptionsComponent : public CUIComponent
-{
-	public:
-		CPauseOptionsComponent( CUIContext * p_context );
-		~CPauseOptionsComponent() override;
+class CPauseOptionsComponent : public CUIComponent {
+public:
+  CPauseOptionsComponent(CUIContext *p_context);
+  ~CPauseOptionsComponent() override;
 
-		static CPauseOptionsComponent *	Create( CUIContext * p_context, CFunctor * on_resume, CFunctor * on_reset );
+  static CPauseOptionsComponent *
+  Create(CUIContext *p_context, CFunctor *on_resume, CFunctor *on_reset);
 };
 
 #endif // SYSPSP_UI_PAUSEOPTIONSCOMPONENT_H_

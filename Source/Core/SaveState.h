@@ -25,9 +25,9 @@
 
 class RomID;
 
-bool SaveState_LoadFromFile( const char * filename );
-bool SaveState_SaveToFile( const char * filename );
-RomID SaveState_GetRomID( const char * filename );
-const char* SaveState_GetRom(const char * filename);
+bool SaveState_LoadFromFile(const char *filename);
+bool SaveState_SaveToFile(const char *filename);
+RomID SaveState_GetRomID(const char *filename);
+const char *SaveState_GetRom(const char *filename);
 
 #endif // CORE_SAVESTATE_H_

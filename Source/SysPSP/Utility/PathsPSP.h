@@ -23,12 +23,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #define SYSPSP_UTILITY_PATHSPSP_H_
 
 #ifdef DAEDALUS_SILENT
-#define DAEDALUS_PSP_PATH(p)				p
+#define DAEDALUS_PSP_PATH(p) p
 #else
 #ifdef DAEDALUS_PSP_ALT
-#define DAEDALUS_PSP_PATH(p)				"host0:/" p
+#define DAEDALUS_PSP_PATH(p) "host0:/" p
 #else
-#define DAEDALUS_PSP_PATH(p)				p
+#define DAEDALUS_PSP_PATH(p) p
 #endif
 #endif
 

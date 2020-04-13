@@ -25,19 +25,19 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 class CFragment;
 
 #ifdef DAEDALUS_ENABLE_DYNAREC_PROFILE
-namespace DynarecProfile
-{
-	void LogLookup( u32 address, CFragment * fragment );
-	void LogEnterExit( u32 enter_address, u32 exit_address, u32 instruction_count );
-}
+namespace DynarecProfile {
+void LogLookup(u32 address, CFragment *fragment);
+void LogEnterExit(u32 enter_address, u32 exit_address, u32 instruction_count);
+} // namespace DynarecProfile
 
-#define DYNAREC_PROFILE_LOGLOOKUP( a, f )					DynarecProfile::LogLookup( a, f )
-#define DYNAREC_PROFILE_ENTEREXIT( enter, exit, cnt )		DynarecProfile::LogEnterExit( enter, exit, cnt )
+#define DYNAREC_PROFILE_LOGLOOKUP(a, f) DynarecProfile::LogLookup(a, f)
+#define DYNAREC_PROFILE_ENTEREXIT(enter, exit, cnt)                            \
+  DynarecProfile::LogEnterExit(enter, exit, cnt)
 
 #else
 
-#define DYNAREC_PROFILE_LOGLOOKUP( a, f )
-#define DYNAREC_PROFILE_ENTEREXIT( enter, exit, cnt )
+#define DYNAREC_PROFILE_LOGLOOKUP(a, f)
+#define DYNAREC_PROFILE_ENTEREXIT(enter, exit, cnt)
 
 #endif
 

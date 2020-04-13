@@ -20,36 +20,36 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef SYSW32_INTERFACE_FILENAMEHANDLER_H_
 #define SYSW32_INTERFACE_FILENAMEHANDLER_H_
 
-#include <commdlg.h>
 #include "Utility/IO.h"
+#include <commdlg.h>
 
 class FileNameHandler {
 public:
-	// MODIFIED BY Lkb - 21/jul/2001 - savestate support
-	FileNameHandler( LPCTSTR szSectionName,
-					 LPCTSTR szFilter, int nFilterIndex, LPCTSTR szDefExt, LPCTSTR pszDefaultDir = NULL );
-	~FileNameHandler();
+  // MODIFIED BY Lkb - 21/jul/2001 - savestate support
+  FileNameHandler(LPCTSTR szSectionName, LPCTSTR szFilter, int nFilterIndex,
+                  LPCTSTR szDefExt, LPCTSTR pszDefaultDir = NULL);
+  ~FileNameHandler();
 
-	void GetDefaultDirectory( LPTSTR );
-	void SetDefaultDirectory( LPCTSTR szDir );
+  void GetDefaultDirectory(LPTSTR);
+  void SetDefaultDirectory(LPCTSTR szDir);
 
-	void GetModuleDirectory( LPTSTR szOutBuffer );
-	void GetCurrentDirectory( LPTSTR szOutBuffer );
+  void GetModuleDirectory(LPTSTR szOutBuffer);
+  void GetCurrentDirectory(LPTSTR szOutBuffer);
 
-	void GetCurrentFileName( LPTSTR szOutBuffer );
-	void SetFileName( LPCTSTR szNewName );
-	BOOL GetOpenName( HWND, LPTSTR );
-	BOOL GetSaveName( HWND hwnd, LPTSTR );
+  void GetCurrentFileName(LPTSTR szOutBuffer);
+  void SetFileName(LPCTSTR szNewName);
+  BOOL GetOpenName(HWND, LPTSTR);
+  BOOL GetSaveName(HWND hwnd, LPTSTR);
+
 private:
-	OPENFILENAME		m_OFN;
+  OPENFILENAME m_OFN;
 
-	char				m_szSectionName[128];
+  char m_szSectionName[128];
 
-	char				m_szFile[300];
-	char				m_szFileTitle[300];
+  char m_szFile[300];
+  char m_szFileTitle[300];
 
-	IO::Filename		m_szCurrentDirectory;
+  IO::Filename m_szCurrentDirectory;
 };
 
 #endif // SYSW32_INTERFACE_FILENAMEHANDLER_H_
-

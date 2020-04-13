@@ -17,7 +17,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 */
 
-
 #ifndef SYSPSP_UI_SELECTEDROMCOMPONENT_H_
 #define SYSPSP_UI_SELECTEDROMCOMPONENT_H_
 
@@ -26,15 +25,15 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 class RomID;
 
-class CSelectedRomComponent : public CUIComponent
-{
-	public:
-		CSelectedRomComponent( CUIContext * p_context );
-		~CSelectedRomComponent() override;
+class CSelectedRomComponent : public CUIComponent {
+public:
+  CSelectedRomComponent(CUIContext *p_context);
+  ~CSelectedRomComponent() override;
 
-		static CSelectedRomComponent *	Create( CUIContext * p_context, CFunctor * on_start_emulation );
+  static CSelectedRomComponent *Create(CUIContext *p_context,
+                                       CFunctor *on_start_emulation);
 
-		virtual void					SetRomID( const RomID & rom_id ) = 0;
+  virtual void SetRomID(const RomID &rom_id) = 0;
 };
 
 #endif // SYSPSP_UI_SELECTEDROMCOMPONENT_H_

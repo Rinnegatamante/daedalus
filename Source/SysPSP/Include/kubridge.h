@@ -2,9 +2,9 @@
 
 #define __KULIBRARY__
 
+#include <pspctrl.h>
 #include <pspsdk.h>
 #include <pspsysmem_kernel.h>
-#include <pspctrl.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -13,45 +13,49 @@ extern "C" {
 /**
  * Functions to let user mode access certain functions only available in
  * kernel mode
-*/
-
-/**
-  * Load a module using ModuleMgrForKernel.
-  *
-  * @param path - The path to the module to load.
-  * @param flags - Unused, always 0 .
-  * @param option  - Pointer to a mod_param_t structure. Can be NULL.
-  *
-  * @returns The UID of the loaded module on success, otherwise one of ::PspKernelErrorCodes.
  */
-SceUID kuKernelLoadModule(const char *path, int flags, SceKernelLMOption *option);
-
 
 /**
-  * Load a module with a specific apitype
-  *
-  * @param apìtype - The apitype
-  * @param path - The path to the module to load.
-  * @param flags - Unused, always 0 .
-  * @param option  - Pointer to a mod_param_t structure. Can be NULL.
-  *
-  * @returns The UID of the loaded module on success, otherwise one of ::PspKernelErrorCodes.
-  */
-SceUID kuKernelLoadModuleWithApitype2(int apitype, const char *path, int flags, SceKernelLMOption *option);
+ * Load a module using ModuleMgrForKernel.
+ *
+ * @param path - The path to the module to load.
+ * @param flags - Unused, always 0 .
+ * @param option  - Pointer to a mod_param_t structure. Can be NULL.
+ *
+ * @returns The UID of the loaded module on success, otherwise one of
+ * ::PspKernelErrorCodes.
+ */
+SceUID kuKernelLoadModule(const char *path, int flags,
+                          SceKernelLMOption *option);
+
+/**
+ * Load a module with a specific apitype
+ *
+ * @param apìtype - The apitype
+ * @param path - The path to the module to load.
+ * @param flags - Unused, always 0 .
+ * @param option  - Pointer to a mod_param_t structure. Can be NULL.
+ *
+ * @returns The UID of the loaded module on success, otherwise one of
+ * ::PspKernelErrorCodes.
+ */
+SceUID kuKernelLoadModuleWithApitype2(int apitype, const char *path, int flags,
+                                      SceKernelLMOption *option);
 
 /**
  * Gets the api type
  *
  * @returns the api type in which the system has booted
-*/
+ */
 int kuKernelInitApitype();
 
 /**
- * Gets the filename of the executable to be launched after all modules of the api.
+ * Gets the filename of the executable to be launched after all modules of the
+ * api.
  *
  * @param initfilename - String where copy the initfilename
  * @returns 0 on success
-*/
+ */
 int kuKernelInitFileName(char *initfilename);
 
 /**
@@ -59,14 +63,14 @@ int kuKernelInitFileName(char *initfilename);
  * Gets the device in which the application was launched.
  *
  * @returns the device code, one of PSPBootFrom values.
-*/
+ */
 int kuKernelBootFrom();
 
 /**
  * Get the key configuration in which the system has booted.
  *
  * @returns the key configuration code, one of PSPKeyConfig values
-*/
+ */
 int kuKernelInitKeyConfig();
 
 /**
@@ -93,7 +97,7 @@ int kuKernelSetDdrMemoryProtection(void *addr, int size, int prot);
  * In previous version, use the kernel function sceKernelGetModel
  *
  * @return one of PspModel values
-*/
+ */
 int kuKernelGetModel(void);
 
 #ifdef __cplusplus

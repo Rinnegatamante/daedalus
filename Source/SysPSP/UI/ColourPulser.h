@@ -17,28 +17,26 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 */
 
-
 #ifndef SYSPSP_UI_COLOURPULSER_H_
 #define SYSPSP_UI_COLOURPULSER_H_
 
 #include "Graphics/ColourValue.h"
 
-class CColourPulser
-{
-	public:
-		CColourPulser( c32 dim_colour, c32 bright_colour, u32 cycle_period );
-		~CColourPulser();
+class CColourPulser {
+public:
+  CColourPulser(c32 dim_colour, c32 bright_colour, u32 cycle_period);
+  ~CColourPulser();
 
-		void				Update( u32 elapsed_ms );
-		c32					GetCurrentColour() const									{ return mCurrentColour; }
+  void Update(u32 elapsed_ms);
+  c32 GetCurrentColour() const { return mCurrentColour; }
 
-	private:
-		u32					mTimeCounter;
-		u32					mCyclePeriod;
-		c32					mDimColour;
-		c32					mBrightColour;
+private:
+  u32 mTimeCounter;
+  u32 mCyclePeriod;
+  c32 mDimColour;
+  c32 mBrightColour;
 
-		c32					mCurrentColour;
+  c32 mCurrentColour;
 };
 
 #endif // SYSPSP_UI_COLOURPULSER_H_

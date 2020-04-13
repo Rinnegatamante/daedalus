@@ -20,24 +20,22 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef CORE_R4300_H_
 #define CORE_R4300_H_
 
-#include "R4300OpCode.h"
 #include "R4300Instruction.h"
+#include "R4300OpCode.h"
 
-void R4300_CALL_TYPE R4300_SetSR( u32 new_value );
+void R4300_CALL_TYPE R4300_SetSR(u32 new_value);
 
 extern CPU_Instruction R4300Instruction[64];
 extern CPU_Instruction R4300Cop1DInstruction[64];
 
-inline CPU_Instruction	R4300_GetDInstructionHandler( OpCode op_code )
-{
-	return R4300Cop1DInstruction[ op_code.cop1_funct ];
+inline CPU_Instruction R4300_GetDInstructionHandler(OpCode op_code) {
+  return R4300Cop1DInstruction[op_code.cop1_funct];
 }
 
-CPU_Instruction	R4300_GetInstructionHandler( OpCode op_code );
-bool			R4300_InstructionHandlerNeedsPC( OpCode op_code );
-inline void			R4300_ExecuteInstruction( OpCode op_code )
-{
-	R4300Instruction[ op_code.op ]( op_code._u32 );
+CPU_Instruction R4300_GetInstructionHandler(OpCode op_code);
+bool R4300_InstructionHandlerNeedsPC(OpCode op_code);
+inline void R4300_ExecuteInstruction(OpCode op_code) {
+  R4300Instruction[op_code.op](op_code._u32);
 }
 
 #endif // CORE_R4300_H_

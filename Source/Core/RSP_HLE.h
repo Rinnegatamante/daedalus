@@ -25,13 +25,14 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "Memory.h"
 
 // Returns true if the rsp is running either LLE or HLE
-inline bool RSP_IsRunning(){ return (Memory_SP_GetRegister( SP_STATUS_REG ) & SP_STATUS_HALT) == 0; }
+inline bool RSP_IsRunning() {
+  return (Memory_SP_GetRegister(SP_STATUS_REG) & SP_STATUS_HALT) == 0;
+}
 
-enum EProcessResult
-{
-	PR_NOT_STARTED,	// Couldn't start
-	PR_STARTED,		// Was started asynchronously, active
-	PR_COMPLETED,	// Was processed synchronously, completed
+enum EProcessResult {
+  PR_NOT_STARTED, // Couldn't start
+  PR_STARTED,     // Was started asynchronously, active
+  PR_COMPLETED,   // Was processed synchronously, completed
 };
 
 void RSP_HLE_ProcessTask();

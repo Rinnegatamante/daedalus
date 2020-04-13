@@ -17,32 +17,27 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 */
 
-
 #ifndef SYSPSP_UI_UISPACER_H_
 #define SYSPSP_UI_UISPACER_H_
 
 #include "UIElement.h"
 
-
-class CUISpacer : public CUIElement
-{
+class CUISpacer : public CUIElement {
 public:
-	CUISpacer( u32 height )
-		:	mHeight( height )
-	{}
+  CUISpacer(u32 height) : mHeight(height) {}
 
-	~CUISpacer() override = default;
+  ~CUISpacer() override = default;
 
-	bool			IsSelectable() const override						{ return false; }
+  bool IsSelectable() const override { return false; }
 
-	u32				GetHeight( CUIContext * context ) const override		{ return mHeight; }
-	void			Draw( CUIContext * context, s32 min_x, s32 max_x, EAlignType halign, s32 y, bool selected ) const override {}
+  u32 GetHeight(CUIContext *context) const override { return mHeight; }
+  void Draw(CUIContext *context, s32 min_x, s32 max_x, EAlignType halign, s32 y,
+            bool selected) const override {}
 
-	const char *	GetDescription() const override	{ return ""; }
+  const char *GetDescription() const override { return ""; }
 
 private:
-	u32						mHeight;
+  u32 mHeight;
 };
-
 
 #endif // SYSPSP_UI_UISPACER_H_

@@ -28,48 +28,46 @@
 //*****************************************************************************
 //
 //*****************************************************************************
-class CIniFileProperty
-{
-	public:
-		virtual								~CIniFileProperty();
+class CIniFileProperty {
+public:
+  virtual ~CIniFileProperty();
 
-		virtual const char *				GetName() const = 0;
-		virtual const char *				GetValue() const = 0;
+  virtual const char *GetName() const = 0;
+  virtual const char *GetValue() const = 0;
 
-		virtual bool						GetBooleanValue( bool default_value ) const = 0;
-		virtual int							GetIntValue( int default_value ) const = 0;
-		virtual float						GetFloatValue( float default_value ) const = 0;
+  virtual bool GetBooleanValue(bool default_value) const = 0;
+  virtual int GetIntValue(int default_value) const = 0;
+  virtual float GetFloatValue(float default_value) const = 0;
 };
 
 //*****************************************************************************
 //
 //*****************************************************************************
-class CIniFileSection
-{
-	public:
-		virtual								~CIniFileSection();
+class CIniFileSection {
+public:
+  virtual ~CIniFileSection();
 
-		virtual const char *				GetName() const = 0;
-		virtual bool						FindProperty( const char * p_name, const CIniFileProperty ** p_property ) const = 0;
-
+  virtual const char *GetName() const = 0;
+  virtual bool FindProperty(const char *p_name,
+                            const CIniFileProperty **p_property) const = 0;
 };
 
 //*****************************************************************************
 //
 //*****************************************************************************
-class CIniFile
-{
-	public:
-		virtual								~CIniFile();
+class CIniFile {
+public:
+  virtual ~CIniFile();
 
-		static CIniFile *					Create( const char * filename );
+  static CIniFile *Create(const char *filename);
 
-		virtual const CIniFileSection *		GetDefaultSection() const = 0;
+  virtual const CIniFileSection *GetDefaultSection() const = 0;
 
-		virtual u32							GetNumSections() const = 0;
-		virtual const CIniFileSection *		GetSection( u32 section_idx ) const = 0;
+  virtual u32 GetNumSections() const = 0;
+  virtual const CIniFileSection *GetSection(u32 section_idx) const = 0;
 
-		virtual const CIniFileSection *		GetSectionByName( const char * section_name ) const = 0;
+  virtual const CIniFileSection *
+  GetSectionByName(const char *section_name) const = 0;
 };
 
 #endif // UTILITY_INIFILE_H_

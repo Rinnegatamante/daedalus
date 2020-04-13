@@ -17,7 +17,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 */
 
-
 #ifndef HLEGRAPHICS_CACHEDTEXTURE_H_
 #define HLEGRAPHICS_CACHEDTEXTURE_H_
 
@@ -28,40 +27,38 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 extern u32 gRDPFrame;
 
-class CachedTexture
-{
-	protected:
-		explicit CachedTexture( const TextureInfo & ti );
-		~CachedTexture();
+class CachedTexture {
+protected:
+  explicit CachedTexture(const TextureInfo &ti);
+  ~CachedTexture();
 
-	public:
-		static CachedTexture *			Create( const TextureInfo & ti );
+public:
+  static CachedTexture *Create(const TextureInfo &ti);
 
-		inline const CRefPtr<CNativeTexture> &	GetTexture() const			{ return mpTexture; }
-		inline const TextureInfo &		GetTextureInfo() const				{ return mTextureInfo; }
+  inline const CRefPtr<CNativeTexture> &GetTexture() const { return mpTexture; }
+  inline const TextureInfo &GetTextureInfo() const { return mTextureInfo; }
 
 #ifdef DAEDALUS_DEBUG_DISPLAYLIST
-		static void						DumpTexture( const TextureInfo & ti, const CNativeTexture * texture );
+  static void DumpTexture(const TextureInfo &ti, const CNativeTexture *texture);
 #endif
-		bool							HasExpired() const;
+  bool HasExpired() const;
 
-	private:
-		friend class CTextureCache;
-		void							UpdateIfNecessary();
+private:
+  friend class CTextureCache;
+  void UpdateIfNecessary();
 
-		bool							Initialise();
-		bool							IsFresh() const;
-		bool							UpdateTextureHash();
+  bool Initialise();
+  bool IsFresh() const;
+  bool UpdateTextureHash();
 
-	private:
-		const TextureInfo				mTextureInfo;
+private:
+  const TextureInfo mTextureInfo;
 
-		CRefPtr<CNativeTexture>			mpTexture;
+  CRefPtr<CNativeTexture> mpTexture;
 
-		u32								mTextureContentsHash;
-		u32								mFrameLastUpToDate;	// Frame # that this was last updated
-		u32								mFrameLastUsed;		// Frame # that this was last used
+  u32 mTextureContentsHash;
+  u32 mFrameLastUpToDate; // Frame # that this was last updated
+  u32 mFrameLastUsed;     // Frame # that this was last used
 };
-
 
 #endif // HLEGRAPHICS_CACHEDTEXTURE_H_

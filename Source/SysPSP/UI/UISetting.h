@@ -17,63 +17,59 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 */
 
-
 #ifndef SYSPSP_UI_UISETTING_H_
 #define SYSPSP_UI_UISETTING_H_
 
 #include "UIElement.h"
 
-
-class CUISetting : public CUIElement
-{
+class CUISetting : public CUIElement {
 public:
-	CUISetting( const char * name, const char * description );
-	~CUISetting() override = default;
+  CUISetting(const char *name, const char *description);
+  ~CUISetting() override = default;
 
-	virtual const char *	GetSettingName() const = 0;
+  virtual const char *GetSettingName() const = 0;
 
-		void			OnSelected() override			{ OnNext(); }
+  void OnSelected() override { OnNext(); }
 
-	virtual const char *	GetName() const			{ return mName; }
-	const char *	GetDescription() const override	{ return mDescription; }
+  virtual const char *GetName() const { return mName; }
+  const char *GetDescription() const override { return mDescription; }
 
-	virtual bool			IsReadOnly() const		{ return false; }
-	//virtual bool			IsSelectable() const	{ return !IsReadOnly(); }		// We actually want to be able to read the descriptions of various settings, so don't do this.
+  virtual bool IsReadOnly() const { return false; }
+  // virtual bool			IsSelectable() const	{ return !IsReadOnly(); }
+  // // We actually want to be able to read the descriptions of various settings,
+  // so don't do this.
 
-	u32				GetHeight( CUIContext * context ) const override;
-	void			Draw( CUIContext * context, s32 min_x, s32 max_x, EAlignType halign, s32 y, bool selected ) const override;
+  u32 GetHeight(CUIContext *context) const override;
+  void Draw(CUIContext *context, s32 min_x, s32 max_x, EAlignType halign, s32 y,
+            bool selected) const override;
 
 private:
-	const char *			mName;
-	const char *			mDescription;
+  const char *mName;
+  const char *mDescription;
 };
 
-
-class CBoolSetting : public CUISetting
-{
+class CBoolSetting : public CUISetting {
 public:
+  CBoolSetting(bool *p_bool, const char *name, const char *description,
+               const char *true_text, const char *false_text,
+               bool read_only = false)
+      : CUISetting(name, description), mBool(p_bool), mTrueText(true_text),
+        mFalseText(false_text), mReadOnly(read_only) {}
 
-	CBoolSetting( bool * p_bool, const char * name, const char * description, const char * true_text, const char * false_text, bool read_only = false )
-		:	CUISetting( name, description )
-		,	mBool( p_bool )
-		,	mTrueText( true_text )
-		,	mFalseText( false_text )
-		,	mReadOnly( read_only )
-	{
-	}
+  void OnNext() override { *mBool = !*mBool; }
+  void OnPrevious() override { *mBool = !*mBool; }
 
-		void			OnNext() override				{ *mBool = !*mBool; }
-		void			OnPrevious() override 			{ *mBool = !*mBool; }
+  bool IsReadOnly() const override { return mReadOnly; }
 
-	bool			IsReadOnly() const override		{ return mReadOnly; }
-
-	const char *	GetSettingName() const override	{ return *mBool ? mTrueText : mFalseText; }
+  const char *GetSettingName() const override {
+    return *mBool ? mTrueText : mFalseText;
+  }
 
 private:
-	bool *					mBool;
-	const char *			mTrueText;
-	const char *			mFalseText;
-	bool					mReadOnly;
+  bool *mBool;
+  const char *mTrueText;
+  const char *mFalseText;
+  bool mReadOnly;
 };
 
 #endif // SYSPSP_UI_UISETTING_H_

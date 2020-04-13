@@ -26,58 +26,51 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "Utility/DaedalusTypes.h"
 
-class CCodeLabel
-{
+class CCodeLabel {
 public:
-	CCodeLabel () : mpLocation( nullptr ) {}
-	explicit CCodeLabel( const void * p_location )
-		:	mpLocation( p_location )
-	{
-	}
+  CCodeLabel() : mpLocation(nullptr) {}
+  explicit CCodeLabel(const void *p_location) : mpLocation(p_location) {}
 
-	bool			IsSet() const				{ return mpLocation != nullptr; }
-	const void *	GetTarget() const			{ return mpLocation; }
-	const u8 *		GetTargetU8P() const		{ return reinterpret_cast< const u8 * >( mpLocation ); }
-	u32				GetTargetU32() const		{ return reinterpret_cast< u32 >( mpLocation ); }
-
-
+  bool IsSet() const { return mpLocation != nullptr; }
+  const void *GetTarget() const { return mpLocation; }
+  const u8 *GetTargetU8P() const {
+    return reinterpret_cast<const u8 *>(mpLocation);
+  }
+  u32 GetTargetU32() const { return reinterpret_cast<u32>(mpLocation); }
 
 private:
-	const void *	mpLocation;		// This is the location of an arbitrary block of code
+  const void *mpLocation; // This is the location of an arbitrary block of code
 };
 
-class CJumpLocation
-{
+class CJumpLocation {
 public:
-	CJumpLocation () : mpLocation( nullptr ) {}
+  CJumpLocation() : mpLocation(nullptr) {}
 
-	explicit CJumpLocation( void * p_location )
-		:	mpLocation( p_location )
-	{
-	}
+  explicit CJumpLocation(void *p_location) : mpLocation(p_location) {}
 
-	bool			IsSet() const				{ return mpLocation != nullptr; }
-	s32				GetOffset( const CCodeLabel & label ) const	{ return label.GetTargetU8P() - GetTargetU8P();	}
+  bool IsSet() const { return mpLocation != nullptr; }
+  s32 GetOffset(const CCodeLabel &label) const {
+    return label.GetTargetU8P() - GetTargetU8P();
+  }
 
-	const u8 *		GetTargetU8P() const		{ return reinterpret_cast< const u8 * >( mpLocation ); }
-	u8 *			GetWritableU8P() const
-	{
-		//Todo: PSP
-		return reinterpret_cast< u8 * >( MAKE_UNCACHED_PTR(mpLocation) );
-		//Todo: Check this
-		//return reinterpret_cast< u8 * >( mpLocation );
-	}
+  const u8 *GetTargetU8P() const {
+    return reinterpret_cast<const u8 *>(mpLocation);
+  }
+  u8 *GetWritableU8P() const {
+    // Todo: PSP
+    return reinterpret_cast<u8 *>(MAKE_UNCACHED_PTR(mpLocation));
+    // Todo: Check this
+    // return reinterpret_cast< u8 * >( mpLocation );
+  }
 
 private:
-	void *			mpLocation;		// This is the location of a jump instruction
+  void *mpLocation; // This is the location of a jump instruction
 };
 
-
-namespace AssemblyUtils
-{
-	bool		PatchJumpLong( CJumpLocation jump, CCodeLabel target );
-	bool		PatchJumpLongAndFlush( CJumpLocation jump, CCodeLabel target );
-	void		ReplaceBranchWithJump( CJumpLocation branch, CCodeLabel target );
-}
+namespace AssemblyUtils {
+bool PatchJumpLong(CJumpLocation jump, CCodeLabel target);
+bool PatchJumpLongAndFlush(CJumpLocation jump, CCodeLabel target);
+void ReplaceBranchWithJump(CJumpLocation branch, CCodeLabel target);
+} // namespace AssemblyUtils
 
 #endif // DYNAREC_ASSEMBLYUTILS_H_

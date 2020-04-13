@@ -27,44 +27,54 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "Graphics/ColourValue.h"
 #include "SysPSP/UI/UIAlignment.h"
 
-class CDrawText
-{
-	public:
-		static void		Initialise();
+class CDrawText {
+public:
+  static void Initialise();
 
-		enum EFont
-		{
-			F_REGULAR = 0,
-			F_LARGE_BOLD,
-		};
-		static const u32 NUM_FONTS = F_LARGE_BOLD+1;
+  enum EFont {
+    F_REGULAR = 0,
+    F_LARGE_BOLD,
+  };
+  static const u32 NUM_FONTS = F_LARGE_BOLD + 1;
 
-		static u32		Render( EFont font, s32 x, s32 y, float scale, const char * p_str, u32 length, c32 colour );
-		static u32		Render( EFont font, s32 x, s32 y, float scale, const char * p_str, u32 length, c32 colour, c32 drop_colour );
-		static s32		GetTextWidth( EFont font, const char * p_str, u32 length );
-		static const char *	Translate( const char * dest, u32 & length );
+  static u32 Render(EFont font, s32 x, s32 y, float scale, const char *p_str,
+                    u32 length, c32 colour);
+  static u32 Render(EFont font, s32 x, s32 y, float scale, const char *p_str,
+                    u32 length, c32 colour, c32 drop_colour);
+  static s32 GetTextWidth(EFont font, const char *p_str, u32 length);
+  static const char *Translate(const char *dest, u32 &length);
 
-		// Versions of above functions which implicitly calc string length
-		static u32		Render( EFont font, s32 x, s32 y, float scale, const char * p_str, c32 colour )						{ return Render( font, x, y, scale, p_str, strlen( p_str ), colour ); }
-		static u32		Render( EFont font, s32 x, s32 y, float scale, const char * p_str, c32 colour, c32 drop_colour )	{ return Render( font, x, y, scale, p_str, strlen( p_str ), colour, drop_colour ); }
-		static s32		GetTextWidth( EFont font, const char * p_str )										{ return GetTextWidth( font, p_str, strlen( p_str ) ); }
+  // Versions of above functions which implicitly calc string length
+  static u32 Render(EFont font, s32 x, s32 y, float scale, const char *p_str,
+                    c32 colour) {
+    return Render(font, x, y, scale, p_str, strlen(p_str), colour);
+  }
+  static u32 Render(EFont font, s32 x, s32 y, float scale, const char *p_str,
+                    c32 colour, c32 drop_colour) {
+    return Render(font, x, y, scale, p_str, strlen(p_str), colour, drop_colour);
+  }
+  static s32 GetTextWidth(EFont font, const char *p_str) {
+    return GetTextWidth(font, p_str, strlen(p_str));
+  }
 
-		static s32		GetFontHeight( EFont font );
+  static s32 GetFontHeight(EFont font);
 
-		static void		Destroy();
+  static void Destroy();
 };
 
-namespace DrawTextUtilities
-{
-	extern const c32	TextWhite;
-	extern const c32	TextWhiteDisabled;
-	extern const c32	TextBlue;
-	extern const c32	TextBlueDisabled;
-	extern const c32	TextRed;
-	extern const c32	TextRedDisabled;
+namespace DrawTextUtilities {
+extern const c32 TextWhite;
+extern const c32 TextWhiteDisabled;
+extern const c32 TextBlue;
+extern const c32 TextBlueDisabled;
+extern const c32 TextRed;
+extern const c32 TextRedDisabled;
 
-	void			WrapText( CDrawText::EFont font, s32 width, const char * p_str, u32 length, std::vector<u32> & lengths, bool & match );
-	//inline void		WrapText( CDrawText::EFont font, s32 width, const char * p_str, std::vector<u32> & lengths )			{ WrapText( font, width, p_str, strlen( p_str ), lengths ); }
-}
+void WrapText(CDrawText::EFont font, s32 width, const char *p_str, u32 length,
+              std::vector<u32> &lengths, bool &match);
+// inline void		WrapText( CDrawText::EFont font, s32 width, const char *
+// p_str, std::vector<u32> & lengths )			{ WrapText( font, width,
+// p_str, strlen( p_str ), lengths ); }
+} // namespace DrawTextUtilities
 
 #endif // SYSPSP_GRAPHICS_DRAWTEXT_H_

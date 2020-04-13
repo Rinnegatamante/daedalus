@@ -5,8 +5,8 @@
  * Copyright (C) 2007 Phoenix Game Engine
  * Copyright (C) 2007 David Perry <tias_dp@hotmail.com>
  *
- * This work is licensed under the Creative Commons Attribution-Share Alike 3.0 License.
- * See LICENSE for more details.
+ * This work is licensed under the Creative Commons Attribution-Share Alike 3.0
+ * License. See LICENSE for more details.
  *
  */
 
@@ -26,35 +26,29 @@ extern "C" {
  *
  * @note This is used internally by ::pgeFont and has no other relevance.
  */
-typedef struct Glyph
-{
-	unsigned short x;
-	unsigned short y;
-	unsigned char width;
-	unsigned char height;
-	char left;
-	char top;
-	char advance;
-	unsigned char unused;
+typedef struct Glyph {
+  unsigned short x;
+  unsigned short y;
+  unsigned char width;
+  unsigned char height;
+  char left;
+  char top;
+  char advance;
+  unsigned char unused;
 } Glyph;
 
 /**
  * A Font struct
  */
-typedef struct
-{
-	unsigned int texSize; /**<  Texture size (power2) */
-	unsigned int texHeight; /**<  Texture height (power2) */
-	unsigned char *texture; /**<  The bitmap data */
-	unsigned char map[256]; /**<  Character map */
-	Glyph glyph[256]; /**<  Character glyphs */
+typedef struct {
+  unsigned int texSize;   /**<  Texture size (power2) */
+  unsigned int texHeight; /**<  Texture height (power2) */
+  unsigned char *texture; /**<  The bitmap data */
+  unsigned char map[256]; /**<  Character map */
+  Glyph glyph[256];       /**<  Character glyphs */
 } pgeFont;
 
-enum pgeFontSizeType
-{
-	PGE_FONT_SIZE_PIXELS = 0,
-	PGE_FONT_SIZE_POINTS
-};
+enum pgeFontSizeType { PGE_FONT_SIZE_PIXELS = 0, PGE_FONT_SIZE_POINTS };
 
 /**
  * Initialise the Font library
@@ -79,7 +73,9 @@ void pgeFontShutdown(void);
  *
  * @returns A ::pgeFont struct
  */
-pgeFont* pgeFontLoad(const char *filename, unsigned int fontSize, enum pgeFontSizeType fontSizeType, unsigned int textureSize);
+pgeFont *pgeFontLoad(const char *filename, unsigned int fontSize,
+                     enum pgeFontSizeType fontSizeType,
+                     unsigned int textureSize);
 
 /**
  * Free the specified font.
@@ -110,7 +106,8 @@ void pgeFontActivate(pgeFont *font);
  *
  * @returns The total width of the text drawn.
  */
-int pgeFontPrint(pgeFont *font, float x, float y, unsigned int color, const char *text);
+int pgeFontPrint(pgeFont *font, float x, float y, unsigned int color,
+                 const char *text);
 
 /**
  * Draw text along the baseline starting at x, y (with formatting).
@@ -127,7 +124,8 @@ int pgeFontPrint(pgeFont *font, float x, float y, unsigned int color, const char
  *
  * @returns The total width of the text drawn.
  */
-int pgeFontPrintf(pgeFont *font, float x, float y, unsigned int color, const char *text, ...);
+int pgeFontPrintf(pgeFont *font, float x, float y, unsigned int color,
+                  const char *text, ...);
 
 /**
  * Measure a length of text if it were to be drawn

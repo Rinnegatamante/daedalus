@@ -25,21 +25,20 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "Utility/Singleton.h"
 
 // XXXX GCC
-//enum	ESaveType;
+// enum	ESaveType;
 //#include "ROM.h"
 
-class CController : public CSingleton< CController >
-{
-	public:
-							~CController() override = default;
+class CController : public CSingleton<CController> {
+public:
+  ~CController() override = default;
 
-		virtual bool			OnRomOpen() = 0;
-		virtual void			OnRomClose() = 0;
+  virtual bool OnRomOpen() = 0;
+  virtual void OnRomClose() = 0;
 
-		virtual void			Process() = 0;
+  virtual void Process() = 0;
 
-		static bool				Reset() { return CController::Get()->OnRomOpen(); }
-		static void				RomClose() { CController::Get()->OnRomClose(); }
+  static bool Reset() { return CController::Get()->OnRomOpen(); }
+  static void RomClose() { CController::Get()->OnRomClose(); }
 };
 
 #endif // CORE_PIF_H_
