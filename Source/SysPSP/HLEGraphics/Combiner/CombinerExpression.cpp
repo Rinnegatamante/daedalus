@@ -149,7 +149,7 @@ CCombinerSum::CCombinerSum( const CCombinerSum & rhs )
 {
 	for(auto mOperand : rhs.mOperands)
 	{
-		mOperands.push_back( Node( mOperand.Operand->Clone(), mOperand.Negate ) );
+		mOperands.emplace_back( mOperand.Operand->Clone(), mOperand.Negate );
 	}
 }
 
@@ -228,7 +228,7 @@ void CCombinerSum::Add( CCombinerOperand * operand )
 	}
 	else
 	{
-		mOperands.push_back( Node( operand, false ) );
+		mOperands.emplace_back( operand, false );
 	}
 }
 
@@ -262,7 +262,7 @@ void CCombinerSum::Sub( CCombinerOperand * operand )
 	}
 	else
 	{
-		mOperands.push_back( Node( operand, true ) );
+		mOperands.emplace_back( operand, true );
 	}
 }
 
@@ -394,7 +394,7 @@ CCombinerProduct::CCombinerProduct( const CCombinerProduct & rhs )
 {
 	for(auto mOperand : rhs.mOperands)
 	{
-		mOperands.push_back( mOperand.Operand->Clone() );
+		mOperands.emplace_back(mOperand.Operand->Clone() );
 	}
 }
 
@@ -453,7 +453,7 @@ void CCombinerProduct::Mul( CCombinerOperand * operand )
 	if( operand->IsInput( CI_0 ) )
 	{
 		Clear();
-		mOperands.push_back( Node( operand ) );
+		mOperands.emplace_back( operand );
 	}
 	else if( operand->IsInput( CI_1 ) )
 	{
@@ -473,7 +473,7 @@ void CCombinerProduct::Mul( CCombinerOperand * operand )
 	}
 	else
 	{
-		mOperands.push_back( Node( operand ) );
+		mOperands.emplace_back( operand );
 	}
 }
 

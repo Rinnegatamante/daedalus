@@ -2065,7 +2065,7 @@ void	CCodeGeneratorPSP::GenerateLoad( u32 current_pc,
 		//
 		//	Keep track of the details we need to generate the jump to the distant handler function
 		//
-		mAddressCheckFixups.push_back( SAddressCheckFixup( branch, handler_label ) );
+		mAddressCheckFixups.emplace_back( branch, handler_label );
 	}
 	else
 	{
@@ -2342,7 +2342,7 @@ void	CCodeGeneratorPSP::GenerateStore( u32 current_pc,
 		//
 		//	Keep track of the details we need to generate the jump to the distant handler function
 		//
-		mAddressCheckFixups.push_back( SAddressCheckFixup( branch, handler_label ) );
+		mAddressCheckFixups.emplace_back( branch, handler_label );
 	}
 	else
 	{

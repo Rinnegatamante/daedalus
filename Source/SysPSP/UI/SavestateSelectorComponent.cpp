@@ -173,7 +173,7 @@ void ISavestateSelectorComponent::LoadFolders(){
 				CFunctor *		curried( new CCurriedFunctor< u32 >( functor_1, i++ ) );
 				element = new CUICommandImpl( curried, str.c_str(), description_text );
 				mElements.Add( element );
-				mElementTitle.push_back(find_data.Name);
+				mElementTitle.emplace_back(find_data.Name);
 			}
 		}
 		while(IO::FindFileNext( find_handle, find_data ));
@@ -193,7 +193,7 @@ void ISavestateSelectorComponent::LoadFolders(){
 				CFunctor *curried( new CCurriedFunctor< u32 >( functor_1, i++ ) );
 				element = new CUICommandImpl( curried, str.c_str(), description_text );
 				mElements.Add( element );
-				mElementTitle.push_back(find_data.Name);
+				mElementTitle.emplace_back(find_data.Name);
 			}
 		}
 		while(IO::FindFileNext( find_handle, find_data ));

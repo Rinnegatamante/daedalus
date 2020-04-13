@@ -131,7 +131,7 @@ bool	Translate_Init()
 void	Translate_Load( const char * p_dir )
 {
 	// Set default language
-	gLanguage.push_back("English");
+	gLanguage.emplace_back("English");
 
 	IO::FindHandleT		find_handle;
 	IO::FindDataT		find_data;
@@ -147,7 +147,7 @@ void	Translate_Load( const char * p_dir )
 				if( strcmp(last_period, ".lng") == 0 )
 				{
 					IO::Path::RemoveExtension( filename );
-					gLanguage.push_back( filename );
+					gLanguage.emplace_back(filename );
 
 				}
 			}
