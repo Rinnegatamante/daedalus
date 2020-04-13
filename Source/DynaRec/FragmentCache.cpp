@@ -408,7 +408,7 @@ void CFragmentCache::DumpStats( const char * outputdir ) const
 //*************************************************************************************
 //
 //*************************************************************************************
-#define AddressToIndex( addr ) ((addr - BASE_ADDRESS) >> MEM_USAGE_SHIFT)
+#define AddressToIndex( addr ) (((addr) - BASE_ADDRESS) >> MEM_USAGE_SHIFT)
 
 //*************************************************************************************
 //

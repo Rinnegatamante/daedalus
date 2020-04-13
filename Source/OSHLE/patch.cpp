@@ -711,7 +711,7 @@ bool Patch_LocateFunction(PatchSymbol * ps)
 }
 
 
-#define JumpTarget(op, addr) (((addr) & 0xF0000000) | ( op.target << 2 ))
+#define JumpTarget(op, addr) (((addr) & 0xF0000000) | ( (op).target << 2 ))
 
 
 // Check that the function i is located at address index

@@ -45,7 +45,7 @@ namespace
 	const char *	gScreenDumpDumpPathFormat = "sd%04d.png";
 }
 
-#define DLISTSIZE 1*1024*1024	//Size of PSP Dlist
+#define DLISTSIZE (1*1024*1024)	//Size of PSP Dlist
 
 static u32 PIXEL_SIZE = 2; /* change this if you change to another screenmode */
 static u32 SCR_MODE	  = GU_PSM_5650;

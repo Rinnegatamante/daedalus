@@ -510,15 +510,15 @@ static void RShiftSubBlock(s16 *dst, const s16 *src, u32 shift)
 #define C3   1.175875602f
 #define C6   0.541196100f
 #define K1   0.765366865f   //  C2-C6
-#define K2  -1.847759065f   // -C2-C6
-#define K3  -0.390180644f   //  C5-C3
-#define K4  -1.961570561f   // -C5-C3
+#define K2  (-1.847759065f)   // -C2-C6
+#define K3  (-0.390180644f)   //  C5-C3
+#define K4  (-1.961570561f)   // -C5-C3
 #define K5   1.501321110f   //  C1+C3-C5-C7
 #define K6   2.053119869f   //  C1+C3-C5+C7
 #define K7   3.072711027f   //  C1+C3+C5-C7
 #define K8   0.298631336f   // -C1+C3+C5-C7
-#define K9  -0.899976223f   //  C7-C3
-#define K10 -2.562915448f   // -C1-C3
+#define K9  (-0.899976223f)   //  C7-C3
+#define K10 (-2.562915448f)   // -C1-C3
 static void InverseDCT1D(const float * const x, float *dst, u32 stride)
 {
     float e[4] {};

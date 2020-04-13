@@ -25,7 +25,7 @@
 #endif
 
 #ifndef ARRAYSIZE
-#define ARRAYSIZE(arr)   (sizeof(arr) / sizeof(arr[0]))
+#define ARRAYSIZE(arr)   (sizeof(arr) / sizeof((arr)[0]))
 #endif
 
 #define DAEDALUS_USE(...)	do { (void)sizeof(__VA_ARGS__, 0); } while(0)

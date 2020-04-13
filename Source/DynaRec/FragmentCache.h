@@ -126,7 +126,7 @@ private:
 
 	//Low 2 bits will always be 0, remove this redundancy (the amount of folding depends on the hash table size)
 	//#define MakeHashIdx( addr ) (((addr >> (2 * HASH_TABLE_BITS + 2)) ^ (addr >> (HASH_TABLE_BITS + 2)) ^ addr >> 2 ) & (HASH_TABLE_SIZE-1))
-	#define MakeHashIdx( addr ) (((addr >> (HASH_TABLE_BITS + 2)) ^ addr >> 2 ) & (HASH_TABLE_SIZE-1))
+	#define MakeHashIdx( addr ) ((((addr) >> (HASH_TABLE_BITS + 2)) ^ (addr) >> 2 ) & (HASH_TABLE_SIZE-1))
 
 	mutable FHashT			mpCacheHashTable[HASH_TABLE_SIZE];
 

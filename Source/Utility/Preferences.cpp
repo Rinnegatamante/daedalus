@@ -138,9 +138,9 @@ bool IPreferences::OpenPreferencesFile( const char * filename )
 	{
 		const CIniFileProperty * property;
 
-#define BOOL_SETTING( b, nm, def )	if( section->FindProperty( #nm, &property ) ) { b.nm = property->GetBooleanValue( def.nm ); }
-#define INT_SETTING( b, nm, def )	if( section->FindProperty( #nm, &property ) ) {	b.nm = property->GetIntValue( def.nm ); }
-#define FLOAT_SETTING( b, nm, def ) if( section->FindProperty( #nm, &property ) ) {	b.nm = property->GetFloatValue( def.nm ); }
+#define BOOL_SETTING( b, nm, def )	if( section->FindProperty( #nm, &property ) ) { (b).nm = property->GetBooleanValue( (def).nm ); }
+#define INT_SETTING( b, nm, def )	if( section->FindProperty( #nm, &property ) ) {	(b).nm = property->GetIntValue( (def).nm ); }
+#define FLOAT_SETTING( b, nm, def ) if( section->FindProperty( #nm, &property ) ) {	(b).nm = property->GetFloatValue( (def).nm ); }
 
 		const SGlobalPreferences	defaults;
 
@@ -330,11 +330,11 @@ void IPreferences::Commit()
 	{
 		const SGlobalPreferences	defaults;
 
-#define OUTPUT_BOOL( b, nm, def )		fprintf( fh, "%s=%s\n", #nm, b.nm ? "yes" : "no" );
-#define OUTPUT_FLOAT( b, nm, def )		fprintf( fh, "%s=%f\n", #nm, b.nm );
-#define OUTPUT_INT( b, nm, def )		fprintf( fh, "%s=%d\n", #nm, b.nm );
+#define OUTPUT_BOOL( b, nm, def )		fprintf( fh, "%s=%s\n", #nm, (b).nm ? "yes" : "no" );
+#define OUTPUT_FLOAT( b, nm, def )		fprintf( fh, "%s=%f\n", #nm, (b).nm );
+#define OUTPUT_INT( b, nm, def )		fprintf( fh, "%s=%d\n", #nm, (b).nm );
 #ifdef DAEDALUS_PSP
-#define OUTPUT_LANGUAGE( b, nm, def )	fprintf( fh, "%s=%s\n", #nm, Translate_NameFromIndex( b.nm ) );
+#define OUTPUT_LANGUAGE( b, nm, def )	fprintf( fh, "%s=%s\n", #nm, Translate_NameFromIndex( (b).nm ) );
 #endif
 		OUTPUT_INT( gGlobalPreferences, DisplayFramerate, defaults );
 		OUTPUT_BOOL( gGlobalPreferences, ForceLinearFilter, defaults );

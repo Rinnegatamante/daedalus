@@ -55,8 +55,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 	#else
 		//TODO: Clang?
-		#define BSWAP32(x) ((x >> 24) | ((x >> 8) & 0xFF00) | ((x & 0xFF00) << 8) | (x << 24))
-		#define BSWAP16(x) ((x>>8)|(x<<8))
+		#define BSWAP32(x) (((x) >> 24) | (((x) >> 8) & 0xFF00) | (((x) & 0xFF00) << 8) | ((x) << 24))
+		#define BSWAP16(x) (((x)>>8)|((x)<<8))
 	#endif
 
 #else

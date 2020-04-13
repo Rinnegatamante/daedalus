@@ -112,7 +112,7 @@ PSP_HEAP_SIZE_KB(-256);
 static void DaedalusFWCheck()
 {
 // ##define PSP_FIRMWARE Borrowed from Davee
-#define PSP_FIRMWARE(f) ((((f >> 8) & 0xF) << 24) | (((f >> 4) & 0xF) << 16) | ((f & 0xF) << 8) | 0x10)
+#define PSP_FIRMWARE(f) (((((f) >> 8) & 0xF) << 24) | ((((f) >> 4) & 0xF) << 16) | (((f) & 0xF) << 8) | 0x10)
 
 	u32 ver = sceKernelDevkitVersion();
 

@@ -180,7 +180,7 @@ private:
 	Mutex *	mOwnedMutex;
 };
 
-#define AUTO_CRIT_SECT( x )		MutexLock daed_auto_crit_sect( &x )
+#define AUTO_CRIT_SECT( x )		MutexLock daed_auto_crit_sect( &(x) )
 
 
 #endif // UTILITY_MUTEX_H_

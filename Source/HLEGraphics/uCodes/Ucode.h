@@ -27,7 +27,7 @@
 // See DLParser_SetUcode for more info
 //
 #define MAX_UCODE_TABLE		5
-#define IS_CUSTOM_UCODE(x)	(x>=MAX_UCODE_TABLE)
+#define IS_CUSTOM_UCODE(x)	((x)>=MAX_UCODE_TABLE)
 
 typedef void(*MicroCodeInstruction)(MicroCodeCommand);
 #define UcodeFunc(name)	void name(MicroCodeCommand)

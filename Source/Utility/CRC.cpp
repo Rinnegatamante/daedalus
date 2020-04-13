@@ -124,7 +124,7 @@ const u32 crc_table[256] = {0x00000000,0x77073096,0xEE0E612C,0x990951BA,0x076DC4
 */
 
 /* ========================================================================= */
-#define DO1(buf) crc = crc_table[((s32)crc ^ (*buf++)) & 0xff] ^ (crc >> 8);
+#define DO1(buf) crc = crc_table[((s32)crc ^ (*(buf)++)) & 0xff] ^ (crc >> 8);
 #define DO2(buf)  DO1(buf); DO1(buf);
 #define DO4(buf)  DO2(buf); DO2(buf);
 #define DO8(buf)  DO4(buf); DO4(buf);

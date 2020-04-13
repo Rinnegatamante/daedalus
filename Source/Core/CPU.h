@@ -230,16 +230,16 @@ extern	void (* g_pCPUCore)();
 // From ReadAddress
 //
 #define CPU_FETCH_INSTRUCTION(ptr, pc)								\
-	const MemFuncRead & m( g_MemoryLookupTableRead[ pc >> 18 ] );	\
+	const MemFuncRead & m( g_MemoryLookupTableRead[ (pc) >> 18 ] );	\
 	if( DAEDALUS_EXPECT_LIKELY(m.pRead != nullptr) )					\
 	{																\
 /* Access through pointer with no function calls at all (Fast) */	\
-		ptr = ( m.pRead + pc );										\
+		(ptr) = ( m.pRead + (pc) );										\
 	}																\
 	else															\
 	{																\
 /* ROM or TLB and possible trigger for an exception (Slow)*/		\
-		ptr = (u8*)m.ReadFunc( pc );								\
+		(ptr) = (u8*)m.ReadFunc( pc );								\
 		if( gCPUState.GetStuffToDo() )								\
 			return;													\
 	}

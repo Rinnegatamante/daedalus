@@ -186,7 +186,7 @@ inline void QuickWrite32Bits( u8 *p_base, u32 value )
 
 #define MEMORY_SIZE_RDRAM				0x400000
 #define MEMORY_SIZE_EXRDRAM				0x400000
-#define MEMORY_SIZE_RDRAM_DEFAULT		MEMORY_SIZE_RDRAM + MEMORY_SIZE_EXRDRAM
+#define MEMORY_SIZE_RDRAM_DEFAULT		(MEMORY_SIZE_RDRAM + MEMORY_SIZE_EXRDRAM)
 #define MEMORY_SIZE_RAMREGS0			0x30
 #define MEMORY_SIZE_RAMREGS4			0x30
 #define MEMORY_SIZE_RAMREGS8			0x30
@@ -286,35 +286,35 @@ inline void Write8Bits_NoSwizzle( u32 address, u8 data )	{                      
 #define REGISTER_FUNCTIONS( set, base_reg, memory_buffer )								\
 	inline void Memory_##set##_SetRegister( u32 reg, u32 value )						\
 	{																					\
-		((u32 *)g_pMemoryBuffers[memory_buffer])[ (reg - base_reg) / 4 ] = value;		\
+		((u32 *)g_pMemoryBuffers[memory_buffer])[ (reg - (base_reg)) / 4 ] = value;		\
 	}																					\
 																						\
 	inline u32 Memory_##set##_GetRegister( u32 reg )									\
 	{																					\
-		return ((u32 *)g_pMemoryBuffers[memory_buffer])[ (reg - base_reg) / 4 ];		\
+		return ((u32 *)g_pMemoryBuffers[memory_buffer])[ (reg - (base_reg)) / 4 ];		\
 	}																					\
 																						\
 	inline u32 Memory_##set##_SetRegisterBits( u32 reg, u32 and_bits, u32 or_bits )		\
 	{																					\
-		u32 * p( &((u32 *)g_pMemoryBuffers[memory_buffer])[ (reg - base_reg) / 4 ] );	\
+		u32 * p( &((u32 *)g_pMemoryBuffers[memory_buffer])[ (reg - (base_reg)) / 4 ] );	\
 		return AtomicBitSet( p, and_bits, or_bits );									\
 	}																					\
 																						\
 	inline u32 Memory_##set##_SetRegisterBits( u32 reg, u32 value )						\
 	{																					\
-		u32 * p( &((u32 *)g_pMemoryBuffers[memory_buffer])[ (reg - base_reg) / 4 ] );	\
+		u32 * p( &((u32 *)g_pMemoryBuffers[memory_buffer])[ (reg - (base_reg)) / 4 ] );	\
 		return AtomicBitSet( p, 0xffffffff, value );									\
 	}																					\
 																						\
 	inline u32 Memory_##set##_ClrRegisterBits( u32 reg, u32 value )						\
 	{																					\
-		u32 * p( &((u32 *)g_pMemoryBuffers[memory_buffer])[ (reg - base_reg) / 4 ] );	\
+		u32 * p( &((u32 *)g_pMemoryBuffers[memory_buffer])[ (reg - (base_reg)) / 4 ] );	\
 		return AtomicBitSet( p, ~value, 0 );											\
 	}																					\
 																						\
 	inline u32 * set##_REG_ADDRESS( u32 reg )											\
 	{																					\
-		return &((u32 *)g_pMemoryBuffers[memory_buffer])[(reg - base_reg) / 4];			\
+		return &((u32 *)g_pMemoryBuffers[memory_buffer])[(reg - (base_reg)) / 4];			\
 	}
 
 REGISTER_FUNCTIONS( MI, MI_BASE_REG, MEM_MI_REG )

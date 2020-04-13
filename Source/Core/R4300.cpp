@@ -56,7 +56,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #define SPEEDHACK_INTERPRETER // Probably can disalbe this on the PSP?
 
 
-#define	R4300_CALL_MAKE_OP( var )	OpCode	var;	var._u32 = op_code_bits
+#define	R4300_CALL_MAKE_OP( var )	OpCode	var;	(var)._u32 = op_code_bits
 
 #define R4300_Rand()		FastRand()
 

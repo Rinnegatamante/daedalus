@@ -212,7 +212,7 @@ namespace IO
 					sceIoGetstat( file, &stat );
 					if( (stat.st_mode & 0x1000) == 0x1000 )
 					{
-						if(strcmp(gDirEntry.Dirent.d_name, ".") && strcmp(gDirEntry.Dirent.d_name, ".."))
+						if(strcmp(gDirEntry.Dirent.d_name, ".") != 0 && strcmp(gDirEntry.Dirent.d_name, ".."))
 						{
 							//printf("Found directory\n");
 						}
