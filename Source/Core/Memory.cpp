@@ -194,7 +194,7 @@ bool Memory_Init()
 	return true;
 }
 
-void Memory_Fini(void)
+void Memory_Fini()
 {
 		#ifdef DAEDALUS_DEBUG_CONSOLE
 	DPF(DEBUG_MEMORY, "Freeing Memory");
