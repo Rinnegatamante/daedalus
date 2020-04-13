@@ -9,7 +9,7 @@
 class CInputManager : public CSingleton< CInputManager >
 {
 	public:
-		~CInputManager() override {}
+		~CInputManager() override = default;
 
 #ifdef DAEDALUS_PSP
 		virtual u32				GetNumConfigurations() const = 0;

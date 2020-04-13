@@ -234,8 +234,7 @@ class IRomPreferencesScreen : public CRomPreferencesScreen, public CUIScreen
 //
 
 CRomPreferencesScreen::~CRomPreferencesScreen()
-{
-}
+= default;
 
 
 //
@@ -279,7 +278,7 @@ IRomPreferencesScreen::IRomPreferencesScreen( CUIContext * p_context, const RomI
 
 //
 
-IRomPreferencesScreen::~IRomPreferencesScreen() {}
+IRomPreferencesScreen::~IRomPreferencesScreen() = default;
 
 
 //

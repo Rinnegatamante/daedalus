@@ -45,7 +45,7 @@ template < class T > class CSingleton
 {
 	public:
 		//CSingleton();
-		virtual ~CSingleton() {}
+		virtual ~CSingleton() = default;
 
 		inline static T * Get()
 		{

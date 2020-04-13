@@ -46,8 +46,8 @@ class CCodeGenerator
 	public:
 		typedef void (*ExceptionHandlerFn)();
 
-									CCodeGenerator() {}
-		virtual						~CCodeGenerator() {}
+									CCodeGenerator() = default;
+		virtual						~CCodeGenerator() = default;
 
 		virtual void				Initialise( u32 entry_address, u32 exit_address, u32 * hit_counter, const void * p_base, const SRegisterUsageInfo & register_usage ) = 0;
 		virtual void				Finalise( ExceptionHandlerFn p_exception_handler_fn, const std::vector< CJumpLocation > & exception_handler_jumps ) = 0;

@@ -184,7 +184,7 @@ BaseRenderer::BaseRenderer()
 
 //
 
-BaseRenderer::~BaseRenderer() {}
+BaseRenderer::~BaseRenderer() = default;
 //
 
 void BaseRenderer::SetVIScales()

@@ -25,7 +25,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 class COutputStream
 {
 public:
-	virtual ~COutputStream() {}
+	virtual ~COutputStream() = default;
 
 	virtual	COutputStream & operator<<( const char * p_str ) = 0;
 	virtual	COutputStream & operator<<( char val ) = 0;
@@ -36,7 +36,7 @@ public:
 class CNullOutputStream : public COutputStream
 {
 public:
-	~CNullOutputStream() override {}
+	~CNullOutputStream() override = default;
 
 		COutputStream & operator<<( const char * p_str ) override { return *this; }
 		COutputStream & operator<<( char val ) override { return *this; }

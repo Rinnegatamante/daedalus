@@ -6,7 +6,7 @@
 class v3
 {
 public:
-	v3() {}
+	v3() = default;
 	v3( float _x, float _y, float _z ) : x( _x ), y( _y ), z( _z ) {}
 
 

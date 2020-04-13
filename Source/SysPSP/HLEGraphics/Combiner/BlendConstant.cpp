@@ -6,12 +6,10 @@
 #include "HLEGraphics/DaedalusVtx.h"
 
 CBlendConstantExpression::~CBlendConstantExpression()
-{
-}
+= default;
 
 CBlendConstantExpressionValue::~CBlendConstantExpressionValue()
-{
-}
+= default;
 
 bool CBlendConstantExpressionValue::IsShade() const
 {

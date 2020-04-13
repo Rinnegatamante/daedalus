@@ -134,8 +134,7 @@ class CGraphicsPluginImpl : public CGraphicsPlugin
 };
 
 CGraphicsPluginImpl::~CGraphicsPluginImpl()
-{
-}
+= default;
 
 bool CGraphicsPluginImpl::Initialise()
 {

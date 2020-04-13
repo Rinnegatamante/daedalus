@@ -104,7 +104,7 @@ class CRenderSettings
 {
 public:
 	CRenderSettings( const char * description ) : mDescription( description ) {}
-	virtual ~CRenderSettings() {}
+	virtual ~CRenderSettings() = default;
 	virtual bool			IsInexact() const = 0;
 	virtual bool			UsesTexture0() const = 0;
 	virtual bool			UsesTexture1() const = 0;

@@ -40,8 +40,7 @@ struct NativePf5650
 
 
 	NativePf5650()
-	{
-	}
+	= default;
 
 	NativePf5650( u8 r, u8 g, u8 b, u8 a )
 		:	Bits( Make( r,g,b,a ) )
@@ -84,8 +83,7 @@ struct NativePf5551
 
 
 	NativePf5551()
-	{
-	}
+	= default;
 
 	NativePf5551( u8 r, u8 g, u8 b, u8 a )
 		:	Bits( Make( r,g,b,a ) )
@@ -127,8 +125,7 @@ struct NativePf4444
 	}
 
 	NativePf4444()
-	{
-	}
+	= default;
 
 	NativePf4444( u8 r, u8 g, u8 b, u8 a )
 		:	Bits( Make( r,g,b,a ) )
@@ -186,8 +183,7 @@ struct NativePf8888
 	}
 
 	NativePf8888()
-	{
-	}
+	= default;
 
 	// Would like to remove this
 	explicit NativePf8888( u32 bits )
@@ -227,8 +223,7 @@ struct NativePfCI44		// This represents 2 pixels
 	u8	Bits;
 
 	NativePfCI44()
-	{
-	}
+	= default;
 
 	explicit NativePfCI44( u8 bits )
 		:	Bits( bits )
@@ -252,8 +247,7 @@ struct NativePfCI8
 	u8	Bits;
 
 	NativePfCI8()
-	{
-	}
+	= default;
 
 	explicit NativePfCI8( u8 bits )
 		:	Bits( bits )

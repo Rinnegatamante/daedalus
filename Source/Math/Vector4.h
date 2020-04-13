@@ -8,7 +8,7 @@
 ALIGNED_TYPE(class, v4, 16)
 {
 public:
-	v4() {}
+	v4() = default;
 	v4( float _x, float _y, float _z, float _w ) : x( _x ), y( _y ), z( _z ), w( _w ) {}
 
 	float Normalise()

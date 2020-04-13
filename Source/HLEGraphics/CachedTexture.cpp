@@ -223,8 +223,7 @@ CachedTexture::CachedTexture( const TextureInfo & ti )
 }
 
 CachedTexture::~CachedTexture()
-{
-}
+= default;
 
 bool CachedTexture::Initialise()
 {

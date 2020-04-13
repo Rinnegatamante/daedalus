@@ -65,7 +65,7 @@ class IAdjustDeadzoneScreen : public CAdjustDeadzoneScreen, public CUIScreen
 };
 
 
-CAdjustDeadzoneScreen::~CAdjustDeadzoneScreen() {}
+CAdjustDeadzoneScreen::~CAdjustDeadzoneScreen() = default;
 
 
 //
@@ -89,7 +89,7 @@ IAdjustDeadzoneScreen::IAdjustDeadzoneScreen( CUIContext * p_context )
 {
 }
 
-IAdjustDeadzoneScreen::~IAdjustDeadzoneScreen() {}
+IAdjustDeadzoneScreen::~IAdjustDeadzoneScreen() = default;
 
 
 void	IAdjustDeadzoneScreen::Update( float elapsed_time, const v2 & stick, u32 old_buttons, u32 new_buttons )

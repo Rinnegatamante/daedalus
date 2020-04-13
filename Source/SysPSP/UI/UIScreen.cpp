@@ -35,7 +35,7 @@ CUIScreen::CUIScreen( CUIContext * p_context )
 :	mpContext( p_context )
 {}
 
-CUIScreen::~CUIScreen() {}
+CUIScreen::~CUIScreen() = default;
 
 void	CUIScreen::Run()
 {

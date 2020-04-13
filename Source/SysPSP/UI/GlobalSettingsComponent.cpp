@@ -319,7 +319,7 @@ CGlobalSettingsComponent::CGlobalSettingsComponent( CUIContext * p_context )
 {}
 
 
-CGlobalSettingsComponent::~CGlobalSettingsComponent() {}
+CGlobalSettingsComponent::~CGlobalSettingsComponent() = default;
 
 
 CGlobalSettingsComponent *	CGlobalSettingsComponent::Create( CUIContext * p_context )
@@ -360,7 +360,7 @@ IGlobalSettingsComponent::IGlobalSettingsComponent( CUIContext * p_context )
 }
 
 
-IGlobalSettingsComponent::~IGlobalSettingsComponent() {}
+IGlobalSettingsComponent::~IGlobalSettingsComponent() = default;
 
 
 void	IGlobalSettingsComponent::Update( float elapsed_time, const v2 & stick, u32 old_buttons, u32 new_buttons )

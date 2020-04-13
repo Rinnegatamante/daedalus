@@ -99,7 +99,7 @@ CPauseOptionsComponent::CPauseOptionsComponent( CUIContext * p_context )
 {}
 
 
-CPauseOptionsComponent::~CPauseOptionsComponent() {}
+CPauseOptionsComponent::~CPauseOptionsComponent() = default;
 
 
 CPauseOptionsComponent *	CPauseOptionsComponent::Create( CUIContext * p_context, CFunctor * on_resume, CFunctor * on_reset )
@@ -141,7 +141,7 @@ IPauseOptionsComponent::IPauseOptionsComponent( CUIContext * p_context, CFunctor
 #endif
 }
 
-IPauseOptionsComponent::~IPauseOptionsComponent() {}
+IPauseOptionsComponent::~IPauseOptionsComponent() = default;
 
 
 void	IPauseOptionsComponent::Update( float elapsed_time, const v2 & stick, u32 old_buttons, u32 new_buttons )

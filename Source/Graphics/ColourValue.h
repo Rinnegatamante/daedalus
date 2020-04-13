@@ -27,7 +27,7 @@ class v4;
 class c32 /*: public NativePf8888*/
 {
 	public:
-		c32() {}
+		c32() = default;
 		c32( u8 r, u8 g, u8 b ) : mColour( Make( r, g, b, 255 ) ) {}
 		c32( u8 r, u8 g, u8 b, u8 a ) : mColour( Make( r, g, b, a ) ) {}
 		explicit c32( u32 colour ) : mColour( colour ) {}

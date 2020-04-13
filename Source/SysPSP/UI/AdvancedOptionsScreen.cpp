@@ -67,7 +67,7 @@ class IAdvancedOptionsScreen : public CAdvancedOptionsScreen, public CUIScreen
 		CUIElementBag				mElements;
 };
 
-CAdvancedOptionsScreen::~CAdvancedOptionsScreen() {}
+CAdvancedOptionsScreen::~CAdvancedOptionsScreen() = default;
 
 CAdvancedOptionsScreen *	CAdvancedOptionsScreen::Create( CUIContext * p_context, const RomID & rom_id )
 {
@@ -104,7 +104,7 @@ IAdvancedOptionsScreen::IAdvancedOptionsScreen( CUIContext * p_context, const Ro
 }
 
 
-IAdvancedOptionsScreen::~IAdvancedOptionsScreen() {}
+IAdvancedOptionsScreen::~IAdvancedOptionsScreen() = default;
 
 
 void	IAdvancedOptionsScreen::Update( float elapsed_time, const v2 & stick, u32 old_buttons, u32 new_buttons )

@@ -71,8 +71,7 @@ ROMFile::ROMFile( const char * filename )
 }
 
 ROMFile::~ROMFile()
-{
-}
+= default;
 
 bool ROMFile::LoadData( u32 bytes_to_read, u8 *p_bytes, COutputStream & messages )
 {

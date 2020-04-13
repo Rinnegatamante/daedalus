@@ -117,7 +117,7 @@ class IMainMenuScreen : public CMainMenuScreen, public CUIScreen
 };
 
 
-CMainMenuScreen::~CMainMenuScreen() {}
+CMainMenuScreen::~CMainMenuScreen() = default;
 
 CMainMenuScreen *	CMainMenuScreen::Create( CUIContext * p_context )
 {

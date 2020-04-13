@@ -39,8 +39,7 @@ struct N64Pf5551
 	}
 
 	N64Pf5551()
-	{
-	}
+	= default;
 
 	// Would like to remove this
 	explicit N64Pf5551( u16 bits )
@@ -104,8 +103,7 @@ struct N64Pf8888
 	}
 
 	N64Pf8888()
-	{
-	}
+	= default;
 
 	explicit N64Pf8888( u32 bits )
 		:	Bits( bits )
@@ -144,8 +142,7 @@ struct N64PfIA8
 	u8	Bits;
 
 	N64PfIA8()
-	{
-	}
+	= default;
 
 	u8	GetR() const { return GetI(); }
 	u8	GetG() const { return GetI(); }
@@ -178,8 +175,7 @@ struct N64PfIA16
 	};
 
 	N64PfIA16()
-	{
-	}
+	= default;
 
 	u8	GetR() const { return I; }
 	u8	GetG() const { return I; }
@@ -209,8 +205,7 @@ struct N64PfI8
 	};
 
 	N64PfI8()
-	{
-	}
+	= default;
 
 	u8	GetR() const { return I; }
 	u8	GetG() const { return I; }

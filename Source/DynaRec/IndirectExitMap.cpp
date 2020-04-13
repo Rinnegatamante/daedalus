@@ -38,8 +38,7 @@ CIndirectExitMap::CIndirectExitMap()
 //
 
 CIndirectExitMap::~CIndirectExitMap()
-{
-}
+= default;
 
 
 //

@@ -33,7 +33,7 @@ namespace
 class CButtonMapping
 {
 	public:
-		virtual ~CButtonMapping() {}
+		virtual ~CButtonMapping() = default;
 		virtual bool	Evaluate( u32 psp_buttons ) const = 0;
 };
 

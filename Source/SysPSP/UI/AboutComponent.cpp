@@ -59,7 +59,7 @@ CAboutComponent::CAboutComponent( CUIContext * p_context )
  {}
 
 
-CAboutComponent::~CAboutComponent() {}
+CAboutComponent::~CAboutComponent() = default;
 
 
 CAboutComponent *	CAboutComponent::Create( CUIContext * p_context )
@@ -73,7 +73,7 @@ IAboutComponent::IAboutComponent( CUIContext * p_context )
 {}
 
 
-IAboutComponent::~IAboutComponent() {}
+IAboutComponent::~IAboutComponent() = default;
 
 void	IAboutComponent::Update( float elapsed_time, const v2 & stick, u32 old_buttons, u32 new_buttons ) {}
 

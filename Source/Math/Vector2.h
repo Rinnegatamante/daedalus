@@ -7,7 +7,7 @@
 class v2
 {
 public:
-	v2() {}
+	v2() = default;
 	v2( float _x, float _y ) : x( _x ), y( _y ) {}
 
 	v2 operator+( const v2 & v ) const

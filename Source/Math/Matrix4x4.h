@@ -11,8 +11,7 @@ ALIGNED_TYPE(class, Matrix4x4, 16)
 	public:
 
 		Matrix4x4()
-		{
-		}
+		= default;
 
 		Matrix4x4( float _11, float _12, float _13, float _14,
 				   float _21, float _22, float _23, float _24,

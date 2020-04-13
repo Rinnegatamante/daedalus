@@ -39,7 +39,7 @@ public:
 	{
 
 	}
-	~CUICommand() override {}
+	~CUICommand() override = default;
 
 		void			OnSelected() override = 0;
 
@@ -82,8 +82,7 @@ public:
 	{
 	}
 	~CUICommandDummy() override
-	{
-	}
+	= default;
 
 	bool			IsSelectable() const override	{ return false; }
 		void			OnSelected() override			{ }

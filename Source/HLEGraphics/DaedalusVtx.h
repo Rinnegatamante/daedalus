@@ -47,8 +47,7 @@ struct TexCoord
 	s16		t;
 
 	TexCoord()
-	{
-	}
+	= default;
 	TexCoord(s16 s_, s16 t_) : s(s_), t(t_)
 	{
 	}
@@ -61,8 +60,7 @@ struct TexCoord
 struct DaedalusVtx
 {
 	DaedalusVtx()
-	{
-	}
+	= default;
 	DaedalusVtx( const v3 & position, const u32 colour, const v2 & texture )
 		:	Texture( texture )
 		,	Colour( colour )

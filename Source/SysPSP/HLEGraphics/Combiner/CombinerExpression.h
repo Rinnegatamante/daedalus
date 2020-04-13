@@ -46,7 +46,7 @@ public:
 	};
 
 	CCombinerOperand( ECombinerType type ) : mType( type ) {}
-	virtual ~CCombinerOperand() {}
+	virtual ~CCombinerOperand() = default;
 
 	ECombinerType					GetType() const							{ return mType; }
 

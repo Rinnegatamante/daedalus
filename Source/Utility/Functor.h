@@ -25,7 +25,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 class CFunctor
 {
 public:
-	virtual ~CFunctor() {}
+	virtual ~CFunctor() = default;
 	virtual void operator()() = 0;
 };
 
@@ -33,7 +33,7 @@ template< typename T >
 class CFunctor1
 {
 public:
-	virtual ~CFunctor1() {}
+	virtual ~CFunctor1() = default;
 	virtual void operator()( T v ) = 0;
 };
 

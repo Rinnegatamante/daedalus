@@ -28,7 +28,7 @@ class CUISetting : public CUIElement
 {
 public:
 	CUISetting( const char * name, const char * description );
-	~CUISetting() override {}
+	~CUISetting() override = default;
 
 	virtual const char *	GetSettingName() const = 0;
 

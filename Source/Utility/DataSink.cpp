@@ -3,8 +3,7 @@
 #include "Debug/DaedalusAssert.h"
 
 DataSink::~DataSink()
-{
-}
+= default;
 
 FileSink::FileSink()
 :	Handle(NULL)

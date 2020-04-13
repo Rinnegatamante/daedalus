@@ -133,7 +133,7 @@ class CCheatNotFound : public CUISetting
 	};
 
 
-CCheatOptionsScreen::~CCheatOptionsScreen() {}
+CCheatOptionsScreen::~CCheatOptionsScreen() = default;
 
 CCheatOptionsScreen *	CCheatOptionsScreen::Create( CUIContext * p_context, const RomID & rom_id )
 {
@@ -195,8 +195,7 @@ ICheatOptionsScreen::ICheatOptionsScreen( CUIContext * p_context, const RomID & 
 //
 
 ICheatOptionsScreen::~ICheatOptionsScreen()
-{
-}
+= default;
 
 
 //

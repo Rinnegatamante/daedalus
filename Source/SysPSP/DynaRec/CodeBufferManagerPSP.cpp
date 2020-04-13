@@ -108,8 +108,7 @@ class CCodeBufferManagerPSP : public CCodeBufferManager
 {
 public:
 	CCodeBufferManagerPSP()
-	{
-	}
+	= default;
 
 	bool				Initialise() override;
 	void				Reset() override;

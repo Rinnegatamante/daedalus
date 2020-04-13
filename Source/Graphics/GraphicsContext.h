@@ -35,7 +35,7 @@ class c32;
 class CGraphicsContext : public CSingleton< CGraphicsContext >
 {
 public:
-	~CGraphicsContext() override {}
+	~CGraphicsContext() override = default;
 
 	enum ETargetSurface
 	{

@@ -110,7 +110,7 @@ class IPauseScreen : public CPauseScreen, public CUIScreen
 };
 
 
-CPauseScreen::~CPauseScreen() {}
+CPauseScreen::~CPauseScreen() = default;
 
 CPauseScreen *	CPauseScreen::Create( CUIContext * p_context )
 {

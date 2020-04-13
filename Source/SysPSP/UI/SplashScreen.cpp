@@ -63,7 +63,7 @@ class ISplashScreen : public CSplashScreen, public CUIScreen
 };
 
 
-CSplashScreen::~CSplashScreen() {}
+CSplashScreen::~CSplashScreen() = default;
 
 
 CSplashScreen *	CSplashScreen::Create( CUIContext * p_context )
@@ -80,7 +80,7 @@ ISplashScreen::ISplashScreen( CUIContext * p_context )
 {}
 
 
-ISplashScreen::~ISplashScreen() {}
+ISplashScreen::~ISplashScreen() = default;
 
 
 void	ISplashScreen::Update( float elapsed_time, const v2 & stick, u32 old_buttons, u32 new_buttons )

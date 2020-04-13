@@ -28,7 +28,7 @@ CUIComponent::CUIComponent( CUIContext * p_context )
 :	mpContext( p_context )
 {}
 
-CUIComponent::~CUIComponent() {}
+CUIComponent::~CUIComponent() = default;
 
 CUIComponentScreen::CUIComponentScreen( CUIContext * p_context, CUIComponent * component, const char * title )
 :	CUIScreen( p_context )

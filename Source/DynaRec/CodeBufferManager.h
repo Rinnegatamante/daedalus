@@ -27,7 +27,7 @@ class CCodeGenerator;
 class CCodeBufferManager
 {
 public:
-	virtual							~CCodeBufferManager() {}
+	virtual							~CCodeBufferManager() = default;
 	virtual	bool					Initialise() = 0;
 	virtual void					Reset() = 0;
 	virtual	void					Finalise() = 0;

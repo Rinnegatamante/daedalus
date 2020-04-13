@@ -83,7 +83,7 @@ class ISavestateSelectorComponent : public CSavestateSelectorComponent
 };
 
 
-CSavestateSelectorComponent::~CSavestateSelectorComponent() {}
+CSavestateSelectorComponent::~CSavestateSelectorComponent() = default;
 
 
 CSavestateSelectorComponent::CSavestateSelectorComponent( CUIContext * p_context )

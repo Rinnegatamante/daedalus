@@ -33,7 +33,7 @@ CColourPulser::CColourPulser( c32 dim_colour, c32 bright_colour, u32 cycle_perio
 ,	mCurrentColour( mDimColour )
 {}
 
-CColourPulser::~CColourPulser() {}
+CColourPulser::~CColourPulser() = default;
 
 void	CColourPulser::Update( u32 elapsed_ms )
 {

@@ -16,8 +16,7 @@ const u32 ERAM(3 * 512 * 1024);	//Amount of extra (volatile)RAM to use for textu
 //
 //*****************************************************************************
 CVideoMemoryManager::~CVideoMemoryManager()
-{
-}
+= default;
 
 //*****************************************************************************
 //

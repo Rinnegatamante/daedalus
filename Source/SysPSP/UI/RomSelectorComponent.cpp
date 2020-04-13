@@ -217,7 +217,7 @@ CRomSelectorComponent::CRomSelectorComponent( CUIContext * p_context )
 :	CUIComponent( p_context )
 {}
 
-CRomSelectorComponent::~CRomSelectorComponent() {}
+CRomSelectorComponent::~CRomSelectorComponent() = default;
 
 
 CRomSelectorComponent *	CRomSelectorComponent::Create( CUIContext * p_context, CFunctor1< const char * > * on_rom_selected )

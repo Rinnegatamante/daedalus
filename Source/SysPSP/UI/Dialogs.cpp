@@ -33,7 +33,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 CDialog	gShowDialog;
 
 
-CDialog::~CDialog() {}
+CDialog::~CDialog() = default;
 
 bool CDialog::Render( CUIContext * p_context, const char* message, bool only_dialog )
 {

@@ -41,7 +41,7 @@ static const u32 ROMDB_CURRENT_VERSION {4};
 static const u32 MAX_SENSIBLE_FILES {2048};
 static const u32 MAX_SENSIBLE_DETAILS {2048};
 
-CRomDB::~CRomDB() {}
+CRomDB::~CRomDB() = default;
 
 class IRomDB : public CRomDB
 {

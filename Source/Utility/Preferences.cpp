@@ -98,8 +98,7 @@ template<> bool	CSingleton< CPreferences >::Create()
 }
 
 CPreferences::~CPreferences()
-{
-}
+= default;
 
 IPreferences::IPreferences()
 :	mDirty( false )

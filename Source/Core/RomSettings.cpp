@@ -509,7 +509,7 @@ RomSettings::RomSettings()
 
 //
 
-RomSettings::~RomSettings() {}
+RomSettings::~RomSettings() = default;
 
 void	RomSettings::Reset()
 {

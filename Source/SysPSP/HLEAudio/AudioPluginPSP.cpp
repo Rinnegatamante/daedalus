@@ -118,7 +118,7 @@ public:
 		FiniJob = &DoJobComplete;
 	}
 
-  ~SAddSamplesJob() {}
+  ~SAddSamplesJob() = default;
 
   static int DoAddSamplesStatic( SJob * arg )
   {

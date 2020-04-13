@@ -31,7 +31,7 @@ public:
 		:	mHeight( height )
 	{}
 
-	~CUISpacer() override {}
+	~CUISpacer() override = default;
 
 	bool			IsSelectable() const override						{ return false; }
 

@@ -319,8 +319,7 @@ CRDPStateManager::CRDPStateManager()
 }
 
 CRDPStateManager::~CRDPStateManager()
-{
-}
+= default;
 
 void CRDPStateManager::Reset()
 {

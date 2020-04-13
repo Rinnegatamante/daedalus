@@ -130,7 +130,7 @@ class IUIContext : public CUIContext
 		c32							mBackgroundColour;
 };
 
-CUIContext::~CUIContext() {}
+CUIContext::~CUIContext() = default;
 CUIContext *	CUIContext::Create() { return new IUIContext; }
 
 

@@ -81,8 +81,7 @@ CSelectedRomComponent::CSelectedRomComponent( CUIContext * p_context )
 //
 
 CSelectedRomComponent::~CSelectedRomComponent()
-{
-}
+= default;
 
 
 //
