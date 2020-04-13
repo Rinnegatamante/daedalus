@@ -351,7 +351,7 @@ bool IRomDB::Commit()
 void IRomDB::AddRomEntry( const char * filename, const RomID & id, u32 rom_size, ECicType cic_type )
 {
 	// Update filename/id map
-	FilenameVec::iterator fit( std::lower_bound( mRomFiles.begin(), mRomFiles.end(), filename, SSortByFilename() ) );
+	auto fit( std::lower_bound( mRomFiles.begin(), mRomFiles.end(), filename, SSortByFilename() ) );
 	if( fit != mRomFiles.end() && strcmp( fit->FileName, filename ) == 0 )
 	{
 		fit->ID = id;
@@ -363,7 +363,7 @@ void IRomDB::AddRomEntry( const char * filename, const RomID & id, u32 rom_size,
 	}
 
 	// Update id/details map
-	DetailsVec::iterator dit( std::lower_bound( mRomDetails.begin(), mRomDetails.end(), id, SSortDetailsByID() ) );
+	auto dit( std::lower_bound( mRomDetails.begin(), mRomDetails.end(), id, SSortDetailsByID() ) );
 	if( dit != mRomDetails.end() && dit->ID == id )
 	{
 		dit->RomSize = rom_size;
@@ -469,7 +469,7 @@ static bool GenerateRomDetails( const char * filename, RomID * id, u32 * rom_siz
 	//
 	ROMFile::ByteSwap_3210( bytes, bytes_to_read );
 
-	const ROMHeader * prh( reinterpret_cast<const ROMHeader *>( bytes ) );
+	const auto * prh( reinterpret_cast<const ROMHeader *>( bytes ) );
 	*id = RomID( prh->CRC1, prh->CRC2, prh->CountryID );
 
 	delete [] bytes;
@@ -506,7 +506,7 @@ bool IRomDB::QueryByFilename( const char * filename, RomID * id, u32 * rom_size,
 
 bool IRomDB::QueryByID( const RomID & id, u32 * rom_size, ECicType * cic_type ) const
 {
-	DetailsVec::const_iterator it( std::lower_bound( mRomDetails.begin(), mRomDetails.end(), id, SSortDetailsByID() ) );
+	auto it( std::lower_bound( mRomDetails.begin(), mRomDetails.end(), id, SSortDetailsByID() ) );
 	if( it != mRomDetails.end() && it->ID == id )
 	{
 		*rom_size = it->RomSize;
@@ -520,11 +520,11 @@ bool IRomDB::QueryByID( const RomID & id, u32 * rom_size, ECicType * cic_type ) 
 
 const char * IRomDB::QueryFilenameFromID( const RomID & id ) const
 {
-	for( u32 i = 0; i < mRomFiles.size(); ++i )
+	for(const auto & mRomFile : mRomFiles)
 	{
-		if( mRomFiles[ i ].ID == id )
+		if( mRomFile.ID == id )
 		{
-			return mRomFiles[ i ].FileName;
+			return mRomFile.FileName;
 		}
 	}
 

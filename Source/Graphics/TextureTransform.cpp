@@ -128,7 +128,7 @@ static void ClampTexels( void * texels, u32 n64_width, u32 n64_height, u32 nativ
 template<>
 void ClampTexels< NativePfCI44 >( void * texels, u32 n64_width, u32 n64_height, u32 native_width, u32 native_height, u32 native_stride )
 {
-	NativePfCI44  * data = reinterpret_cast<  NativePfCI44  * >( texels );
+	auto  * data = reinterpret_cast<  NativePfCI44  * >( texels );
 
 	//
 	//	If any of the rows are short, we need to duplicate the last pixel on the row

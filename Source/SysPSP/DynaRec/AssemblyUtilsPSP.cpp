@@ -41,7 +41,7 @@ namespace AssemblyUtils
 bool	PatchJumpLong( CJumpLocation jump, CCodeLabel target )
 {
 	// Get an uncached pointer
-	PspOpCode *	p_jump_addr( reinterpret_cast< PspOpCode * >( jump.GetWritableU8P() ) );
+	auto *	p_jump_addr( reinterpret_cast< PspOpCode * >( jump.GetWritableU8P() ) );
 	PspOpCode &	op_code( *p_jump_addr );
 
 	if( op_code.op == OP_J || op_code.op == OP_JAL )
@@ -109,7 +109,7 @@ bool	PatchJumpLongAndFlush( CJumpLocation jump, CCodeLabel target )
 void		ReplaceBranchWithJump( CJumpLocation branch, CCodeLabel target )
 {
 	// Get an uncached pointer
-	PspOpCode *	p_jump_addr( reinterpret_cast< PspOpCode * >( branch.GetWritableU8P() ) );
+	auto *	p_jump_addr( reinterpret_cast< PspOpCode * >( branch.GetWritableU8P() ) );
 	PspOpCode &	op_code( *p_jump_addr );
 
 	// Sanity check this is actually a branch?

@@ -196,7 +196,7 @@ CachedTexture * CTextureCache::GetOrCreateCachedTexture(const TextureInfo & ti)
 	}
 
 	CachedTexture *	texture = nullptr;
-	TextureVec::iterator	it = std::lower_bound( mTextures.begin(), mTextures.end(), ti, SSortTextureEntries() );
+	auto	it = std::lower_bound( mTextures.begin(), mTextures.end(), ti, SSortTextureEntries() );
 	if( it != mTextures.end() && (*it)->GetTextureInfo() == ti )
 	{
 		texture = *it;

@@ -289,7 +289,7 @@ void DLParser_GBI2_MoveMem( MicroCodeCommand command )
 			}
 
 			light_idx -= 2;
-			N64Light *light = (N64Light*)(g_pu8RamBase + address);
+			auto *light = (N64Light*)(g_pu8RamBase + address);
 			RDP_MoveMemLight(light_idx, light);
 
 			gRenderer->SetLightPosition(light_idx, light->x1, light->y1, light->z1, 1.0f);

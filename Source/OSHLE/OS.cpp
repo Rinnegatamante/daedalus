@@ -90,11 +90,9 @@ u32 OS_HLE___osProbeTLB(u32 vaddr)
 
 	// Code from TLBP and TLBR
 
-    for(u32 i = 0; i < 32; i++)
+    for(const auto & tlb : g_TLBs)
 	{
-		const TLBEntry & tlb = g_TLBs[i];
-
-		if( ((tlb.hi & TLBHI_VPN2MASK) == vpn2) && ( (tlb.g) || ((tlb.hi & TLBHI_PIDMASK) == pid) ) )
+			if( ((tlb.hi & TLBHI_VPN2MASK) == vpn2) && ( (tlb.g) || ((tlb.hi & TLBHI_PIDMASK) == pid) ) )
 		{
 
 			// We've found the page, do TLBR

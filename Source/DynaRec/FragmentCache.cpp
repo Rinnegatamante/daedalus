@@ -142,7 +142,7 @@ CFragment * CFragmentCache::LookupFragmentQ( u32 address ) const
 			miss++;
 #endif
 			SFragmentEntry				entry( address, nullptr );
-			FragmentVec::const_iterator	it( std::lower_bound( mFragments.begin(), mFragments.end(), entry ) );
+			auto	it( std::lower_bound( mFragments.begin(), mFragments.end(), entry ) );
 			if( it != mFragments.end() && it->Address == address )
 			{
 				mpCachedFragment = it->Fragment;
@@ -186,7 +186,7 @@ void CFragmentCache::InsertFragment( CFragment * p_fragment )
 	mCacheCoverage.ExtendCoverage( fragment_address, p_fragment->GetInputLength() );
 
 	SFragmentEntry				entry( fragment_address, nullptr );
-	FragmentVec::iterator		it( std::lower_bound( mFragments.begin(), mFragments.end(), entry ) );
+	auto		it( std::lower_bound( mFragments.begin(), mFragments.end(), entry ) );
 	#ifdef DAEDALUS_ENABLE_ASSERTS
 	DAEDALUS_ASSERT( it == mFragments.end() || it->Address != fragment_address, "A fragment with this address already exists" );
 	#endif
@@ -199,14 +199,14 @@ void CFragmentCache::InsertFragment( CFragment * p_fragment )
 	mpCacheHashTable[ix].ptr = reinterpret_cast< u32 >( p_fragment );
 
 	// Process any jumps for this before inserting new ones
-	JumpMap::iterator	jump_it( mJumpMap.find( fragment_address ) );
+	auto	jump_it( mJumpMap.find( fragment_address ) );
 	if( jump_it != mJumpMap.end() )
 	{
 		const JumpList &		jumps( jump_it->second );
-		for( JumpList::const_iterator it = jumps.begin(); it != jumps.end(); ++it )
+		for(auto jump : jumps)
 		{
 			//DBGConsole_Msg( 0, "Inserting [R%08x], patching jump at %08x ", address, (*it) );
-			PatchJumpLongAndFlush( (*it), p_fragment->GetEntryTarget() );
+			PatchJumpLongAndFlush( jump, p_fragment->GetEntryTarget() );
 		}
 
 		// All patched - clear
@@ -215,10 +215,10 @@ void CFragmentCache::InsertFragment( CFragment * p_fragment )
 
 	// Finally register any links that this fragment may have
 	const FragmentPatchList &	patch_list( p_fragment->GetPatchList() );
-	for( FragmentPatchList::const_iterator it = patch_list.begin(); it != patch_list.end(); ++it )
+	for(auto it : patch_list)
 	{
-		u32				target_address( it->Address );
-		CJumpLocation	jump( it->Jump );
+		u32				target_address( it.Address );
+		CJumpLocation	jump( it.Jump );
 
 	#ifdef DAEDALUS_ENABLE_ASSERTS
 		DAEDALUS_ASSERT( jump.IsSet(), "No exit jump?" );
@@ -281,9 +281,9 @@ void CFragmentCache::Clear()
 	}
 #endif
 	// Clear out all the framents
-	for(FragmentVec::iterator it = mFragments.begin(); it != mFragments.end(); ++it)
+	for(auto & mFragment : mFragments)
 	{
-		delete it->Fragment;
+		delete mFragment.Fragment;
 	}
 
 	mFragments.erase( mFragments.begin(), mFragments.end() );

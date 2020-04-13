@@ -123,9 +123,9 @@ IPauseScreen::IPauseScreen( CUIContext * p_context )
 ,	mIsFinished( false )
 ,	mCurrentOption( MO_PAUSE_OPTIONS )
 {
-	for( u32 i = 0; i < NUM_MENU_OPTIONS; ++i )
+	for(auto & mOptionComponent : mOptionComponents)
 	{
-		mOptionComponents[ i ] = NULL;
+		mOptionComponent = NULL;
 	}
 
 	mOptionComponents[ MO_GLOBAL_SETTINGS ]	= CGlobalSettingsComponent::Create( mpContext );
@@ -142,9 +142,9 @@ IPauseScreen::IPauseScreen( CUIContext * p_context )
 
 IPauseScreen::~IPauseScreen()
 {
-	for( u32 i = 0; i < NUM_MENU_OPTIONS; ++i )
+	for(auto & mOptionComponent : mOptionComponents)
 	{
-		delete mOptionComponents[ i ];
+		delete mOptionComponent;
 	}
 }
 

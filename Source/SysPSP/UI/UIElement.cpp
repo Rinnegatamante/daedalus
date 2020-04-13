@@ -31,9 +31,9 @@ CUIElementBag::CUIElementBag()
 
 CUIElementBag::~CUIElementBag()
 {
-	for( u32 i = 0; i < mElements.size(); ++i )
+	for(auto & mElement : mElements)
 	{
-		delete mElements[ i ];
+		delete mElement;
 	}
 }
 
@@ -57,11 +57,9 @@ void	CUIElementBag::DrawCentredVertically( CUIContext * context, s32 min_x, s32 
 {
 	s32 total_height( 0 );
 
-	for( u32 i = 0; i < mElements.size(); ++i )
+	for(auto element : mElements)
 	{
-		const CUIElement *	element( mElements[ i ] );
-
-		total_height += element->GetHeight( context );
+			total_height += element->GetHeight( context );
 	}
 
 	s32		slack( (max_y - min_y) - total_height );

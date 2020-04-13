@@ -71,17 +71,17 @@ const char * Translate_Strings(const char *original, u32 & len)
 	if( hash == 0 )
 		return original;
 
-	for( u32 i=0; i < ARRAYSIZE(text); i++ )
+	for(auto & i : text)
 	{
 		// ToDo..
 		//DAEDALUS_ASSERT( text[i].translated != original, " String already translated" );
 
-		if( text[i].hash == hash )
+		if( i.hash == hash )
 		{
-			if( text[i].translated )
+			if( i.translated )
 			{
-				len =  strlen( text[i].translated );
-				return text[i].translated;
+				len =  strlen( i.translated );
+				return i.translated;
 			}
 			else
 				return original;
@@ -105,12 +105,12 @@ const char * Translate_String(const char *original)
 void Translate_Unload()
 {
 	// Clear translations
-	for( u32 i = 0; i < ARRAYSIZE(text); ++i )
+	for(auto & i : text)
 	{
-		if( text[i].translated != NULL )
+		if( i.translated != NULL )
 		{
-			free_volatile(text[i].translated);
-			text[i].translated = NULL;
+			free_volatile(i.translated);
+			i.translated = NULL;
 		}
 	}
 }

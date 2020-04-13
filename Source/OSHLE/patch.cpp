@@ -209,7 +209,7 @@ void Patch_ApplyPatch(u32 i)
 #ifdef DAEDALUS_ENABLE_DYNAREC
 	u32 pc = g_PatchSymbols[i]->Location;
 
-	CFragment *frag = new CFragment(gFragmentCache.GetCodeBufferManager(),
+	auto *frag = new CFragment(gFragmentCache.GetCodeBufferManager(),
 									PHYS_TO_K0(pc),
 									g_PatchSymbols[i]->Signatures->NumOps,
 									(void*)g_PatchSymbols[i]->Function);

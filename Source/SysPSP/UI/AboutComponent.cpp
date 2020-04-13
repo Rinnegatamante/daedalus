@@ -128,11 +128,9 @@ void	IAboutComponent::Render()
 	// Spacer
 	y += line_height;
 
-	for( s16 i = 0; i < ARRAYSIZE( INFO_TEXT ); ++i )
+	for(auto str : INFO_TEXT)
 	{
-		const char * str( INFO_TEXT[ i ] );
-
-		mpContext->DrawTextAlign( LIST_TEXT_LEFT, LIST_TEXT_WIDTH, AT_CENTRE, y, str, DrawTextUtilities::TextWhite );
+			mpContext->DrawTextAlign( LIST_TEXT_LEFT, LIST_TEXT_WIDTH, AT_CENTRE, y, str, DrawTextUtilities::TextWhite );
 		y += line_height;
 	}
 

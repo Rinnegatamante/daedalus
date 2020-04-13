@@ -179,7 +179,7 @@ void	IUIContext::RenderTexture( const CNativeTexture * texture, const v2 & tl, c
 		return;
 
 	u32				num_verts( 2 );
-	BackgroundTextureVtx*	p_verts = (BackgroundTextureVtx*)sceGuGetMemory(num_verts*sizeof(BackgroundTextureVtx));
+	auto*	p_verts = (BackgroundTextureVtx*)sceGuGetMemory(num_verts*sizeof(BackgroundTextureVtx));
 
 	sceGuDisable(GU_DEPTH_TEST);
 	sceGuDepthMask( GL_TRUE );	// GL_TRUE to disable z-writes
@@ -225,7 +225,7 @@ void	IUIContext::ClearBackground( c32 colour )
 void	IUIContext::DrawRect( s32 x, s32 y, u32 w, u32 h, c32 colour )
 {
 	u32						num_verts( 2 );
-	BackgroundColourVtx*	p_verts = (BackgroundColourVtx*)sceGuGetMemory(num_verts*sizeof(BackgroundColourVtx));
+	auto*	p_verts = (BackgroundColourVtx*)sceGuGetMemory(num_verts*sizeof(BackgroundColourVtx));
 
 	sceGuDisable(GU_DEPTH_TEST);
 	sceGuDepthMask( GL_TRUE );	// GL_TRUE to disable z-writes
@@ -251,7 +251,7 @@ void	IUIContext::DrawRect( s32 x, s32 y, u32 w, u32 h, c32 colour )
 void	IUIContext::DrawLine( s32 x0, s32 y0, s32 x1, s32 y1, c32 colour )
 {
 	u32						num_verts( 2 );
-	BackgroundColourVtx*	p_verts = (BackgroundColourVtx*)sceGuGetMemory(num_verts*sizeof(BackgroundColourVtx));
+	auto*	p_verts = (BackgroundColourVtx*)sceGuGetMemory(num_verts*sizeof(BackgroundColourVtx));
 
 	sceGuDisable(GU_DEPTH_TEST);
 	sceGuDepthMask( GL_TRUE );	// GL_TRUE to disable z-writes
@@ -400,12 +400,12 @@ s32		IUIContext::DrawTextArea( s32 left, s32 top, u32 width, u32 height, const c
 		return y - top;
 	}
 
-	for( u32 i = 0; i < lengths.size(); ++i )
+	for(unsigned int length : lengths)
 	{
 		y += font_height;
-		DrawTextScale( x, y, 0.8f, text, lengths[ i ], colour );
+		DrawTextScale( x, y, 0.8f, text, length, colour );
 		y += 2;
-		text += lengths[ i ];
+		text += length;
 	}
 
 	return y - top;

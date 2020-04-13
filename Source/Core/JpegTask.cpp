@@ -265,8 +265,8 @@ static u32 GetUYVY(s16 y1, s16 y2, s16 u, s16 v)
 static u16 GetRGBA(s16 y, s16 u, s16 v)
 {
     const float fY = (float)y + 2048.0f;
-    const float fU = (float)u;
-    const float fV = (float)v;
+    const auto fU = (float)u;
+    const auto fV = (float)v;
 
     const u16 r = clamp_RGBA_component((s16)(fY             + 1.4025*fV));
     const u16 g = clamp_RGBA_component((s16)(fY - 0.3443*fU - 0.7144*fV));

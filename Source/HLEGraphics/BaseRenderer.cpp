@@ -865,7 +865,7 @@ void BaseRenderer::PrepareTrisUnclipped( TempVerts * temp_verts ) const
 #ifdef DAEDALUS_PSP_USE_VFPU
 void BaseRenderer::SetNewVertexInfo(u32 address, u32 v0, u32 n)
 {
-	const FiddledVtx * const pVtxBase( (const FiddledVtx*)(g_pu8RamBase + address) );
+	const auto * const pVtxBase( (const FiddledVtx*)(g_pu8RamBase + address) );
 
 	UpdateWorldProject();
 	PokeWorldProject();
@@ -1175,7 +1175,7 @@ void BaseRenderer::SetNewVertexInfo(u32 address, u32 v0, u32 n)
 #ifdef DAEDALUS_PSP_USE_VFPU
 void BaseRenderer::SetNewVertexInfoConker(u32 address, u32 v0, u32 n)
 {
-	const FiddledVtx * const pVtxBase( (const FiddledVtx*)(g_pu8RamBase + address) );
+	const auto * const pVtxBase( (const FiddledVtx*)(g_pu8RamBase + address) );
 	const Matrix4x4 & mat_project {mProjectionMat};
 	const Matrix4x4 & mat_world {mModelViewStack[mModelViewTop]};
 
@@ -2109,7 +2109,7 @@ void BaseRenderer::SetWorldView(const u32 address, bool bPush, bool bReplace)
 			// Load ModelView matrix
 			MatrixFromN64FixedPoint( mModelViewStack[mModelViewTop], address);
 			//Hack to make GEX games work, need to multiply all elements with 2.0 //Corn
-			if( g_ROM.GameHacks == GEX_GECKO ) for(u32 i=0;i<16;i++) mModelViewStack[mModelViewTop].mRaw[i] += mModelViewStack[mModelViewTop].mRaw[i];
+			if( g_ROM.GameHacks == GEX_GECKO ) for(float & i : mModelViewStack[mModelViewTop].mRaw) i += i;
 		}
 		else	// Multiply ModelView matrix
 		{

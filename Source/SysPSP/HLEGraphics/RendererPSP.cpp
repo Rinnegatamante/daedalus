@@ -156,8 +156,8 @@ RendererPSP::RendererPSP()
 	//
 	mCopyBlendStates = new CBlendStates;
 	{
-		CAlphaRenderSettings *	alpha_settings( new CAlphaRenderSettings( "Copy" ) );
-		CRenderSettingsModulate *	colour_settings( new CRenderSettingsModulate( "Copy" ) );
+		auto *	alpha_settings( new CAlphaRenderSettings( "Copy" ) );
+		auto *	colour_settings( new CRenderSettingsModulate( "Copy" ) );
 
 		alpha_settings->AddTermTexel0();
 		colour_settings->AddTermTexel0();
@@ -171,8 +171,8 @@ RendererPSP::RendererPSP()
 	//
 	mFillBlendStates = new CBlendStates;
 	{
-		CAlphaRenderSettings *	alpha_settings( new CAlphaRenderSettings( "Fill" ) );
-		CRenderSettingsModulate *	colour_settings( new CRenderSettingsModulate( "Fill" ) );
+		auto *	alpha_settings( new CAlphaRenderSettings( "Fill" ) );
+		auto *	colour_settings( new CRenderSettingsModulate( "Fill" ) );
 
 		alpha_settings->AddTermConstant( new CBlendConstantExpressionValue( BC_SHADE ) );
 		colour_settings->AddTermConstant(  new CBlendConstantExpressionValue( BC_SHADE ) );
@@ -532,7 +532,7 @@ void RendererPSP::RenderUsingCurrentBlendMode( DaedalusVtx * p_vertices, u32 num
 
 		if ( mTnL.Flags.Fog )
 		{
-			DaedalusVtx * p_FogVtx = static_cast<DaedalusVtx *>(sceGuGetMemory(num_vertices * sizeof(DaedalusVtx)));
+			auto * p_FogVtx = static_cast<DaedalusVtx *>(sceGuGetMemory(num_vertices * sizeof(DaedalusVtx)));
 			memcpy( p_FogVtx, p_vertices, num_vertices * sizeof( DaedalusVtx ) );
 			details.ColourAdjuster.Process( p_vertices, num_vertices );
 			sceGuDrawArray( triangle_mode, render_flags, num_vertices, nullptr, p_vertices );
@@ -723,7 +723,7 @@ void RendererPSP::TexRect( u32 tile_idx, const v2 & xy0, const v2 & xy1, TexCoor
 	const f32 depth {gRDPOtherMode.depth_source ? mPrimDepth : 0.0f};
 
 #if 1	//1->SPRITE, 0->STRIP
-	DaedalusVtx * p_vertices = static_cast<DaedalusVtx *>(sceGuGetMemory(2 * sizeof(DaedalusVtx)));
+	auto * p_vertices = static_cast<DaedalusVtx *>(sceGuGetMemory(2 * sizeof(DaedalusVtx)));
 
 	p_vertices[0].Position.x = screen0.x;
 	p_vertices[0].Position.y = screen0.y;
@@ -805,7 +805,7 @@ void RendererPSP::TexRectFlip( u32 tile_idx, const v2 & xy0, const v2 & xy1, Tex
 	DL_PF( "    Screen:  %.1f,%.1f -> %.1f,%.1f", screen0.x, screen0.y, screen1.x, screen1.y );
 	DL_PF( "    Texture: %.1f,%.1f -> %.1f,%.1f", uv0.x, uv0.y, uv1.x, uv1.y );
 #endif
-	DaedalusVtx * p_vertices = static_cast<DaedalusVtx *>(sceGuGetMemory(4 * sizeof(DaedalusVtx)));
+	auto * p_vertices = static_cast<DaedalusVtx *>(sceGuGetMemory(4 * sizeof(DaedalusVtx)));
 
 	p_vertices[0].Position.x = screen0.x;
 	p_vertices[0].Position.y = screen0.y;
@@ -864,7 +864,7 @@ void RendererPSP::FillRect( const v2 & xy0, const v2 & xy1, u32 color )
 #ifdef DAEDALUS_DEBUG_DISPLAYLIST
 	DL_PF( "    Screen:  %.1f,%.1f -> %.1f,%.1f", screen0.x, screen0.y, screen1.x, screen1.y );
 #endif
-	DaedalusVtx * p_vertices = static_cast<DaedalusVtx *>(sceGuGetMemory(2 * sizeof(DaedalusVtx)));
+	auto * p_vertices = static_cast<DaedalusVtx *>(sceGuGetMemory(2 * sizeof(DaedalusVtx)));
 
 	// No need for Texture.x/y as we don't do any texturing for fillrect
 	p_vertices[0].Position.x = screen0.x;
@@ -894,7 +894,7 @@ void RendererPSP::Draw2DTexture(f32 x0, f32 y0, f32 x1, f32 y1,
 								const CNativeTexture * texture)
 {
 	DAEDALUS_PROFILE( "RendererPSP::Draw2DTexture" );
-	TextureVtx *p_verts = (TextureVtx*)sceGuGetMemory(4*sizeof(TextureVtx));
+	auto *p_verts = (TextureVtx*)sceGuGetMemory(4*sizeof(TextureVtx));
 
 	// Enable or Disable ZBuffer test
 	if ( (mTnL.Flags.Zbuffer & gRDPOtherMode.z_cmp) | gRDPOtherMode.z_upd )
@@ -959,7 +959,7 @@ void RendererPSP::Draw2DTextureR(f32 x0, f32 y0, f32 x1, f32 y1,
 								 f32 s, f32 t)	// With Rotation
 {
 	DAEDALUS_PROFILE( "RendererPSP::Draw2DTextureR" );
-	TextureVtx *p_verts = (TextureVtx*)sceGuGetMemory(4*sizeof(TextureVtx));
+	auto *p_verts = (TextureVtx*)sceGuGetMemory(4*sizeof(TextureVtx));
 
 	// Enable or Disable ZBuffer test
 	if ( (mTnL.Flags.Zbuffer & gRDPOtherMode.z_cmp) | gRDPOtherMode.z_upd )
@@ -1073,7 +1073,7 @@ void RendererPSP::Draw2DTextureBlit(f32 x, f32 y, f32 width, f32 height,
 				u_end -= off;
 				sceGuTexImage(0, Min<u32>(512,texture->GetCorrectedWidth()), Min<u32>(512,texture->GetCorrectedHeight()), texture->GetBlockWidth(), udata);
 			}
-			TextureVtx *p_verts = (TextureVtx*)sceGuGetMemory(2*sizeof(TextureVtx));
+			auto *p_verts = (TextureVtx*)sceGuGetMemory(2*sizeof(TextureVtx));
 
 			//f32 poly_width = ((cur_x+xstep) > x_end) ? (x_end-cur_x) : xstep;
 			f32 poly_width {xstep};

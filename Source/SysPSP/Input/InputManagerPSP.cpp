@@ -214,17 +214,17 @@ class CControllerConfig
 
 CControllerConfig::CControllerConfig()
 {
-	for( u32 i = 0; i < NUM_N64_BUTTONS; ++i )
+	for(auto & mButtonMapping : mButtonMappings)
 	{
-		mButtonMappings[ i ] = NULL;
+		mButtonMapping = NULL;
 	}
 }
 
 CControllerConfig::~CControllerConfig()
 {
-	for( u32 i = 0; i < NUM_N64_BUTTONS; ++i )
+	for(auto & mButtonMapping : mButtonMappings)
 	{
-		delete mButtonMappings[ i ];
+		delete mButtonMapping;
 	}
 }
 
@@ -300,10 +300,10 @@ IInputManager::IInputManager()
 //*****************************************************************************
 IInputManager::~IInputManager()
 {
-	for( u32 i = 0; i < mControllerConfigs.size(); ++i )
+	for(auto & mControllerConfig : mControllerConfigs)
 	{
-		delete mControllerConfigs[ i ];
-		mControllerConfigs[ i ] = NULL;
+		delete mControllerConfig;
+		mControllerConfig = NULL;
 	}
 }
 
@@ -455,7 +455,7 @@ template<> bool	CSingleton< CInputManager >::Create()
 	DAEDALUS_ASSERT_Q(mpInstance == NULL);
 	#endif
 
-	IInputManager * manager( new IInputManager() );
+	auto * manager( new IInputManager() );
 
 	if(manager->Initialise())
 	{
@@ -523,11 +523,11 @@ bool IsIdentifierChar( char c )
 
 u32 GetMaskFromIdentifier( const char * identifier )
 {
-	for( u32 i = 0; i < ARRAYSIZE( gButtonNameMappings ); ++i )
+	for(auto gButtonNameMapping : gButtonNameMappings)
 	{
-		if( strcmp( gButtonNameMappings[ i ].ButtonName, identifier ) == 0 )
+		if( strcmp( gButtonNameMapping.ButtonName, identifier ) == 0 )
 		{
-			return gButtonNameMappings[ i ].ButtonMask;
+			return gButtonNameMapping.ButtonMask;
 		}
 	}
 
@@ -804,7 +804,7 @@ void	IInputManager::LoadControllerConfigs( const char * p_dir )
 //*****************************************************************************
 CControllerConfig *	IInputManager::BuildDefaultConfig()
 {
-	CControllerConfig *	p_config( new CControllerConfig );
+	auto *	p_config( new CControllerConfig );
 
 	p_config->SetName( "Default" );
 	p_config->SetDescription( "The default Daedalus controller configuration. The Circle button toggles the PSP DPad between the N64 DPad and CButtons." );
@@ -845,7 +845,7 @@ CControllerConfig *	IInputManager::BuildControllerConfig( const char * filename 
 	}
 
 	const CIniFileProperty * p_property;
-	CControllerConfig *		p_config( new CControllerConfig );
+	auto *		p_config( new CControllerConfig );
 
 	//
 	//	Firstly parse the default section
@@ -880,7 +880,7 @@ CControllerConfig *	IInputManager::BuildControllerConfig( const char * filename 
 
 		for( u32 i = 0; i < NUM_N64_BUTTONS; ++i )
 		{
-			EN64Button		button = EN64Button( i );
+			auto		button = EN64Button( i );
 			const char *	button_name( GetN64ButtonName( button ) );
 
 			if( p_button_section->FindProperty( button_name, &p_property ) )

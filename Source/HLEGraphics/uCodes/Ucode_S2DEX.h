@@ -365,7 +365,7 @@ static inline void Draw_ObjSprite( const uObjSprite *sprite, ESpriteMode mode, c
 // Bomberman : Second Atatck uses this
 void DLParser_S2DEX_ObjSprite( MicroCodeCommand command )
 {
-	uObjSprite *sprite = (uObjSprite*)(g_pu8RamBase + RDPSegAddr(command.inst.cmd1));
+	auto *sprite = (uObjSprite*)(g_pu8RamBase + RDPSegAddr(command.inst.cmd1));
 
 	CRefPtr<CNativeTexture> texture = Load_ObjSprite( sprite, NULL );
 	Draw_ObjSprite( sprite, FULL_ROTATION, texture );
@@ -378,7 +378,7 @@ void DLParser_S2DEX_ObjSprite( MicroCodeCommand command )
 // Note : This cmd loads textures from both ObjTxtr and LoadBlock/LoadTile!!
 void DLParser_S2DEX_ObjRectangle( MicroCodeCommand command )
 {
-	uObjSprite *sprite = (uObjSprite*)(g_pu8RamBase + RDPSegAddr(command.inst.cmd1));
+	auto *sprite = (uObjSprite*)(g_pu8RamBase + RDPSegAddr(command.inst.cmd1));
 
 	CRefPtr<CNativeTexture> texture = Load_ObjSprite( sprite, gObjTxtr );
 	Draw_ObjSprite( sprite, NO_ROTATION, texture );
@@ -390,7 +390,7 @@ void DLParser_S2DEX_ObjRectangle( MicroCodeCommand command )
 // Untested.. I can't find any game that uses this.. but it should work fine
 void DLParser_S2DEX_ObjRectangleR( MicroCodeCommand command )
 {
-	uObjSprite *sprite = (uObjSprite*)(g_pu8RamBase + RDPSegAddr(command.inst.cmd1));
+	auto *sprite = (uObjSprite*)(g_pu8RamBase + RDPSegAddr(command.inst.cmd1));
 	if (sprite->imageFmt == G_IM_FMT_YUV)
 	{
 		DLParser_OB_YUV(sprite);
@@ -411,7 +411,7 @@ void DLParser_S2DEX_ObjRectangleR( MicroCodeCommand command )
 // Nintendo logo, shade, items, enemies & foes, sun, and pretty much everything in Yoshi
 void DLParser_S2DEX_ObjLdtxSprite( MicroCodeCommand command )
 {
-	uObjTxSprite *sprite = (uObjTxSprite*)(g_pu8RamBase + RDPSegAddr(command.inst.cmd1));
+	auto *sprite = (uObjTxSprite*)(g_pu8RamBase + RDPSegAddr(command.inst.cmd1));
 
 	CRefPtr<CNativeTexture> texture = Load_ObjSprite( &sprite->sprite, &sprite->txtr );
 	Draw_ObjSprite( &sprite->sprite, FULL_ROTATION, texture );
@@ -423,7 +423,7 @@ void DLParser_S2DEX_ObjLdtxSprite( MicroCodeCommand command )
 // No Rotation. Intro logo, Awesome command screens and HUD in game :)
 void DLParser_S2DEX_ObjLdtxRect( MicroCodeCommand command )
 {
-	uObjTxSprite *sprite = (uObjTxSprite*)(g_pu8RamBase + RDPSegAddr(command.inst.cmd1));
+	auto *sprite = (uObjTxSprite*)(g_pu8RamBase + RDPSegAddr(command.inst.cmd1));
 
 	CRefPtr<CNativeTexture> texture = Load_ObjSprite( &sprite->sprite, &sprite->txtr );
 	Draw_ObjSprite( &sprite->sprite, NO_ROTATION, texture );
@@ -435,7 +435,7 @@ void DLParser_S2DEX_ObjLdtxRect( MicroCodeCommand command )
 // With Rotation. Text, smoke, and items in Yoshi
 void DLParser_S2DEX_ObjLdtxRectR( MicroCodeCommand command )
 {
-	uObjTxSprite *sprite = (uObjTxSprite*)(g_pu8RamBase + RDPSegAddr(command.inst.cmd1));
+	auto *sprite = (uObjTxSprite*)(g_pu8RamBase + RDPSegAddr(command.inst.cmd1));
 
 	CRefPtr<CNativeTexture> texture = Load_ObjSprite( &sprite->sprite, &sprite->txtr );
 	Draw_ObjSprite( &sprite->sprite, PARTIAL_ROTATION, texture );
@@ -452,7 +452,7 @@ void DLParser_S2DEX_ObjMoveMem( MicroCodeCommand command )
 
 	if( index == 0 )	// Mtx
 	{
-		uObjMtx* mtx = (uObjMtx *)(addr+g_pu8RamBase);
+		auto* mtx = (uObjMtx *)(addr+g_pu8RamBase);
 		mat2D.A = mtx->A/65536.0f;
 		mat2D.B = mtx->B/65536.0f;
 		mat2D.C = mtx->C/65536.0f;
@@ -464,7 +464,7 @@ void DLParser_S2DEX_ObjMoveMem( MicroCodeCommand command )
 	}
 	else if( index == 2 )	// Sub Mtx
 	{
-		uObjSubMtx* sub = (uObjSubMtx*)(addr+g_pu8RamBase);
+		auto* sub = (uObjSubMtx*)(addr+g_pu8RamBase);
 		mat2D.X = f32(sub->X>>2);
 		mat2D.Y = f32(sub->Y>>2);
 		mat2D.BaseScaleX = sub->BaseScaleX/1024.0f;
@@ -478,10 +478,10 @@ void DLParser_S2DEX_ObjMoveMem( MicroCodeCommand command )
 // Kirby uses this for proper palette loading
 void DLParser_S2DEX_ObjLoadTxtr( MicroCodeCommand command )
 {
-	uObjTxtr* ObjTxtr = (uObjTxtr*)(g_pu8RamBase + RDPSegAddr(command.inst.cmd1));
+	auto* ObjTxtr = (uObjTxtr*)(g_pu8RamBase + RDPSegAddr(command.inst.cmd1));
 	if( ObjTxtr->block.type == S2DEX_OBJLT_TLUT )
 	{
-		uObjTxtrTLUT *ObjTlut = (uObjTxtrTLUT*)ObjTxtr;
+		auto *ObjTlut = (uObjTxtrTLUT*)ObjTxtr;
 
 		// Store TLUT pointer
 		gTlutLoadAddresses[ (ObjTxtr->tlut.phead>>2) & 0x3F ] = (u32*)(g_pu8RamBase + RDPSegAddr(ObjTlut->image));
@@ -673,7 +673,7 @@ void DLParser_S2DEX_BgCopy( MicroCodeCommand command )
 				#ifdef DAEDALUS_DEBUG_DISPLAYLIST
 	DL_PF("    DLParser_S2DEX_BgCopy");
 #endif
-	uObjBg *objBg = (uObjBg*)(g_pu8RamBase + RDPSegAddr(command.inst.cmd1));
+	auto *objBg = (uObjBg*)(g_pu8RamBase + RDPSegAddr(command.inst.cmd1));
 
 	u16 imageX = objBg->imageX >> 5;
 	u16 imageY = objBg->imageY >> 5;
@@ -716,7 +716,7 @@ void DLParser_S2DEX_Bg1cyc( MicroCodeCommand command )
 	if( g_ROM.GameHacks == ZELDA_MM )
 		return;
 
-	uObjScaleBg *objBg = (uObjScaleBg *)(g_pu8RamBase + RDPSegAddr(command.inst.cmd1));
+	auto *objBg = (uObjScaleBg *)(g_pu8RamBase + RDPSegAddr(command.inst.cmd1));
 
 	f32 frameX = objBg->frameX / 4.0f;
 	f32 frameY = objBg->frameY / 4.0f;

@@ -170,7 +170,7 @@ static void ConvertPalettisedTo8888( const TextureDestInfo & dsti, const Texture
 									 ConvertPalettisedRowFunction swapped_fn,
 									 ConvertPalettisedRowFunction unswapped_fn )
 {
-	NativePf8888 *	dst        = reinterpret_cast< NativePf8888 * >( dsti.Data );
+	auto *	dst        = reinterpret_cast< NativePf8888 * >( dsti.Data );
 	const u8 *		src        = g_pu8RamBase;
 	u32				src_offset = ti.GetLoadAddress();
 	u32				src_pitch  = ti.GetPitch();
@@ -437,7 +437,7 @@ static void ConvertPalette(ETLutFmt tlut_format, NativePf8888 * dst, const void 
 {
 	if( tlut_format == kTT_IA16 )
 	{
-		const N64PfIA16 * palette = static_cast< const N64PfIA16 * >( src );
+		const auto * palette = static_cast< const N64PfIA16 * >( src );
 
 		for( u32 i {}; i < count; ++i )
 		{
@@ -447,7 +447,7 @@ static void ConvertPalette(ETLutFmt tlut_format, NativePf8888 * dst, const void 
 	else //if( tlut_format == kTT_RGBA16 )
 	{
 		// NB: assume RGBA for all other tlut_formats.
-		const N64Pf5551 * palette = static_cast< const N64Pf5551 * >( src );
+		const auto * palette = static_cast< const N64Pf5551 * >( src );
 
 		for( u32 i {}; i < count; ++i )
 		{

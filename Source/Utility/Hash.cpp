@@ -47,7 +47,7 @@ unsigned int murmur2_hash ( const void * key, int len, unsigned int seed )
 
 	// Mix 4 bytes at a time into the hash
 
-	const unsigned char * data = (const unsigned char *)key;
+	const auto * data = (const unsigned char *)key;
 
 	while(len >= 4)
 	{
@@ -96,7 +96,7 @@ unsigned int murmur2_neutral_hash ( const void * key, int len, unsigned int seed
 
 	unsigned int h = seed ^ len;
 
-	const unsigned char * data = (const unsigned char *)key;
+	const auto * data = (const unsigned char *)key;
 
 	while(len >= 4)
 	{

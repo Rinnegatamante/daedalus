@@ -122,7 +122,7 @@ public:
 
   static int DoAddSamplesStatic( SJob * arg )
   {
-    SAddSamplesJob *    job( static_cast< SAddSamplesJob * >( arg ) );
+    auto *    job( static_cast< SAddSamplesJob * >( arg ) );
     job->DoAddSamples();
     return 0;
   }
@@ -239,14 +239,14 @@ public:
 
 	static int DoHLEStartStatic( SJob * arg )
 	{
-		 SHLEStartJob *  job( static_cast< SHLEStartJob * >( arg ) );
+		 auto *  job( static_cast< SHLEStartJob * >( arg ) );
 		 job->DoHLEStart();
      return 0;
 	}
 
 	static int DoHLEFinishedStatic( SJob * arg )
 	{
-		 SHLEStartJob *  job( static_cast< SHLEStartJob * >( arg ) );
+		 auto *  job( static_cast< SHLEStartJob * >( arg ) );
 		 job->DoHLEFinish();
      return 0;
 	}
@@ -295,7 +295,7 @@ EProcessResult	AudioPluginPSP::ProcessAList()
 
 void audioCallback( void * buf, unsigned int length, void * userdata )
 {
-	AudioPluginPSP * ac( reinterpret_cast< AudioPluginPSP * >( userdata ) );
+	auto * ac( reinterpret_cast< AudioPluginPSP * >( userdata ) );
 
 	ac->FillBuffer( reinterpret_cast< Sample * >( buf ), length );
 }

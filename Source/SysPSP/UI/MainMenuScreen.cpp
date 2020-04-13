@@ -148,9 +148,9 @@ IMainMenuScreen::IMainMenuScreen( CUIContext * p_context )
 
 IMainMenuScreen::~IMainMenuScreen()
 {
-	for( u32 i = 0; i < NUM_MENU_OPTIONS; ++i )
+	for(auto & mOptionComponent : mOptionComponents)
 	{
-		delete mOptionComponents[ i ];
+		delete mOptionComponent;
 	}
 }
 

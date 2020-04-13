@@ -242,9 +242,9 @@ IRomSelectorComponent::IRomSelectorComponent( CUIContext * p_context, CFunctor1<
 ,	mQuitTriggered(false)
 ,	mQuitInit(false)
 {
-	for( u32 i = 0; i < ARRAYSIZE( gRomsDirectories ); ++i )
+	for(auto gRomsDirectorie : gRomsDirectories)
 	{
-		AddRomDirectory( gRomsDirectories[ i ], mRomsList );
+		AddRomDirectory( gRomsDirectorie, mRomsList );
 	}
 
 	stable_sort( mRomsList.begin(), mRomsList.end(), SortByGameName );
@@ -267,11 +267,9 @@ IRomSelectorComponent::IRomSelectorComponent( CUIContext * p_context, CFunctor1<
 //*************************************************************************************
 IRomSelectorComponent::~IRomSelectorComponent()
 {
-	for(RomInfoList::iterator it = mRomsList.begin(); it != mRomsList.end(); ++it)
+	for(auto p_rominfo : mRomsList)
 	{
-		SRomInfo *	p_rominfo( *it );
-
-		delete p_rominfo;
+			delete p_rominfo;
 	}
 	mRomsList.clear();
 
@@ -283,11 +281,9 @@ IRomSelectorComponent::~IRomSelectorComponent()
 //*************************************************************************************
 void	IRomSelectorComponent::UpdateROMList()
 {
-	for(RomInfoList::iterator it = mRomsList.begin(); it != mRomsList.end(); ++it)
+	for(auto p_rominfo : mRomsList)
 	{
-		SRomInfo *	p_rominfo( *it );
-
-		delete p_rominfo;
+			delete p_rominfo;
 	}
 	mRomsList.clear();
 
@@ -296,9 +292,9 @@ void	IRomSelectorComponent::UpdateROMList()
 	mpPreviewTexture = NULL;
 	mPreviewIdx= u32(-1);
 
-	for( u32 i = 0; i < ARRAYSIZE( gRomsDirectories ); ++i )
+	for(auto gRomsDirectorie : gRomsDirectories)
 	{
-		AddRomDirectory( gRomsDirectories[ i ], mRomsList );
+		AddRomDirectory( gRomsDirectorie, mRomsList );
 	}
 
 	stable_sort( mRomsList.begin(), mRomsList.end(), SortByGameName );
@@ -335,7 +331,7 @@ void	IRomSelectorComponent::AddRomDirectory(const char * p_roms_dir, RomInfoList
 				full_path = p_roms_dir;
 				full_path += rom_filename;
 
-				SRomInfo *	p_rom_info = new SRomInfo( full_path.c_str() );
+				auto *	p_rom_info = new SRomInfo( full_path.c_str() );
 
 				roms.push_back( p_rom_info );
 			}
@@ -498,7 +494,7 @@ void IRomSelectorComponent::RenderCategoryList()
 
 	for( u32 i = 0; i < NUM_CATEGORIES; ++i )
 	{
-		ECategory	category = ECategory( i );
+		auto	category = ECategory( i );
 		c32			colour;
 
 		AlphaMap::const_iterator it( mRomCategoryMap.find( category ) );
@@ -541,9 +537,9 @@ void IRomSelectorComponent::Render()
 	if( mRomsList.empty() )
 	{
 		s32 offset( 0 );
-		for( u32 i = 0; i < ARRAYSIZE( gNoRomsText ); ++i )
+		for(auto i : gNoRomsText)
 		{
-			offset += mpContext->DrawTextArea( LIST_TEXT_LEFT, BELOW_MENU_MIN + offset, LIST_TEXT_WIDTH, LIST_TEXT_HEIGHT - offset, gNoRomsText[ i ], DrawTextUtilities::TextWhite, VA_TOP );
+			offset += mpContext->DrawTextArea( LIST_TEXT_LEFT, BELOW_MENU_MIN + offset, LIST_TEXT_WIDTH, LIST_TEXT_HEIGHT - offset, i, DrawTextUtilities::TextWhite, VA_TOP );
 			offset += 4;
 		}
 	}

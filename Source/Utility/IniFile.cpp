@@ -157,9 +157,9 @@ CIniFileSection::~CIniFileSection()
 //*****************************************************************************
 IIniFileSection::~IIniFileSection()
 {
-	for( u32 i = 0; i < mProperties.size(); ++i )
+	for(auto & mPropertie : mProperties)
 	{
-		delete mProperties[ i ];
+		delete mPropertie;
 	}
 
 	mProperties.clear();
@@ -170,7 +170,7 @@ IIniFileSection::~IIniFileSection()
 //*****************************************************************************
 bool	IIniFileSection::FindProperty( const char * p_name, const CIniFileProperty ** p_property ) const
 {
-	PropertyVec::const_iterator it( std::lower_bound( mProperties.begin(), mProperties.end(), p_name, SCompareProperties() ) );
+	auto it( std::lower_bound( mProperties.begin(), mProperties.end(), p_name, SCompareProperties() ) );
 	if( it != mProperties.end() && strcmp( (*it)->mName.c_str(), p_name ) == 0 )
 	{
 		*p_property = *it;
@@ -188,7 +188,7 @@ bool	IIniFileSection::FindProperty( const char * p_name, const CIniFileProperty 
 //*****************************************************************************
 void	IIniFileSection::AddProperty( const IIniFileProperty * p_property )
 {
-	PropertyVec::iterator it( std::lower_bound( mProperties.begin(), mProperties.end(), p_property->GetName(), SCompareProperties() ) );
+	auto it( std::lower_bound( mProperties.begin(), mProperties.end(), p_property->GetName(), SCompareProperties() ) );
 	#ifdef DAEDALUS_ENABLE_ASSERTS
 	DAEDALUS_ASSERT( it == mProperties.end() || strcmp( (*it)->mName.c_str(), p_property->GetName() ) != 0, "This property already exists" );
 	#endif
@@ -244,10 +244,10 @@ IIniFile::~IIniFile()
 {
 	delete mpDefaultSection;
 
-	for( u32 i = 0; i < mSections.size(); ++i )
+	for(auto & mSection : mSections)
 	{
-		delete mSections[ i ];
-		mSections[ i ] = NULL;
+		delete mSection;
+		mSection = NULL;
 	}
 }
 
@@ -294,7 +294,7 @@ static bool	trim( char * p_string, const char * p_trim_chars )
 //*****************************************************************************
 CIniFile *	CIniFile::Create( const char * filename )
 {
-	IIniFile * p_file( new IIniFile );
+	auto * p_file( new IIniFile );
 	if( p_file != NULL )
 	{
 		if( p_file->Open( filename ) )
@@ -373,7 +373,7 @@ bool IIniFile::Open( const char * filename )
 				#ifdef DAEDALUS_ENABLE_ASSERTS
 				DAEDALUS_ASSERT( p_current_section != NULL, "There is no current section" );
 				#endif
-				IIniFileProperty * p_property( new IIniFileProperty( key, value ) );
+				auto * p_property( new IIniFileProperty( key, value ) );
 
 				p_current_section->AddProperty( p_property );
 			}
@@ -420,11 +420,11 @@ const CIniFileSection *	IIniFile::GetSection( u32 section_idx ) const
 const CIniFileSection *		IIniFile::GetSectionByName( const char * section_name ) const
 {
 	// TODO: Could use a map for this if it starts to prove expensive
-	for( u32 i = 0; i < mSections.size(); ++i )
+	for(auto mSection : mSections)
 	{
-		if( strcmp( mSections[ i ]->GetName(), section_name ) == 0 )
+		if( strcmp( mSection->GetName(), section_name ) == 0 )
 		{
-			return mSections[ i ];
+			return mSection;
 		}
 	}
 

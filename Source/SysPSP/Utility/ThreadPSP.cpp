@@ -51,7 +51,7 @@ static int StartThreadFunc( SceSize args, void *argp )
 
 	if(args == sizeof(SDaedThreadDetails))
 	{
-		SDaedThreadDetails * thread_details( static_cast< SDaedThreadDetails * >( argp ) );
+		auto * thread_details( static_cast< SDaedThreadDetails * >( argp ) );
 
 		result = thread_details->ThreadFunction( thread_details->Argument );
 	}

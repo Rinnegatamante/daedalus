@@ -44,7 +44,7 @@ EExpansionPakUsage	ExpansionPakUsageFromString( const char * str )
 {
 	for( u32 i {}; i < NUM_EXPANSIONPAK_USAGE_TYPES; ++i )
 	{
-		EExpansionPakUsage	pak_usage = EExpansionPakUsage( i );
+		auto	pak_usage = EExpansionPakUsage( i );
 
 		if( strcmp( str, ROM_GetExpansionPakUsageName( pak_usage ) ) == 0 )
 		{
@@ -59,7 +59,7 @@ ESaveType	SaveTypeFromString( const char * str )
 {
 	for( u32 i {}; i < NUM_SAVE_TYPES; ++i )
 	{
-		ESaveType	save_type = ESaveType( i );
+		auto	save_type = ESaveType( i );
 
 		if( strcmp( str, ROM_GetSaveTypeName( save_type ) ) == 0 )
 		{
@@ -454,7 +454,7 @@ void IRomSettingsDB::OutputSectionDetails( const RomID & id, const RomSettings &
 
 bool	IRomSettingsDB::GetSettings( const RomID & id, RomSettings * p_settings ) const
 {
-	SettingsMap::const_iterator	it( mSettings.find( id ) );
+	auto	it( mSettings.find( id ) );
 	if ( it != mSettings.end() )
 	{
 		*p_settings = it->second;
@@ -471,7 +471,7 @@ bool	IRomSettingsDB::GetSettings( const RomID & id, RomSettings * p_settings ) c
 
 void	IRomSettingsDB::SetSettings( const RomID & id, const RomSettings & settings )
 {
-	SettingsMap::iterator	it( mSettings.find( id ) );
+	auto	it( mSettings.find( id ) );
 	if ( it != mSettings.end() )
 	{
 		it->second = settings;

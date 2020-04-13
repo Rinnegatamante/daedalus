@@ -204,7 +204,7 @@ CachedTexture * CachedTexture::Create( const TextureInfo & ti )
 		return nullptr;
 	}
 
-	CachedTexture *	texture = new CachedTexture( ti );
+	auto *	texture = new CachedTexture( ti );
 	if (!texture->Initialise())
 	{
 		return nullptr;

@@ -70,7 +70,7 @@ u32		codegroupcount		{};
 //*****************************************************************************
 static void CheatCodes_Apply(u32 index, u32 mode)
 {
-	CHEATCODENODE *code = (CHEATCODENODE*)codegrouplist[index].codelist;
+	auto *code = (CHEATCODENODE*)codegrouplist[index].codelist;
 	u32 num {codegrouplist[index].codecount}; // number of codes
 	bool enable {codegrouplist[index].enable};
 	bool skip {false};

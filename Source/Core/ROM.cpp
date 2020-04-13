@@ -575,7 +575,7 @@ bool ROM_GetRomName( const char * filename, std::string & game_name )
 
 	// Get the address of the rom header
 	// Setup the rom id and size
-	const ROMHeader * prh = reinterpret_cast<const ROMHeader *>( p_bytes );
+	const auto * prh = reinterpret_cast<const ROMHeader *>( p_bytes );
 	ROM_GetRomNameFromHeader( game_name, *prh );
 
 	delete [] p_bytes;

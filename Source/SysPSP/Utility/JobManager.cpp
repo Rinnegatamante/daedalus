@@ -106,7 +106,7 @@ CJobManager::~CJobManager()
 //*****************************************************************************
 u32 CJobManager::JobMain( void * arg )
 {
-	CJobManager *	job_manager( static_cast< CJobManager * >( arg ) );
+	auto *	job_manager( static_cast< CJobManager * >( arg ) );
 
 	return 0;
 }

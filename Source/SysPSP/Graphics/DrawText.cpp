@@ -64,9 +64,9 @@ void	CDrawText::Initialise()
 //*************************************************************************************
 void	CDrawText::Destroy()
 {
-	for( u32 i = 0; i < NUM_FONTS; ++i )
+	for(auto & gFont : gFonts)
 	{
-		intraFontUnload( gFonts[ i ] );
+		intraFontUnload( gFont );
 	}
 	intraFontShutdown();
 }

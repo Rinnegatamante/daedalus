@@ -372,7 +372,7 @@ void IPreferences::Commit()
 // not in the database
 bool IPreferences::GetRomPreferences( const RomID & id, SRomPreferences * preferences ) const
 {
-	PreferencesMap::const_iterator	it( mPreferences.find( id ) );
+	auto	it( mPreferences.find( id ) );
 	if ( it != mPreferences.end() )
 	{
 		*preferences = it->second;
@@ -387,7 +387,7 @@ bool IPreferences::GetRomPreferences( const RomID & id, SRomPreferences * prefer
 // Update the preferences for the specified rom - creates a new entry if necessary
 void IPreferences::SetRomPreferences( const RomID & id, const SRomPreferences & preferences )
 {
-	PreferencesMap::iterator	it( mPreferences.find( id ) );
+	auto	it( mPreferences.find( id ) );
 	if ( it != mPreferences.end() )
 	{
 		it->second = preferences;

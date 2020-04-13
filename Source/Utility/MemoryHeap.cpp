@@ -156,7 +156,7 @@ bool	IMemoryHeap::IsFromHeap( void * ptr ) const
 //*****************************************************************************
 void * IMemoryHeap::InsertNew( u32 idx, u8 * adr, u32 size )
 {
-	Chunk *tmp = reinterpret_cast< Chunk * >( realloc(mpMemMap, (mMemMapLen + 1) * sizeof(mpMemMap[0]) ) );
+	auto *tmp = reinterpret_cast< Chunk * >( realloc(mpMemMap, (mMemMapLen + 1) * sizeof(mpMemMap[0]) ) );
 	if( tmp == NULL )
 	{
 		return NULL;

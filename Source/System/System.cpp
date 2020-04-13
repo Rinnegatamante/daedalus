@@ -221,11 +221,9 @@ static const RomEntityEntry gRomInitTable[] =
 
 bool System_Init()
 {
-	for(u32 i = 0; i < ARRAYSIZE(gSysInitTable); i++)
+	for(const auto & entry : gSysInitTable)
 	{
-		const SysEntityEntry & entry = gSysInitTable[i];
-
-		if (entry.init == NULL)
+			if (entry.init == NULL)
 			continue;
 
 		if (entry.init())
@@ -249,11 +247,9 @@ bool System_Init()
 bool System_Open(const char * filename)
 {
 	strcpy(g_ROM.mFileName, filename);
-	for(u32 i = 0; i < ARRAYSIZE(gRomInitTable); i++)
+	for(const auto & entry : gRomInitTable)
 	{
-		const RomEntityEntry & entry = gRomInitTable[i];
-
-		if (entry.open == NULL)
+			if (entry.open == NULL)
 			continue;
 	#ifdef DAEDALUS_DEBUG_CONSOLE
 		DBGConsole_Msg(0, "==>Open %s", entry.name);

@@ -699,7 +699,7 @@ void RDP_MoveMemViewport(u32 address)
 	DAEDALUS_ASSERT( address+16 < MAX_RAM_ADDRESS, "MoveMem Viewport, invalid memory" );
 	#endif
 	// address is offset into RD_RAM of 8 x 16bits of data...
-	N64Viewport *vp = (N64Viewport*)(g_pu8RamBase + address);
+	auto *vp = (N64Viewport*)(g_pu8RamBase + address);
 
 	// With D3D we had to ensure that the vp coords are positive, so
 	// we truncated them to 0. This happens a lot, as things

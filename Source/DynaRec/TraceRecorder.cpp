@@ -304,7 +304,7 @@ CFragment *		CTraceRecorder::CreateFragment( CCodeBufferManager * p_manager )
 	SRegisterUsageInfo	register_usage;
 	Analyse( register_usage );
 
-	CFragment *	p_frament( new CFragment( p_manager, mStartTraceAddress, mExpectedExitTraceAddress,
+	auto *	p_frament( new CFragment( p_manager, mStartTraceAddress, mExpectedExitTraceAddress,
 		mTraceBuffer, register_usage, mBranchDetails, mNeedIndirectExitMap ) );
 
 	//DBGConsole_Msg( 0, "Inserting hot trace for [R%08x]!", mStartTraceAddress );

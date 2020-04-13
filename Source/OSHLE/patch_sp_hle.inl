@@ -203,8 +203,8 @@ TEST_DISABLE_SP_FUNCS
 	DAEDALUS_ASSERT( !IsSpDeviceBusy(), "Sp Device is BUSY, Need to handle!");
 	#endif
 	u32 temp = VAR_ADDRESS(osSpTaskLoadTempTask);
-	OSTask * pSrcTask = (OSTask *)ReadAddress(task);
-	OSTask * pDstTask = (OSTask *)ReadAddress(temp);
+	auto * pSrcTask = (OSTask *)ReadAddress(task);
+	auto * pDstTask = (OSTask *)ReadAddress(temp);
 
 	// Translate virtual addresses to physical...
 	fast_memcpy(pDstTask, pSrcTask, sizeof(OSTask));
@@ -349,7 +349,7 @@ u32 Patch_osSpTaskYielded()
 {
 TEST_DISABLE_SP_FUNCS
 
-	OSTask * pSrcTask = (OSTask *)ReadAddress(gGPR[REG_a0]._u32_0);
+	auto * pSrcTask = (OSTask *)ReadAddress(gGPR[REG_a0]._u32_0);
 
 	gGPR[REG_v0]._s64 = (s64)(pSrcTask->t.flags & OS_TASK_YIELDED);
 

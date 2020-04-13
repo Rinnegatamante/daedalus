@@ -50,7 +50,7 @@ static void WritePngRowPal4( u8 * line, const void * src, u32 width, const Nativ
 {
 	u32 i = 0;
 
-	const NativePfCI44 * p_src = reinterpret_cast< const NativePfCI44 * >( src );
+	const auto * p_src = reinterpret_cast< const NativePfCI44 * >( src );
 
 	for ( u32 x = 0; x < width; x++ )
 	{
@@ -69,7 +69,7 @@ static void WritePngRowPal8( u8 * line, const void * src, u32 width, const Nativ
 {
 	u32 i = 0;
 
-	const NativePfCI8 * p_src = reinterpret_cast< const NativePfCI8 * >( src );
+	const auto * p_src = reinterpret_cast< const NativePfCI8 * >( src );
 
 	for ( u32 x = 0; x < width; x++ )
 	{
@@ -85,13 +85,13 @@ static void WritePngRowPal8( u8 * line, const void * src, u32 width, const Nativ
 
 static void DAEDALUS_ZLIB_CALL_TYPE PngWrite(png_structp png_ptr, png_bytep data, png_size_t len)
 {
-	DataSink * sink = static_cast<DataSink*>(png_get_io_ptr(png_ptr));
+	auto * sink = static_cast<DataSink*>(png_get_io_ptr(png_ptr));
 	sink->Write(data, len);
 }
 
 static void DAEDALUS_ZLIB_CALL_TYPE PngFlush(png_structp png_ptr)
 {
-	DataSink * sink = static_cast<DataSink*>(png_get_io_ptr(png_ptr));
+	auto * sink = static_cast<DataSink*>(png_get_io_ptr(png_ptr));
 	sink->Flush();
 }
 
@@ -122,7 +122,7 @@ void PngSaveImage( DataSink * sink, const void * data, const void * palette, ETe
 	u8* line = (u8*) malloc(width * 4);
 
 	const u8 *				p       = reinterpret_cast< const u8 * >( data );
-	const NativePf8888 *	pal8888 = reinterpret_cast< const NativePf8888 * >( palette );
+	const auto *	pal8888 = reinterpret_cast< const NativePf8888 * >( palette );
 
 	// If the pitch is negative (i.e for a screenshot), start at the last row and work backwards.
 	if (pitch < 0)
@@ -195,7 +195,7 @@ void PngSaveImage( DataSink * sink, const CNativeTexture * texture )
 void FlattenTexture(const CNativeTexture * texture, void * dst, size_t len)
 {
 	const u8 *           p       = reinterpret_cast< const u8 * >( texture->GetData() );
-	const NativePf8888 * pal8888 = reinterpret_cast< const NativePf8888 * >( texture->GetPalette() );
+	const auto * pal8888 = reinterpret_cast< const NativePf8888 * >( texture->GetPalette() );
 
 	u32 width  = texture->GetWidth();
 	u32 height = texture->GetHeight();

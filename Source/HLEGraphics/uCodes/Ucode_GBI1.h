@@ -149,7 +149,7 @@ void DLParser_GBI1_MoveMem( MicroCodeCommand command )
 		case G_MV_L7:
 			{
 				u32 light_idx = (type-G_MV_L0) >> 1;
-				N64Light *light = (N64Light*)(g_pu8RamBase + address);
+				auto *light = (N64Light*)(g_pu8RamBase + address);
 				RDP_MoveMemLight(light_idx, light);
 			}
 			break;

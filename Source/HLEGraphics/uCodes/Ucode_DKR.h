@@ -203,7 +203,7 @@ void DLParser_DMA_Tri_DKR( MicroCodeCommand command )
 	u32 address = RDPSegAddr(command.inst.cmd1);
 	u32 count = (command.inst.cmd0 >> 4) & 0x1F;	//Count should never exceed 16
 
-	TriDKR *tri = (TriDKR*)(g_pu8RamBase + address);
+	auto *tri = (TriDKR*)(g_pu8RamBase + address);
 
 	bool tris_added = false;
 

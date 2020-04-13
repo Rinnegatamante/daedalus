@@ -261,7 +261,7 @@ EProcessResult RSP_HLE_CICX105(OSTask * task)
 
 void RSP_HLE_ProcessTask()
 {
-	OSTask * pTask = (OSTask *)(g_pu8SpMemBase + 0x0FC0);
+	auto * pTask = (OSTask *)(g_pu8SpMemBase + 0x0FC0);
 
 	EProcessResult	result( PR_NOT_STARTED );
 

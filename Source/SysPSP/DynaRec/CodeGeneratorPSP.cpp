@@ -379,7 +379,7 @@ void	CCodeGeneratorPSP::SetRegisterSpanList( const SRegisterUsageInfo & register
 		u32 i {1};
 		while( i < NUM_N64_REGS )
 		{
-			EN64Reg	n64_reg = EN64Reg( i );
+			auto	n64_reg = EN64Reg( i );
 			u32 lo_hi_idx {};
 			while( lo_hi_idx < 2)
 			{
@@ -410,7 +410,7 @@ void	CCodeGeneratorPSP::SetRegisterSpanList( const SRegisterUsageInfo & register
 void	CCodeGeneratorPSP::ExpireOldIntervals( u32 instruction_idx )
 {
 	// mActiveIntervals is held in order of increasing end point
-	for(RegisterSpanList::iterator span_it = mActiveIntervals.begin(); span_it < mActiveIntervals.end(); ++span_it )
+	for(auto span_it = mActiveIntervals.begin(); span_it < mActiveIntervals.end(); ++span_it )
 	{
 		const SRegisterSpan &	span( *span_it );
 
@@ -772,7 +772,7 @@ void CCodeGeneratorPSP::UpdateRegister( EN64Reg n64_reg, EPspReg psp_reg, bool o
 
 EPspFloatReg	CCodeGeneratorPSP::GetFloatRegisterAndLoad( EN64FloatReg n64_reg )
 {
-	EPspFloatReg	psp_reg = EPspFloatReg( n64_reg );	// 1:1 mapping
+	auto	psp_reg = EPspFloatReg( n64_reg );	// 1:1 mapping
 	if( !mRegisterCache.IsFPValid( n64_reg ) )
 	{
 		GetFloatVar( psp_reg, &gCPUState.FPU[n64_reg]._f32 );
@@ -800,8 +800,8 @@ inline void CCodeGeneratorPSP::UpdateFloatRegister( EN64FloatReg n64_reg )
 #define SIMULATESIG 0x1234	//Reduce signature to load value with one OP
 EPspFloatReg	CCodeGeneratorPSP::GetSimFloatRegisterAndLoad( EN64FloatReg n64_reg )
 {
-	EPspFloatReg psp_reg_sig = EPspFloatReg( n64_reg );	// 1:1 mapping
-	EPspFloatReg psp_reg = EPspFloatReg(n64_reg + 1);
+	auto psp_reg_sig = EPspFloatReg( n64_reg );	// 1:1 mapping
+	auto psp_reg = EPspFloatReg(n64_reg + 1);
 
 	//This is Double Lo or signature
 	if( !mRegisterCache.IsFPValid( n64_reg ) )
@@ -921,7 +921,7 @@ void	CCodeGeneratorPSP::FlushAllRegisters( CN64RegisterCachePSP & cache, bool in
 	// Skip r0
 	for( u32 i = 1; i < NUM_N64_REGS; i++ )
 	{
-		EN64Reg	n64_reg = EN64Reg( i );
+		auto	n64_reg = EN64Reg( i );
 
 		FlushRegister( cache, n64_reg, 0, invalidate );
 		FlushRegister( cache, n64_reg, 1, invalidate );
@@ -940,13 +940,13 @@ void	CCodeGeneratorPSP::FlushAllFloatingPointRegisters( CN64RegisterCachePSP & c
 {
 	for( u32 i {0}; i < NUM_N64_FP_REGS; i++ )
 	{
-		EN64FloatReg	n64_reg = EN64FloatReg( i );
+		auto	n64_reg = EN64FloatReg( i );
 		if( cache.IsFPDirty( n64_reg ) )
 		{
 			#ifdef DAEDALUS_ENABLE_ASSERTS
 			DAEDALUS_ASSERT( cache.IsFPValid( n64_reg ), "Register is dirty but not valid?" );
 			#endif
-			EPspFloatReg	psp_reg = EPspFloatReg( n64_reg );
+			auto	psp_reg = EPspFloatReg( n64_reg );
 
 			SetFloatVar( &gCPUState.FPU[n64_reg]._f32, psp_reg );
 
@@ -971,7 +971,7 @@ void	CCodeGeneratorPSP::FlushAllTemporaryRegisters( CN64RegisterCachePSP & cache
 	// Skip r0
 	for( u32 i {1}; i < NUM_N64_REGS; i++ )
 	{
-		EN64Reg	n64_reg = EN64Reg( i );
+		auto	n64_reg = EN64Reg( i );
 
 		if( cache.IsTemporary( n64_reg, 0 ) )
 		{
@@ -996,7 +996,7 @@ void	CCodeGeneratorPSP::RestoreAllRegisters( CN64RegisterCachePSP & current_cach
 	// Skip r0
 	for( u32 i {1}; i < NUM_N64_REGS; i++ )
 	{
-		EN64Reg	n64_reg = EN64Reg( i );
+		auto	n64_reg = EN64Reg( i );
 
 		if( new_cache.IsValid( n64_reg, 0 ) && !current_cache.IsValid( n64_reg, 0 ) )
 		{
@@ -1011,10 +1011,10 @@ void	CCodeGeneratorPSP::RestoreAllRegisters( CN64RegisterCachePSP & current_cach
 	// XXXX some fp regs are preserved across function calls?
 	for( u32 i {0}; i < NUM_N64_FP_REGS; ++i )
 	{
-		EN64FloatReg	n64_reg = EN64FloatReg( i );
+		auto	n64_reg = EN64FloatReg( i );
 		if( new_cache.IsFPValid( n64_reg ) && !current_cache.IsFPValid( n64_reg ) )
 		{
-			EPspFloatReg	psp_reg = EPspFloatReg( n64_reg );
+			auto	psp_reg = EPspFloatReg( n64_reg );
 
 			GetFloatVar( psp_reg, &gCPUState.FPU[n64_reg]._f32 );
 		}
@@ -1047,7 +1047,7 @@ CJumpLocation CCodeGeneratorPSP::GenerateExitCode( u32 exit_address, u32 jump_ad
 		// Skip r0
 		for( u32 i {1}; i < NUM_N64_REGS; i++ )
 		{
-			EN64Reg	n64_reg = EN64Reg( i );
+			auto	n64_reg = EN64Reg( i );
 
 			//if( mRegisterCache.IsDirty( n64_reg, 0 ) & mRegisterCache.IsKnownValue( n64_reg, 0 ) )
 			//{
@@ -1422,10 +1422,10 @@ CJumpLocation	CCodeGeneratorPSP::GenerateOpCode( const STraceEntry& ti, bool bra
 
 	mQuickLoad = ti.Usage.Access8000;
 
-	const EN64Reg	rs = EN64Reg( op_code.rs );
-	const EN64Reg	rt = EN64Reg( op_code.rt );
-	const EN64Reg	rd = EN64Reg( op_code.rd );
-	const EN64Reg	base = EN64Reg( op_code.base );
+	const auto	rs = EN64Reg( op_code.rs );
+	const auto	rt = EN64Reg( op_code.rt );
+	const auto	rd = EN64Reg( op_code.rd );
+	const auto	base = EN64Reg( op_code.base );
 	const u32		ft = op_code.ft;
 	const u32		sa = op_code.sa;
 	//const u32		jump_target( (address&0xF0000000) | (op_code.target<<2) );
@@ -3869,8 +3869,8 @@ inline void	CCodeGeneratorPSP::GenerateLD( u32 address, bool set_branch_delay, E
 
 inline void	CCodeGeneratorPSP::GenerateLWC1( u32 address, bool set_branch_delay, u32 ft, EN64Reg base, s32 offset )
 {
-	EN64FloatReg	n64_ft = EN64FloatReg( ft );
-	EPspFloatReg	psp_ft = EPspFloatReg( n64_ft );// 1:1 Mapping
+	auto	n64_ft = EN64FloatReg( ft );
+	auto	psp_ft = EPspFloatReg( n64_ft );// 1:1 Mapping
 
 	//u32 address = (u32)( gGPR[op_code.base]._s32_0 + (s32)(s16)op_code.immediate );
 	//value = Read32Bits(address);
@@ -4011,7 +4011,7 @@ inline void	CCodeGeneratorPSP::GenerateSD( u32 current_pc, bool set_branch_delay
 
 inline void	CCodeGeneratorPSP::GenerateSWC1( u32 current_pc, bool set_branch_delay, u32 ft, EN64Reg base, s32 offset )
 {
-	EN64FloatReg	n64_ft = EN64FloatReg( ft );
+	auto	n64_ft = EN64FloatReg( ft );
 	EPspFloatReg	psp_ft( GetFloatRegisterAndLoad( n64_ft ) );
 
 #ifdef ENABLE_SWC1
@@ -4074,7 +4074,7 @@ inline void	CCodeGeneratorPSP::GenerateMFC1( EN64Reg rt, u32 fs )
 	//gGPR[ op_code.rt ]._s64 = (s64)(s32)gCPUState.FPU[fs]._s32_0
 
 	EPspReg			reg_dst( GetRegisterNoLoadLo( rt, PspReg_V0 ) );
-	EN64FloatReg	n64_fs = EN64FloatReg( fs );
+	auto	n64_fs = EN64FloatReg( fs );
 	EPspFloatReg	psp_fs( GetFloatRegisterAndLoad( n64_fs ) );
 
 	MFC1( reg_dst, psp_fs );
@@ -4091,8 +4091,8 @@ inline void	CCodeGeneratorPSP::GenerateMTC1( u32 fs, EN64Reg rt )
 	//gCPUState.FPU[fs]._s32_0 = gGPR[ op_code.rt ]._s32_0;
 
 	EPspReg			psp_rt( GetRegisterAndLoadLo( rt, PspReg_V0 ) );
-	EN64FloatReg	n64_fs = EN64FloatReg( fs );
-	EPspFloatReg	psp_fs = EPspFloatReg( n64_fs );//1:1 Mapping
+	auto	n64_fs = EN64FloatReg( fs );
+	auto	psp_fs = EPspFloatReg( n64_fs );//1:1 Mapping
 
 	MTC1( psp_fs, psp_rt );
 	UpdateFloatRegister( n64_fs );
@@ -4406,12 +4406,12 @@ inline void	CCodeGeneratorPSP::GenerateBC1T( const SBranchDetails * p_branch, CJ
 
 inline void	CCodeGeneratorPSP::GenerateADD_D_Sim( u32 fd, u32 fs, u32 ft )
 {
-	EN64FloatReg	n64_fs = EN64FloatReg( fs );
-	EN64FloatReg	n64_ft = EN64FloatReg( ft );
-	EN64FloatReg	n64_fd = EN64FloatReg( fd );
+	auto	n64_fs = EN64FloatReg( fs );
+	auto	n64_ft = EN64FloatReg( ft );
+	auto	n64_fd = EN64FloatReg( fd );
 
-	EPspFloatReg	psp_fd_sig = EPspFloatReg( n64_fd );//1:1 Mapping
-	EPspFloatReg	psp_fd = EPspFloatReg( n64_fd + 1 );//1:1 Mapping
+	auto	psp_fd_sig = EPspFloatReg( n64_fd );//1:1 Mapping
+	auto	psp_fd = EPspFloatReg( n64_fd + 1 );//1:1 Mapping
 	EPspFloatReg	psp_fs( GetSimFloatRegisterAndLoad( n64_fs ) );
 	EPspFloatReg	psp_ft( GetSimFloatRegisterAndLoad( n64_ft ) );
 
@@ -4427,12 +4427,12 @@ inline void	CCodeGeneratorPSP::GenerateADD_D_Sim( u32 fd, u32 fs, u32 ft )
 
 inline void	CCodeGeneratorPSP::GenerateSUB_D_Sim( u32 fd, u32 fs, u32 ft )
 {
-	EN64FloatReg	n64_fs = EN64FloatReg( fs );
-	EN64FloatReg	n64_ft = EN64FloatReg( ft );
-	EN64FloatReg	n64_fd = EN64FloatReg( fd );
+	auto	n64_fs = EN64FloatReg( fs );
+	auto	n64_ft = EN64FloatReg( ft );
+	auto	n64_fd = EN64FloatReg( fd );
 
-	EPspFloatReg	psp_fd_sig = EPspFloatReg( n64_fd );//1:1 Mapping
-	EPspFloatReg	psp_fd = EPspFloatReg( n64_fd + 1 );//1:1 Mapping
+	auto	psp_fd_sig = EPspFloatReg( n64_fd );//1:1 Mapping
+	auto	psp_fd = EPspFloatReg( n64_fd + 1 );//1:1 Mapping
 	EPspFloatReg	psp_fs( GetSimFloatRegisterAndLoad( n64_fs ) );
 	EPspFloatReg	psp_ft( GetSimFloatRegisterAndLoad( n64_ft ) );
 
@@ -4448,12 +4448,12 @@ inline void	CCodeGeneratorPSP::GenerateSUB_D_Sim( u32 fd, u32 fs, u32 ft )
 
 inline void	CCodeGeneratorPSP::GenerateMUL_D_Sim( u32 fd, u32 fs, u32 ft )
 {
-	EN64FloatReg	n64_fs = EN64FloatReg( fs );
-	EN64FloatReg	n64_ft = EN64FloatReg( ft );
-	EN64FloatReg	n64_fd = EN64FloatReg( fd );
+	auto	n64_fs = EN64FloatReg( fs );
+	auto	n64_ft = EN64FloatReg( ft );
+	auto	n64_fd = EN64FloatReg( fd );
 
-	EPspFloatReg	psp_fd_sig = EPspFloatReg( n64_fd );//1:1 Mapping
-	EPspFloatReg	psp_fd = EPspFloatReg( n64_fd + 1 );//1:1 Mapping
+	auto	psp_fd_sig = EPspFloatReg( n64_fd );//1:1 Mapping
+	auto	psp_fd = EPspFloatReg( n64_fd + 1 );//1:1 Mapping
 	EPspFloatReg	psp_fs( GetSimFloatRegisterAndLoad( n64_fs ) );
 	EPspFloatReg	psp_ft( GetSimFloatRegisterAndLoad( n64_ft ) );
 
@@ -4469,12 +4469,12 @@ inline void	CCodeGeneratorPSP::GenerateMUL_D_Sim( u32 fd, u32 fs, u32 ft )
 
 inline void	CCodeGeneratorPSP::GenerateDIV_D_Sim( u32 fd, u32 fs, u32 ft )
 {
-	EN64FloatReg	n64_fs = EN64FloatReg( fs );
-	EN64FloatReg	n64_ft = EN64FloatReg( ft );
-	EN64FloatReg	n64_fd = EN64FloatReg( fd );
+	auto	n64_fs = EN64FloatReg( fs );
+	auto	n64_ft = EN64FloatReg( ft );
+	auto	n64_fd = EN64FloatReg( fd );
 
-	EPspFloatReg	psp_fd_sig = EPspFloatReg( n64_fd );//1:1 Mapping
-	EPspFloatReg	psp_fd = EPspFloatReg( n64_fd + 1 );//1:1 Mapping
+	auto	psp_fd_sig = EPspFloatReg( n64_fd );//1:1 Mapping
+	auto	psp_fd = EPspFloatReg( n64_fd + 1 );//1:1 Mapping
 	EPspFloatReg	psp_fs( GetSimFloatRegisterAndLoad( n64_fs ) );
 	EPspFloatReg	psp_ft( GetSimFloatRegisterAndLoad( n64_ft ) );
 
@@ -4490,11 +4490,11 @@ inline void	CCodeGeneratorPSP::GenerateDIV_D_Sim( u32 fd, u32 fs, u32 ft )
 
 inline void	CCodeGeneratorPSP::GenerateSQRT_D_Sim( u32 fd, u32 fs )
 {
-	EN64FloatReg	n64_fs = EN64FloatReg( fs );
-	EN64FloatReg	n64_fd = EN64FloatReg( fd );
+	auto	n64_fs = EN64FloatReg( fs );
+	auto	n64_fd = EN64FloatReg( fd );
 
-	EPspFloatReg	psp_fd_sig = EPspFloatReg( n64_fd );//1:1 Mapping
-	EPspFloatReg	psp_fd = EPspFloatReg( n64_fd + 1 );//1:1 Mapping
+	auto	psp_fd_sig = EPspFloatReg( n64_fd );//1:1 Mapping
+	auto	psp_fd = EPspFloatReg( n64_fd + 1 );//1:1 Mapping
 	EPspFloatReg	psp_fs( GetSimFloatRegisterAndLoad( n64_fs ) );
 
 	//Use float now instead of double :)
@@ -4509,11 +4509,11 @@ inline void	CCodeGeneratorPSP::GenerateSQRT_D_Sim( u32 fd, u32 fs )
 
 inline void	CCodeGeneratorPSP::GenerateABS_D_Sim( u32 fd, u32 fs )
 {
-	EN64FloatReg	n64_fs = EN64FloatReg( fs );
-	EN64FloatReg	n64_fd = EN64FloatReg( fd );
+	auto	n64_fs = EN64FloatReg( fs );
+	auto	n64_fd = EN64FloatReg( fd );
 
-	EPspFloatReg	psp_fd_sig = EPspFloatReg( n64_fd );//1:1 Mapping
-	EPspFloatReg	psp_fd = EPspFloatReg( n64_fd + 1 );//1:1 Mapping
+	auto	psp_fd_sig = EPspFloatReg( n64_fd );//1:1 Mapping
+	auto	psp_fd = EPspFloatReg( n64_fd + 1 );//1:1 Mapping
 	EPspFloatReg	psp_fs( GetSimFloatRegisterAndLoad( n64_fs ) );
 
 	//Use float now instead of double :)
@@ -4528,12 +4528,12 @@ inline void	CCodeGeneratorPSP::GenerateABS_D_Sim( u32 fd, u32 fs )
 
 inline void	CCodeGeneratorPSP::GenerateMOV_D_Sim( u32 fd, u32 fs )
 {
-	EN64FloatReg	n64_fs = EN64FloatReg( fs );
-	EN64FloatReg	n64_fd = EN64FloatReg( fd );
+	auto	n64_fs = EN64FloatReg( fs );
+	auto	n64_fd = EN64FloatReg( fd );
 
-	EPspFloatReg	psp_fd_sig = EPspFloatReg( n64_fd );//1:1 Mapping
-	EPspFloatReg	psp_fd = EPspFloatReg( n64_fd + 1 );//1:1 Mapping
-	EPspFloatReg	psp_fs_sig = EPspFloatReg( n64_fs );//1:1 Mapping
+	auto	psp_fd_sig = EPspFloatReg( n64_fd );//1:1 Mapping
+	auto	psp_fd = EPspFloatReg( n64_fd + 1 );//1:1 Mapping
+	auto	psp_fs_sig = EPspFloatReg( n64_fs );//1:1 Mapping
 
 	if( mRegisterCache.IsFPSim( n64_fs ) )
 	{
@@ -4566,11 +4566,11 @@ inline void	CCodeGeneratorPSP::GenerateMOV_D_Sim( u32 fd, u32 fs )
 
 inline void	CCodeGeneratorPSP::GenerateNEG_D_Sim( u32 fd, u32 fs )
 {
-	EN64FloatReg	n64_fs = EN64FloatReg( fs );
-	EN64FloatReg	n64_fd = EN64FloatReg( fd );
+	auto	n64_fs = EN64FloatReg( fs );
+	auto	n64_fd = EN64FloatReg( fd );
 
-	EPspFloatReg	psp_fd_sig = EPspFloatReg( n64_fd );//1:1 Mapping
-	EPspFloatReg	psp_fd = EPspFloatReg( n64_fd + 1 );//1:1 Mapping
+	auto	psp_fd_sig = EPspFloatReg( n64_fd );//1:1 Mapping
+	auto	psp_fd = EPspFloatReg( n64_fd + 1 );//1:1 Mapping
 	EPspFloatReg	psp_fs( GetSimFloatRegisterAndLoad( n64_fs ) );
 
 	//Use float now instead of double :)
@@ -4585,10 +4585,10 @@ inline void	CCodeGeneratorPSP::GenerateNEG_D_Sim( u32 fd, u32 fs )
 
 inline void	CCodeGeneratorPSP::GenerateTRUNC_W_D_Sim( u32 fd, u32 fs )
 {
-	EN64FloatReg	n64_fs = EN64FloatReg( fs );
-	EN64FloatReg	n64_fd = EN64FloatReg( fd );
+	auto	n64_fs = EN64FloatReg( fs );
+	auto	n64_fd = EN64FloatReg( fd );
 
-	EPspFloatReg	psp_fd_sig = EPspFloatReg( n64_fd );//1:1 Mapping
+	auto	psp_fd_sig = EPspFloatReg( n64_fd );//1:1 Mapping
 	//EPspFloatReg	psp_fd = EPspFloatReg( n64_fd + 1 );//1:1 Mapping
 	EPspFloatReg	psp_fs( GetSimFloatRegisterAndLoad( n64_fs ) );
 
@@ -4603,10 +4603,10 @@ inline void	CCodeGeneratorPSP::GenerateTRUNC_W_D_Sim( u32 fd, u32 fs )
 
 inline void	CCodeGeneratorPSP::GenerateCVT_W_D_Sim( u32 fd, u32 fs )
 {
-	EN64FloatReg	n64_fs = EN64FloatReg( fs );
-	EN64FloatReg	n64_fd = EN64FloatReg( fd );
+	auto	n64_fs = EN64FloatReg( fs );
+	auto	n64_fd = EN64FloatReg( fd );
 
-	EPspFloatReg	psp_fd_sig = EPspFloatReg( n64_fd );//1:1 Mapping
+	auto	psp_fd_sig = EPspFloatReg( n64_fd );//1:1 Mapping
 	//EPspFloatReg	psp_fd = EPspFloatReg( n64_fd + 1 );//1:1 Mapping
 	EPspFloatReg	psp_fs( GetSimFloatRegisterAndLoad( n64_fs ) );
 
@@ -4621,10 +4621,10 @@ inline void	CCodeGeneratorPSP::GenerateCVT_W_D_Sim( u32 fd, u32 fs )
 
 inline void	CCodeGeneratorPSP::GenerateCVT_S_D_Sim( u32 fd, u32 fs )
 {
-	EN64FloatReg	n64_fs = EN64FloatReg( fs );
-	EN64FloatReg	n64_fd = EN64FloatReg( fd );
+	auto	n64_fs = EN64FloatReg( fs );
+	auto	n64_fd = EN64FloatReg( fd );
 
-	EPspFloatReg	psp_fd_sig = EPspFloatReg( n64_fd );//1:1 Mapping
+	auto	psp_fd_sig = EPspFloatReg( n64_fd );//1:1 Mapping
 	//EPspFloatReg	psp_fd = EPspFloatReg( n64_fd + 1 );//1:1 Mapping
 	EPspFloatReg	psp_fs( GetSimFloatRegisterAndLoad( n64_fs ) );
 
@@ -4641,8 +4641,8 @@ inline void	CCodeGeneratorPSP::GenerateCMP_D_Sim( u32 fs, ECop1OpFunction cmp_op
 {
 	mFloatCMPIsValid = true;
 
-	EN64FloatReg	n64_fs = EN64FloatReg( fs );
-	EN64FloatReg	n64_ft = EN64FloatReg( ft );
+	auto	n64_fs = EN64FloatReg( fs );
+	auto	n64_ft = EN64FloatReg( ft );
 
 	EPspFloatReg	psp_fs( GetSimFloatRegisterAndLoad( n64_fs ) );
 	EPspFloatReg	psp_ft( GetSimFloatRegisterAndLoad( n64_ft ) );
@@ -4677,11 +4677,11 @@ inline void	CCodeGeneratorPSP::GenerateCMP_D_Sim( u32 fs, ECop1OpFunction cmp_op
 
 inline void	CCodeGeneratorPSP::GenerateADD_S( u32 fd, u32 fs, u32 ft )
 {
-	EN64FloatReg	n64_fs = EN64FloatReg( fs );
-	EN64FloatReg	n64_ft = EN64FloatReg( ft );
-	EN64FloatReg	n64_fd = EN64FloatReg( fd );
+	auto	n64_fs = EN64FloatReg( fs );
+	auto	n64_ft = EN64FloatReg( ft );
+	auto	n64_fd = EN64FloatReg( fd );
 
-	EPspFloatReg	psp_fd = EPspFloatReg( n64_fd );//1:1 Mapping
+	auto	psp_fd = EPspFloatReg( n64_fd );//1:1 Mapping
 	EPspFloatReg	psp_fs( GetFloatRegisterAndLoad( n64_fs ) );
 	EPspFloatReg	psp_ft( GetFloatRegisterAndLoad( n64_ft ) );
 
@@ -4697,11 +4697,11 @@ inline void	CCodeGeneratorPSP::GenerateADD_S( u32 fd, u32 fs, u32 ft )
 
 inline void	CCodeGeneratorPSP::GenerateSUB_S( u32 fd, u32 fs, u32 ft )
 {
-	EN64FloatReg	n64_fs = EN64FloatReg( fs );
-	EN64FloatReg	n64_ft = EN64FloatReg( ft );
-	EN64FloatReg	n64_fd = EN64FloatReg( fd );
+	auto	n64_fs = EN64FloatReg( fs );
+	auto	n64_ft = EN64FloatReg( ft );
+	auto	n64_fd = EN64FloatReg( fd );
 
-	EPspFloatReg	psp_fd = EPspFloatReg(n64_fd ); //1:1 Mapping
+	auto	psp_fd = EPspFloatReg(n64_fd ); //1:1 Mapping
 	EPspFloatReg	psp_fs( GetFloatRegisterAndLoad( n64_fs ) );
 	EPspFloatReg	psp_ft( GetFloatRegisterAndLoad( n64_ft ) );
 
@@ -4717,11 +4717,11 @@ inline void	CCodeGeneratorPSP::GenerateSUB_S( u32 fd, u32 fs, u32 ft )
 
 inline void	CCodeGeneratorPSP::GenerateMUL_S( u32 fd, u32 fs, u32 ft )
 {
-	EN64FloatReg	n64_fs = EN64FloatReg( fs );
-	EN64FloatReg	n64_ft = EN64FloatReg( ft );
-	EN64FloatReg	n64_fd = EN64FloatReg( fd );
+	auto	n64_fs = EN64FloatReg( fs );
+	auto	n64_ft = EN64FloatReg( ft );
+	auto	n64_fd = EN64FloatReg( fd );
 
-	EPspFloatReg	psp_fd = EPspFloatReg( n64_fd );
+	auto	psp_fd = EPspFloatReg( n64_fd );
 	EPspFloatReg	psp_fs( GetFloatRegisterAndLoad( n64_fs ) );
 	EPspFloatReg	psp_ft( GetFloatRegisterAndLoad( n64_ft ) );
 
@@ -4737,11 +4737,11 @@ inline void	CCodeGeneratorPSP::GenerateMUL_S( u32 fd, u32 fs, u32 ft )
 
 inline void	CCodeGeneratorPSP::GenerateDIV_S( u32 fd, u32 fs, u32 ft )
 {
-	EN64FloatReg	n64_fs = EN64FloatReg( fs );
-	EN64FloatReg	n64_ft = EN64FloatReg( ft );
-	EN64FloatReg	n64_fd = EN64FloatReg( fd );
+	auto	n64_fs = EN64FloatReg( fs );
+	auto	n64_ft = EN64FloatReg( ft );
+	auto	n64_fd = EN64FloatReg( fd );
 
-	EPspFloatReg	psp_fd = EPspFloatReg( n64_fd );
+	auto	psp_fd = EPspFloatReg( n64_fd );
 	EPspFloatReg	psp_fs( GetFloatRegisterAndLoad( n64_fs ) );
 	EPspFloatReg	psp_ft( GetFloatRegisterAndLoad( n64_ft ) );
 
@@ -4757,10 +4757,10 @@ inline void	CCodeGeneratorPSP::GenerateDIV_S( u32 fd, u32 fs, u32 ft )
 
 inline void	CCodeGeneratorPSP::GenerateSQRT_S( u32 fd, u32 fs )
 {
-	EN64FloatReg	n64_fs = EN64FloatReg( fs );
-	EN64FloatReg	n64_fd = EN64FloatReg( fd );
+	auto	n64_fs = EN64FloatReg( fs );
+	auto	n64_fd = EN64FloatReg( fd );
 
-	EPspFloatReg	psp_fd = EPspFloatReg( n64_fd );
+	auto	psp_fd = EPspFloatReg( n64_fd );
 	EPspFloatReg	psp_fs( GetFloatRegisterAndLoad( n64_fs ) );
 
 	//SET_ROUND_MODE( gRoundingMode );		//XXXX Is this needed?
@@ -4775,10 +4775,10 @@ inline void	CCodeGeneratorPSP::GenerateSQRT_S( u32 fd, u32 fs )
 
 inline void	CCodeGeneratorPSP::GenerateABS_S( u32 fd, u32 fs )
 {
-	EN64FloatReg	n64_fs = EN64FloatReg( fs );
-	EN64FloatReg	n64_fd = EN64FloatReg( fd );
+	auto	n64_fs = EN64FloatReg( fs );
+	auto	n64_fd = EN64FloatReg( fd );
 
-	EPspFloatReg	psp_fd = EPspFloatReg( n64_fd );
+	auto	psp_fd = EPspFloatReg( n64_fd );
 	EPspFloatReg	psp_fs( GetFloatRegisterAndLoad( n64_fs ) );
 
 	//SET_ROUND_MODE( gRoundingMode );		//XXXX Is this needed?
@@ -4793,10 +4793,10 @@ inline void	CCodeGeneratorPSP::GenerateABS_S( u32 fd, u32 fs )
 
 inline void	CCodeGeneratorPSP::GenerateMOV_S( u32 fd, u32 fs )
 {
-	EN64FloatReg	n64_fs = EN64FloatReg( fs );
-	EN64FloatReg	n64_fd = EN64FloatReg( fd );
+	auto	n64_fs = EN64FloatReg( fs );
+	auto	n64_fd = EN64FloatReg( fd );
 
-	EPspFloatReg	psp_fd = EPspFloatReg( n64_fd );
+	auto	psp_fd = EPspFloatReg( n64_fd );
 	EPspFloatReg	psp_fs( GetFloatRegisterAndLoad( n64_fs ) );
 
 	//SET_ROUND_MODE( gRoundingMode );		//XXXX Is this needed?
@@ -4811,10 +4811,10 @@ inline void	CCodeGeneratorPSP::GenerateMOV_S( u32 fd, u32 fs )
 
 inline void	CCodeGeneratorPSP::GenerateNEG_S( u32 fd, u32 fs )
 {
-	EN64FloatReg	n64_fs = EN64FloatReg( fs );
-	EN64FloatReg	n64_fd = EN64FloatReg( fd );
+	auto	n64_fs = EN64FloatReg( fs );
+	auto	n64_fd = EN64FloatReg( fd );
 
-	EPspFloatReg	psp_fd = EPspFloatReg( n64_fd );
+	auto	psp_fd = EPspFloatReg( n64_fd );
 	EPspFloatReg	psp_fs( GetFloatRegisterAndLoad( n64_fs ) );
 
 	//SET_ROUND_MODE( gRoundingMode );		//XXXX Is this needed?
@@ -4829,10 +4829,10 @@ inline void	CCodeGeneratorPSP::GenerateNEG_S( u32 fd, u32 fs )
 
 inline void	CCodeGeneratorPSP::GenerateTRUNC_W_S( u32 fd, u32 fs )
 {
-	EN64FloatReg	n64_fs = EN64FloatReg( fs );
-	EN64FloatReg	n64_fd = EN64FloatReg( fd );
+	auto	n64_fs = EN64FloatReg( fs );
+	auto	n64_fd = EN64FloatReg( fd );
 
-	EPspFloatReg	psp_fd = EPspFloatReg( n64_fd );
+	auto	psp_fd = EPspFloatReg( n64_fd );
 	EPspFloatReg	psp_fs( GetFloatRegisterAndLoad( n64_fs ) );
 
 	//SET_ROUND_MODE( gRoundingMode );		//XXXX Is this needed?
@@ -4847,10 +4847,10 @@ inline void	CCodeGeneratorPSP::GenerateTRUNC_W_S( u32 fd, u32 fs )
 
 inline void	CCodeGeneratorPSP::GenerateFLOOR_W_S( u32 fd, u32 fs )
 {
-	EN64FloatReg	n64_fs = EN64FloatReg( fs );
-	EN64FloatReg	n64_fd = EN64FloatReg( fd );
+	auto	n64_fs = EN64FloatReg( fs );
+	auto	n64_fd = EN64FloatReg( fd );
 
-	EPspFloatReg	psp_fd = EPspFloatReg( n64_fd );
+	auto	psp_fd = EPspFloatReg( n64_fd );
 	EPspFloatReg	psp_fs( GetFloatRegisterAndLoad( n64_fs ) );
 
 	//SET_ROUND_MODE( gRoundingMode );		//XXXX Is this needed?
@@ -4864,10 +4864,10 @@ inline void	CCodeGeneratorPSP::GenerateFLOOR_W_S( u32 fd, u32 fs )
 
 inline void	CCodeGeneratorPSP::GenerateCVT_W_S( u32 fd, u32 fs )
 {
-	EN64FloatReg	n64_fs = EN64FloatReg( fs );
-	EN64FloatReg	n64_fd = EN64FloatReg( fd );
+	auto	n64_fs = EN64FloatReg( fs );
+	auto	n64_fd = EN64FloatReg( fd );
 
-	EPspFloatReg	psp_fd = EPspFloatReg( n64_fd );
+	auto	psp_fd = EPspFloatReg( n64_fd );
 	EPspFloatReg	psp_fs( GetFloatRegisterAndLoad( n64_fs ) );
 
 	//SET_ROUND_MODE( gRoundingMode );		//XXXX Is this needed?
@@ -4882,11 +4882,11 @@ inline void	CCodeGeneratorPSP::GenerateCVT_W_S( u32 fd, u32 fs )
 
 inline void	CCodeGeneratorPSP::GenerateCVT_D_W_Sim( u32 fd, u32 fs )
 {
-	EN64FloatReg	n64_fs = EN64FloatReg( fs );
-	EN64FloatReg	n64_fd = EN64FloatReg( fd );
+	auto	n64_fs = EN64FloatReg( fs );
+	auto	n64_fd = EN64FloatReg( fd );
 
-	EPspFloatReg	psp_fd_sig = EPspFloatReg( n64_fd );
-	EPspFloatReg	psp_fd = EPspFloatReg( n64_fd + 1 );
+	auto	psp_fd_sig = EPspFloatReg( n64_fd );
+	auto	psp_fd = EPspFloatReg( n64_fd + 1 );
 	EPspFloatReg	psp_fs( GetFloatRegisterAndLoad( n64_fs ) );
 
 	CVT_S_W( psp_fd, psp_fs );
@@ -4901,11 +4901,11 @@ inline void	CCodeGeneratorPSP::GenerateCVT_D_W_Sim( u32 fd, u32 fs )
 
 inline void	CCodeGeneratorPSP::GenerateCVT_D_S_Sim( u32 fd, u32 fs )
 {
-	EN64FloatReg	n64_fs = EN64FloatReg( fs );
-	EN64FloatReg	n64_fd = EN64FloatReg( fd );
+	auto	n64_fs = EN64FloatReg( fs );
+	auto	n64_fd = EN64FloatReg( fd );
 
-	EPspFloatReg	psp_fd_sig = EPspFloatReg( n64_fd );
-	EPspFloatReg	psp_fd = EPspFloatReg( n64_fd + 1 );
+	auto	psp_fd_sig = EPspFloatReg( n64_fd );
+	auto	psp_fd = EPspFloatReg( n64_fd + 1 );
 	EPspFloatReg	psp_fs( GetFloatRegisterAndLoad( n64_fs ) );
 
 	MOV_S( psp_fd, psp_fs );
@@ -4923,11 +4923,11 @@ inline void	CCodeGeneratorPSP::GenerateCVT_D_S_Sim( u32 fd, u32 fs )
 
 inline void	CCodeGeneratorPSP::GenerateCVT_D_S( u32 fd, u32 fs )
 {
-	EN64FloatReg	n64_fs = EN64FloatReg( fs );
-	EN64FloatReg	n64_fd = EN64FloatReg( fd );
+	auto	n64_fs = EN64FloatReg( fs );
+	auto	n64_fd = EN64FloatReg( fd );
 
-	EPspFloatReg	psp_fd_sig = EPspFloatReg( n64_fd );//1:1 Mapping
-	EPspFloatReg	psp_fd = EPspFloatReg( n64_fd + 1 );//1:1 Mapping
+	auto	psp_fd_sig = EPspFloatReg( n64_fd );//1:1 Mapping
+	auto	psp_fd = EPspFloatReg( n64_fd + 1 );//1:1 Mapping
 	EPspFloatReg	psp_fs( GetFloatRegisterAndLoad( n64_fs ) );
 
 	JAL( CCodeLabel( reinterpret_cast< const void * >( _FloatToDouble ) ), false );	//Convert Float to Double
@@ -4950,8 +4950,8 @@ inline void	CCodeGeneratorPSP::GenerateCMP_S( u32 fs, ECop1OpFunction cmp_op, u3
 {
 	mFloatCMPIsValid = true;
 
-	EN64FloatReg	n64_fs = EN64FloatReg( fs );
-	EN64FloatReg	n64_ft = EN64FloatReg( ft );
+	auto	n64_fs = EN64FloatReg( fs );
+	auto	n64_ft = EN64FloatReg( ft );
 
 	EPspFloatReg	psp_fs( GetFloatRegisterAndLoad( n64_fs ) );
 	EPspFloatReg	psp_ft( GetFloatRegisterAndLoad( n64_ft ) );
@@ -5056,10 +5056,10 @@ inline void	CCodeGeneratorPSP::GenerateNEG_D( u32 fd, u32 fs )
 
 inline void	CCodeGeneratorPSP::GenerateCVT_S_W( u32 fd, u32 fs )
 {
-	EN64FloatReg	n64_fs = EN64FloatReg( fs );
-	EN64FloatReg	n64_fd = EN64FloatReg( fd );
+	auto	n64_fs = EN64FloatReg( fs );
+	auto	n64_fd = EN64FloatReg( fd );
 
-	EPspFloatReg	psp_fd = EPspFloatReg( n64_fd );
+	auto	psp_fd = EPspFloatReg( n64_fd );
 	EPspFloatReg	psp_fs( GetFloatRegisterAndLoad( n64_fs ) );
 
 	//SET_ROUND_MODE( gRoundingMode );		//XXXX Is this needed?

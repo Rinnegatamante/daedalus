@@ -174,13 +174,13 @@ u32	GBIMicrocode_DetectVersion( u32 code_base, u32 code_size, u32 data_base, u32
 	u32 ucode_version = GBI_0;
 	u32 ucode_offset = ~0;
 
-	for ( u32 i = 0; i < ARRAYSIZE(gMicrocodeData); i++ )
+	for (auto i : gMicrocodeData)
 	{
-		if ( code_hash == gMicrocodeData[i].hash )
+		if ( code_hash == i.hash )
 		{
 			//DBGConsole_Msg(0, "Ucode has been Detected in Array :[M\"%s\", Ucode %d]", str, gMicrocodeData[ i ].ucode);
-			ucode_version = gMicrocodeData[ i ].ucode;
-			ucode_offset = gMicrocodeData[ i ].offset;
+			ucode_version = i.ucode;
+			ucode_offset = i.offset;
 		}
 	}
 
