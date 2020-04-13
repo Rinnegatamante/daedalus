@@ -544,7 +544,7 @@ bool CPU_Run()
 	if (!RomBuffer::IsRomLoaded())
 		return false;
 
-	while (1)
+	while (true)
 	{
 		gCPURunning = true;
 		gCPUStopOnSimpleState = false;

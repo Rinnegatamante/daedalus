@@ -286,7 +286,7 @@ static inline CRefPtr<CNativeTexture> Load_ObjSprite( const uObjSprite *sprite, 
 			return NULL;
 		}
 
-		ti.SetSwapped          (0);
+		ti.SetSwapped          (false);
 		ti.SetPalette          (sprite->imagePal);
 		ti.SetTlutAddress	   (TLUT_BASE);
 		ti.SetTLutFormat       (kTT_RGBA16);
@@ -696,7 +696,7 @@ void DLParser_S2DEX_BgCopy( MicroCodeCommand command )
 	ti.SetHeight           (imageH);
 	ti.SetPitch			   (((imageW << objBg->imageSiz >> 1)>>3)<<3); //force 8-bit alignment
 
-	ti.SetSwapped          (0);
+	ti.SetSwapped          (false);
 
 	ti.SetPalette          (objBg->imagePal);
 	ti.SetTlutAddress	   (TLUT_BASE);
@@ -743,7 +743,7 @@ void DLParser_S2DEX_Bg1cyc( MicroCodeCommand command )
 	ti.SetHeight           (objBg->imageH/4);
 	ti.SetPitch			   (((objBg->imageW/4 << ti.GetSize() >> 1)>>3)<<3); //force 8-bit alignment, this what sets our correct viewport.
 
-	ti.SetSwapped          (0);
+	ti.SetSwapped          (false);
 
 	ti.SetPalette		   (objBg->imagePal);
 	ti.SetTlutAddress	   (TLUT_BASE);
