@@ -44,7 +44,7 @@ class CStaticFunctor : public CFunctor
 {
 public:
 	CStaticFunctor( void (*function)() ) : mpFunction( function )					{}
-	virtual void operator()()			{ (*mpFunction)(); }
+	void operator()() override			{ (*mpFunction)(); }
 
 private:
 	void (*mpFunction)();
@@ -58,7 +58,7 @@ class CMemberFunctor : public CFunctor
 {
 public:
 	CMemberFunctor( B * object, void (B::*function)() ) : mpObject( object ), mpFunction( function )	{}
-	virtual void operator()()			{ (*mpObject.*mpFunction)(); }
+	void operator()() override			{ (*mpObject.*mpFunction)(); }
 
 private:
 	B *		mpObject;
@@ -70,7 +70,7 @@ class CMemberFunctor1 : public CFunctor1< T >
 {
 public:
 	CMemberFunctor1( B * object, void (B::*function)( T ) ) : mpObject( object ), mpFunction( function )	{}
-	virtual void operator()( T v )		{ (*mpObject.*mpFunction)( v ); }
+	void operator()( T v ) override		{ (*mpObject.*mpFunction)( v ); }
 
 private:
 	B *		mpObject;
@@ -85,9 +85,9 @@ class CCurriedFunctor : public CFunctor
 {
 public:
 	CCurriedFunctor( CFunctor1< T > * functor, T value ) : mpFunctor( functor ), Value( value ) {}
-	~CCurriedFunctor()					{ delete mpFunctor; }
+	~CCurriedFunctor() override					{ delete mpFunctor; }
 
-	virtual void operator()()			{ (*mpFunctor)( Value ); }
+	void operator()() override			{ (*mpFunctor)( Value ); }
 
 private:
 	CFunctor1< T > *		mpFunctor;

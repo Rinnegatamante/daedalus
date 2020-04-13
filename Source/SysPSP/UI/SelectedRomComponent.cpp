@@ -47,13 +47,13 @@ class ISelectedRomComponent : public CSelectedRomComponent
 	public:
 
 		ISelectedRomComponent( CUIContext * p_context, CFunctor * on_start_emulation );
-		~ISelectedRomComponent();
+		~ISelectedRomComponent() override;
 
 		// CUIComponent
-		virtual void				Update( float elapsed_time, const v2 & stick, u32 old_buttons, u32 new_buttons );
-		virtual void				Render();
+		void				Update( float elapsed_time, const v2 & stick, u32 old_buttons, u32 new_buttons ) override;
+		void				Render() override;
 
-		virtual void				SetRomID( const RomID & rom_id )			{ mRomID = rom_id; }
+		void				SetRomID( const RomID & rom_id ) override			{ mRomID = rom_id; }
 
 	private:
 		void						EditPreferences();

@@ -86,40 +86,40 @@ class IUIContext : public CUIContext
 	public:
 
 		IUIContext();
-		~IUIContext();
+		~IUIContext() override;
 
-		virtual void				BeginRender();
-		virtual void				EndRender();
+		void				BeginRender() override;
+		void				EndRender() override;
 
-		virtual c32					GetBackgroundColour() const			{ return mBackgroundColour; }
-		virtual void				SetBackgroundColour( c32 colour )	{ mBackgroundColour = colour; }
+		c32					GetBackgroundColour() const override			{ return mBackgroundColour; }
+		void				SetBackgroundColour( c32 colour ) override	{ mBackgroundColour = colour; }
 
-		virtual u32					GetScreenWidth() const				{ return BACKGROUND_WIDTH; }
-		virtual u32					GetScreenHeight() const				{ return BACKGROUND_HEIGHT; }
+		u32					GetScreenWidth() const override				{ return BACKGROUND_WIDTH; }
+		u32					GetScreenHeight() const override				{ return BACKGROUND_HEIGHT; }
 
-		virtual c32					GetDefaultTextColour() const		{ return DrawTextUtilities::TextWhite; }
-		virtual c32					GetSelectedTextColour() const		{ return mColourPulser.GetCurrentColour(); }
+		c32					GetDefaultTextColour() const override		{ return DrawTextUtilities::TextWhite; }
+		c32					GetSelectedTextColour() const override		{ return mColourPulser.GetCurrentColour(); }
 
-		virtual void				Update( float elapsed_time );
+		void				Update( float elapsed_time ) override;
 
-		virtual void				RenderTexture( const CNativeTexture * texture, const v2 & tl, const v2 & wh, c32 colour );
-		virtual void				RenderTexture( const CNativeTexture * texture, s32 x, s32 y, c32 colour );
-		virtual void				ClearBackground( c32 colour );
-		virtual void				DrawRect( s32 x, s32 y, u32 w, u32 h, c32 colour );
-		virtual void				DrawLine( s32 x0, s32 y0, s32 x1, s32 y1, c32 colour );
+		void				RenderTexture( const CNativeTexture * texture, const v2 & tl, const v2 & wh, c32 colour ) override;
+		void				RenderTexture( const CNativeTexture * texture, s32 x, s32 y, c32 colour ) override;
+		void				ClearBackground( c32 colour ) override;
+		void				DrawRect( s32 x, s32 y, u32 w, u32 h, c32 colour ) override;
+		void				DrawLine( s32 x0, s32 y0, s32 x1, s32 y1, c32 colour ) override;
 
-		virtual void				SetFontStyle( EFontStyle font_style );
+		void				SetFontStyle( EFontStyle font_style ) override;
 
-		virtual u32					DrawText( s32 x, s32 y, const char * text, u32 length, c32 colour );
-		virtual u32					DrawText( s32 x, s32 y, const char * text, u32 length, c32 colour, c32 drop_colour );
-		virtual u32					DrawTextScale( s32 x, s32 y, float scale, const char * text, u32 length, c32 colour );
-		virtual u32					DrawTextScale( s32 x, s32 y, float scale, const char * text, u32 length, c32 colour, c32 drop_colour );
-		virtual u32					DrawTextAlign( s32 min_x, s32 max_x, EAlignType align_type, s32 y, const char * text, u32 length, c32 colour );
-		virtual u32					DrawTextAlign( s32 min_x, s32 max_x, EAlignType align_type, s32 y, const char * text, u32 length, c32 colour, c32 drop_colour );
-		virtual s32					DrawTextArea( s32 left, s32 top, u32 width, u32 height, const char * text, c32 colour, EVerticalAlign vertical_align );
+		u32					DrawText( s32 x, s32 y, const char * text, u32 length, c32 colour ) override;
+		u32					DrawText( s32 x, s32 y, const char * text, u32 length, c32 colour, c32 drop_colour ) override;
+		u32					DrawTextScale( s32 x, s32 y, float scale, const char * text, u32 length, c32 colour ) override;
+		u32					DrawTextScale( s32 x, s32 y, float scale, const char * text, u32 length, c32 colour, c32 drop_colour ) override;
+		u32					DrawTextAlign( s32 min_x, s32 max_x, EAlignType align_type, s32 y, const char * text, u32 length, c32 colour ) override;
+		u32					DrawTextAlign( s32 min_x, s32 max_x, EAlignType align_type, s32 y, const char * text, u32 length, c32 colour, c32 drop_colour ) override;
+		s32					DrawTextArea( s32 left, s32 top, u32 width, u32 height, const char * text, c32 colour, EVerticalAlign vertical_align ) override;
 
-		virtual u32					GetFontHeight() const;
-		virtual u32					GetTextWidth( const char * text ) const;
+		u32					GetFontHeight() const override;
+		u32					GetTextWidth( const char * text ) const override;
 
 	private:
 				s32					AlignText( s32 min_x, s32 max_x, const char * p_str, u32 length, EAlignType align_type );

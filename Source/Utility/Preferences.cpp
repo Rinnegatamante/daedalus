@@ -67,13 +67,13 @@ class IPreferences : public CPreferences
 {
 	public:
 		IPreferences();
-		virtual ~IPreferences();
+		~IPreferences() override;
 
-		bool					OpenPreferencesFile( const char * filename );
-		void					Commit();
+		bool					OpenPreferencesFile( const char * filename ) override;
+		void					Commit() override;
 
-		bool					GetRomPreferences( const RomID & id, SRomPreferences * preferences ) const;
-		void					SetRomPreferences( const RomID & id, const SRomPreferences & preferences );
+		bool					GetRomPreferences( const RomID & id, SRomPreferences * preferences ) const override;
+		void					SetRomPreferences( const RomID & id, const SRomPreferences & preferences ) override;
 
 	private:
 		void					OutputSectionDetails( const RomID & id, const SRomPreferences & preferences, FILE * fh );

@@ -39,11 +39,11 @@ class IROMFileMemory : public CROMFileMemory
 {
 public:
 	IROMFileMemory();
-	~IROMFileMemory();
+	~IROMFileMemory() override;
 
 //	virtual	bool	IsAvailable();
-	virtual void *	Alloc( u32 size );
-	virtual void	Free(void * ptr);
+	void *	Alloc( u32 size ) override;
+	void	Free(void * ptr) override;
 
 private:
 #ifdef DAEDALUS_PSP

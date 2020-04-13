@@ -28,20 +28,20 @@ class CUISetting : public CUIElement
 {
 public:
 	CUISetting( const char * name, const char * description );
-	virtual ~CUISetting() {}
+	~CUISetting() override {}
 
 	virtual const char *	GetSettingName() const = 0;
 
-	virtual	void			OnSelected()			{ OnNext(); }
+		void			OnSelected() override			{ OnNext(); }
 
 	virtual const char *	GetName() const			{ return mName; }
-	virtual const char *	GetDescription() const	{ return mDescription; }
+	const char *	GetDescription() const override	{ return mDescription; }
 
 	virtual bool			IsReadOnly() const		{ return false; }
 	//virtual bool			IsSelectable() const	{ return !IsReadOnly(); }		// We actually want to be able to read the descriptions of various settings, so don't do this.
 
-	virtual u32				GetHeight( CUIContext * context ) const;
-	virtual void			Draw( CUIContext * context, s32 min_x, s32 max_x, EAlignType halign, s32 y, bool selected ) const;
+	u32				GetHeight( CUIContext * context ) const override;
+	void			Draw( CUIContext * context, s32 min_x, s32 max_x, EAlignType halign, s32 y, bool selected ) const override;
 
 private:
 	const char *			mName;
@@ -62,12 +62,12 @@ public:
 	{
 	}
 
-	virtual	void			OnNext()				{ *mBool = !*mBool; }
-	virtual	void			OnPrevious() 			{ *mBool = !*mBool; }
+		void			OnNext() override				{ *mBool = !*mBool; }
+		void			OnPrevious() override 			{ *mBool = !*mBool; }
 
-	virtual bool			IsReadOnly() const		{ return mReadOnly; }
+	bool			IsReadOnly() const override		{ return mReadOnly; }
 
-	virtual const char *	GetSettingName() const	{ return *mBool ? mTrueText : mFalseText; }
+	const char *	GetSettingName() const override	{ return *mBool ? mTrueText : mFalseText; }
 
 private:
 	bool *					mBool;

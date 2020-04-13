@@ -47,12 +47,12 @@ class ISavestateSelectorComponent : public CSavestateSelectorComponent
 	public:
 
 		ISavestateSelectorComponent( CUIContext * p_context, EAccessType accetype, CFunctor1< const char * > * on_slot_selected, const char *running_rom );
-		~ISavestateSelectorComponent();
+		~ISavestateSelectorComponent() override;
 
 		// CUIScreen
-		virtual void				Update( float elapsed_time, const v2 & stick, u32 old_buttons, u32 new_buttons );
-		virtual void				Render();
-		virtual bool				IsFinished() const									{ return mIsFinished; }
+		void				Update( float elapsed_time, const v2 & stick, u32 old_buttons, u32 new_buttons ) override;
+		void				Render() override;
+		bool				IsFinished() const override									{ return mIsFinished; }
 	public:
 		IO::Filename			current_slot_path;
 		bool					isGameRunning;

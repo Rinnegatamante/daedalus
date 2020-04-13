@@ -43,11 +43,11 @@ class IAboutComponent : public CAboutComponent
 	public:
 
 		IAboutComponent( CUIContext * p_context );
-		~IAboutComponent();
+		~IAboutComponent() override;
 
 		// CUIComponent
-		virtual void				Update( f32 elapsed_time, const v2 & stick, u32 old_buttons, u32 new_buttons );
-		virtual void				Render();
+		void				Update( f32 elapsed_time, const v2 & stick, u32 old_buttons, u32 new_buttons ) override;
+		void				Render() override;
 
 	private:
 		CRefPtr<CNativeTexture>		mpTexture;

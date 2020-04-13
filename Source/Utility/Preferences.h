@@ -174,7 +174,7 @@ class	RomID;
 class CPreferences : public CSingleton< CPreferences >
 {
 public:
-	virtual				~CPreferences();
+					~CPreferences() override ;
 
 	virtual bool		OpenPreferencesFile( const char * filename ) = 0;
 	virtual void		Commit() = 0;

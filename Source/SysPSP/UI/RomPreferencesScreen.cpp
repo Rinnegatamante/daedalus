@@ -51,10 +51,10 @@ namespace
 		{
 		}
 
-		virtual	void			OnNext()				{ *mSetting = ETextureHashFrequency( ( *mSetting + 1 ) % NUM_THF ); }
-		virtual	void			OnPrevious()			{ *mSetting = ETextureHashFrequency( ( *mSetting + NUM_THF - 1 ) % NUM_THF ); }
+			void			OnNext() override				{ *mSetting = ETextureHashFrequency( ( *mSetting + 1 ) % NUM_THF ); }
+			void			OnPrevious() override			{ *mSetting = ETextureHashFrequency( ( *mSetting + NUM_THF - 1 ) % NUM_THF ); }
 
-		virtual const char *	GetSettingName() const	{ return Preferences_GetTextureHashFrequencyDescription( *mSetting ); }
+		const char *	GetSettingName() const override	{ return Preferences_GetTextureHashFrequencyDescription( *mSetting ); }
 
 	private:
 		ETextureHashFrequency *	mSetting;
@@ -71,11 +71,11 @@ namespace
 		{
 		}
 
-		virtual	void			OnNext()				{ *mSetting = (*mSetting + 1) % CInputManager::Get()->GetNumConfigurations(); }
-		virtual	void			OnPrevious()			{ *mSetting = (*mSetting + CInputManager::Get()->GetNumConfigurations() - 1) % CInputManager::Get()->GetNumConfigurations(); }
+			void			OnNext() override				{ *mSetting = (*mSetting + 1) % CInputManager::Get()->GetNumConfigurations(); }
+			void			OnPrevious() override			{ *mSetting = (*mSetting + CInputManager::Get()->GetNumConfigurations() - 1) % CInputManager::Get()->GetNumConfigurations(); }
 
-		virtual const char *	GetSettingName() const	{ return CInputManager::Get()->GetConfigurationName( *mSetting ); }
-		virtual const char *	GetDescription() const	{ return CInputManager::Get()->GetConfigurationDescription( *mSetting ); }
+		const char *	GetSettingName() const override	{ return CInputManager::Get()->GetConfigurationName( *mSetting ); }
+		const char *	GetDescription() const override	{ return CInputManager::Get()->GetConfigurationDescription( *mSetting ); }
 
 	private:
 		u32 *					mSetting;
@@ -91,10 +91,10 @@ namespace
 		{
 		}
 
-		virtual	void			OnNext()				{ *mSetting = (*mSetting < APM_ENABLED_SYNC) ? static_cast<EAudioPluginMode>(*mSetting + 1) : APM_DISABLED; }
-		virtual	void			OnPrevious()			{ *mSetting = (*mSetting > APM_DISABLED)     ? static_cast<EAudioPluginMode>(*mSetting - 1) : APM_ENABLED_SYNC; }
+			void			OnNext() override				{ *mSetting = (*mSetting < APM_ENABLED_SYNC) ? static_cast<EAudioPluginMode>(*mSetting + 1) : APM_DISABLED; }
+			void			OnPrevious() override			{ *mSetting = (*mSetting > APM_DISABLED)     ? static_cast<EAudioPluginMode>(*mSetting - 1) : APM_ENABLED_SYNC; }
 
-		virtual const char *	GetSettingName() const
+		const char *	GetSettingName() const override
 		{
 			switch ( *mSetting )
 			{
@@ -118,10 +118,10 @@ namespace
 		{
 		}
 
-		virtual	void			OnNext()				{ *mSetting += 0.01f; *mSetting = *mSetting > 1.5f ? 1.5f : *mSetting;}
-		virtual	void			OnPrevious()			{ *mSetting -= 0.01f; *mSetting = *mSetting < 1.0f ? 1.0f : *mSetting;}
+			void			OnNext() override				{ *mSetting += 0.01f; *mSetting = *mSetting > 1.5f ? 1.5f : *mSetting;}
+			void			OnPrevious() override			{ *mSetting -= 0.01f; *mSetting = *mSetting < 1.0f ? 1.0f : *mSetting;}
 
-		virtual const char *	GetSettingName() const	{ sprintf( mString, "%.0f%%", (double)(*mSetting*100.0f) ); return mString; }
+		const char *	GetSettingName() const override	{ sprintf( mString, "%.0f%%", (double)(*mSetting*100.0f) ); return mString; }
 
 	private:
 		float *			mSetting;
@@ -138,12 +138,12 @@ namespace
 		{
 		}
 
-		virtual bool			IsReadOnly() const		{ return *mAudioEnabled > APM_DISABLED; }		// Disable this if no audio enabled;
+		bool			IsReadOnly() const override		{ return *mAudioEnabled > APM_DISABLED; }		// Disable this if no audio enabled;
 
-		virtual	void			OnNext()				{ if( !IsReadOnly() ) *mSetting = !*mSetting; }
-		virtual	void			OnPrevious()			{ if( !IsReadOnly() ) *mSetting = !*mSetting; }
+			void			OnNext() override				{ if( !IsReadOnly() ) *mSetting = !*mSetting; }
+			void			OnPrevious() override			{ if( !IsReadOnly() ) *mSetting = !*mSetting; }
 
-		virtual const char *	GetSettingName() const	{ return (*mSetting) ? "Enabled" : "Disabled"; }
+		const char *	GetSettingName() const override	{ return (*mSetting) ? "Enabled" : "Disabled"; }
 
 	private:
 		bool *					mSetting;
@@ -160,10 +160,10 @@ namespace
 		{
 		}
 
-		virtual	void			OnNext()				{ *mSetting = EFrameskipValue( (*mSetting + 1) % NUM_FRAMESKIP_VALUES ); }
-		virtual	void			OnPrevious()			{ *mSetting = EFrameskipValue( (*mSetting + NUM_FRAMESKIP_VALUES - 1) % NUM_FRAMESKIP_VALUES ); }
+			void			OnNext() override				{ *mSetting = EFrameskipValue( (*mSetting + 1) % NUM_FRAMESKIP_VALUES ); }
+			void			OnPrevious() override			{ *mSetting = EFrameskipValue( (*mSetting + NUM_FRAMESKIP_VALUES - 1) % NUM_FRAMESKIP_VALUES ); }
 
-		virtual const char *	GetSettingName() const	{ return Preferences_GetFrameskipDescription( *mSetting ); }
+		const char *	GetSettingName() const override	{ return Preferences_GetFrameskipDescription( *mSetting ); }
 
 	private:
 		EFrameskipValue *		mSetting;
@@ -178,10 +178,10 @@ namespace
 		{
 		}
 
-		virtual	void			OnNext()				{ *mSetting = (*mSetting < 2) ? (*mSetting + 1) : 0; }
-		virtual	void			OnPrevious()			{ *mSetting = (*mSetting > 0) ? (*mSetting - 1) : 2; }
+			void			OnNext() override				{ *mSetting = (*mSetting < 2) ? (*mSetting + 1) : 0; }
+			void			OnPrevious() override			{ *mSetting = (*mSetting > 0) ? (*mSetting - 1) : 2; }
 
-		virtual const char *	GetSettingName() const
+		const char *	GetSettingName() const override
 		{
 			switch ( *mSetting )
 			{
@@ -205,15 +205,15 @@ class IRomPreferencesScreen : public CRomPreferencesScreen, public CUIScreen
 	public:
 
 		IRomPreferencesScreen( CUIContext * p_context, const RomID & rom_id );
-		~IRomPreferencesScreen();
+		~IRomPreferencesScreen() override;
 
 		// CRomPreferencesScreen
-		virtual void				Run();
+		void				Run() override;
 
 		// CUIScreen
-		virtual void				Update( float elapsed_time, const v2 & stick, u32 old_buttons, u32 new_buttons );
-		virtual void				Render();
-		virtual bool				IsFinished() const									{ return mIsFinished; }
+		void				Update( float elapsed_time, const v2 & stick, u32 old_buttons, u32 new_buttons ) override;
+		void				Render() override;
+		bool				IsFinished() const override									{ return mIsFinished; }
 
 	private:
 				void				OnConfirm();

@@ -64,18 +64,18 @@ public:
 	{
 	}
 
-	virtual ~CBlendConstantExpressionValue();
+	~CBlendConstantExpressionValue() override;
 
-	virtual c32					Evaluate( c32 shade, c32 primitive, c32 environment ) const;
-	virtual c32 				EvaluateConstant( c32 primitive, c32 environment ) const;
-	virtual bool 				TryEvaluateConstant( const SRenderState & state, c32 * out ) const;
+	c32					Evaluate( c32 shade, c32 primitive, c32 environment ) const override;
+	c32 				EvaluateConstant( c32 primitive, c32 environment ) const override;
+	bool 				TryEvaluateConstant( const SRenderState & state, c32 * out ) const override;
 
-	virtual bool 				IsShade() const;
+	bool 				IsShade() const override;
 
-	virtual void 				ApplyExpressionRGB( const SRenderState & state ) const;
-	virtual void 				ApplyExpressionAlpha( const SRenderState & state ) const;
+	void 				ApplyExpressionRGB( const SRenderState & state ) const override;
+	void 				ApplyExpressionAlpha( const SRenderState & state ) const override;
 
-	virtual std::string 		ToString() const;
+	std::string 		ToString() const override;
 
 private:
 	EBlendConstant				mConstant;
@@ -91,16 +91,16 @@ public:
 	{
 	}
 
-	virtual ~CBlendConstantExpression2();
+	~CBlendConstantExpression2() override;
 
-	virtual c32 				Evaluate( c32 shade, c32 primitive, c32 environment ) const;
-	virtual c32					EvaluateConstant( c32 primitive, c32 environment ) const;
-	virtual bool 				TryEvaluateConstant( const SRenderState & state, c32 * out ) const;
+	c32 				Evaluate( c32 shade, c32 primitive, c32 environment ) const override;
+	c32					EvaluateConstant( c32 primitive, c32 environment ) const override;
+	bool 				TryEvaluateConstant( const SRenderState & state, c32 * out ) const override;
 
-	virtual void 				ApplyExpressionRGB( const SRenderState & state ) const;
-	virtual void 				ApplyExpressionAlpha( const SRenderState & state ) const;
+	void 				ApplyExpressionRGB( const SRenderState & state ) const override;
+	void 				ApplyExpressionAlpha( const SRenderState & state ) const override;
 
-	virtual std::string 		ToString() const;
+	std::string 		ToString() const override;
 
 private:
 	const CBlendConstantExpression *	mA;
@@ -139,16 +139,16 @@ public:
 	{
 	}
 
-	virtual ~CBlendConstantExpressionBlend();
+	~CBlendConstantExpressionBlend() override;
 
-	virtual c32 				Evaluate( c32 shade, c32 primitive, c32 environment ) const;
-	virtual c32 				EvaluateConstant( c32 primitive, c32 environment ) const;
-	virtual bool 				TryEvaluateConstant( const SRenderState & state, c32 * out ) const;
+	c32 				Evaluate( c32 shade, c32 primitive, c32 environment ) const override;
+	c32 				EvaluateConstant( c32 primitive, c32 environment ) const override;
+	bool 				TryEvaluateConstant( const SRenderState & state, c32 * out ) const override;
 
-	virtual void 				ApplyExpressionRGB( const SRenderState & state ) const;
-	virtual void 				ApplyExpressionAlpha( const SRenderState & state ) const;
+	void 				ApplyExpressionRGB( const SRenderState & state ) const override;
+	void 				ApplyExpressionAlpha( const SRenderState & state ) const override;
 
-	virtual std::string 		ToString() const;
+	std::string 		ToString() const override;
 
 private:
 	const CBlendConstantExpression *			mA;

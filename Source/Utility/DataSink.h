@@ -15,12 +15,12 @@ class FileSink : public DataSink
 {
 public:
 	FileSink();
-	~FileSink();
+	~FileSink() override;
 
 	bool Open(const char * filename, const char * mode);
 
-	virtual size_t Write(const void * p, size_t len);
-	virtual void Flush();
+	size_t Write(const void * p, size_t len) override;
+	void Flush() override;
 
 private:
 	FILE * 		Handle;

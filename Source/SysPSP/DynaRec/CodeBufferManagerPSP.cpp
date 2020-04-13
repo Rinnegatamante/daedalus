@@ -111,12 +111,12 @@ public:
 	{
 	}
 
-	virtual bool				Initialise();
-	virtual void				Reset();
-	virtual void				Finalise();
+	bool				Initialise() override;
+	void				Reset() override;
+	void				Finalise() override;
 
-	virtual CCodeGenerator *	StartNewBlock();
-	virtual u32					FinaliseCurrentBlock();
+	CCodeGenerator *	StartNewBlock() override;
+	u32					FinaliseCurrentBlock() override;
 
 private:
 

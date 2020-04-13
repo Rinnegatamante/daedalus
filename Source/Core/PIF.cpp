@@ -122,15 +122,15 @@ class	IController : public CController
 {
 	public:
 		IController();
-		~IController();
+		~IController() override;
 
 		//
 		// CController implementation
 		//
-		bool			OnRomOpen();
-		void			OnRomClose();
+		bool			OnRomOpen() override;
+		void			OnRomClose() override;
 
-		void			Process();
+		void			Process() override;
 
 	private:
 		//

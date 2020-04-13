@@ -93,7 +93,7 @@ class CConstString
 			}
 			else
 			{
-				return _strcmpi( mpString, string ) == 0;
+				return strcmp( mpString, string ) == 0;
 			}
 		}
 
@@ -346,7 +346,7 @@ class CString
 			}
 			else
 			{
-				return _strcmpi( mpString, string ) == 0;
+				return strcmp( mpString, string ) == 0;
 			}
 		}
 

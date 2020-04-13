@@ -82,17 +82,17 @@ public:
 
 	ECombinerInput					GetInput() const						{ return mInput; }
 
-	virtual CCombinerOperand *		Clone() const							{ return new CCombinerInput( mInput ); }
-	virtual bool					IsInput( ECombinerInput input ) const	{ return input == mInput; }
-	virtual bool					IsInput() const							{ return true; }
+	CCombinerOperand *		Clone() const override							{ return new CCombinerInput( mInput ); }
+	bool					IsInput( ECombinerInput input ) const override	{ return input == mInput; }
+	bool					IsInput() const override							{ return true; }
 
-	virtual CCombinerOperand *		SimplifyAndReduce()	const				{ return Clone(); }
+	CCombinerOperand *		SimplifyAndReduce()	const override				{ return Clone(); }
 
-	virtual bool					IsEqual( const CCombinerOperand & rhs ) const	{ return rhs.IsInput( mInput ); }
+	bool					IsEqual( const CCombinerOperand & rhs ) const override	{ return rhs.IsInput( mInput ); }
 
 
-	virtual int						Compare( const CCombinerOperand & other ) const;
-	virtual COutputStream &			Stream( COutputStream & stream ) const;
+	int						Compare( const CCombinerOperand & other ) const override;
+	COutputStream &			Stream( COutputStream & stream ) const override;
 
 private:
 	ECombinerInput		mInput;
@@ -113,7 +113,7 @@ public:
 	{
 	}
 
-	~CCombinerBlend()
+	~CCombinerBlend() override
 	{
 		delete mInputA;
 		delete mInputB;
@@ -124,15 +124,15 @@ public:
 	CCombinerOperand *				GetInputB() const						{ return mInputB; }
 	CCombinerOperand *				GetInputF() const						{ return mInputF; }
 
-	virtual CCombinerOperand *		Clone() const							{ return new CCombinerBlend( mInputA->Clone(), mInputB->Clone(), mInputF->Clone() ); }
-	virtual bool					IsBlend() const							{ return true; }
+	CCombinerOperand *		Clone() const override							{ return new CCombinerBlend( mInputA->Clone(), mInputB->Clone(), mInputF->Clone() ); }
+	bool					IsBlend() const override							{ return true; }
 
-	virtual CCombinerOperand *		SimplifyAndReduce()	const				{ return Clone(); }
+	CCombinerOperand *		SimplifyAndReduce()	const override				{ return Clone(); }
 
-	virtual bool					IsEqual( const CCombinerOperand & rhs ) const	{ return Compare( rhs ) == 0; }
+	bool					IsEqual( const CCombinerOperand & rhs ) const override	{ return Compare( rhs ) == 0; }
 
-	virtual int						Compare( const CCombinerOperand & other ) const;
-	virtual COutputStream &			Stream( COutputStream & stream ) const;
+	int						Compare( const CCombinerOperand & other ) const override;
+	COutputStream &			Stream( COutputStream & stream ) const override;
 
 private:
 	CCombinerOperand *		mInputA;
@@ -150,9 +150,9 @@ public:
 	CCombinerSum();
 	CCombinerSum( CCombinerOperand * operand );
 	CCombinerSum( const CCombinerSum & rhs );
-	~CCombinerSum();
+	~CCombinerSum() override;
 
-	virtual int							Compare( const CCombinerOperand & other ) const;
+	int							Compare( const CCombinerOperand & other ) const override;
 	void								Add( CCombinerOperand * operand );
 
 	void								Sub( CCombinerOperand * operand );
@@ -160,7 +160,7 @@ public:
 	// Try to reduce this operand to a blend. If it fails, returns NULL
 	CCombinerOperand *					ReduceToBlend() const;
 
-	virtual CCombinerOperand *			SimplifyAndReduce() const;
+	CCombinerOperand *			SimplifyAndReduce() const override;
 
 	void								SortOperands()					{ std::sort( mOperands.begin(), mOperands.end(), SortCombinerOperandPtr() ); }
 
@@ -168,10 +168,10 @@ public:
 	const CCombinerOperand *			GetOperand( u32 i ) const		{ return mOperands[ i ].Operand; }
 	bool								IsTermNegated( u32 i ) const	{ return mOperands[ i ].Negate; }
 
-	virtual bool						IsSum() const					{ return true; }
-	virtual CCombinerOperand *			Clone() const					{ return new CCombinerSum( *this ); }
+	bool						IsSum() const override					{ return true; }
+	CCombinerOperand *			Clone() const override					{ return new CCombinerSum( *this ); }
 
-	virtual COutputStream &				Stream( COutputStream & stream ) const;
+	COutputStream &				Stream( COutputStream & stream ) const override;
 
 private:
 
@@ -214,25 +214,25 @@ public:
 	CCombinerProduct();
 	CCombinerProduct( CCombinerOperand * operand );
 	CCombinerProduct( const CCombinerProduct & rhs );
-	~CCombinerProduct();
+	~CCombinerProduct() override;
 
 	void						Clear();
 
-	virtual int					Compare( const CCombinerOperand & other ) const;
+	int					Compare( const CCombinerOperand & other ) const override;
 
 	void						Mul( CCombinerOperand * operand );
 
-	virtual CCombinerOperand *	SimplifyAndReduce() const;
+	CCombinerOperand *	SimplifyAndReduce() const override;
 
 	void						SortOperands()				{ std::sort( mOperands.begin(), mOperands.end(), SortCombinerOperandPtr() ); }
 
 	u32							GetNumOperands() const		{ return mOperands.size(); }
 	const CCombinerOperand *	GetOperand( u32 i ) const	{ return mOperands[ i ].Operand; }
 
-	virtual bool				IsProduct() const			{ return true; }
-	virtual CCombinerOperand *	Clone() const				{ return new CCombinerProduct( *this ); }
+	bool				IsProduct() const override			{ return true; }
+	CCombinerOperand *	Clone() const override				{ return new CCombinerProduct( *this ); }
 
-	virtual COutputStream &		Stream( COutputStream & stream ) const;
+	COutputStream &		Stream( COutputStream & stream ) const override;
 
 private:
 

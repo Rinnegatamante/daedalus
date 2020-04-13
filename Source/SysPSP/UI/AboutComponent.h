@@ -27,7 +27,7 @@ class CAboutComponent : public CUIComponent
 {
 	public:
 		CAboutComponent( CUIContext * p_context );
-		virtual ~CAboutComponent();
+		~CAboutComponent() override;
 		static CAboutComponent *	Create( CUIContext * p_context );
 };
 

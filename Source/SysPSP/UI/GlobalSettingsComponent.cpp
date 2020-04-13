@@ -62,10 +62,10 @@ namespace
 		{
 		}
 
-		virtual	void	OnNext()				{ gGlobalPreferences.ViewportType = EViewportType( (gGlobalPreferences.ViewportType+1) % NUM_VIEWPORT_TYPES ); }
-		virtual	void	OnPrevious()			{ gGlobalPreferences.ViewportType = EViewportType( (gGlobalPreferences.ViewportType + NUM_VIEWPORT_TYPES - 1) % NUM_VIEWPORT_TYPES ); }
+			void	OnNext() override				{ gGlobalPreferences.ViewportType = EViewportType( (gGlobalPreferences.ViewportType+1) % NUM_VIEWPORT_TYPES ); }
+			void	OnPrevious() override			{ gGlobalPreferences.ViewportType = EViewportType( (gGlobalPreferences.ViewportType + NUM_VIEWPORT_TYPES - 1) % NUM_VIEWPORT_TYPES ); }
 
-		virtual const char *	GetSettingName() const
+		const char *	GetSettingName() const override
 		{
 			if ( gGlobalPreferences.TVEnable )
 			{
@@ -123,10 +123,10 @@ namespace
 		{
 		}
 
-		virtual	void	OnNext()				{ gGlobalPreferences.TVType = ETVType( gGlobalPreferences.TVType ^ 1 ); }
-		virtual	void	OnPrevious()			{ gGlobalPreferences.TVType = ETVType( gGlobalPreferences.TVType ^ 1 ); }
+			void	OnNext() override				{ gGlobalPreferences.TVType = ETVType( gGlobalPreferences.TVType ^ 1 ); }
+			void	OnPrevious() override			{ gGlobalPreferences.TVType = ETVType( gGlobalPreferences.TVType ^ 1 ); }
 
-		virtual const char *	GetSettingName() const
+		const char *	GetSettingName() const override
 		{
 			switch( gGlobalPreferences.TVType )
 			{
@@ -148,14 +148,14 @@ namespace
 		{
 		}
 
-		virtual	void		OnNext()		{ (gGlobalPreferences.Language >= Translate_Number() ) ? 0 : gGlobalPreferences.Language++; }
-		virtual	void		OnPrevious()	{ (gGlobalPreferences.Language <= 0) ? 0 : gGlobalPreferences.Language--; }
+			void		OnNext() override		{ (gGlobalPreferences.Language >= Translate_Number() ) ? 0 : gGlobalPreferences.Language++; }
+			void		OnPrevious() override	{ (gGlobalPreferences.Language <= 0) ? 0 : gGlobalPreferences.Language--; }
 
-		virtual	void			OnSelected()
+			void			OnSelected() override
 		{
 			Translate_Read( gGlobalPreferences.Language, DAEDALUS_PSP_PATH("Languages/") );
 		}
-		virtual const char *	GetSettingName() const
+		const char *	GetSettingName() const override
 		{
 			return Translate_Name( gGlobalPreferences.Language );
 		}
@@ -170,14 +170,14 @@ namespace
 		{
 		}
 
-		virtual	void			OnSelected()
+			void			OnSelected() override
 		{
 			CAdjustDeadzoneScreen *	adjust_deadzone( CAdjustDeadzoneScreen::Create( mpContext ) );
 			adjust_deadzone->Run();
 			delete adjust_deadzone;
 		}
 
-		virtual const char *	GetSettingName() const
+		const char *	GetSettingName() const override
 		{
 			f32 min_deadzone( gGlobalPreferences.StickMinDeadzone );
 			f32 max_deadzone( gGlobalPreferences.StickMaxDeadzone );
@@ -200,7 +200,7 @@ namespace
 		{
 		}
 
-		virtual	void			OnSelected()
+			void			OnSelected() override
 		{
 			if(gShowDialog.Render( mpContext,"Reset HLE cache?", false) )
 			{
@@ -231,7 +231,7 @@ namespace
 			}
 		}
 
-		virtual const char *	GetSettingName() const
+		const char *	GetSettingName() const override
 		{
 			return "Press X to Start";
 		}
@@ -248,10 +248,10 @@ namespace
 		{
 		}
 
-		virtual	void		OnNext()		{ gGlobalPreferences.GuiColor = EGuiColor( (gGlobalPreferences.GuiColor+1) % NUM_COLOR_TYPES ); }
-		virtual	void		OnPrevious()	{ gGlobalPreferences.GuiColor = EGuiColor( (gGlobalPreferences.GuiColor + NUM_COLOR_TYPES - 1) % NUM_COLOR_TYPES ); }
+			void		OnNext() override		{ gGlobalPreferences.GuiColor = EGuiColor( (gGlobalPreferences.GuiColor+1) % NUM_COLOR_TYPES ); }
+			void		OnPrevious() override	{ gGlobalPreferences.GuiColor = EGuiColor( (gGlobalPreferences.GuiColor + NUM_COLOR_TYPES - 1) % NUM_COLOR_TYPES ); }
 
-		virtual const char *	GetSettingName() const
+		const char *	GetSettingName() const override
 		{
 			switch ( gGlobalPreferences.GuiColor )
 			{
@@ -280,10 +280,10 @@ namespace
 		{
 		}
 
-		virtual	void		OnNext()		{ (gGlobalPreferences.DisplayFramerate >= 3) ? 0 : gGlobalPreferences.DisplayFramerate++; }
-		virtual	void		OnPrevious()	{ (gGlobalPreferences.DisplayFramerate <= 0) ? 0 : gGlobalPreferences.DisplayFramerate--; }
+			void		OnNext() override		{ (gGlobalPreferences.DisplayFramerate >= 3) ? 0 : gGlobalPreferences.DisplayFramerate++; }
+			void		OnPrevious() override	{ (gGlobalPreferences.DisplayFramerate <= 0) ? 0 : gGlobalPreferences.DisplayFramerate--; }
 
-		virtual const char *	GetSettingName() const
+		const char *	GetSettingName() const override
 		{
 			switch ( gGlobalPreferences.DisplayFramerate )
 			{
@@ -303,11 +303,11 @@ class IGlobalSettingsComponent : public CGlobalSettingsComponent
 	public:
 
 		IGlobalSettingsComponent( CUIContext * p_context );
-		~IGlobalSettingsComponent();
+		~IGlobalSettingsComponent() override;
 
 		// CUIComponent
-		virtual void				Update( float elapsed_time, const v2 & stick, u32 old_buttons, u32 new_buttons );
-		virtual void				Render();
+		void				Update( float elapsed_time, const v2 & stick, u32 old_buttons, u32 new_buttons ) override;
+		void				Render() override;
 
 	private:
 		CUIElementBag				mElements;

@@ -123,10 +123,10 @@ class CRenderSettingsInvalid : public CRenderSettings
 {
 public:
 	CRenderSettingsInvalid( const char * description ) : CRenderSettings( description ) {}
-	virtual bool			IsInexact() const								{ return true; }
-	virtual bool			UsesTexture0() const							{ return false; }
-	virtual bool			UsesTexture1() const							{ return false; }
-	virtual void			Apply( bool texture_installed, const SRenderState & state, SRenderStateOut & out ) const	{ }
+	bool			IsInexact() const override								{ return true; }
+	bool			UsesTexture0() const override							{ return false; }
+	bool			UsesTexture1() const override							{ return false; }
+	void			Apply( bool texture_installed, const SRenderState & state, SRenderStateOut & out ) const override	{ }
 #ifdef DAEDALUS_DEBUG_DISPLAYLIST
 	virtual void			Print( bool texture_installed ) const			{ printf( "Invalid\n" ); }
 #endif
@@ -136,7 +136,7 @@ class CRenderSettingsModulate : public CRenderSettings
 {
 public:
 	CRenderSettingsModulate( const char * description );
-	~CRenderSettingsModulate();
+	~CRenderSettingsModulate() override;
 
 	void					AddTermTexel0();
 	void					AddTermTexel1();
@@ -145,12 +145,12 @@ public:
 	void					Finalise();
 
 	void					SetInexact()					{ mInexact = true; }
-	virtual bool			IsInexact() const				{ return mInexact; }
+	bool			IsInexact() const override				{ return mInexact; }
 
-	virtual bool			UsesTexture0() const			{ return mUsesTexel0; }
-	virtual bool			UsesTexture1() const			{ return mUsesTexel1; }
+	bool			UsesTexture0() const override			{ return mUsesTexel0; }
+	bool			UsesTexture1() const override			{ return mUsesTexel1; }
 
-	virtual void			Apply( bool texture_installed, const SRenderState & state, SRenderStateOut & out ) const;
+	void			Apply( bool texture_installed, const SRenderState & state, SRenderStateOut & out ) const override;
 #ifdef DAEDALUS_DEBUG_DISPLAYLIST
 	virtual void			Print( bool texture_installed ) const;
 #endif
@@ -166,15 +166,15 @@ class CRenderSettingsBlend : public CRenderSettings
 {
 public:
 	CRenderSettingsBlend(  const char * description, const CBlendConstantExpression * a, const CBlendConstantExpression * b );
-	~CRenderSettingsBlend();
+	~CRenderSettingsBlend() override;
 
 	void					SetInexact()					{ mInexact = true; }
-	virtual bool			IsInexact() const				{ return mInexact; }
+	bool			IsInexact() const override				{ return mInexact; }
 
-	virtual bool			UsesTexture0() const			{ return true; }
-	virtual bool			UsesTexture1() const			{ return false; }
+	bool			UsesTexture0() const override			{ return true; }
+	bool			UsesTexture1() const override			{ return false; }
 
-	virtual void			Apply( bool texture_installed, const SRenderState & state, SRenderStateOut & out ) const;
+	void			Apply( bool texture_installed, const SRenderState & state, SRenderStateOut & out ) const override;
 #ifdef DAEDALUS_DEBUG_DISPLAYLIST
 	virtual void			Print( bool texture_installed ) const;
 #endif

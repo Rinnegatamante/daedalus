@@ -38,7 +38,7 @@ class CNativeTexture : public CRefCounted
 	friend class CRefPtr<CNativeTexture>::_NoAddRefRelease<CNativeTexture>;
 
 		CNativeTexture( u32 w, u32 h, ETextureFormat texture_format );
-		~CNativeTexture();
+		~CNativeTexture() override;
 
 	public:
 		static	CRefPtr<CNativeTexture>		Create( u32 width, u32 height, ETextureFormat texture_format );

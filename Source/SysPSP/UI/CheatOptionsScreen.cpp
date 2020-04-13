@@ -46,15 +46,15 @@ class ICheatOptionsScreen : public CCheatOptionsScreen, public CUIScreen
 	public:
 
 		ICheatOptionsScreen( CUIContext * p_context, const RomID & rom_id );
-		~ICheatOptionsScreen();
+		~ICheatOptionsScreen() override;
 
 		// CCheatOptionsScreen
-		virtual void				Run();
+		void				Run() override;
 
 		// CUIScreen
-		virtual void				Update( float elapsed_time, const v2 & stick, u32 old_buttons, u32 new_buttons );
-		virtual void				Render();
-		virtual bool				IsFinished() const									{ return mIsFinished; }
+		void				Update( float elapsed_time, const v2 & stick, u32 old_buttons, u32 new_buttons ) override;
+		void				Render() override;
+		bool				IsFinished() const override									{ return mIsFinished; }
 
 	private:
 		void				OnConfirm();
@@ -78,7 +78,7 @@ public:
 	{
 	}
 	// Make read only the cheat list if enable cheat code option is disable
-	virtual bool			IsReadOnly() const
+	bool			IsReadOnly() const override
 	{
 		if(!*mCheatEnabled)
 		{
@@ -89,9 +89,9 @@ public:
 		return false;
 	}
 
-	virtual bool			IsSelectable()	const	{ return !IsReadOnly(); }
+	bool			IsSelectable()	const override	{ return !IsReadOnly(); }
 
-	virtual	void			OnSelected()
+		void			OnSelected() override
 	{
 
 		if(!codegrouplist[mIndex].active)
@@ -104,7 +104,7 @@ public:
 		}
 
 	}
-	virtual const char *	GetSettingName() const
+	const char *	GetSettingName() const override
 	{
 		return codegrouplist[mIndex].active ? "Enabled" : "Disabled";
 	}
@@ -123,13 +123,13 @@ class CCheatNotFound : public CUISetting
 		{
 		}
 		// Always show as read only when no cheats are found
-		virtual bool			IsReadOnly()	const	{ return true; }
-		virtual bool			IsSelectable()	const	{ return false; }
-		virtual	void			OnSelected()			{ }
+		bool			IsReadOnly()	const override	{ return true; }
+		bool			IsSelectable()	const override	{ return false; }
+			void			OnSelected() override			{ }
 
 		//virtual	void			OnSelected(){}
 
-		virtual const char *	GetSettingName() const	{ return "Disabled";	}
+		const char *	GetSettingName() const override	{ return "Disabled";	}
 	};
 
 

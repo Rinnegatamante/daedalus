@@ -30,7 +30,7 @@ class CSelectedRomComponent : public CUIComponent
 {
 	public:
 		CSelectedRomComponent( CUIContext * p_context );
-		virtual ~CSelectedRomComponent();
+		~CSelectedRomComponent() override;
 
 		static CSelectedRomComponent *	Create( CUIContext * p_context, CFunctor * on_start_emulation );
 

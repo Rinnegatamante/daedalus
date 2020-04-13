@@ -42,24 +42,24 @@ class IIniFileProperty : public CIniFileProperty
 		{
 		}
 
-		virtual const char *	GetName() const			{ return mName.c_str(); }
-		virtual const char *	GetValue() const		{ return mValue.c_str(); }
+		const char *	GetName() const override			{ return mName.c_str(); }
+		const char *	GetValue() const override		{ return mValue.c_str(); }
 
-		virtual bool	GetBooleanValue( bool default_value ) const
+		bool	GetBooleanValue( bool default_value ) const override
 		{
 			const char * str( mValue.c_str() );
 
-			if( _strcmpi( str, "yes" ) == 0 ||
-				_strcmpi( str, "true" ) == 0 ||
-				_strcmpi( str, "1" ) == 0 ||
-				_strcmpi( str, "on" ) == 0 )
+			if( strcmp( str, "yes" ) == 0 ||
+				strcmp( str, "true" ) == 0 ||
+				strcmp( str, "1" ) == 0 ||
+				strcmp( str, "on" ) == 0 )
 			{
 				return true;
 			}
-			if( _strcmpi( str, "no" ) == 0 ||
-				_strcmpi( str, "false" ) == 0 ||
-				_strcmpi( str, "0" ) == 0 ||
-				_strcmpi( str, "off" ) == 0 )
+			if( strcmp( str, "no" ) == 0 ||
+				strcmp( str, "false" ) == 0 ||
+				strcmp( str, "0" ) == 0 ||
+				strcmp( str, "off" ) == 0 )
 			{
 				return false;
 			}
@@ -67,7 +67,7 @@ class IIniFileProperty : public CIniFileProperty
 			return default_value;
 		}
 
-		virtual int	GetIntValue( int default_value ) const
+		int	GetIntValue( int default_value ) const override
 		{
 			int	value;
 
@@ -78,7 +78,7 @@ class IIniFileProperty : public CIniFileProperty
 			return value;
 		}
 
-		virtual float	GetFloatValue( float default_value ) const
+		float	GetFloatValue( float default_value ) const override
 		{
 			float	value;
 
@@ -113,11 +113,11 @@ class IIniFileSection : public CIniFileSection
 		{
 		}
 
-		~IIniFileSection();
+		~IIniFileSection() override;
 
 
-		virtual const char *	GetName() const			{ return mName.c_str(); }
-		virtual bool			FindProperty( const char * p_name, const CIniFileProperty ** p_property ) const;
+		const char *	GetName() const override			{ return mName.c_str(); }
+		bool			FindProperty( const char * p_name, const CIniFileProperty ** p_property ) const override;
 
 				void			AddProperty( const IIniFileProperty * p_property );
 
@@ -202,19 +202,19 @@ class IIniFile : public CIniFile
 {
 	public:
 		IIniFile();
-		virtual ~IIniFile();
+		~IIniFile() override;
 
 		//
 		// CIniFile implementation
 		//
 		virtual bool					Open( const char * filename );
 
-		virtual const CIniFileSection *	GetDefaultSection() const;
+		const CIniFileSection *	GetDefaultSection() const override;
 
-		virtual u32						GetNumSections() const;
-		virtual const CIniFileSection *	GetSection( u32 section_idx ) const;
+		u32						GetNumSections() const override;
+		const CIniFileSection *	GetSection( u32 section_idx ) const override;
 
-		virtual const CIniFileSection *	GetSectionByName( const char * section_name ) const;
+		const CIniFileSection *	GetSectionByName( const char * section_name ) const override;
 
 	private:
 		IIniFileSection *				mpDefaultSection;

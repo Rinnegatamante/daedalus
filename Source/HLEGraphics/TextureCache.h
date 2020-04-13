@@ -35,7 +35,7 @@ class CTextureCache : public CSingleton< CTextureCache >
 {
 public:
 	CTextureCache();
-	virtual ~CTextureCache();
+	~CTextureCache() override;
 
 	CRefPtr<CNativeTexture>	GetOrCreateTexture(const TextureInfo & ti);
 

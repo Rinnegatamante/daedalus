@@ -46,7 +46,7 @@ EExpansionPakUsage	ExpansionPakUsageFromString( const char * str )
 	{
 		EExpansionPakUsage	pak_usage = EExpansionPakUsage( i );
 
-		if( _strcmpi( str, ROM_GetExpansionPakUsageName( pak_usage ) ) == 0 )
+		if( strcmp( str, ROM_GetExpansionPakUsageName( pak_usage ) ) == 0 )
 		{
 			return pak_usage;
 		}
@@ -61,7 +61,7 @@ ESaveType	SaveTypeFromString( const char * str )
 	{
 		ESaveType	save_type = ESaveType( i );
 
-		if( _strcmpi( str, ROM_GetSaveTypeName( save_type ) ) == 0 )
+		if( strcmp( str, ROM_GetSaveTypeName( save_type ) ) == 0 )
 		{
 			return save_type;
 		}
@@ -117,16 +117,16 @@ class IRomSettingsDB : public CRomSettingsDB
 {
 	public:
 		IRomSettingsDB();
-		virtual ~IRomSettingsDB();
+		~IRomSettingsDB() override;
 
 		//
 		// CRomSettingsDB implementation
 		//
-		bool			OpenSettingsFile( const char * filename );
-		void			Commit();												// (STRMNNRMN - Write ini back out to disk?)
+		bool			OpenSettingsFile( const char * filename ) override;
+		void			Commit() override;												// (STRMNNRMN - Write ini back out to disk?)
 
-		bool			GetSettings( const RomID & id, RomSettings * p_settings ) const;
-		void			SetSettings( const RomID & id, const RomSettings & settings );
+		bool			GetSettings( const RomID & id, RomSettings * p_settings ) const override;
+		void			SetSettings( const RomID & id, const RomSettings & settings ) override;
 
 	private:
 
@@ -176,7 +176,7 @@ IRomSettingsDB::~IRomSettingsDB()
 //	Remove the specified characters from p_string
 static bool	trim( char * p_string, const char * p_trim_chars )
 {
-	u32 num_trims {strlen( p_trim_chars )};
+	u32 num_trims {static_cast<u32>(strlen( p_trim_chars ))};
 	char * pin {p_string};
 	char * pout {p_string};
 	bool found {false};

@@ -27,7 +27,7 @@ class CGlobalSettingsComponent : public CUIComponent
 {
 	public:
 		CGlobalSettingsComponent( CUIContext * p_context );
-		virtual ~CGlobalSettingsComponent();
+		~CGlobalSettingsComponent() override;
 
 		static CGlobalSettingsComponent *	Create( CUIContext * p_context );
 };

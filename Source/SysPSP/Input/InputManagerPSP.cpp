@@ -42,7 +42,7 @@ class CButtonMappingMask : public CButtonMapping
 	public:
 		CButtonMappingMask( u32 mask ) : mMask( mask ) {}
 
-		virtual bool	Evaluate( u32 psp_buttons ) const		{ return ( psp_buttons & mMask ) != 0; }
+		bool	Evaluate( u32 psp_buttons ) const override		{ return ( psp_buttons & mMask ) != 0; }
 
 	private:
 		u32					mMask;
@@ -56,12 +56,12 @@ class CButtonMappingNegate : public CButtonMapping
 		{
 		}
 
-		~CButtonMappingNegate()
+		~CButtonMappingNegate() override
 		{
 			delete mpMapping;
 		}
 
-		virtual bool	Evaluate( u32 psp_buttons ) const
+		bool	Evaluate( u32 psp_buttons ) const override
 		{
 			return !mpMapping->Evaluate( psp_buttons );
 		}
@@ -79,13 +79,13 @@ class CButtonMappingAnd : public CButtonMapping
 		{
 		}
 
-		~CButtonMappingAnd()
+		~CButtonMappingAnd() override
 		{
 			delete mpMappingA;
 			delete mpMappingB;
 		}
 
-		virtual bool	Evaluate( u32 psp_buttons ) const
+		bool	Evaluate( u32 psp_buttons ) const override
 		{
 			return mpMappingA->Evaluate( psp_buttons ) &&
 				   mpMappingB->Evaluate( psp_buttons );
@@ -106,13 +106,13 @@ class CButtonMappingOr : public CButtonMapping
 		{
 		}
 
-		~CButtonMappingOr()
+		~CButtonMappingOr() override
 		{
 			delete mpMappingA;
 			delete mpMappingB;
 		}
 
-		virtual bool	Evaluate( u32 psp_buttons ) const
+		bool	Evaluate( u32 psp_buttons ) const override
 		{
 			return mpMappingA->Evaluate( psp_buttons ) ||
 				   mpMappingB->Evaluate( psp_buttons );
@@ -262,19 +262,19 @@ class IInputManager : public CInputManager
 {
 	public:
 		IInputManager();
-		virtual ~IInputManager();
+		~IInputManager() override;
 
-		virtual bool						Initialise();
-		virtual void						Finalise()					{}
+		bool						Initialise() override;
+		void						Finalise() override					{}
 
-		virtual void						GetState( OSContPad pPad[4] );
+		void						GetState( OSContPad pPad[4] ) override;
 
-		virtual u32							GetNumConfigurations() const;
-		virtual const char *				GetConfigurationName( u32 configuration_idx ) const;
-		virtual const char *				GetConfigurationDescription( u32 configuration_idx ) const;
-		virtual void						SetConfiguration( u32 configuration_idx );
+		u32							GetNumConfigurations() const override;
+		const char *				GetConfigurationName( u32 configuration_idx ) const override;
+		const char *				GetConfigurationDescription( u32 configuration_idx ) const override;
+		void						SetConfiguration( u32 configuration_idx ) override;
 
-		virtual u32							GetConfigurationFromName( const char * name ) const;
+		u32							GetConfigurationFromName( const char * name ) const override;
 
 	private:
 		void								SwapJoyStick(OSContPad *pPad, SceCtrlData *pad);
@@ -775,7 +775,7 @@ void	IInputManager::LoadControllerConfigs( const char * p_dir )
 			const char * last_period( strrchr( filename, '.' ) );
 			if(last_period != NULL)
 			{
-				if( _strcmpi(last_period, ".ini") == 0 )
+				if( strcmp(last_period, ".ini") == 0 )
 				{
 					std::string		full_path;
 
@@ -974,7 +974,7 @@ u32		IInputManager::GetConfigurationFromName( const char * name ) const
 {
 	for( u32 i = 0; i < mControllerConfigs.size(); ++i )
 	{
-		if( _strcmpi( mControllerConfigs[ i ]->GetName(), name ) == 0 )
+		if( strcmp( mControllerConfigs[ i ]->GetName(), name ) == 0 )
 		{
 			return i;
 		}

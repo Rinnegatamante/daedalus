@@ -92,7 +92,7 @@ class	RomID;
 class CRomSettingsDB : public CSingleton< CRomSettingsDB >
 {
 	public:
-		virtual					~CRomSettingsDB() {}
+							~CRomSettingsDB() override {}
 
 		virtual bool			OpenSettingsFile( const char * filename ) = 0;
 		virtual void			Commit() = 0;

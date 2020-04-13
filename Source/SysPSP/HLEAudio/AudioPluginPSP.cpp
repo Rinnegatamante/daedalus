@@ -68,14 +68,14 @@ class AudioPluginPSP : public CAudioPlugin
 public:
 
  AudioPluginPSP();
-	virtual ~AudioPluginPSP();
-	virtual bool			StartEmulation();
-	virtual void			StopEmulation();
+	~AudioPluginPSP() override;
+	bool			StartEmulation() override;
+	void			StopEmulation() override;
 
-	virtual void			DacrateChanged( int system_type );
-	virtual void			LenChanged();
-	virtual u32				ReadLength() {return 0;}
-	virtual EProcessResult	ProcessAList();
+	void			DacrateChanged( int system_type ) override;
+	void			LenChanged() override;
+	u32				ReadLength() override {return 0;}
+	EProcessResult	ProcessAList() override;
 
 	//virtual void SetFrequency(u32 frequency);
 	virtual void AddBuffer( u8 * start, u32 length);
@@ -326,7 +326,7 @@ void AudioPluginPSP::AddBuffer( u8 *start, u32 length )
 	if (!mKeepRunning)
 		StartAudio();
 
-	u32 num_samples {length / sizeof( Sample )};
+	u32 num_samples {static_cast<u32>(length / sizeof( Sample ))};
 
 	switch( gAudioPluginEnabled )
 	{

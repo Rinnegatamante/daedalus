@@ -28,7 +28,7 @@ class CRomSelectorComponent : public CUIComponent
 {
 	public:
 		CRomSelectorComponent( CUIContext * p_context );
-		virtual ~CRomSelectorComponent();
+		~CRomSelectorComponent() override;
 
 		static CRomSelectorComponent *	Create( CUIContext * p_context, CFunctor1< const char * > * on_rom_selected );
 };

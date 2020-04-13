@@ -39,15 +39,15 @@ public:
 	{
 
 	}
-	virtual ~CUICommand() {}
+	~CUICommand() override {}
 
-	virtual	void			OnSelected() = 0;
+		void			OnSelected() override = 0;
 
-	virtual u32				GetHeight( CUIContext * context ) const;
-	virtual void			Draw( CUIContext * context, s32 min_x, s32 max_x, EAlignType halign, s32 y, bool selected ) const;
+	u32				GetHeight( CUIContext * context ) const override;
+	void			Draw( CUIContext * context, s32 min_x, s32 max_x, EAlignType halign, s32 y, bool selected ) const override;
 
 	virtual const char *	GetName() const			{ return mName.c_str(); }
-	virtual const char *	GetDescription() const	{ return mDescription.c_str(); }
+	const char *	GetDescription() const override	{ return mDescription.c_str(); }
 
 private:
 	std::string				mName;
@@ -62,12 +62,12 @@ public:
 		,	mOnSelected( on_selected )
 	{
 	}
-	virtual ~CUICommandImpl()
+	~CUICommandImpl() override
 	{
 		delete mOnSelected;
 	}
 
-	virtual	void			OnSelected()			{ (*mOnSelected)(); }
+		void			OnSelected() override			{ (*mOnSelected)(); }
 
 private:
 	CFunctor *	mOnSelected;
@@ -81,12 +81,12 @@ public:
 		:	CUICommand( name, description )
 	{
 	}
-	virtual ~CUICommandDummy()
+	~CUICommandDummy() override
 	{
 	}
 
-	virtual bool			IsSelectable() const	{ return false; }
-	virtual	void			OnSelected()			{ }
+	bool			IsSelectable() const override	{ return false; }
+		void			OnSelected() override			{ }
 };
 
 #endif // SYSPSP_UI_UICOMMAND_H_

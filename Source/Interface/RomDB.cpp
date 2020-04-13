@@ -47,25 +47,25 @@ class IRomDB : public CRomDB
 {
 	public:
 		IRomDB();
-		~IRomDB();
+		~IRomDB() override;
 
 		//
 		// CRomDB implementation
 		//
-		void			Reset();
-		bool			Commit();
+		void			Reset() override;
+		bool			Commit() override;
 
-		void			AddRomDirectory(const char * directory);
+		void			AddRomDirectory(const char * directory) override;
 
-		bool			QueryByFilename( const char * filename, RomID * id, u32 * rom_size, ECicType * cic_type );
-		bool			QueryByID( const RomID & id, u32 * rom_size, ECicType * cic_type ) const;
-		const char *	QueryFilenameFromID( const RomID & id ) const;
+		bool			QueryByFilename( const char * filename, RomID * id, u32 * rom_size, ECicType * cic_type ) override;
+		bool			QueryByID( const RomID & id, u32 * rom_size, ECicType * cic_type ) const override;
+		const char *	QueryFilenameFromID( const RomID & id ) const override;
 
 	private:
 		void			AddRomFile(const char * filename);
 
 		void			AddRomEntry( const char * filename, const RomID & id, u32 rom_size, ECicType cic_type );
-		bool			OpenDB( const char * filename );
+		bool			OpenDB( const char * filename ) override;
 
 	private:
 

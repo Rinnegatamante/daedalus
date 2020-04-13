@@ -28,7 +28,7 @@ class CSavestateSelectorComponent : public CUIComponent
 {
 	public:
 		CSavestateSelectorComponent( CUIContext * p_context );
-		virtual ~CSavestateSelectorComponent();
+		~CSavestateSelectorComponent() override;
 
 		enum EAccessType
 		{

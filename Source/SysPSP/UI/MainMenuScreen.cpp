@@ -76,15 +76,15 @@ class IMainMenuScreen : public CMainMenuScreen, public CUIScreen
 	public:
 
 		IMainMenuScreen( CUIContext * p_context );
-		~IMainMenuScreen();
+		~IMainMenuScreen() override;
 
 		// CMainMenuScreen
-		virtual void				Run();
+		void				Run() override;
 
 		// CUIScreen
-		virtual void				Update( float elapsed_time, const v2 & stick, u32 old_buttons, u32 new_buttons );
-		virtual void				Render();
-		virtual bool				IsFinished() const									{ return mIsFinished; }
+		void				Update( float elapsed_time, const v2 & stick, u32 old_buttons, u32 new_buttons ) override;
+		void				Render() override;
+		bool				IsFinished() const override									{ return mIsFinished; }
 
 
 	private:

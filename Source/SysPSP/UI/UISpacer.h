@@ -31,14 +31,14 @@ public:
 		:	mHeight( height )
 	{}
 
-	virtual ~CUISpacer() {}
+	~CUISpacer() override {}
 
-	virtual bool			IsSelectable() const						{ return false; }
+	bool			IsSelectable() const override						{ return false; }
 
-	virtual u32				GetHeight( CUIContext * context ) const		{ return mHeight; }
-	virtual void			Draw( CUIContext * context, s32 min_x, s32 max_x, EAlignType halign, s32 y, bool selected ) const {}
+	u32				GetHeight( CUIContext * context ) const override		{ return mHeight; }
+	void			Draw( CUIContext * context, s32 min_x, s32 max_x, EAlignType halign, s32 y, bool selected ) const override {}
 
-	virtual const char *	GetDescription() const	{ return ""; }
+	const char *	GetDescription() const override	{ return ""; }
 
 private:
 	u32						mHeight;

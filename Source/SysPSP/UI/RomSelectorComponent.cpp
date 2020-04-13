@@ -171,11 +171,11 @@ class IRomSelectorComponent : public CRomSelectorComponent
 	public:
 
 		IRomSelectorComponent( CUIContext * p_context, CFunctor1< const char * > * on_rom_selected );
-		~IRomSelectorComponent();
+		~IRomSelectorComponent() override;
 
 		// CUIComponent
-		virtual void				Update( float elapsed_time, const v2 & stick, u32 old_buttons, u32 new_buttons );
-		virtual void				Render();
+		void				Update( float elapsed_time, const v2 & stick, u32 old_buttons, u32 new_buttons ) override;
+		void				Render() override;
 
 	private:
 				void				UpdateROMList();

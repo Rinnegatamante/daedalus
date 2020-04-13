@@ -102,32 +102,32 @@ class IGraphicsContext : public CGraphicsContext
 {
 public:
 	IGraphicsContext();
-	virtual ~IGraphicsContext();
+	~IGraphicsContext() override;
 
-	bool				Initialise();
-	bool				IsInitialised() const { return mInitialised; }
+	bool				Initialise() override;
+	bool				IsInitialised() const override { return mInitialised; }
 
-	void				SwitchToChosenDisplay();
-	void				SwitchToLcdDisplay();
-	void				StoreSaveScreenData();
+	void				SwitchToChosenDisplay() override;
+	void				SwitchToLcdDisplay() override;
+	void				StoreSaveScreenData() override;
 
-	void				ClearAllSurfaces();
+	void				ClearAllSurfaces() override;
 
-	void				ClearToBlack();
-	void				ClearZBuffer();
-	void				ClearColBuffer(const c32 & colour);
-	void				ClearColBufferAndDepth(const c32 & colour);
+	void				ClearToBlack() override;
+	void				ClearZBuffer() override;
+	void				ClearColBuffer(const c32 & colour) override;
+	void				ClearColBufferAndDepth(const c32 & colour) override;
 
-	void				BeginFrame();
-	void				EndFrame();
-	void				UpdateFrame( bool wait_for_vbl );
-	void				GetScreenSize( u32 * width, u32 * height ) const;
+	void				BeginFrame() override;
+	void				EndFrame() override;
+	void				UpdateFrame( bool wait_for_vbl ) override;
+	void				GetScreenSize( u32 * width, u32 * height ) const override;
 
-	void				SetDebugScreenTarget( ETargetSurface buffer );
+	void				SetDebugScreenTarget( ETargetSurface buffer ) override;
 
-	void				ViewportType( u32 * d_width, u32 * d_height ) const;
-	void				DumpScreenShot();
-	void				DumpNextScreen()			{ mDumpNextScreen = 2; }
+	void				ViewportType( u32 * d_width, u32 * d_height ) const override;
+	void				DumpScreenShot() override;
+	void				DumpNextScreen() override			{ mDumpNextScreen = 2; }
 
 private:
 	void				SaveScreenshot( const char* filename, s32 x, s32 y, u32 width, u32 height );

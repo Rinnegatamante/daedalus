@@ -67,7 +67,7 @@ struct TempVerts
 
 	DaedalusVtx * Alloc(u32 count)
 	{
-		u32 bytes {count * sizeof(DaedalusVtx)};
+		u32 bytes {static_cast<u32>(count * sizeof(DaedalusVtx))};
 #ifdef DAEDALUS_PSP
 		Verts = static_cast<DaedalusVtx*>(sceGuGetMemory(bytes));
 #endif

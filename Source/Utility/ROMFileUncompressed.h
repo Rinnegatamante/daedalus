@@ -30,15 +30,15 @@ class ROMFileUncompressed : public ROMFile
 {
 public:
 	ROMFileUncompressed( const char * filename );
-	virtual ~ROMFileUncompressed();
+	~ROMFileUncompressed() override;
 
-	virtual bool		Open( COutputStream & messages );
+	bool		Open( COutputStream & messages ) override;
 
-	virtual bool		IsCompressed() const			{ return false; }
-	virtual u32			GetRomSize() const				{ return mRomSize; }
-	virtual bool		LoadRawData( u32 bytes_to_read, u8 *p_bytes, COutputStream & messages );
+	bool		IsCompressed() const override			{ return false; }
+	u32			GetRomSize() const override				{ return mRomSize; }
+	bool		LoadRawData( u32 bytes_to_read, u8 *p_bytes, COutputStream & messages ) override;
 
-	virtual bool		ReadChunk( u32 offset, u8 * p_dst, u32 length );
+	bool		ReadChunk( u32 offset, u8 * p_dst, u32 length ) override;
 
 private:
 	FILE *				mFH;

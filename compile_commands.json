@@ -1,782 +1,782 @@
 [
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/StdAfx.cpp.obj -c /home/ben/Desktop/daedalus/Source/StdAfx.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/StdAfx.cpp.obj -c /home/ben/Desktop/daedalus/Source/StdAfx.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/StdAfx.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Config/ConfigOptions.cpp.obj -c /home/ben/Desktop/daedalus/Source/Config/ConfigOptions.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Config/ConfigOptions.cpp.obj -c /home/ben/Desktop/daedalus/Source/Config/ConfigOptions.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/Config/ConfigOptions.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Core/Cheats.cpp.obj -c /home/ben/Desktop/daedalus/Source/Core/Cheats.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Core/Cheats.cpp.obj -c /home/ben/Desktop/daedalus/Source/Core/Cheats.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/Core/Cheats.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Core/CPU.cpp.obj -c /home/ben/Desktop/daedalus/Source/Core/CPU.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Core/CPU.cpp.obj -c /home/ben/Desktop/daedalus/Source/Core/CPU.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/Core/CPU.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Core/DMA.cpp.obj -c /home/ben/Desktop/daedalus/Source/Core/DMA.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Core/DMA.cpp.obj -c /home/ben/Desktop/daedalus/Source/Core/DMA.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/Core/DMA.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Core/Dynamo.cpp.obj -c /home/ben/Desktop/daedalus/Source/Core/Dynamo.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Core/Dynamo.cpp.obj -c /home/ben/Desktop/daedalus/Source/Core/Dynamo.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/Core/Dynamo.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Core/FlashMem.cpp.obj -c /home/ben/Desktop/daedalus/Source/Core/FlashMem.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Core/FlashMem.cpp.obj -c /home/ben/Desktop/daedalus/Source/Core/FlashMem.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/Core/FlashMem.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Core/Interpret.cpp.obj -c /home/ben/Desktop/daedalus/Source/Core/Interpret.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Core/Interpret.cpp.obj -c /home/ben/Desktop/daedalus/Source/Core/Interpret.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/Core/Interpret.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Core/Interrupts.cpp.obj -c /home/ben/Desktop/daedalus/Source/Core/Interrupts.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Core/Interrupts.cpp.obj -c /home/ben/Desktop/daedalus/Source/Core/Interrupts.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/Core/Interrupts.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Core/JpegTask.cpp.obj -c /home/ben/Desktop/daedalus/Source/Core/JpegTask.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Core/JpegTask.cpp.obj -c /home/ben/Desktop/daedalus/Source/Core/JpegTask.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/Core/JpegTask.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Core/Memory.cpp.obj -c /home/ben/Desktop/daedalus/Source/Core/Memory.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Core/Memory.cpp.obj -c /home/ben/Desktop/daedalus/Source/Core/Memory.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/Core/Memory.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Core/PIF.cpp.obj -c /home/ben/Desktop/daedalus/Source/Core/PIF.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Core/PIF.cpp.obj -c /home/ben/Desktop/daedalus/Source/Core/PIF.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/Core/PIF.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Core/R4300.cpp.obj -c /home/ben/Desktop/daedalus/Source/Core/R4300.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Core/R4300.cpp.obj -c /home/ben/Desktop/daedalus/Source/Core/R4300.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/Core/R4300.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Core/ROM.cpp.obj -c /home/ben/Desktop/daedalus/Source/Core/ROM.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Core/ROM.cpp.obj -c /home/ben/Desktop/daedalus/Source/Core/ROM.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/Core/ROM.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Core/ROMBuffer.cpp.obj -c /home/ben/Desktop/daedalus/Source/Core/ROMBuffer.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Core/ROMBuffer.cpp.obj -c /home/ben/Desktop/daedalus/Source/Core/ROMBuffer.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/Core/ROMBuffer.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Core/ROMImage.cpp.obj -c /home/ben/Desktop/daedalus/Source/Core/ROMImage.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Core/ROMImage.cpp.obj -c /home/ben/Desktop/daedalus/Source/Core/ROMImage.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/Core/ROMImage.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Core/RomSettings.cpp.obj -c /home/ben/Desktop/daedalus/Source/Core/RomSettings.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Core/RomSettings.cpp.obj -c /home/ben/Desktop/daedalus/Source/Core/RomSettings.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/Core/RomSettings.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Core/RSP_HLE.cpp.obj -c /home/ben/Desktop/daedalus/Source/Core/RSP_HLE.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Core/RSP_HLE.cpp.obj -c /home/ben/Desktop/daedalus/Source/Core/RSP_HLE.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/Core/RSP_HLE.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Core/Save.cpp.obj -c /home/ben/Desktop/daedalus/Source/Core/Save.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Core/Save.cpp.obj -c /home/ben/Desktop/daedalus/Source/Core/Save.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/Core/Save.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Core/SaveState.cpp.obj -c /home/ben/Desktop/daedalus/Source/Core/SaveState.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Core/SaveState.cpp.obj -c /home/ben/Desktop/daedalus/Source/Core/SaveState.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/Core/SaveState.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Core/TLB.cpp.obj -c /home/ben/Desktop/daedalus/Source/Core/TLB.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Core/TLB.cpp.obj -c /home/ben/Desktop/daedalus/Source/Core/TLB.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/Core/TLB.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Debug/DebugConsoleImpl.cpp.obj -c /home/ben/Desktop/daedalus/Source/Debug/DebugConsoleImpl.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Debug/DebugConsoleImpl.cpp.obj -c /home/ben/Desktop/daedalus/Source/Debug/DebugConsoleImpl.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/Debug/DebugConsoleImpl.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Debug/DebugLog.cpp.obj -c /home/ben/Desktop/daedalus/Source/Debug/DebugLog.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Debug/DebugLog.cpp.obj -c /home/ben/Desktop/daedalus/Source/Debug/DebugLog.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/Debug/DebugLog.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Debug/Dump.cpp.obj -c /home/ben/Desktop/daedalus/Source/Debug/Dump.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Debug/Dump.cpp.obj -c /home/ben/Desktop/daedalus/Source/Debug/Dump.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/Debug/Dump.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/DynaRec/BranchType.cpp.obj -c /home/ben/Desktop/daedalus/Source/DynaRec/BranchType.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/DynaRec/BranchType.cpp.obj -c /home/ben/Desktop/daedalus/Source/DynaRec/BranchType.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/DynaRec/BranchType.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/DynaRec/DynaRecProfile.cpp.obj -c /home/ben/Desktop/daedalus/Source/DynaRec/DynaRecProfile.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/DynaRec/DynaRecProfile.cpp.obj -c /home/ben/Desktop/daedalus/Source/DynaRec/DynaRecProfile.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/DynaRec/DynaRecProfile.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/DynaRec/Fragment.cpp.obj -c /home/ben/Desktop/daedalus/Source/DynaRec/Fragment.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/DynaRec/Fragment.cpp.obj -c /home/ben/Desktop/daedalus/Source/DynaRec/Fragment.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/DynaRec/Fragment.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/DynaRec/FragmentCache.cpp.obj -c /home/ben/Desktop/daedalus/Source/DynaRec/FragmentCache.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/DynaRec/FragmentCache.cpp.obj -c /home/ben/Desktop/daedalus/Source/DynaRec/FragmentCache.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/DynaRec/FragmentCache.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/DynaRec/IndirectExitMap.cpp.obj -c /home/ben/Desktop/daedalus/Source/DynaRec/IndirectExitMap.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/DynaRec/IndirectExitMap.cpp.obj -c /home/ben/Desktop/daedalus/Source/DynaRec/IndirectExitMap.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/DynaRec/IndirectExitMap.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/DynaRec/StaticAnalysis.cpp.obj -c /home/ben/Desktop/daedalus/Source/DynaRec/StaticAnalysis.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/DynaRec/StaticAnalysis.cpp.obj -c /home/ben/Desktop/daedalus/Source/DynaRec/StaticAnalysis.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/DynaRec/StaticAnalysis.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/DynaRec/TraceRecorder.cpp.obj -c /home/ben/Desktop/daedalus/Source/DynaRec/TraceRecorder.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/DynaRec/TraceRecorder.cpp.obj -c /home/ben/Desktop/daedalus/Source/DynaRec/TraceRecorder.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/DynaRec/TraceRecorder.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Graphics/ColourValue.cpp.obj -c /home/ben/Desktop/daedalus/Source/Graphics/ColourValue.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Graphics/ColourValue.cpp.obj -c /home/ben/Desktop/daedalus/Source/Graphics/ColourValue.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/Graphics/ColourValue.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Graphics/PngUtil.cpp.obj -c /home/ben/Desktop/daedalus/Source/Graphics/PngUtil.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Graphics/PngUtil.cpp.obj -c /home/ben/Desktop/daedalus/Source/Graphics/PngUtil.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/Graphics/PngUtil.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Graphics/TextureTransform.cpp.obj -c /home/ben/Desktop/daedalus/Source/Graphics/TextureTransform.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Graphics/TextureTransform.cpp.obj -c /home/ben/Desktop/daedalus/Source/Graphics/TextureTransform.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/Graphics/TextureTransform.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/HLEAudio/AudioHLEProcessor.cpp.obj -c /home/ben/Desktop/daedalus/Source/HLEAudio/AudioHLEProcessor.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/HLEAudio/AudioHLEProcessor.cpp.obj -c /home/ben/Desktop/daedalus/Source/HLEAudio/AudioHLEProcessor.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/HLEAudio/AudioHLEProcessor.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/HLEAudio/ABI1.cpp.obj -c /home/ben/Desktop/daedalus/Source/HLEAudio/ABI1.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/HLEAudio/ABI1.cpp.obj -c /home/ben/Desktop/daedalus/Source/HLEAudio/ABI1.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/HLEAudio/ABI1.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/HLEAudio/ABI2.cpp.obj -c /home/ben/Desktop/daedalus/Source/HLEAudio/ABI2.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/HLEAudio/ABI2.cpp.obj -c /home/ben/Desktop/daedalus/Source/HLEAudio/ABI2.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/HLEAudio/ABI2.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/HLEAudio/ABI3.cpp.obj -c /home/ben/Desktop/daedalus/Source/HLEAudio/ABI3.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/HLEAudio/ABI3.cpp.obj -c /home/ben/Desktop/daedalus/Source/HLEAudio/ABI3.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/HLEAudio/ABI3.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/HLEAudio/ABI3mp3.cpp.obj -c /home/ben/Desktop/daedalus/Source/HLEAudio/ABI3mp3.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/HLEAudio/ABI3mp3.cpp.obj -c /home/ben/Desktop/daedalus/Source/HLEAudio/ABI3mp3.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/HLEAudio/ABI3mp3.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/HLEAudio/AudioBuffer.cpp.obj -c /home/ben/Desktop/daedalus/Source/HLEAudio/AudioBuffer.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/HLEAudio/AudioBuffer.cpp.obj -c /home/ben/Desktop/daedalus/Source/HLEAudio/AudioBuffer.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/HLEAudio/AudioBuffer.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/HLEAudio/HLEMain.cpp.obj -c /home/ben/Desktop/daedalus/Source/HLEAudio/HLEMain.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/HLEAudio/HLEMain.cpp.obj -c /home/ben/Desktop/daedalus/Source/HLEAudio/HLEMain.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/HLEAudio/HLEMain.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/HLEAudio/ABI_ADPCM.cpp.obj -c /home/ben/Desktop/daedalus/Source/HLEAudio/ABI_ADPCM.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/HLEAudio/ABI_ADPCM.cpp.obj -c /home/ben/Desktop/daedalus/Source/HLEAudio/ABI_ADPCM.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/HLEAudio/ABI_ADPCM.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/HLEAudio/ABI_Buffers.cpp.obj -c /home/ben/Desktop/daedalus/Source/HLEAudio/ABI_Buffers.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/HLEAudio/ABI_Buffers.cpp.obj -c /home/ben/Desktop/daedalus/Source/HLEAudio/ABI_Buffers.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/HLEAudio/ABI_Buffers.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/HLEAudio/ABI_Filters.cpp.obj -c /home/ben/Desktop/daedalus/Source/HLEAudio/ABI_Filters.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/HLEAudio/ABI_Filters.cpp.obj -c /home/ben/Desktop/daedalus/Source/HLEAudio/ABI_Filters.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/HLEAudio/ABI_Filters.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/HLEAudio/ABI_MixerInterleave.cpp.obj -c /home/ben/Desktop/daedalus/Source/HLEAudio/ABI_MixerInterleave.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/HLEAudio/ABI_MixerInterleave.cpp.obj -c /home/ben/Desktop/daedalus/Source/HLEAudio/ABI_MixerInterleave.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/HLEAudio/ABI_MixerInterleave.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/HLEAudio/ENV_Mixer.cpp.obj -c /home/ben/Desktop/daedalus/Source/HLEAudio/ENV_Mixer.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/HLEAudio/ENV_Mixer.cpp.obj -c /home/ben/Desktop/daedalus/Source/HLEAudio/ENV_Mixer.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/HLEAudio/ENV_Mixer.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/HLEAudio/ABI_Resample.cpp.obj -c /home/ben/Desktop/daedalus/Source/HLEAudio/ABI_Resample.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/HLEAudio/ABI_Resample.cpp.obj -c /home/ben/Desktop/daedalus/Source/HLEAudio/ABI_Resample.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/HLEAudio/ABI_Resample.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/HLEGraphics/BaseRenderer.cpp.obj -c /home/ben/Desktop/daedalus/Source/HLEGraphics/BaseRenderer.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/HLEGraphics/BaseRenderer.cpp.obj -c /home/ben/Desktop/daedalus/Source/HLEGraphics/BaseRenderer.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/HLEGraphics/BaseRenderer.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/HLEGraphics/CachedTexture.cpp.obj -c /home/ben/Desktop/daedalus/Source/HLEGraphics/CachedTexture.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/HLEGraphics/CachedTexture.cpp.obj -c /home/ben/Desktop/daedalus/Source/HLEGraphics/CachedTexture.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/HLEGraphics/CachedTexture.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/HLEGraphics/ConvertImage.cpp.obj -c /home/ben/Desktop/daedalus/Source/HLEGraphics/ConvertImage.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/HLEGraphics/ConvertImage.cpp.obj -c /home/ben/Desktop/daedalus/Source/HLEGraphics/ConvertImage.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/HLEGraphics/ConvertImage.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/HLEGraphics/ConvertTile.cpp.obj -c /home/ben/Desktop/daedalus/Source/HLEGraphics/ConvertTile.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/HLEGraphics/ConvertTile.cpp.obj -c /home/ben/Desktop/daedalus/Source/HLEGraphics/ConvertTile.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/HLEGraphics/ConvertTile.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/HLEGraphics/DLDebug.cpp.obj -c /home/ben/Desktop/daedalus/Source/HLEGraphics/DLDebug.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/HLEGraphics/DLDebug.cpp.obj -c /home/ben/Desktop/daedalus/Source/HLEGraphics/DLDebug.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/HLEGraphics/DLDebug.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/HLEGraphics/DLParser.cpp.obj -c /home/ben/Desktop/daedalus/Source/HLEGraphics/DLParser.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/HLEGraphics/DLParser.cpp.obj -c /home/ben/Desktop/daedalus/Source/HLEGraphics/DLParser.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/HLEGraphics/DLParser.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/HLEGraphics/Microcode.cpp.obj -c /home/ben/Desktop/daedalus/Source/HLEGraphics/Microcode.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/HLEGraphics/Microcode.cpp.obj -c /home/ben/Desktop/daedalus/Source/HLEGraphics/Microcode.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/HLEGraphics/Microcode.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/HLEGraphics/RDP.cpp.obj -c /home/ben/Desktop/daedalus/Source/HLEGraphics/RDP.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/HLEGraphics/RDP.cpp.obj -c /home/ben/Desktop/daedalus/Source/HLEGraphics/RDP.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/HLEGraphics/RDP.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/HLEGraphics/RDPStateManager.cpp.obj -c /home/ben/Desktop/daedalus/Source/HLEGraphics/RDPStateManager.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/HLEGraphics/RDPStateManager.cpp.obj -c /home/ben/Desktop/daedalus/Source/HLEGraphics/RDPStateManager.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/HLEGraphics/RDPStateManager.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/HLEGraphics/TextureCache.cpp.obj -c /home/ben/Desktop/daedalus/Source/HLEGraphics/TextureCache.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/HLEGraphics/TextureCache.cpp.obj -c /home/ben/Desktop/daedalus/Source/HLEGraphics/TextureCache.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/HLEGraphics/TextureCache.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/HLEGraphics/TextureInfo.cpp.obj -c /home/ben/Desktop/daedalus/Source/HLEGraphics/TextureInfo.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/HLEGraphics/TextureInfo.cpp.obj -c /home/ben/Desktop/daedalus/Source/HLEGraphics/TextureInfo.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/HLEGraphics/TextureInfo.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/HLEGraphics/uCodes/Ucode.cpp.obj -c /home/ben/Desktop/daedalus/Source/HLEGraphics/uCodes/Ucode.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/HLEGraphics/uCodes/Ucode.cpp.obj -c /home/ben/Desktop/daedalus/Source/HLEGraphics/uCodes/Ucode.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/HLEGraphics/uCodes/Ucode.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Interface/RomDB.cpp.obj -c /home/ben/Desktop/daedalus/Source/Interface/RomDB.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Interface/RomDB.cpp.obj -c /home/ben/Desktop/daedalus/Source/Interface/RomDB.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/Interface/RomDB.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Math/Matrix4x4.cpp.obj -c /home/ben/Desktop/daedalus/Source/Math/Matrix4x4.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Math/Matrix4x4.cpp.obj -c /home/ben/Desktop/daedalus/Source/Math/Matrix4x4.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/Math/Matrix4x4.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/OSHLE/OS.cpp.obj -c /home/ben/Desktop/daedalus/Source/OSHLE/OS.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/OSHLE/OS.cpp.obj -c /home/ben/Desktop/daedalus/Source/OSHLE/OS.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/OSHLE/OS.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/OSHLE/patch.cpp.obj -c /home/ben/Desktop/daedalus/Source/OSHLE/patch.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/OSHLE/patch.cpp.obj -c /home/ben/Desktop/daedalus/Source/OSHLE/patch.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/OSHLE/patch.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Plugins/GraphicsPlugin.cpp.obj -c /home/ben/Desktop/daedalus/Source/Plugins/GraphicsPlugin.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Plugins/GraphicsPlugin.cpp.obj -c /home/ben/Desktop/daedalus/Source/Plugins/GraphicsPlugin.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/Plugins/GraphicsPlugin.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/System/Paths.cpp.obj -c /home/ben/Desktop/daedalus/Source/System/Paths.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/System/Paths.cpp.obj -c /home/ben/Desktop/daedalus/Source/System/Paths.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/System/Paths.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/System/System.cpp.obj -c /home/ben/Desktop/daedalus/Source/System/System.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/System/System.cpp.obj -c /home/ben/Desktop/daedalus/Source/System/System.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/System/System.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Test/BatchTest.cpp.obj -c /home/ben/Desktop/daedalus/Source/Test/BatchTest.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Test/BatchTest.cpp.obj -c /home/ben/Desktop/daedalus/Source/Test/BatchTest.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/Test/BatchTest.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Utility/CRC.cpp.obj -c /home/ben/Desktop/daedalus/Source/Utility/CRC.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Utility/CRC.cpp.obj -c /home/ben/Desktop/daedalus/Source/Utility/CRC.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/Utility/CRC.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Utility/DataSink.cpp.obj -c /home/ben/Desktop/daedalus/Source/Utility/DataSink.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Utility/DataSink.cpp.obj -c /home/ben/Desktop/daedalus/Source/Utility/DataSink.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/Utility/DataSink.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Utility/FastMemcpy.cpp.obj -c /home/ben/Desktop/daedalus/Source/Utility/FastMemcpy.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Utility/FastMemcpy.cpp.obj -c /home/ben/Desktop/daedalus/Source/Utility/FastMemcpy.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/Utility/FastMemcpy.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Utility/FramerateLimiter.cpp.obj -c /home/ben/Desktop/daedalus/Source/Utility/FramerateLimiter.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Utility/FramerateLimiter.cpp.obj -c /home/ben/Desktop/daedalus/Source/Utility/FramerateLimiter.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/Utility/FramerateLimiter.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Utility/Hash.cpp.obj -c /home/ben/Desktop/daedalus/Source/Utility/Hash.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Utility/Hash.cpp.obj -c /home/ben/Desktop/daedalus/Source/Utility/Hash.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/Utility/Hash.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Utility/IniFile.cpp.obj -c /home/ben/Desktop/daedalus/Source/Utility/IniFile.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Utility/IniFile.cpp.obj -c /home/ben/Desktop/daedalus/Source/Utility/IniFile.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/Utility/IniFile.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Utility/MemoryHeap.cpp.obj -c /home/ben/Desktop/daedalus/Source/Utility/MemoryHeap.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Utility/MemoryHeap.cpp.obj -c /home/ben/Desktop/daedalus/Source/Utility/MemoryHeap.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/Utility/MemoryHeap.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Utility/Preferences.cpp.obj -c /home/ben/Desktop/daedalus/Source/Utility/Preferences.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Utility/Preferences.cpp.obj -c /home/ben/Desktop/daedalus/Source/Utility/Preferences.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/Utility/Preferences.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Utility/PrintOpCode.cpp.obj -c /home/ben/Desktop/daedalus/Source/Utility/PrintOpCode.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Utility/PrintOpCode.cpp.obj -c /home/ben/Desktop/daedalus/Source/Utility/PrintOpCode.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/Utility/PrintOpCode.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Utility/Profiler.cpp.obj -c /home/ben/Desktop/daedalus/Source/Utility/Profiler.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Utility/Profiler.cpp.obj -c /home/ben/Desktop/daedalus/Source/Utility/Profiler.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/Utility/Profiler.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Utility/ROMFile.cpp.obj -c /home/ben/Desktop/daedalus/Source/Utility/ROMFile.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Utility/ROMFile.cpp.obj -c /home/ben/Desktop/daedalus/Source/Utility/ROMFile.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/Utility/ROMFile.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Utility/ROMFileCache.cpp.obj -c /home/ben/Desktop/daedalus/Source/Utility/ROMFileCache.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Utility/ROMFileCache.cpp.obj -c /home/ben/Desktop/daedalus/Source/Utility/ROMFileCache.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/Utility/ROMFileCache.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Utility/ROMFileCompressed.cpp.obj -c /home/ben/Desktop/daedalus/Source/Utility/ROMFileCompressed.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Utility/ROMFileCompressed.cpp.obj -c /home/ben/Desktop/daedalus/Source/Utility/ROMFileCompressed.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/Utility/ROMFileCompressed.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Utility/ROMFileMemory.cpp.obj -c /home/ben/Desktop/daedalus/Source/Utility/ROMFileMemory.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Utility/ROMFileMemory.cpp.obj -c /home/ben/Desktop/daedalus/Source/Utility/ROMFileMemory.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/Utility/ROMFileMemory.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Utility/ROMFileUncompressed.cpp.obj -c /home/ben/Desktop/daedalus/Source/Utility/ROMFileUncompressed.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Utility/ROMFileUncompressed.cpp.obj -c /home/ben/Desktop/daedalus/Source/Utility/ROMFileUncompressed.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/Utility/ROMFileUncompressed.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Utility/Stream.cpp.obj -c /home/ben/Desktop/daedalus/Source/Utility/Stream.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Utility/Stream.cpp.obj -c /home/ben/Desktop/daedalus/Source/Utility/Stream.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/Utility/Stream.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Utility/StringUtil.cpp.obj -c /home/ben/Desktop/daedalus/Source/Utility/StringUtil.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Utility/StringUtil.cpp.obj -c /home/ben/Desktop/daedalus/Source/Utility/StringUtil.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/Utility/StringUtil.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Utility/Synchroniser.cpp.obj -c /home/ben/Desktop/daedalus/Source/Utility/Synchroniser.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Utility/Synchroniser.cpp.obj -c /home/ben/Desktop/daedalus/Source/Utility/Synchroniser.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/Utility/Synchroniser.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Utility/Timer.cpp.obj -c /home/ben/Desktop/daedalus/Source/Utility/Timer.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Utility/Timer.cpp.obj -c /home/ben/Desktop/daedalus/Source/Utility/Timer.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/Utility/Timer.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Utility/Translate.cpp.obj -c /home/ben/Desktop/daedalus/Source/Utility/Translate.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Utility/Translate.cpp.obj -c /home/ben/Desktop/daedalus/Source/Utility/Translate.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/Utility/Translate.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Utility/ZLibWrapper.cpp.obj -c /home/ben/Desktop/daedalus/Source/Utility/ZLibWrapper.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/Utility/ZLibWrapper.cpp.obj -c /home/ben/Desktop/daedalus/Source/Utility/ZLibWrapper.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/Utility/ZLibWrapper.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/Debug/DaedalusAssertPSP.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/Debug/DaedalusAssertPSP.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/Debug/DaedalusAssertPSP.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/Debug/DaedalusAssertPSP.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/Debug/DaedalusAssertPSP.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/Debug/DBGConsolePSP.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/Debug/DBGConsolePSP.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/Debug/DBGConsolePSP.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/Debug/DBGConsolePSP.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/Debug/DBGConsolePSP.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-gcc -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -o CMakeFiles/daedalus.dir/SysPSP/PRX/DveMgr/pspDveManager.S.obj   -c /home/ben/Desktop/daedalus/Source/SysPSP/PRX/DveMgr/pspDveManager.S",
+  "command": "/usr/local/pspdev/bin/psp-gcc -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -o CMakeFiles/daedalus.dir/SysPSP/PRX/DveMgr/pspDveManager.S.obj   -c /home/ben/Desktop/daedalus/Source/SysPSP/PRX/DveMgr/pspDveManager.S",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/PRX/DveMgr/pspDveManager.S"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/DynaRec/AssemblyWriterPSP.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/DynaRec/AssemblyWriterPSP.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/DynaRec/AssemblyWriterPSP.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/DynaRec/AssemblyWriterPSP.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/DynaRec/AssemblyWriterPSP.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/DynaRec/AssemblyUtilsPSP.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/DynaRec/AssemblyUtilsPSP.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/DynaRec/AssemblyUtilsPSP.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/DynaRec/AssemblyUtilsPSP.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/DynaRec/AssemblyUtilsPSP.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/DynaRec/CodeBufferManagerPSP.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/DynaRec/CodeBufferManagerPSP.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/DynaRec/CodeBufferManagerPSP.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/DynaRec/CodeBufferManagerPSP.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/DynaRec/CodeBufferManagerPSP.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/DynaRec/CodeGeneratorPSP.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/DynaRec/CodeGeneratorPSP.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/DynaRec/CodeGeneratorPSP.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/DynaRec/CodeGeneratorPSP.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/DynaRec/CodeGeneratorPSP.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-gcc -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -o CMakeFiles/daedalus.dir/SysPSP/DynaRec/DynaRecStubs.S.obj   -c /home/ben/Desktop/daedalus/Source/SysPSP/DynaRec/DynaRecStubs.S",
+  "command": "/usr/local/pspdev/bin/psp-gcc -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -o CMakeFiles/daedalus.dir/SysPSP/DynaRec/DynaRecStubs.S.obj   -c /home/ben/Desktop/daedalus/Source/SysPSP/DynaRec/DynaRecStubs.S",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/DynaRec/DynaRecStubs.S"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/DynaRec/N64RegisterCachePSP.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/DynaRec/N64RegisterCachePSP.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/DynaRec/N64RegisterCachePSP.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/DynaRec/N64RegisterCachePSP.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/DynaRec/N64RegisterCachePSP.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/Graphics/DrawText.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/Graphics/DrawText.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/Graphics/DrawText.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/Graphics/DrawText.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/Graphics/DrawText.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/Graphics/GraphicsContext.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/Graphics/GraphicsContext.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/Graphics/GraphicsContext.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/Graphics/GraphicsContext.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/Graphics/GraphicsContext.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/Graphics/NativeTexturePSP.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/Graphics/NativeTexturePSP.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/Graphics/NativeTexturePSP.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/Graphics/NativeTexturePSP.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/Graphics/NativeTexturePSP.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/Graphics/VideoMemoryManager.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/Graphics/VideoMemoryManager.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/Graphics/VideoMemoryManager.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/Graphics/VideoMemoryManager.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/Graphics/VideoMemoryManager.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-gcc -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -o CMakeFiles/daedalus.dir/SysPSP/Graphics/intraFont/intraFont.c.obj   -c /home/ben/Desktop/daedalus/Source/SysPSP/Graphics/intraFont/intraFont.c",
+  "command": "/usr/local/pspdev/bin/psp-gcc -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -o CMakeFiles/daedalus.dir/SysPSP/Graphics/intraFont/intraFont.c.obj   -c /home/ben/Desktop/daedalus/Source/SysPSP/Graphics/intraFont/intraFont.c",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/Graphics/intraFont/intraFont.c"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-gcc -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -o CMakeFiles/daedalus.dir/SysPSP/Graphics/intraFont/libccc.c.obj   -c /home/ben/Desktop/daedalus/Source/SysPSP/Graphics/intraFont/libccc.c",
+  "command": "/usr/local/pspdev/bin/psp-gcc -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -o CMakeFiles/daedalus.dir/SysPSP/Graphics/intraFont/libccc.c.obj   -c /home/ben/Desktop/daedalus/Source/SysPSP/Graphics/intraFont/libccc.c",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/Graphics/intraFont/libccc.c"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/HLEAudio/AudioPluginPSP.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/HLEAudio/AudioPluginPSP.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/HLEAudio/AudioPluginPSP.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/HLEAudio/AudioPluginPSP.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/HLEAudio/AudioPluginPSP.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/HLEGraphics/Blender.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/HLEGraphics/Blender.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/HLEGraphics/Blender.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/HLEGraphics/Blender.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/HLEGraphics/Blender.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/HLEGraphics/BlendModes.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/HLEGraphics/BlendModes.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/HLEGraphics/BlendModes.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/HLEGraphics/BlendModes.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/HLEGraphics/BlendModes.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/HLEGraphics/ColourAdjuster.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/HLEGraphics/ColourAdjuster.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/HLEGraphics/ColourAdjuster.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/HLEGraphics/ColourAdjuster.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/HLEGraphics/ColourAdjuster.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-gcc -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -o CMakeFiles/daedalus.dir/SysPSP/HLEGraphics/ConvertVertices.S.obj   -c /home/ben/Desktop/daedalus/Source/SysPSP/HLEGraphics/ConvertVertices.S",
+  "command": "/usr/local/pspdev/bin/psp-gcc -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -o CMakeFiles/daedalus.dir/SysPSP/HLEGraphics/ConvertVertices.S.obj   -c /home/ben/Desktop/daedalus/Source/SysPSP/HLEGraphics/ConvertVertices.S",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/HLEGraphics/ConvertVertices.S"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/HLEGraphics/DisplayListDebugger.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/HLEGraphics/DisplayListDebugger.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/HLEGraphics/DisplayListDebugger.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/HLEGraphics/DisplayListDebugger.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/HLEGraphics/DisplayListDebugger.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/HLEGraphics/GraphicsPluginPSP.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/HLEGraphics/GraphicsPluginPSP.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/HLEGraphics/GraphicsPluginPSP.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/HLEGraphics/GraphicsPluginPSP.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/HLEGraphics/GraphicsPluginPSP.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/HLEGraphics/RendererPSP.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/HLEGraphics/RendererPSP.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/HLEGraphics/RendererPSP.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/HLEGraphics/RendererPSP.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/HLEGraphics/RendererPSP.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/HLEGraphics/Combiner/BlendConstant.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/HLEGraphics/Combiner/BlendConstant.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/HLEGraphics/Combiner/BlendConstant.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/HLEGraphics/Combiner/BlendConstant.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/HLEGraphics/Combiner/BlendConstant.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/HLEGraphics/Combiner/CombinerExpression.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/HLEGraphics/Combiner/CombinerExpression.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/HLEGraphics/Combiner/CombinerExpression.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/HLEGraphics/Combiner/CombinerExpression.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/HLEGraphics/Combiner/CombinerExpression.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/HLEGraphics/Combiner/CombinerTree.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/HLEGraphics/Combiner/CombinerTree.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/HLEGraphics/Combiner/CombinerTree.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/HLEGraphics/Combiner/CombinerTree.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/HLEGraphics/Combiner/CombinerTree.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/HLEGraphics/Combiner/RenderSettings.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/HLEGraphics/Combiner/RenderSettings.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/HLEGraphics/Combiner/RenderSettings.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/HLEGraphics/Combiner/RenderSettings.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/HLEGraphics/Combiner/RenderSettings.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-gcc -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -o CMakeFiles/daedalus.dir/SysPSP/HLEGraphics/TnLVFPU.S.obj   -c /home/ben/Desktop/daedalus/Source/SysPSP/HLEGraphics/TnLVFPU.S",
+  "command": "/usr/local/pspdev/bin/psp-gcc -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -o CMakeFiles/daedalus.dir/SysPSP/HLEGraphics/TnLVFPU.S.obj   -c /home/ben/Desktop/daedalus/Source/SysPSP/HLEGraphics/TnLVFPU.S",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/HLEGraphics/TnLVFPU.S"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-gcc -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -o CMakeFiles/daedalus.dir/SysPSP/HLEGraphics/VectorClipping.S.obj   -c /home/ben/Desktop/daedalus/Source/SysPSP/HLEGraphics/VectorClipping.S",
+  "command": "/usr/local/pspdev/bin/psp-gcc -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -o CMakeFiles/daedalus.dir/SysPSP/HLEGraphics/VectorClipping.S.obj   -c /home/ben/Desktop/daedalus/Source/SysPSP/HLEGraphics/VectorClipping.S",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/HLEGraphics/VectorClipping.S"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/Input/InputManagerPSP.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/Input/InputManagerPSP.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/Input/InputManagerPSP.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/Input/InputManagerPSP.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/Input/InputManagerPSP.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-gcc -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -o CMakeFiles/daedalus.dir/SysPSP/PRX/KernelButtons/imposectrl.S.obj   -c /home/ben/Desktop/daedalus/Source/SysPSP/PRX/KernelButtons/imposectrl.S",
+  "command": "/usr/local/pspdev/bin/psp-gcc -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -o CMakeFiles/daedalus.dir/SysPSP/PRX/KernelButtons/imposectrl.S.obj   -c /home/ben/Desktop/daedalus/Source/SysPSP/PRX/KernelButtons/imposectrl.S",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/PRX/KernelButtons/imposectrl.S"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-gcc -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -o CMakeFiles/daedalus.dir/SysPSP/PRX/MediaEngine/me.c.obj   -c /home/ben/Desktop/daedalus/Source/SysPSP/PRX/MediaEngine/me.c",
+  "command": "/usr/local/pspdev/bin/psp-gcc -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -o CMakeFiles/daedalus.dir/SysPSP/PRX/MediaEngine/me.c.obj   -c /home/ben/Desktop/daedalus/Source/SysPSP/PRX/MediaEngine/me.c",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/PRX/MediaEngine/me.c"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-gcc -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -o CMakeFiles/daedalus.dir/SysPSP/PRX/MediaEngine/MediaEngine.S.obj   -c /home/ben/Desktop/daedalus/Source/SysPSP/PRX/MediaEngine/MediaEngine.S",
+  "command": "/usr/local/pspdev/bin/psp-gcc -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -o CMakeFiles/daedalus.dir/SysPSP/PRX/MediaEngine/MediaEngine.S.obj   -c /home/ben/Desktop/daedalus/Source/SysPSP/PRX/MediaEngine/MediaEngine.S",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/PRX/MediaEngine/MediaEngine.S"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/UI/AboutComponent.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/UI/AboutComponent.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/UI/AboutComponent.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/UI/AboutComponent.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/UI/AboutComponent.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/UI/AdjustDeadzoneScreen.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/UI/AdjustDeadzoneScreen.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/UI/AdjustDeadzoneScreen.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/UI/AdjustDeadzoneScreen.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/UI/AdjustDeadzoneScreen.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/UI/AdvancedOptionsScreen.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/UI/AdvancedOptionsScreen.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/UI/AdvancedOptionsScreen.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/UI/AdvancedOptionsScreen.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/UI/AdvancedOptionsScreen.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/UI/CheatOptionsScreen.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/UI/CheatOptionsScreen.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/UI/CheatOptionsScreen.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/UI/CheatOptionsScreen.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/UI/CheatOptionsScreen.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/UI/ColourPulser.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/UI/ColourPulser.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/UI/ColourPulser.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/UI/ColourPulser.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/UI/ColourPulser.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/UI/Dialogs.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/UI/Dialogs.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/UI/Dialogs.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/UI/Dialogs.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/UI/Dialogs.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/UI/GlobalSettingsComponent.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/UI/GlobalSettingsComponent.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/UI/GlobalSettingsComponent.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/UI/GlobalSettingsComponent.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/UI/GlobalSettingsComponent.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/UI/MainMenuScreen.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/UI/MainMenuScreen.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/UI/MainMenuScreen.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/UI/MainMenuScreen.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/UI/MainMenuScreen.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/UI/PauseOptionsComponent.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/UI/PauseOptionsComponent.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/UI/PauseOptionsComponent.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/UI/PauseOptionsComponent.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/UI/PauseOptionsComponent.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/UI/PauseScreen.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/UI/PauseScreen.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/UI/PauseScreen.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/UI/PauseScreen.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/UI/PauseScreen.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/UI/RomPreferencesScreen.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/UI/RomPreferencesScreen.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/UI/RomPreferencesScreen.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/UI/RomPreferencesScreen.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/UI/RomPreferencesScreen.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/UI/RomSelectorComponent.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/UI/RomSelectorComponent.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/UI/RomSelectorComponent.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/UI/RomSelectorComponent.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/UI/RomSelectorComponent.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/UI/SavestateSelectorComponent.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/UI/SavestateSelectorComponent.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/UI/SavestateSelectorComponent.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/UI/SavestateSelectorComponent.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/UI/SavestateSelectorComponent.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/UI/SelectedRomComponent.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/UI/SelectedRomComponent.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/UI/SelectedRomComponent.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/UI/SelectedRomComponent.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/UI/SelectedRomComponent.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/UI/SplashScreen.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/UI/SplashScreen.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/UI/SplashScreen.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/UI/SplashScreen.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/UI/SplashScreen.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/UI/UICommand.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/UI/UICommand.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/UI/UICommand.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/UI/UICommand.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/UI/UICommand.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/UI/UIComponent.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/UI/UIComponent.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/UI/UIComponent.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/UI/UIComponent.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/UI/UIComponent.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/UI/UIContext.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/UI/UIContext.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/UI/UIContext.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/UI/UIContext.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/UI/UIContext.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/UI/UIElement.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/UI/UIElement.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/UI/UIElement.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/UI/UIElement.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/UI/UIElement.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/UI/UIScreen.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/UI/UIScreen.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/UI/UIScreen.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/UI/UIScreen.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/UI/UIScreen.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/UI/UISetting.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/UI/UISetting.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/UI/UISetting.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/UI/UISetting.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/UI/UISetting.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-gcc -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -o CMakeFiles/daedalus.dir/SysPSP/Utility/AtomicPrimitives.S.obj   -c /home/ben/Desktop/daedalus/Source/SysPSP/Utility/AtomicPrimitives.S",
+  "command": "/usr/local/pspdev/bin/psp-gcc -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -o CMakeFiles/daedalus.dir/SysPSP/Utility/AtomicPrimitives.S.obj   -c /home/ben/Desktop/daedalus/Source/SysPSP/Utility/AtomicPrimitives.S",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/Utility/AtomicPrimitives.S"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/Utility/BatteryPSP.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/Utility/BatteryPSP.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/Utility/BatteryPSP.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/Utility/BatteryPSP.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/Utility/BatteryPSP.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/Utility/Buttons.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/Utility/Buttons.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/Utility/Buttons.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/Utility/Buttons.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/Utility/Buttons.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/Utility/DebugMemory.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/Utility/DebugMemory.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/Utility/DebugMemory.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/Utility/DebugMemory.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/Utility/DebugMemory.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-gcc -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -o CMakeFiles/daedalus.dir/SysPSP/Utility/DisableFPUExceptions.S.obj   -c /home/ben/Desktop/daedalus/Source/SysPSP/Utility/DisableFPUExceptions.S",
+  "command": "/usr/local/pspdev/bin/psp-gcc -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -o CMakeFiles/daedalus.dir/SysPSP/Utility/DisableFPUExceptions.S.obj   -c /home/ben/Desktop/daedalus/Source/SysPSP/Utility/DisableFPUExceptions.S",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/Utility/DisableFPUExceptions.S"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/Utility/exception.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/Utility/exception.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/Utility/exception.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/Utility/exception.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/Utility/exception.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/Utility/FastMemcpyPSP.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/Utility/FastMemcpyPSP.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/Utility/FastMemcpyPSP.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/Utility/FastMemcpyPSP.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/Utility/FastMemcpyPSP.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/Utility/IOPSP.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/Utility/IOPSP.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/Utility/IOPSP.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/Utility/IOPSP.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/Utility/IOPSP.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/Utility/JobManager.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/Utility/JobManager.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/Utility/JobManager.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/Utility/JobManager.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/Utility/JobManager.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/Utility/ModulePSP.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/Utility/ModulePSP.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/Utility/ModulePSP.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/Utility/ModulePSP.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/Utility/ModulePSP.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/Utility/ThreadPSP.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/Utility/ThreadPSP.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/Utility/ThreadPSP.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/Utility/ThreadPSP.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/Utility/ThreadPSP.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/Utility/TimingPSP.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/Utility/TimingPSP.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/Utility/TimingPSP.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/Utility/TimingPSP.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/Utility/TimingPSP.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/Utility/VolatileMemPSP.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/Utility/VolatileMemPSP.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.dir/SysPSP/Utility/VolatileMemPSP.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/Utility/VolatileMemPSP.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/Utility/VolatileMemPSP.cpp"
 },
 {
   "directory": "/home/ben/Desktop/daedalus/daedbuild",
-  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG  -march=allegrex -O2 -msingle-float -mfix-r4000 -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.elf.dir/SysPSP/main.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/main.cpp",
+  "command": "/usr/local/pspdev/bin/psp-g++  -DDAEDALUS_PSP -I/home/ben/Desktop/daedalus/Source/SysPSP/Include -I/home/ben/Desktop/daedalus/Source/{ -I/home/ben/Desktop/daedalus/Source/. -I/usr/local/pspdev/psp/sdk/include -I/home/ben/Desktop/daedalus/Source/Config/Release    -G0 -G0 -DNDEBUG   -O2 -msingle-float  -Wall  -DPSP_LARGE_MEMORY=1 -DPSP_FW_VERSION=661 -std=gnu++14 -o CMakeFiles/daedalus.elf.dir/SysPSP/main.cpp.obj -c /home/ben/Desktop/daedalus/Source/SysPSP/main.cpp",
   "file": "/home/ben/Desktop/daedalus/Source/SysPSP/main.cpp"
 }
 ]

@@ -31,7 +31,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 class CController : public CSingleton< CController >
 {
 	public:
-		virtual					~CController() {}
+							~CController() override {}
 
 		virtual bool			OnRomOpen() = 0;
 		virtual void			OnRomClose() = 0;

@@ -37,26 +37,26 @@ class CCodeGeneratorPSP : public CCodeGenerator, public CAssemblyWriterPSP
 	public:
 		CCodeGeneratorPSP( CAssemblyBuffer * p_buffer_a, CAssemblyBuffer * p_buffer_b );
 
-		virtual void				Initialise( u32 entry_address, u32 exit_address, u32 * hit_counter, const void * p_base, const SRegisterUsageInfo & register_usage );
-		virtual void				Finalise( ExceptionHandlerFn p_exception_handler_fn, const std::vector< CJumpLocation > & exception_handler_jumps );
+		void				Initialise( u32 entry_address, u32 exit_address, u32 * hit_counter, const void * p_base, const SRegisterUsageInfo & register_usage ) override;
+		void				Finalise( ExceptionHandlerFn p_exception_handler_fn, const std::vector< CJumpLocation > & exception_handler_jumps ) override;
 
-		virtual void				UpdateRegisterCaching( u32 instruction_idx );
+		void				UpdateRegisterCaching( u32 instruction_idx ) override;
 
-		virtual RegisterSnapshotHandle	GetRegisterSnapshot();
+		RegisterSnapshotHandle	GetRegisterSnapshot() override;
 
-		virtual CCodeLabel			GetEntryPoint() const;
-		virtual CCodeLabel			GetCurrentLocation() const;
+		CCodeLabel			GetEntryPoint() const override;
+		CCodeLabel			GetCurrentLocation() const override;
 		virtual u32					GetCompiledCodeSize() const;
 
-		virtual	CJumpLocation		GenerateExitCode( u32 exit_address, u32 jump_address, u32 num_instructions, CCodeLabel next_fragment );
-		virtual void				GenerateEretExitCode( u32 num_instructions, CIndirectExitMap * p_map );
-		virtual void				GenerateIndirectExitCode( u32 num_instructions, CIndirectExitMap * p_map );
+			CJumpLocation		GenerateExitCode( u32 exit_address, u32 jump_address, u32 num_instructions, CCodeLabel next_fragment ) override;
+		void				GenerateEretExitCode( u32 num_instructions, CIndirectExitMap * p_map ) override;
+		void				GenerateIndirectExitCode( u32 num_instructions, CIndirectExitMap * p_map ) override;
 
-		virtual void				GenerateBranchHandler( CJumpLocation branch_handler_jump, RegisterSnapshotHandle snapshot );
+		void				GenerateBranchHandler( CJumpLocation branch_handler_jump, RegisterSnapshotHandle snapshot ) override;
 
-		virtual CJumpLocation		GenerateOpCode( const STraceEntry& ti, bool branch_delay_slot, const SBranchDetails * p_branch, CJumpLocation * p_branch_jump);
+		CJumpLocation		GenerateOpCode( const STraceEntry& ti, bool branch_delay_slot, const SBranchDetails * p_branch, CJumpLocation * p_branch_jump) override;
 
-		virtual CJumpLocation		ExecuteNativeFunction( CCodeLabel speed_hack, bool check_return = false );
+		CJumpLocation		ExecuteNativeFunction( CCodeLabel speed_hack, bool check_return = false ) override;
 
 private:
 		// Not virtual base

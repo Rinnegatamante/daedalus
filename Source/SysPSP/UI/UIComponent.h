@@ -51,14 +51,14 @@ class CUIComponentScreen : public CUIScreen
 	private:
 		CUIComponentScreen( CUIContext * p_context, CUIComponent * component, const char * title );
 	public:
-		virtual ~CUIComponentScreen();
+		~CUIComponentScreen() override;
 
 		static CUIComponentScreen *	Create( CUIContext * p_context, CUIComponent * component, const char * title );
 
 		// CUIScreen
-		virtual void				Update( float elapsed_time, const v2 & stick, u32 old_buttons, u32 new_buttons );
-		virtual void				Render();
-		virtual bool				IsFinished() const;
+		void				Update( float elapsed_time, const v2 & stick, u32 old_buttons, u32 new_buttons ) override;
+		void				Render() override;
+		bool				IsFinished() const override;
 
 	private:
 		CUIComponent *				mComponent;

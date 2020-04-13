@@ -58,11 +58,11 @@ class IPauseOptionsComponent : public CPauseOptionsComponent
 	public:
 
 		IPauseOptionsComponent( CUIContext * p_context, CFunctor * on_resume, CFunctor * on_reset );
-		~IPauseOptionsComponent();
+		~IPauseOptionsComponent() override;
 
 		// CUIComponent
-		virtual void				Update( float elapsed_time, const v2 & stick, u32 old_buttons, u32 new_buttons );
-		virtual void				Render();
+		void				Update( float elapsed_time, const v2 & stick, u32 old_buttons, u32 new_buttons ) override;
+		void				Render() override;
 
 	private:
 				void				OnResume();

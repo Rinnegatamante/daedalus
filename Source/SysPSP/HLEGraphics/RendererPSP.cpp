@@ -512,7 +512,7 @@ void RendererPSP::RenderUsingCurrentBlendMode( DaedalusVtx * p_vertices, u32 num
 
 		if( details.InstallTexture )
 		{
-			u32 texture_idx {g_ROM.T1_HACK ? 1 : 0};
+			u32 texture_idx {static_cast<u32>(g_ROM.T1_HACK ? 1 : 0)};
 
 			if( mBoundTexture[ texture_idx ] )
 			{

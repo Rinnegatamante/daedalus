@@ -32,7 +32,7 @@ class	RomID;
 class	CRomDB :  public CSingleton< CRomDB >
 {
 	public:
-		virtual ~CRomDB();
+		~CRomDB() override;
 
 		virtual bool			OpenDB( const char * filename ) = 0;												// Open the specified rom db, or creates a new one if it does not currently exist
 		virtual void			Reset() = 0;																		// Resets the contents of the database

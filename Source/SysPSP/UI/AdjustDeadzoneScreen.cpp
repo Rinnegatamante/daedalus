@@ -43,12 +43,12 @@ class IAdjustDeadzoneScreen : public CAdjustDeadzoneScreen, public CUIScreen
 	public:
 
 		IAdjustDeadzoneScreen( CUIContext * p_context );
-		~IAdjustDeadzoneScreen();
+		~IAdjustDeadzoneScreen() override;
 
-		virtual void				Run();
-		virtual void				Update( float elapsed_time, const v2 & stick, u32 old_buttons, u32 new_buttons );
-		virtual void				Render();
-		virtual bool				IsFinished() const									{ return mIsFinished; }
+		void				Run() override;
+		void				Update( float elapsed_time, const v2 & stick, u32 old_buttons, u32 new_buttons ) override;
+		void				Render() override;
+		bool				IsFinished() const override									{ return mIsFinished; }
 
 	private:
 		void						DrawCircle( s32 x, s32 y, s32 r, c32 colour );

@@ -40,7 +40,7 @@ inline void *malloc_64(int size)
 
 inline void dcache_wbinv_all()
 {
-   for(int i {0}; i < 8192; i += 64)
+   for(u32 i {0}; i < 8192; i += 64)
 __builtin_allegrex_cache(0x14, i);
 }
 

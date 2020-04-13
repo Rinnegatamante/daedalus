@@ -36,12 +36,12 @@ public:
 class CNullOutputStream : public COutputStream
 {
 public:
-	virtual ~CNullOutputStream() {}
+	~CNullOutputStream() override {}
 
-	virtual	COutputStream & operator<<( const char * p_str ) { return *this; }
-	virtual	COutputStream & operator<<( char val ) { return *this; }
-	virtual	COutputStream & operator<<( s32 val ) { return *this; }
-	virtual	COutputStream & operator<<( u32 val ) { return *this; }
+		COutputStream & operator<<( const char * p_str ) override { return *this; }
+		COutputStream & operator<<( char val ) override { return *this; }
+		COutputStream & operator<<( s32 val ) override { return *this; }
+		COutputStream & operator<<( u32 val ) override { return *this; }
 
 	const char *		c_str() const { return ""; }
 };
@@ -50,14 +50,14 @@ class COutputStringStream : public COutputStream
 {
 public:
 	COutputStringStream();
-	~COutputStringStream();
+	~COutputStringStream() override;
 
 	void				Clear();
 
-	COutputStream & operator<<( const char * p_str );
-	COutputStream & operator<<( char val );
-	COutputStream & operator<<( s32 val );
-	COutputStream & operator<<( u32 val );
+	COutputStream & operator<<( const char * p_str ) override;
+	COutputStream & operator<<( char val ) override;
+	COutputStream & operator<<( s32 val ) override;
+	COutputStream & operator<<( u32 val ) override;
 
 	const char *		c_str() const;
 private:

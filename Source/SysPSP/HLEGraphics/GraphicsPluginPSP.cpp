@@ -120,17 +120,17 @@ static void	UpdateFramerate()
 class CGraphicsPluginImpl : public CGraphicsPlugin
 {
 	public:
-	virtual	~CGraphicsPluginImpl();
+		~CGraphicsPluginImpl() override;
 
 		virtual 	bool		Initialise();
-		virtual bool		StartEmulation()		{ return true; }
-		virtual void		ViStatusChanged()		{}
-		virtual void		ViWidthChanged()		{}
-		virtual void		ProcessDList();
+		bool		StartEmulation() override		{ return true; }
+		void		ViStatusChanged() override		{}
+		void		ViWidthChanged() override		{}
+		void		ProcessDList() override;
 
-		virtual void		UpdateScreen();
+		void		UpdateScreen() override;
 
-		virtual void		RomClosed();
+		void		RomClosed() override;
 };
 
 CGraphicsPluginImpl::~CGraphicsPluginImpl()

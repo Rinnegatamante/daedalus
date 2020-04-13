@@ -29,7 +29,7 @@ class CPauseOptionsComponent : public CUIComponent
 {
 	public:
 		CPauseOptionsComponent( CUIContext * p_context );
-		virtual ~CPauseOptionsComponent();
+		~CPauseOptionsComponent() override;
 
 		static CPauseOptionsComponent *	Create( CUIContext * p_context, CFunctor * on_resume, CFunctor * on_reset );
 };

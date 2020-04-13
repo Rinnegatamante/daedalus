@@ -26,10 +26,10 @@ class IVideoMemoryManager : public CVideoMemoryManager
 {
 public:
 	IVideoMemoryManager();
-	~IVideoMemoryManager();
+	~IVideoMemoryManager() override;
 
-	virtual bool	Alloc( u32 size, void ** data, bool * isvidmem );
-	virtual void	Free(void * ptr);
+	bool	Alloc( u32 size, void ** data, bool * isvidmem ) override;
+	void	Free(void * ptr) override;
 #ifdef DAEDALUS_DEBUG_MEMORY
 	virtual void	DisplayDebugInfo();
 #endif

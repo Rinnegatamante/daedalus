@@ -53,12 +53,12 @@ public:
 	IMemoryHeap( u32 size );
 	IMemoryHeap( void * base_ptr, u32 size );
 
-	~IMemoryHeap();
+	~IMemoryHeap() override;
 
-	virtual void *		Alloc( u32 size );
-	virtual void		Free( void * ptr );
+	void *		Alloc( u32 size ) override;
+	void		Free( void * ptr ) override;
 
-	virtual bool		IsFromHeap( void * ptr ) const;
+	bool		IsFromHeap( void * ptr ) const override;
 #ifdef DAEDALUS_DEBUG_MEMORY
 	//virtual u32		GetAvailableMemory() const;
 	virtual void		DisplayDebugInfo() const;
